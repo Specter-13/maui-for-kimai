@@ -1,4 +1,7 @@
-﻿namespace MauiForKimai;
+﻿using MauiForKimai.Helpers;
+using MauiForKimai.ViewModels;
+
+namespace MauiForKimai;
 
 public partial class MainPage : ContentPage
 {
@@ -7,6 +10,7 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
+		BindingContext = ServiceHelper.GetService<MainViewModel>();
 	}
 
 	private void OnCounterClicked(object sender, EventArgs e)
