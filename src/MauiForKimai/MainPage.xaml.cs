@@ -7,10 +7,10 @@ public partial class MainPage : ContentPage
 {
 	int count = 0;
 
-	public MainPage()
+	public MainPage(MainViewModel vm)
 	{
 		InitializeComponent();
-		BindingContext = ServiceHelper.GetService<MainViewModel>();
+		BindingContext = vm;
 	}
 
 	private void OnCounterClicked(object sender, EventArgs e)

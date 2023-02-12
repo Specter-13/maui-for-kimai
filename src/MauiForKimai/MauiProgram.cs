@@ -21,6 +21,8 @@ public static class MauiProgram
 		ConfigureApiClients(builder.Services);
 		builder.Services.AddSingleton<MainViewModel>();
 
+
+		builder.Services.AddSingleton<MainPage>();
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
