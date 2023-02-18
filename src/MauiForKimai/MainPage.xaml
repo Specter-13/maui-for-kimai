@@ -13,39 +13,51 @@
             Spacing="25"
             VerticalOptions="Center">
 
+            <Entry
+                Grid.Row="1"
+                Placeholder="Kimai Url"
+                Text="{Binding KimaiUrl}" />
+            <Entry
+                Grid.Row="1"
+                Placeholder="User name"
+                Text="{Binding UserName}" />
+            <Entry
+                Grid.Row="1"
+                Placeholder="Password"
+                Text="{Binding Password}" />
+
+
+            <Label
+                Grid.Row="2"
+                FontAttributes="Bold"
+                FontSize="18"
+                Text="{Binding Version}" />
+
+            <Label
+                Grid.Row="2"
+                FontAttributes="Bold"
+                FontSize="18"
+                Text="{Binding FirstUser}" />
+
+
+
+            <Button
+                Grid.Row="3"
+                Command="{Binding LoginCommand}"
+                HorizontalOptions="Center"
+                Text="Login to Kimai" />
+
             <Image
                 HeightRequest="200"
                 HorizontalOptions="Center"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 Source="dotnet_bot.png" />
 
-            <Label
-                FontSize="32"
-                HorizontalOptions="Center"
-                SemanticProperties.HeadingLevel="Level1"
-                Text="Hello, World3!" />
 
-            <Label
-                FontSize="18"
-                HorizontalOptions="Center"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                SemanticProperties.HeadingLevel="Level2"
-                Text="Welcome to .NET Multi-platform App UI" />
 
-            <Button
-                x:Name="CounterBtn"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Text="Click me" />
 
-            <CheckBox IsChecked="{Binding MyBool}" />
 
-            <Label
-                FontSize="32"
-                HorizontalOptions="Center"
-                SemanticProperties.HeadingLevel="Level1"
-                Text="{Binding FirstUserName}" />
+
 
         </VerticalStackLayout>
     </ScrollView>
