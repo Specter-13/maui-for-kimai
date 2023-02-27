@@ -26,6 +26,6 @@ jobs:
         fetch-depth: 0
         
     - name: "Run build script"
-      run: dotnet build src/MauiForKimai.App/MauiForKimai.csproj -f net7.0-windows10.0.19041.0
+      run: dotnet build src/MauiForKimai.sln
      
 
