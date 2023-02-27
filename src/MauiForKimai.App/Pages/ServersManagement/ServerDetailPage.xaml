@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiForKimai.Pages.ServersManagement.ServerDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    Title="Detail page"
+    x:DataType="viewmodel:ServerDetailViewModel">
+    <VerticalStackLayout>
+        <Entry
+            Grid.Row="1"
+            Placeholder="Name"
+            Text="{Binding Name}" />
+        <Entry
+            Grid.Row="1"
+            Placeholder="URL"
+            Text="{Binding Url}" />
+        <Entry
+            Grid.Row="1"
+            Placeholder="User email"
+            Text="{Binding Username}" />
+        <Entry
+            Grid.Row="1"
+            Placeholder="Api password"
+            Text="{Binding ApiPassword}" />
+
+        <Button Text="Add" />
+    </VerticalStackLayout>
+</ContentPage>

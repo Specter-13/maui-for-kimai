@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.ApiClient.Services;
 using MauiForKimai.BL.Services;
+using MauiForKimai.Services.ServicesConfiguration;
+using MauiForKimai.Pages;
+using MauiForKimai.Pages.ServersManagement;
 
 namespace MauiForKimai;
 
@@ -27,11 +30,18 @@ public static class MauiProgram
 		
 
 		builder.Services.RegisterClientServices();
-		
+		builder.Services.RegisterAppServices();
 
 		//ConfigureApiClients(builder.Services);
 		builder.Services.AddSingleton<MainViewModel>();
+		builder.Services.AddSingleton<LoginViewModel>();
+
+		builder.Services.AddTransient<ServerDetailViewModel>();
+		builder.Services.AddTransient<ServerDetailPage>();
+
+
 		builder.Services.AddSingleton<MainPage>();
+		builder.Services.AddSingleton<LoginPage>();
 
 		
 #if DEBUG

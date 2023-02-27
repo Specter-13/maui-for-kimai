@@ -12,7 +12,7 @@ public partial class MainViewModel : ViewModelBase
 {
 	private readonly IUserService _userService;
 	private readonly AuthHandler _autHandler;
-	public MainViewModel( IUserService userService, AuthHandler aut)
+	public MainViewModel( IUserService userService, AuthHandler aut) : base(aut)
 	{
 		_userService = userService;
 		_autHandler = aut;
@@ -55,6 +55,7 @@ public partial class MainViewModel : ViewModelBase
 		
 		_autHandler.SetBaseUrl(KimaiUrl);
 		_autHandler.SetAccessTokens(UserName,Password);
+		_autHandler.SetIsAuthenticated();
 		
 
 
@@ -69,7 +70,6 @@ public partial class MainViewModel : ViewModelBase
 
 		//FirstUser = (await  KimaiApiManager.ApiClient.UserClient.UsersAllAsync()).First().Username;
 
-        await Task.Delay(1000);   
 
 		string text = "Connection to Kimai established!";
 		ToastDuration duration = ToastDuration.Short;

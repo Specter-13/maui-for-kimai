@@ -3,11 +3,17 @@
     x:Class="MauiForKimai.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MauiForKimai"
-    xmlns:local2="clr-namespace:MauiForKimai.Pages"
+    xmlns:local="clr-namespace:MauiForKimai.Pages"
     Shell.FlyoutBehavior="Flyout">
 
-    <FlyoutItem Title="MyFlyout">
+    <FlyoutItem Title="Login">
+        <ShellContent
+            Title="Welcome"
+            ContentTemplate="{DataTemplate local:LoginPage}"
+            Route="MainPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Home">
         <ShellContent
             Title="Welcome"
             ContentTemplate="{DataTemplate local:MainPage}"
@@ -17,7 +23,7 @@
     <FlyoutItem Title="MyFlyout2">
         <ShellContent
             Title="Home"
-            ContentTemplate="{DataTemplate local2:HomePage}"
+            ContentTemplate="{DataTemplate local:HomePage}"
             Route="HomePage" />
     </FlyoutItem>
 

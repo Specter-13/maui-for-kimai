@@ -14,12 +14,14 @@ public class AuthHandler : DelegatingHandler
     private string _userName = string.Empty;
     private string _apiPassword = string.Empty;
     private string _baseUrl = string.Empty;
-    public void SetBaseUrl(string baseUrl)
-    {
-        _baseUrl = baseUrl;
-    }
 
+    private bool _isAuthenticated;
+    public void SetBaseUrl(string baseUrl) => _baseUrl = baseUrl;
     public string GetBaseUrl() => _baseUrl;
+
+    public void SetIsAuthenticated() => _isAuthenticated = true;
+    public void ResetIsAuthenticated() => _isAuthenticated = false;
+
     public void SetAccessTokens(string token, string apiPassword)
     {
         _userName = token;

@@ -58,7 +58,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <!--<ProjectReference Include="..\..\Core\Application\MauiForKimai.Application\MauiForKimai.Application.csproj" />-->
 	  <ProjectReference Include="..\MauiForKimai.ApiClient\MauiForKimai.ApiClient.csproj" />
 	</ItemGroup>
 
@@ -66,10 +65,23 @@
 	  <MauiXaml Update="Pages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ServersManagement\ServerDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Views\" />
 	  <Folder Include="Persistence\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Pages\ServersManagement\ServerDetailPage.xaml.cs">
+	    <DependentUpon>ServerDetailPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
