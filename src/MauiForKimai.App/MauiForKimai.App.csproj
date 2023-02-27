@@ -53,14 +53,23 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\MauiForKimai.BL\MauiForKimai.BL.csproj" />
+	  <!--<ProjectReference Include="..\..\Core\Application\MauiForKimai.Application\MauiForKimai.Application.csproj" />-->
+	  <ProjectReference Include="..\MauiForKimai.ApiClient\MauiForKimai.ApiClient.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Pages\" />
+	  <MauiXaml Update="Pages\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Persistence\" />
 	</ItemGroup>
 
 </Project>

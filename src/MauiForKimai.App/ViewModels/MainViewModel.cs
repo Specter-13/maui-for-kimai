@@ -2,30 +2,24 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiForKimai.BL.ApiClient;
-using MauiForKimai.BL.Facades;
+using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.ViewModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using MauiForKimai.ApiClient.Interfaces;
 
 namespace MauiForKimai.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-	public IUserClient UserClient { get; set; }
-	private UserFacade _fc { get; set; }
-	public List<UserCollection> Users { get; set; }
-	public MainViewModel(UserFacade fc)
+	private readonly IUserService _userService;
+	private readonly AuthHandler _autHandler;
+	public MainViewModel( IUserService userService, AuthHandler aut)
 	{
-		_fc = fc;
+		_userService = userService;
+		_autHandler = aut;
 	}
 	
-
+	[ObservableProperty]
+	private string description;
 
 
 	[ObservableProperty]
@@ -42,26 +36,38 @@ public partial class MainViewModel : ViewModelBase
 	[ObservableProperty]
 	private string version;
 
-   
+  
+
 
     [RelayCommand]
     async Task Login()
     {
 		
-		var httpClient = new HttpClient();
+	
+		
 		KimaiUrl = "https://specter13maui.kimai.cloud/";
 		UserName = "dadkos34@gmail.com";
 		Password= "internet";
 
-		httpClient.BaseAddress = new Uri(KimaiUrl);
-		httpClient.DefaultRequestHeaders.Add("X-AUTH-USER", UserName);
-		httpClient.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Password);
+		//var authHandler = new AuthHandler();
+		//authHandler.SetAccessTokens(UserName, Password);
 
-		var api = ApiClientSingleton.CreateInstance(httpClient);
 		
-		Version = (await api.DefaultClient.VersionAsync()).Version1;
+		_autHandler.SetBaseUrl(KimaiUrl);
+		_autHandler.SetAccessTokens(UserName,Password);
+		
 
-		FirstUser = (await _fc.GetAllUsersAsync()).First().Username;
+
+		//httpClient.BaseAddress = new Uri(KimaiUrl);
+
+		//KimaiApiManager.CreateInstance(httpClient);
+
+
+		FirstUser = (await _userService.GetAllUsersAsync()).First().Username;
+		
+		//Version = (await KimaiApiManager.ApiClient.DefaultClient.VersionAsync()).Version1;
+
+		//FirstUser = (await  KimaiApiManager.ApiClient.UserClient.UsersAllAsync()).First().Username;
 
         await Task.Delay(1000);   
 

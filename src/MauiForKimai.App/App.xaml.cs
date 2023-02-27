@@ -1,4 +1,6 @@
-﻿namespace MauiForKimai;
+﻿
+
+namespace MauiForKimai;
 
 public partial class App : Application
 {

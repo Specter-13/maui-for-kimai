@@ -47,6 +47,7 @@
                 HorizontalOptions="Center"
                 Text="Login to Kimai" />
 
+
             <Image
                 HeightRequest="200"
                 HorizontalOptions="Center"
