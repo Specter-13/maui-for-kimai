@@ -1,6 +1,8 @@
-﻿using MauiForKimai.ApiClient.Authentication;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.ApiClient.Client;
 using MauiForKimai.ApiClient.Interfaces;
+using MauiForKimai.ApplicationLayer.Messages;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -11,26 +13,24 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ApiClient.Services;
 public class UserService : BaseService, IUserService
 {
-
 	private IUserClient _userClient;
 
-	public UserService(IHttpClientFactory httpClientFactory, AuthHandler auth) : base(httpClientFactory,auth)
+	public UserService(IHttpClientFactory httpClientFactory) : base(httpClientFactory)
 	{
-		_userClient = new UserClient(_httpClient);
-	}
 
+	}
+	public void InitializeClient(string baseUrl)
+	{
+		_httpClient.BaseAddress = new Uri(baseUrl);
+		 _userClient = new UserClient(_httpClient);
+	}
 	public Task<ICollection<UserCollection>> GetAllUsersAsync()
 	{ 
-		InitializeClientIfBaseUrlIsNull();
+		
 		return _userClient.UsersAllAsync();
 	}
 
-	private void InitializeClientIfBaseUrlIsNull()
-	{
-		if(_httpClient.BaseAddress == null ) 
-		{
-			_httpClient.BaseAddress = new Uri(_auth.GetBaseUrl());
-			_userClient = new UserClient(_httpClient);
-		}
-	}
+	
+
+	
 }

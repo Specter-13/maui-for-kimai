@@ -3,6 +3,7 @@
     x:Class="MauiForKimai.Pages.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:MauiForKimai.Models"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     Title="LoginPage"
     x:DataType="viewmodel:LoginViewModel">
@@ -10,10 +11,47 @@
 
     <VerticalStackLayout>
         <Label
+            FontSize="Large"
             HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
+            Text="Welcome!"
+            VerticalOptions="Center" />
+        <Label
+            HorizontalOptions="Center"
+            Text="Choose your Kimai server"
             VerticalOptions="Center" />
 
-        <Button Command="{Binding AddNewServerCommand}" Text="Create new" />
+        <CollectionView ItemsSource="{Binding Servers}">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:ServerModel">
+                    <Frame>
+                        <Grid ColumnDefinitions="0.75*,0.25*">
+                            <Label
+                                Grid.Column="0"
+                                FontSize="Large"
+                                Text="{Binding Name}"
+                                TextColor="Black" />
+                            <Button
+                                Grid.Column="1"
+                                BorderColor="Red"
+                                BorderWidth="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LoginViewModel}}, Path=ConnectCommand}"
+                                CommandParameter="{Binding .}"
+                                Text="Connect" />
+                            <!--  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GoToDetailsCommand}"  -->
+                        </Grid>
+
+                    </Frame>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+        <Button
+            Command="{Binding AddNewServerCommand}"
+            HorizontalOptions="End"
+            Text="Create new"
+            VerticalOptions="EndAndExpand" />
     </VerticalStackLayout>
 </ContentPage>

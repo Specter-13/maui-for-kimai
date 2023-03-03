@@ -16,18 +16,18 @@ public class AuthHandler : DelegatingHandler
     private string _baseUrl = string.Empty;
 
     private bool _isAuthenticated;
-    public void SetBaseUrl(string baseUrl) => _baseUrl = baseUrl;
-    public string GetBaseUrl() => _baseUrl;
+
 
     public void SetIsAuthenticated() => _isAuthenticated = true;
     public void ResetIsAuthenticated() => _isAuthenticated = false;
 
-    public void SetAccessTokens(string token, string apiPassword)
+    public void SetAuthInfo(string baseUrl,string token, string apiPassword)
     {
+        _baseUrl = baseUrl;
         _userName = token;
         _apiPassword = apiPassword;
     }
-
+    public string GetBaseUrl() => _baseUrl;
     public string GetUserNameToken() => _userName;
     public string GetApiPasswordToken()  => _apiPassword;
 

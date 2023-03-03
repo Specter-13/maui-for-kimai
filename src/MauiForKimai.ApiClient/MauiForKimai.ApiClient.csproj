@@ -12,4 +12,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MauiForKimai.ApplicationLayer\MauiForKimai.ApplicationLayer.csproj" />
+  </ItemGroup>
+
 </Project>

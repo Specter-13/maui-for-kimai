@@ -5,6 +5,8 @@ using CommunityToolkit.Mvvm.Input;
 using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.ViewModels.Base;
 using MauiForKimai.ApiClient.Interfaces;
+using CommunityToolkit.Mvvm.Messaging;
+using MauiForKimai.ApplicationLayer.Messages;
 
 namespace MauiForKimai.ViewModels;
 
@@ -12,10 +14,19 @@ public partial class MainViewModel : ViewModelBase
 {
 	private readonly IUserService _userService;
 	private readonly AuthHandler _autHandler;
-	public MainViewModel( IUserService userService, AuthHandler aut) : base(aut)
+	public MainViewModel(IUserService userService, AuthHandler aut) : base(aut)
 	{
 		_userService = userService;
 		_autHandler = aut;
+
+		//WeakReferenceMessenger.Default.Register<LoginAttemptMessage>(this, (r, m) =>
+		//{
+		//	var x = 10;
+			
+		//	// Handle the message here, with r being the recipient and m being the
+		//	// input message. Using the recipient passed as input makes it so that
+		//	// the lambda expression doesn't capture "this", improving performance.
+		//});
 	}
 	
 	[ObservableProperty]
@@ -53,8 +64,7 @@ public partial class MainViewModel : ViewModelBase
 		//authHandler.SetAccessTokens(UserName, Password);
 
 		
-		_autHandler.SetBaseUrl(KimaiUrl);
-		_autHandler.SetAccessTokens(UserName,Password);
+		_autHandler.SetAuthInfo(KimaiUrl,UserName,Password);
 		_autHandler.SetIsAuthenticated();
 		
 

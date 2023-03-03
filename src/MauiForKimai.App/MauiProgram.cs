@@ -6,10 +6,10 @@ using MauiForKimai.ApiClient.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.ApiClient.Services;
-using MauiForKimai.BL.Services;
 using MauiForKimai.Services.ServicesConfiguration;
 using MauiForKimai.Pages;
 using MauiForKimai.Pages.ServersManagement;
+using MauiForKimai.ApiClient.Services.Configuration;
 
 namespace MauiForKimai;
 

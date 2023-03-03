@@ -1,5 +1,9 @@
-﻿using MauiForKimai.ApiClient.Authentication;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.ApiClient.Client;
+using MauiForKimai.ApiClient.Interfaces;
+using MauiForKimai.ApplicationLayer.Messages;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -9,15 +13,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ApiClient.Services;
-public class BaseService
+public class BaseService 
 {
 	protected HttpClient _httpClient;
-	protected AuthHandler _auth;
-	public BaseService(IHttpClientFactory httpClientFactory, AuthHandler auth) 
+
+	public BaseService(IHttpClientFactory httpClientFactory) 
 	{
 		_httpClient = httpClientFactory.CreateClient(AuthHandler.AUTHENTICATED_CLIENT);
-		_auth = auth;
 	}
+
+	
+	
+
 
 	
 }

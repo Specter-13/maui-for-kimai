@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ApiClient.Interfaces;
-public interface IUserService
+public interface IUserService : IBaseService
 {
     Task<ICollection<UserCollection>> GetAllUsersAsync();
 }
