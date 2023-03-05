@@ -8,4 +8,5 @@ namespace MauiForKimai.ApiClient.Interfaces;
 public interface IBaseService
 {
         void InitializeClient(string baseUrl);
+        Task<bool> PingServerAsync();
 }

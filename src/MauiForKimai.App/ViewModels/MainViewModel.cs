@@ -7,81 +7,34 @@ using MauiForKimai.ViewModels.Base;
 using MauiForKimai.ApiClient.Interfaces;
 using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.ApplicationLayer.Messages;
+using MauiForKimai.ApiClient.ApiClient;
+using MauiForKimai.ApiClient.Client;
+using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Core.Extensions;
 
 namespace MauiForKimai.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-	private readonly IUserService _userService;
-	private readonly AuthHandler _autHandler;
-	public MainViewModel(IUserService userService, AuthHandler aut) : base(aut)
-	{
-		_userService = userService;
-		_autHandler = aut;
+	protected readonly ITimesheetService timesheetService;
 
-		//WeakReferenceMessenger.Default.Register<LoginAttemptMessage>(this, (r, m) =>
-		//{
-		//	var x = 10;
-			
-		//	// Handle the message here, with r being the recipient and m being the
-		//	// input message. Using the recipient passed as input makes it so that
-		//	// the lambda expression doesn't capture "this", improving performance.
-		//});
+	public MainViewModel(ITimesheetService ts, ApiStateProvider asp) : base(asp)
+	{
+		timesheetService = ts;
+
+		
 	}
 	
-	[ObservableProperty]
-	private string description;
-
-
-	[ObservableProperty]
-	private string kimaiUrl;
-	[ObservableProperty]
-	private string userName;
-	[ObservableProperty]
-	private string password;
-
 	
-	[ObservableProperty]
-	private string firstUser;
 
-	[ObservableProperty]
-	private string version;
-
-  
+	public ObservableCollection<TimesheetCollectionExpanded> RecentTimesheets {get;set; } = new();
 
 
     [RelayCommand]
-    async Task Login()
+    async System.Threading.Tasks.Task GetTimeSheets()
     {
-		
-	
-		
-		KimaiUrl = "https://specter13maui.kimai.cloud/";
-		UserName = "dadkos34@gmail.com";
-		Password= "internet";
-
-		//var authHandler = new AuthHandler();
-		//authHandler.SetAccessTokens(UserName, Password);
-
-		
-		_autHandler.SetAuthInfo(KimaiUrl,UserName,Password);
-		_autHandler.SetIsAuthenticated();
-		
-
-
-		//httpClient.BaseAddress = new Uri(KimaiUrl);
-
-		//KimaiApiManager.CreateInstance(httpClient);
-
-
-		FirstUser = (await _userService.GetAllUsersAsync()).First().Username;
-		
-		//Version = (await KimaiApiManager.ApiClient.DefaultClient.VersionAsync()).Version1;
-
-		//FirstUser = (await  KimaiApiManager.ApiClient.UserClient.UsersAllAsync()).First().Username;
-
-
-		string text = "Connection to Kimai established!";
+		RecentTimesheets = (await timesheetService.GetTenRecentTimesheetsAsync()).ToObservableCollection();
+		string text = "Logged!";
 		ToastDuration duration = ToastDuration.Short;
 		double fontSize = 14;
 

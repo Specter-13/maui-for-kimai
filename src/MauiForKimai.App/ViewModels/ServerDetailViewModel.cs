@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MauiForKimai.ApiClient.ApiClient;
 using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.ViewModels.Base;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ViewModels;
 public partial class ServerDetailViewModel : ViewModelBase
 {
-	public ServerDetailViewModel(AuthHandler auth) : base(auth)
+	public ServerDetailViewModel(ApiStateProvider asp) : base(asp)
 	{
 
 	}
@@ -26,9 +27,9 @@ public partial class ServerDetailViewModel : ViewModelBase
 	[ObservableProperty]
 	private string isDefault;
 
-	[RelayCommand]
-    async Task Add()
-    { 
+	//[RelayCommand]
+ //   async Task Add()
+ //   { 
 		
-	}
+	//}
 }

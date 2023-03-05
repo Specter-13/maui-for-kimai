@@ -6734,2206 +6734,1354 @@ namespace MauiForKimai.ApiClient.Client
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TeamMembership
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TeamMembership(Team @team, bool @teamlead)
-
-        {
-
-            this.Team = @team;
-
-            this.Teamlead = @teamlead;
-
-        }    [Newtonsoft.Json.JsonProperty("team", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("team", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public Team Team { get; }
+        public Team Team { get; set; } = new Team();
 
         [Newtonsoft.Json.JsonProperty("teamlead", Required = Newtonsoft.Json.Required.Always)]
-        public bool Teamlead { get; }
+        public bool Teamlead { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TeamMember
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TeamMember(bool @teamlead, User @user)
-
-        {
-
-            this.User = @user;
-
-            this.Teamlead = @teamlead;
-
-        }    [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public User User { get; }
+        public User User { get; set; } = new User();
 
         [Newtonsoft.Json.JsonProperty("teamlead", Required = Newtonsoft.Json.Required.Always)]
-        public bool Teamlead { get; }
+        public bool Teamlead { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TeamCollection
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TeamCollection(string @color, int? @id, string @name)
-
-        {
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Team
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Team(System.Collections.Generic.ICollection<Activity> @activities, string @color, System.Collections.Generic.ICollection<Customer> @customers, int? @id, System.Collections.Generic.ICollection<TeamMember> @members, string @name, System.Collections.Generic.ICollection<Project> @projects, User @teamlead, System.Collections.Generic.ICollection<User> @users)
-
-        {
-
-            this.Teamlead = @teamlead;
-
-            this.Users = @users;
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.Members = @members;
-
-            this.Customers = @customers;
-
-            this.Projects = @projects;
-
-            this.Activities = @activities;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("teamlead", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public User Teamlead { get; }
+        [Newtonsoft.Json.JsonProperty("teamlead", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public User Teamlead { get; set; }
 
         [Newtonsoft.Json.JsonProperty("users", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<User> Users { get; }
+        public System.Collections.Generic.ICollection<User> Users { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("members", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.MinLength(1)]
-        public System.Collections.Generic.ICollection<TeamMember> Members { get; }
+        public System.Collections.Generic.ICollection<TeamMember> Members { get; set; }
 
         [Newtonsoft.Json.JsonProperty("customers", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Customer> Customers { get; }
+        public System.Collections.Generic.ICollection<Customer> Customers { get; set; }
 
         [Newtonsoft.Json.JsonProperty("projects", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Project> Projects { get; }
+        public System.Collections.Generic.ICollection<Project> Projects { get; set; }
 
         [Newtonsoft.Json.JsonProperty("activities", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Activity> Activities { get; }
+        public System.Collections.Generic.ICollection<Activity> Activities { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TeamEditForm
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TeamEditForm(string @color, System.Collections.Generic.ICollection<Members> @members, string @name)
-
-        {
-
-            this.Name = @name;
-
-            this.Color = @color;
-
-            this.Members = @members;
-
-        }    /// <summary>
+        /// <summary>
         /// Name of the team
         /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The hexadecimal color code (default: #d2d6de)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
         /// <summary>
         /// All team members
         /// </summary>
         [Newtonsoft.Json.JsonProperty("members", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<Members> Members { get; }
+        public System.Collections.Generic.ICollection<Members> Members { get; set; } = new System.Collections.ObjectModel.Collection<Members>();
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class UserCollection
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public UserCollection(string @accountNumber, string @alias, string @color, bool? @enabled, int? @id, string @username)
-
-        {
-
-            this.Id = @id;
-
-            this.Alias = @alias;
-
-            this.Username = @username;
-
-            this.AccountNumber = @accountNumber;
-
-            this.Enabled = @enabled;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("alias", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(60)]
-        public string Alias { get; }
+        public string Alias { get; set; }
 
         [Newtonsoft.Json.JsonProperty("username", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(60, MinimumLength = 2)]
-        public string Username { get; }
+        public string Username { get; set; }
 
         [Newtonsoft.Json.JsonProperty("accountNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(30)]
-        public string AccountNumber { get; }
+        public string AccountNumber { get; set; }
 
         [Newtonsoft.Json.JsonProperty("enabled", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Enabled { get; }
+        public bool? Enabled { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class UserEntity
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public UserEntity(string @accountNumber, string @alias, string @avatar, string @color, bool? @enabled, int? @id, string @language, TeamMembership @memberships, System.Collections.Generic.ICollection<UserPreference> @preferences, System.Collections.Generic.ICollection<string> @roles, System.Collections.Generic.ICollection<Team> @teams, string @timezone, string @title, string @username)
-
-        {
-
-            this.Language = @language;
-
-            this.Timezone = @timezone;
-
-            this.Preferences = @preferences;
-
-            this.Teams = @teams;
-
-            this.Id = @id;
-
-            this.Alias = @alias;
-
-            this.Title = @title;
-
-            this.Avatar = @avatar;
-
-            this.Memberships = @memberships;
-
-            this.Username = @username;
-
-            this.AccountNumber = @accountNumber;
-
-            this.Enabled = @enabled;
-
-            this.Roles = @roles;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("language", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Language { get; }
+        [Newtonsoft.Json.JsonProperty("language", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Language { get; set; }
 
         [Newtonsoft.Json.JsonProperty("timezone", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Timezone { get; }
+        public string Timezone { get; set; }
 
         [Newtonsoft.Json.JsonProperty("preferences", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<UserPreference> Preferences { get; }
+        public System.Collections.Generic.ICollection<UserPreference> Preferences { get; set; }
 
         [Newtonsoft.Json.JsonProperty("teams", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Team> Teams { get; }
+        public System.Collections.Generic.ICollection<Team> Teams { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("alias", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(60)]
-        public string Alias { get; }
+        public string Alias { get; set; }
 
         [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(50)]
-        public string Title { get; }
+        public string Title { get; set; }
 
         [Newtonsoft.Json.JsonProperty("avatar", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(255)]
-        public string Avatar { get; }
+        public string Avatar { get; set; }
 
         [Newtonsoft.Json.JsonProperty("memberships", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public TeamMembership Memberships { get; }
+        public System.Collections.Generic.ICollection<TeamMembership> Memberships { get; set; }
 
         [Newtonsoft.Json.JsonProperty("username", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(60, MinimumLength = 2)]
-        public string Username { get; }
+        public string Username { get; set; }
 
         [Newtonsoft.Json.JsonProperty("accountNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(30)]
-        public string AccountNumber { get; }
+        public string AccountNumber { get; set; }
 
         [Newtonsoft.Json.JsonProperty("enabled", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Enabled { get; }
+        public bool? Enabled { get; set; }
 
         [Newtonsoft.Json.JsonProperty("roles", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<string> Roles { get; }
+        public System.Collections.Generic.ICollection<string> Roles { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class UserPreference
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public UserPreference(string @name, string @value)
-
-        {
-
-            this.Name = @name;
-
-            this.Value = @value;
-
-        }    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Value { get; }
+        public string Value { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class User
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public User(string @accountNumber, string @alias, string @color, bool? @enabled, int? @id, string @username)
-
-        {
-
-            this.Id = @id;
-
-            this.Alias = @alias;
-
-            this.Username = @username;
-
-            this.AccountNumber = @accountNumber;
-
-            this.Enabled = @enabled;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("alias", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(60)]
-        public string Alias { get; }
+        public string Alias { get; set; }
 
         [Newtonsoft.Json.JsonProperty("username", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(60, MinimumLength = 2)]
-        public string Username { get; }
+        public string Username { get; set; }
 
         [Newtonsoft.Json.JsonProperty("accountNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(30)]
-        public string AccountNumber { get; }
+        public string AccountNumber { get; set; }
 
         [Newtonsoft.Json.JsonProperty("enabled", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Enabled { get; }
+        public bool? Enabled { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class UserEditForm
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public UserEditForm(string @accountNumber, string @alias, string @color, string @email, bool? @enabled, UserEditFormLanguage @language, System.Collections.Generic.ICollection<Roles> @roles, string @timezone, string @title)
-
-        {
-
-            this.Alias = @alias;
-
-            this.Title = @title;
-
-            this.AccountNumber = @accountNumber;
-
-            this.Color = @color;
-
-            this.Email = @email;
-
-            this.Language = @language;
-
-            this.Timezone = @timezone;
-
-            this.Enabled = @enabled;
-
-            this.Roles = @roles;
-
-        }    [Newtonsoft.Json.JsonProperty("alias", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Alias { get; }
+        [Newtonsoft.Json.JsonProperty("alias", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Alias { get; set; }
 
         [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Title { get; }
+        public string Title { get; set; }
 
         [Newtonsoft.Json.JsonProperty("accountNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string AccountNumber { get; }
+        public string AccountNumber { get; set; }
 
         /// <summary>
         /// The hexadecimal color code (default: #d2d6de)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
         [Newtonsoft.Json.JsonProperty("email", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Email { get; }
+        public string Email { get; set; }
 
         [Newtonsoft.Json.JsonProperty("language", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public UserEditFormLanguage Language { get; }
+        public UserEditFormLanguage Language { get; set; }
 
         [Newtonsoft.Json.JsonProperty("timezone", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Timezone { get; }
+        public string Timezone { get; set; }
 
         [Newtonsoft.Json.JsonProperty("enabled", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Enabled { get; }
+        public bool? Enabled { get; set; }
 
         [Newtonsoft.Json.JsonProperty("roles", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore, ItemConverterType = typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public System.Collections.Generic.ICollection<Roles> Roles { get; }
+        public System.Collections.Generic.ICollection<Roles> Roles { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class UserCreateForm
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public UserCreateForm(string @accountNumber, string @alias, string @color, string @email, bool? @enabled, UserCreateFormLanguage @language, string @plainApiToken, string @plainPassword, System.Collections.Generic.ICollection<Roles2> @roles, string @timezone, string @title, string @username)
-
-        {
-
-            this.Username = @username;
-
-            this.Alias = @alias;
-
-            this.Title = @title;
-
-            this.AccountNumber = @accountNumber;
-
-            this.Color = @color;
-
-            this.Email = @email;
-
-            this.Language = @language;
-
-            this.Timezone = @timezone;
-
-            this.Enabled = @enabled;
-
-            this.Roles = @roles;
-
-            this.PlainPassword = @plainPassword;
-
-            this.PlainApiToken = @plainApiToken;
-
-        }    [Newtonsoft.Json.JsonProperty("username", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("username", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Username { get; }
+        public string Username { get; set; }
 
         [Newtonsoft.Json.JsonProperty("alias", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Alias { get; }
+        public string Alias { get; set; }
 
         [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Title { get; }
+        public string Title { get; set; }
 
         [Newtonsoft.Json.JsonProperty("accountNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string AccountNumber { get; }
+        public string AccountNumber { get; set; }
 
         /// <summary>
         /// The hexadecimal color code (default: #d2d6de)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
         [Newtonsoft.Json.JsonProperty("email", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Email { get; }
+        public string Email { get; set; }
 
         [Newtonsoft.Json.JsonProperty("language", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public UserCreateFormLanguage Language { get; }
+        public UserCreateFormLanguage Language { get; set; }
 
         [Newtonsoft.Json.JsonProperty("timezone", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Timezone { get; }
+        public string Timezone { get; set; }
 
         [Newtonsoft.Json.JsonProperty("enabled", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Enabled { get; }
+        public bool? Enabled { get; set; }
 
         [Newtonsoft.Json.JsonProperty("roles", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore, ItemConverterType = typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public System.Collections.Generic.ICollection<Roles2> Roles { get; }
+        public System.Collections.Generic.ICollection<Roles2> Roles { get; set; }
 
         /// <summary>
         /// Plain text password
         /// </summary>
         [Newtonsoft.Json.JsonProperty("plainPassword", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string PlainPassword { get; }
+        public string PlainPassword { get; set; }
 
         /// <summary>
         /// Plain API token
         /// </summary>
         [Newtonsoft.Json.JsonProperty("plainApiToken", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string PlainApiToken { get; }
+        public string PlainApiToken { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TimesheetCollectionExpanded
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TimesheetCollectionExpanded(ActivityExpanded @activity, System.DateTimeOffset @begin, bool @billable, string @description, int? @duration, System.DateTimeOffset? @end, bool @exported, int? @id, float? @internalRate, System.Collections.Generic.ICollection<TimesheetMeta> @metaFields, ProjectExpanded @project, float? @rate, System.Collections.Generic.ICollection<string> @tags, int? @user)
-
-        {
-
-            this.User = @user;
-
-            this.Tags = @tags;
-
-            this.Id = @id;
-
-            this.Begin = @begin;
-
-            this.End = @end;
-
-            this.Duration = @duration;
-
-            this.Activity = @activity;
-
-            this.Project = @project;
-
-            this.Description = @description;
-
-            this.Rate = @rate;
-
-            this.InternalRate = @internalRate;
-
-            this.Exported = @exported;
-
-            this.Billable = @billable;
-
-            this.MetaFields = @metaFields;
-
-        }    [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? User { get; }
+        [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? User { get; set; }
 
         [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<string> Tags { get; }
+        public System.Collections.Generic.ICollection<string> Tags { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("begin", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.DateTimeOffset Begin { get; }
+        public System.DateTimeOffset Begin { get; set; }
 
         [Newtonsoft.Json.JsonProperty("end", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? End { get; }
+        public System.DateTimeOffset? End { get; set; }
 
         [Newtonsoft.Json.JsonProperty("duration", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Duration { get; }
+        public int? Duration { get; set; }
 
         [Newtonsoft.Json.JsonProperty("activity", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public ActivityExpanded Activity { get; }
+        public ActivityExpanded Activity { get; set; } = new ActivityExpanded();
 
         [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public ProjectExpanded Project { get; }
+        public ProjectExpanded Project { get; set; } = new ProjectExpanded();
 
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description { get; }
+        public string Description { get; set; }
 
         [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(0D, double.MaxValue)]
-        public float? Rate { get; }
+        public float? Rate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("internalRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public float? InternalRate { get; }
+        public float? InternalRate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("exported", Required = Newtonsoft.Json.Required.Always)]
-        public bool Exported { get; }
+        public bool Exported { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         /// <summary>
         /// All visible meta (custom) fields registered with this timesheet
         /// </summary>
         [Newtonsoft.Json.JsonProperty("metaFields", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<TimesheetMeta> MetaFields { get; }
+        public System.Collections.Generic.ICollection<TimesheetMeta> MetaFields { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TimesheetCollection
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TimesheetCollection(int? @activity, System.DateTimeOffset @begin, bool @billable, string @description, int? @duration, System.DateTimeOffset? @end, bool @exported, int? @id, float? @internalRate, System.Collections.Generic.ICollection<TimesheetMeta> @metaFields, int? @project, float? @rate, System.Collections.Generic.ICollection<string> @tags, int? @user)
-
-        {
-
-            this.Activity = @activity;
-
-            this.Project = @project;
-
-            this.User = @user;
-
-            this.Tags = @tags;
-
-            this.Id = @id;
-
-            this.Begin = @begin;
-
-            this.End = @end;
-
-            this.Duration = @duration;
-
-            this.Description = @description;
-
-            this.Rate = @rate;
-
-            this.InternalRate = @internalRate;
-
-            this.Exported = @exported;
-
-            this.Billable = @billable;
-
-            this.MetaFields = @metaFields;
-
-        }    [Newtonsoft.Json.JsonProperty("activity", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Activity { get; }
+        [Newtonsoft.Json.JsonProperty("activity", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Activity { get; set; }
 
         [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Project { get; }
+        public int? Project { get; set; }
 
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? User { get; }
+        public int? User { get; set; }
 
         [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<string> Tags { get; }
+        public System.Collections.Generic.ICollection<string> Tags { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("begin", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.DateTimeOffset Begin { get; }
+        public System.DateTimeOffset Begin { get; set; }
 
         [Newtonsoft.Json.JsonProperty("end", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? End { get; }
+        public System.DateTimeOffset? End { get; set; }
 
         [Newtonsoft.Json.JsonProperty("duration", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Duration { get; }
+        public int? Duration { get; set; }
 
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description { get; }
+        public string Description { get; set; }
 
         [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(0D, double.MaxValue)]
-        public float? Rate { get; }
+        public float? Rate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("internalRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public float? InternalRate { get; }
+        public float? InternalRate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("exported", Required = Newtonsoft.Json.Required.Always)]
-        public bool Exported { get; }
+        public bool Exported { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         /// <summary>
         /// All visible meta (custom) fields registered with this timesheet
         /// </summary>
         [Newtonsoft.Json.JsonProperty("metaFields", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<TimesheetMeta> MetaFields { get; }
+        public System.Collections.Generic.ICollection<TimesheetMeta> MetaFields { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TimesheetEntityExpanded
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TimesheetEntityExpanded(ActivityExpanded @activity, System.DateTimeOffset @begin, bool @billable, string @description, int? @duration, System.DateTimeOffset? @end, bool @exported, float? @fixedRate, float? @hourlyRate, int? @id, float? @internalRate, System.Collections.Generic.ICollection<TimesheetMeta> @metaFields, ProjectExpanded @project, float? @rate, System.Collections.Generic.ICollection<string> @tags, int? @user)
-
-        {
-
-            this.User = @user;
-
-            this.Tags = @tags;
-
-            this.Id = @id;
-
-            this.Begin = @begin;
-
-            this.End = @end;
-
-            this.Duration = @duration;
-
-            this.Activity = @activity;
-
-            this.Project = @project;
-
-            this.Description = @description;
-
-            this.Rate = @rate;
-
-            this.InternalRate = @internalRate;
-
-            this.FixedRate = @fixedRate;
-
-            this.HourlyRate = @hourlyRate;
-
-            this.Exported = @exported;
-
-            this.Billable = @billable;
-
-            this.MetaFields = @metaFields;
-
-        }    [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? User { get; }
+        [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? User { get; set; }
 
         [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<string> Tags { get; }
+        public System.Collections.Generic.ICollection<string> Tags { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("begin", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.DateTimeOffset Begin { get; }
+        public System.DateTimeOffset Begin { get; set; }
 
         [Newtonsoft.Json.JsonProperty("end", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? End { get; }
+        public System.DateTimeOffset? End { get; set; }
 
         [Newtonsoft.Json.JsonProperty("duration", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Duration { get; }
+        public int? Duration { get; set; }
 
         [Newtonsoft.Json.JsonProperty("activity", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public ActivityExpanded Activity { get; }
+        public ActivityExpanded Activity { get; set; } = new ActivityExpanded();
 
         [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public ProjectExpanded Project { get; }
+        public ProjectExpanded Project { get; set; } = new ProjectExpanded();
 
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description { get; }
+        public string Description { get; set; }
 
         [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(0D, double.MaxValue)]
-        public float? Rate { get; }
+        public float? Rate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("internalRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public float? InternalRate { get; }
+        public float? InternalRate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("fixedRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(0D, double.MaxValue)]
-        public float? FixedRate { get; }
+        public float? FixedRate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("hourlyRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(0D, double.MaxValue)]
-        public float? HourlyRate { get; }
+        public float? HourlyRate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("exported", Required = Newtonsoft.Json.Required.Always)]
-        public bool Exported { get; }
+        public bool Exported { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         /// <summary>
         /// All visible meta (custom) fields registered with this timesheet
         /// </summary>
         [Newtonsoft.Json.JsonProperty("metaFields", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<TimesheetMeta> MetaFields { get; }
+        public System.Collections.Generic.ICollection<TimesheetMeta> MetaFields { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TimesheetEntity
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TimesheetEntity(int? @activity, System.DateTimeOffset @begin, bool @billable, string @description, int? @duration, System.DateTimeOffset? @end, bool @exported, float? @fixedRate, float? @hourlyRate, int? @id, float? @internalRate, System.Collections.Generic.ICollection<TimesheetMeta> @metaFields, int? @project, float? @rate, System.Collections.Generic.ICollection<string> @tags, int? @user)
-
-        {
-
-            this.Activity = @activity;
-
-            this.Project = @project;
-
-            this.User = @user;
-
-            this.Tags = @tags;
-
-            this.Id = @id;
-
-            this.Begin = @begin;
-
-            this.End = @end;
-
-            this.Duration = @duration;
-
-            this.Description = @description;
-
-            this.Rate = @rate;
-
-            this.InternalRate = @internalRate;
-
-            this.FixedRate = @fixedRate;
-
-            this.HourlyRate = @hourlyRate;
-
-            this.Exported = @exported;
-
-            this.Billable = @billable;
-
-            this.MetaFields = @metaFields;
-
-        }    [Newtonsoft.Json.JsonProperty("activity", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Activity { get; }
+        [Newtonsoft.Json.JsonProperty("activity", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Activity { get; set; }
 
         [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Project { get; }
+        public int? Project { get; set; }
 
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? User { get; }
+        public int? User { get; set; }
 
         [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<string> Tags { get; }
+        public System.Collections.Generic.ICollection<string> Tags { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("begin", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.DateTimeOffset Begin { get; }
+        public System.DateTimeOffset Begin { get; set; }
 
         [Newtonsoft.Json.JsonProperty("end", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? End { get; }
+        public System.DateTimeOffset? End { get; set; }
 
         [Newtonsoft.Json.JsonProperty("duration", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Duration { get; }
+        public int? Duration { get; set; }
 
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description { get; }
+        public string Description { get; set; }
 
         [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(0D, double.MaxValue)]
-        public float? Rate { get; }
+        public float? Rate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("internalRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public float? InternalRate { get; }
+        public float? InternalRate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("fixedRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(0D, double.MaxValue)]
-        public float? FixedRate { get; }
+        public float? FixedRate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("hourlyRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(0D, double.MaxValue)]
-        public float? HourlyRate { get; }
+        public float? HourlyRate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("exported", Required = Newtonsoft.Json.Required.Always)]
-        public bool Exported { get; }
+        public bool Exported { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         /// <summary>
         /// All visible meta (custom) fields registered with this timesheet
         /// </summary>
         [Newtonsoft.Json.JsonProperty("metaFields", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<TimesheetMeta> MetaFields { get; }
+        public System.Collections.Generic.ICollection<TimesheetMeta> MetaFields { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TimesheetEditForm
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TimesheetEditForm(int @activity, System.DateTimeOffset @begin, bool? @billable, string @description, System.DateTimeOffset? @end, bool? @exported, double? @fixedRate, double? @hourlyRate, int @project, string @tags, int? @user)
-
-        {
-
-            this.Begin = @begin;
-
-            this.End = @end;
-
-            this.Project = @project;
-
-            this.Activity = @activity;
-
-            this.Description = @description;
-
-            this.FixedRate = @fixedRate;
-
-            this.HourlyRate = @hourlyRate;
-
-            this.User = @user;
-
-            this.Exported = @exported;
-
-            this.Billable = @billable;
-
-            this.Tags = @tags;
-
-        }    [Newtonsoft.Json.JsonProperty("begin", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("begin", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.DateTimeOffset Begin { get; }
+        public System.DateTimeOffset Begin { get; set; }
 
         [Newtonsoft.Json.JsonProperty("end", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? End { get; }
+        public System.DateTimeOffset? End { get; set; }
 
         /// <summary>
         /// Project ID
         /// </summary>
         [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Always)]
-        public int Project { get; }
+        public int Project { get; set; }
 
         /// <summary>
         /// Activity ID
         /// </summary>
         [Newtonsoft.Json.JsonProperty("activity", Required = Newtonsoft.Json.Required.Always)]
-        public int Activity { get; }
+        public int Activity { get; set; }
 
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description { get; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Fixed rate
         /// </summary>
         [Newtonsoft.Json.JsonProperty("fixedRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double? FixedRate { get; }
+        public double? FixedRate { get; set; }
 
         /// <summary>
         /// Hourly rate
         /// </summary>
         [Newtonsoft.Json.JsonProperty("hourlyRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double? HourlyRate { get; }
+        public double? HourlyRate { get; set; }
 
         /// <summary>
         /// User ID
         /// </summary>
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? User { get; }
+        public int? User { get; set; }
 
         [Newtonsoft.Json.JsonProperty("exported", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Exported { get; }
+        public bool? Exported { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Billable { get; }
+        public bool? Billable { get; set; }
 
         /// <summary>
         /// Comma separated list of tags
         /// </summary>
         [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Tags { get; }
+        public string Tags { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TagEntity
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TagEntity(string @color, int? @id, string @name)
-
-        {
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(100, MinimumLength = 2)]
         [System.ComponentModel.DataAnnotations.RegularExpression(@"((?!,).)*")]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TagEditForm
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TagEditForm(string @color, string @name)
-
-        {
-
-            this.Name = @name;
-
-            this.Color = @color;
-
-        }    /// <summary>
+        /// <summary>
         /// The tag name (forbidden character: comma)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The hexadecimal color code (default: #d2d6de)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ActivityCollection
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ActivityCollection(bool @billable, string @color, string @comment, int? @id, System.Collections.Generic.ICollection<ActivityMeta> @metaFields, string @name, string @parentTitle, int? @project, System.Collections.Generic.ICollection<Team> @teams, bool @visible)
-
-        {
-
-            this.ParentTitle = @parentTitle;
-
-            this.Project = @project;
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.Comment = @comment;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.MetaFields = @metaFields;
-
-            this.Teams = @teams;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("parentTitle", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ParentTitle { get; }
+        [Newtonsoft.Json.JsonProperty("parentTitle", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ParentTitle { get; set; }
 
         [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Project { get; }
+        public int? Project { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(150, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Always)]
-        public bool Visible { get; }
+        public bool Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         /// <summary>
         /// All visible meta (custom) fields registered with this activity
         /// </summary>
         [Newtonsoft.Json.JsonProperty("metaFields", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<ActivityMeta> MetaFields { get; }
+        public System.Collections.Generic.ICollection<ActivityMeta> MetaFields { get; set; }
 
         /// <summary>
         /// If no team is assigned, everyone can access the activity
         /// </summary>
         [Newtonsoft.Json.JsonProperty("teams", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Team> Teams { get; }
+        public System.Collections.Generic.ICollection<Team> Teams { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ActivityRateForm
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ActivityRateForm(double? @internalRate, bool? @isFixed, double @rate, int? @user)
-
-        {
-
-            this.User = @user;
-
-            this.Rate = @rate;
-
-            this.InternalRate = @internalRate;
-
-            this.IsFixed = @isFixed;
-
-        }    /// <summary>
+        /// <summary>
         /// User ID
         /// </summary>
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? User { get; }
+        public int? User { get; set; }
 
         /// <summary>
         /// The rate (eg. 10.5)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Always)]
-        public double Rate { get; }
+        public double Rate { get; set; }
 
         /// <summary>
         /// The internal rate (eg. 10.0 or 10)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("internalRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double? InternalRate { get; }
+        public double? InternalRate { get; set; }
 
         /// <summary>
         /// If "true" each time record gets the same rate, regardless of its duration
         /// </summary>
         [Newtonsoft.Json.JsonProperty("isFixed", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? IsFixed { get; }
+        public bool? IsFixed { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ActivityRate
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ActivityRate(int? @id, float? @internalRate, bool @isFixed, float? @rate, User @user)
-
-        {
-
-            this.Id = @id;
-
-            this.User = @user;
-
-            this.Rate = @rate;
-
-            this.InternalRate = @internalRate;
-
-            this.IsFixed = @isFixed;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public User User { get; }
+        public User User { get; set; }
 
         [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(0D, double.MaxValue)]
-        public float? Rate { get; }
+        public float? Rate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("internalRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public float? InternalRate { get; }
+        public float? InternalRate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isFixed", Required = Newtonsoft.Json.Required.Always)]
-        public bool IsFixed { get; }
+        public bool IsFixed { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ActivityExpanded
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ActivityExpanded(bool @billable, string @color, string @comment, int? @id, string @name, Project @project, bool @visible)
-
-        {
-
-            this.Id = @id;
-
-            this.Project = @project;
-
-            this.Name = @name;
-
-            this.Comment = @comment;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Project Project { get; }
+        public Project Project { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(150, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Always)]
-        public bool Visible { get; }
+        public bool Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Activity
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Activity(bool @billable, string @color, string @comment, int? @id, string @name, int? @project, bool @visible)
-
-        {
-
-            this.Project = @project;
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.Comment = @comment;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Project { get; }
+        [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Project { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(150, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Always)]
-        public bool Visible { get; }
+        public bool Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ActivityEntity
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ActivityEntity(bool @billable, float @budget, string @budgetType, string @color, string @comment, int? @id, System.Collections.Generic.ICollection<ActivityMeta> @metaFields, string @name, string @parentTitle, int? @project, System.Collections.Generic.ICollection<Team> @teams, int @timeBudget, bool @visible)
-
-        {
-
-            this.ParentTitle = @parentTitle;
-
-            this.Project = @project;
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.Comment = @comment;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.MetaFields = @metaFields;
-
-            this.Teams = @teams;
-
-            this.Budget = @budget;
-
-            this.TimeBudget = @timeBudget;
-
-            this.BudgetType = @budgetType;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("parentTitle", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ParentTitle { get; }
+        [Newtonsoft.Json.JsonProperty("parentTitle", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ParentTitle { get; set; }
 
         [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Project { get; }
+        public int? Project { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(150, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Always)]
-        public bool Visible { get; }
+        public bool Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         /// <summary>
         /// All visible meta (custom) fields registered with this activity
         /// </summary>
         [Newtonsoft.Json.JsonProperty("metaFields", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<ActivityMeta> MetaFields { get; }
+        public System.Collections.Generic.ICollection<ActivityMeta> MetaFields { get; set; }
 
         /// <summary>
         /// If no team is assigned, everyone can access the activity
         /// </summary>
         [Newtonsoft.Json.JsonProperty("teams", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Team> Teams { get; }
+        public System.Collections.Generic.ICollection<Team> Teams { get; set; }
 
         [Newtonsoft.Json.JsonProperty("budget", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Range(0D, 900000000000D)]
-        public float Budget { get; }
+        public float Budget { get; set; }
 
         [Newtonsoft.Json.JsonProperty("timeBudget", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Range(0, 2145600000)]
-        public int TimeBudget { get; }
+        public int TimeBudget { get; set; }
 
         [Newtonsoft.Json.JsonProperty("budgetType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string BudgetType { get; }
+        public string BudgetType { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ActivityEditForm
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ActivityEditForm(bool? @billable, string @color, string @comment, string @invoiceText, string @name, int? @project, bool? @visible)
-
-        {
-
-            this.Name = @name;
-
-            this.Comment = @comment;
-
-            this.InvoiceText = @invoiceText;
-
-            this.Project = @project;
-
-            this.Color = @color;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-        }    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("invoiceText", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string InvoiceText { get; }
+        public string InvoiceText { get; set; }
 
         /// <summary>
         /// Project ID
         /// </summary>
         [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Project { get; }
+        public int? Project { get; set; }
 
         /// <summary>
         /// The hexadecimal color code (default: #d2d6de)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Visible { get; }
+        public bool? Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Billable { get; }
+        public bool? Billable { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ProjectCollection
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ProjectCollection(bool @billable, string @color, string @comment, int? @customer, System.DateTimeOffset? @end, bool @globalActivities, int? @id, System.Collections.Generic.ICollection<ProjectMeta> @metaFields, string @name, string @parentTitle, System.DateTimeOffset? @start, System.Collections.Generic.ICollection<Team> @teams, bool @visible)
-
-        {
-
-            this.ParentTitle = @parentTitle;
-
-            this.Customer = @customer;
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.Start = @start;
-
-            this.End = @end;
-
-            this.Comment = @comment;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.MetaFields = @metaFields;
-
-            this.Teams = @teams;
-
-            this.GlobalActivities = @globalActivities;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("parentTitle", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ParentTitle { get; }
+        [Newtonsoft.Json.JsonProperty("parentTitle", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ParentTitle { get; set; }
 
         [Newtonsoft.Json.JsonProperty("customer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Customer { get; }
+        public int? Customer { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(150, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("start", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? Start { get; }
+        public System.DateTimeOffset? Start { get; set; }
 
         [Newtonsoft.Json.JsonProperty("end", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? End { get; }
+        public System.DateTimeOffset? End { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Always)]
-        public bool Visible { get; }
+        public bool Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         /// <summary>
         /// All visible meta (custom) fields registered with this project
         /// </summary>
         [Newtonsoft.Json.JsonProperty("metaFields", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<ProjectMeta> MetaFields { get; }
+        public System.Collections.Generic.ICollection<ProjectMeta> MetaFields { get; set; }
 
         /// <summary>
         /// If no team is assigned, everyone can access the project (also depends on the teams of the customer)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("teams", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Team> Teams { get; }
+        public System.Collections.Generic.ICollection<Team> Teams { get; set; }
 
         [Newtonsoft.Json.JsonProperty("globalActivities", Required = Newtonsoft.Json.Required.Always)]
-        public bool GlobalActivities { get; }
+        public bool GlobalActivities { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ProjectRateForm
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ProjectRateForm(double? @internalRate, bool? @isFixed, double @rate, int? @user)
-
-        {
-
-            this.User = @user;
-
-            this.Rate = @rate;
-
-            this.InternalRate = @internalRate;
-
-            this.IsFixed = @isFixed;
-
-        }    /// <summary>
+        /// <summary>
         /// User ID
         /// </summary>
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? User { get; }
+        public int? User { get; set; }
 
         /// <summary>
         /// The rate (eg. 10.5)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Always)]
-        public double Rate { get; }
+        public double Rate { get; set; }
 
         /// <summary>
         /// The internal rate (eg. 10.0 or 10)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("internalRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double? InternalRate { get; }
+        public double? InternalRate { get; set; }
 
         /// <summary>
         /// If "true" each time record gets the same rate, regardless of its duration
         /// </summary>
         [Newtonsoft.Json.JsonProperty("isFixed", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? IsFixed { get; }
+        public bool? IsFixed { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ProjectRate
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ProjectRate(int? @id, float? @internalRate, bool @isFixed, float? @rate, User @user)
-
-        {
-
-            this.Id = @id;
-
-            this.User = @user;
-
-            this.Rate = @rate;
-
-            this.InternalRate = @internalRate;
-
-            this.IsFixed = @isFixed;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public User User { get; }
+        public User User { get; set; }
 
         [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(0D, double.MaxValue)]
-        public float? Rate { get; }
+        public float? Rate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("internalRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public float? InternalRate { get; }
+        public float? InternalRate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isFixed", Required = Newtonsoft.Json.Required.Always)]
-        public bool IsFixed { get; }
+        public bool IsFixed { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ProjectExpanded
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ProjectExpanded(bool @billable, string @color, string @comment, Customer @customer, bool @globalActivities, int? @id, string @name, bool @visible)
-
-        {
-
-            this.Id = @id;
-
-            this.Customer = @customer;
-
-            this.Name = @name;
-
-            this.Comment = @comment;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.GlobalActivities = @globalActivities;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("customer", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public Customer Customer { get; }
+        public Customer Customer { get; set; } = new Customer();
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(150, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Always)]
-        public bool Visible { get; }
+        public bool Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         [Newtonsoft.Json.JsonProperty("globalActivities", Required = Newtonsoft.Json.Required.Always)]
-        public bool GlobalActivities { get; }
+        public bool GlobalActivities { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Project
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Project(bool @billable, string @color, string @comment, int? @customer, bool @globalActivities, int? @id, string @name, bool @visible)
-
-        {
-
-            this.Customer = @customer;
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.Comment = @comment;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.GlobalActivities = @globalActivities;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("customer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Customer { get; }
+        [Newtonsoft.Json.JsonProperty("customer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Customer { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(150, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Always)]
-        public bool Visible { get; }
+        public bool Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         [Newtonsoft.Json.JsonProperty("globalActivities", Required = Newtonsoft.Json.Required.Always)]
-        public bool GlobalActivities { get; }
+        public bool GlobalActivities { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ProjectEntity
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ProjectEntity(bool @billable, float @budget, string @budgetType, string @color, string @comment, int? @customer, System.DateTimeOffset? @end, bool @globalActivities, int? @id, System.Collections.Generic.ICollection<ProjectMeta> @metaFields, string @name, System.DateTimeOffset? @orderDate, string @orderNumber, string @parentTitle, System.DateTimeOffset? @start, System.Collections.Generic.ICollection<Team> @teams, int @timeBudget, bool @visible)
-
-        {
-
-            this.ParentTitle = @parentTitle;
-
-            this.Customer = @customer;
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.OrderNumber = @orderNumber;
-
-            this.OrderDate = @orderDate;
-
-            this.Start = @start;
-
-            this.End = @end;
-
-            this.Comment = @comment;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.MetaFields = @metaFields;
-
-            this.Teams = @teams;
-
-            this.GlobalActivities = @globalActivities;
-
-            this.Budget = @budget;
-
-            this.TimeBudget = @timeBudget;
-
-            this.BudgetType = @budgetType;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("parentTitle", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ParentTitle { get; }
+        [Newtonsoft.Json.JsonProperty("parentTitle", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string ParentTitle { get; set; }
 
         [Newtonsoft.Json.JsonProperty("customer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Customer { get; }
+        public int? Customer { get; set; }
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(150, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("orderNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(50)]
-        public string OrderNumber { get; }
+        public string OrderNumber { get; set; }
 
         [Newtonsoft.Json.JsonProperty("orderDate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? OrderDate { get; }
+        public System.DateTimeOffset? OrderDate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("start", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? Start { get; }
+        public System.DateTimeOffset? Start { get; set; }
 
         [Newtonsoft.Json.JsonProperty("end", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? End { get; }
+        public System.DateTimeOffset? End { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Always)]
-        public bool Visible { get; }
+        public bool Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         /// <summary>
         /// All visible meta (custom) fields registered with this project
         /// </summary>
         [Newtonsoft.Json.JsonProperty("metaFields", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<ProjectMeta> MetaFields { get; }
+        public System.Collections.Generic.ICollection<ProjectMeta> MetaFields { get; set; }
 
         /// <summary>
         /// If no team is assigned, everyone can access the project (also depends on the teams of the customer)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("teams", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Team> Teams { get; }
+        public System.Collections.Generic.ICollection<Team> Teams { get; set; }
 
         [Newtonsoft.Json.JsonProperty("globalActivities", Required = Newtonsoft.Json.Required.Always)]
-        public bool GlobalActivities { get; }
+        public bool GlobalActivities { get; set; }
 
         [Newtonsoft.Json.JsonProperty("budget", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Range(0D, 900000000000D)]
-        public float Budget { get; }
+        public float Budget { get; set; }
 
         [Newtonsoft.Json.JsonProperty("timeBudget", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Range(0, 2145600000)]
-        public int TimeBudget { get; }
+        public int TimeBudget { get; set; }
 
         [Newtonsoft.Json.JsonProperty("budgetType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string BudgetType { get; }
+        public string BudgetType { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ProjectEditForm
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ProjectEditForm(bool? @billable, string @color, string @comment, int @customer, System.DateTimeOffset? @end, bool? @globalActivities, string @invoiceText, string @name, System.DateTimeOffset? @orderDate, string @orderNumber, System.DateTimeOffset? @start, bool? @visible)
-
-        {
-
-            this.Name = @name;
-
-            this.Comment = @comment;
-
-            this.InvoiceText = @invoiceText;
-
-            this.OrderNumber = @orderNumber;
-
-            this.OrderDate = @orderDate;
-
-            this.Start = @start;
-
-            this.End = @end;
-
-            this.Customer = @customer;
-
-            this.Color = @color;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.GlobalActivities = @globalActivities;
-
-        }    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("invoiceText", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string InvoiceText { get; }
+        public string InvoiceText { get; set; }
 
         [Newtonsoft.Json.JsonProperty("orderNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string OrderNumber { get; }
+        public string OrderNumber { get; set; }
 
         [Newtonsoft.Json.JsonProperty("orderDate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? OrderDate { get; }
+        public System.DateTimeOffset? OrderDate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("start", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? Start { get; }
+        public System.DateTimeOffset? Start { get; set; }
 
         [Newtonsoft.Json.JsonProperty("end", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? End { get; }
+        public System.DateTimeOffset? End { get; set; }
 
         /// <summary>
         /// Customer ID
         /// </summary>
         [Newtonsoft.Json.JsonProperty("customer", Required = Newtonsoft.Json.Required.Always)]
-        public int Customer { get; }
+        public int Customer { get; set; }
 
         /// <summary>
         /// The hexadecimal color code (default: #d2d6de)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Visible { get; }
+        public bool? Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Billable { get; }
+        public bool? Billable { get; set; }
 
         [Newtonsoft.Json.JsonProperty("globalActivities", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? GlobalActivities { get; }
+        public bool? GlobalActivities { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class CustomerCollection
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public CustomerCollection(bool @billable, string @color, string @comment, string @currency, int? @id, System.Collections.Generic.ICollection<CustomerMeta> @metaFields, string @name, string @number, System.Collections.Generic.ICollection<Team> @teams, bool @visible)
-
-        {
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.Number = @number;
-
-            this.Comment = @comment;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.Currency = @currency;
-
-            this.MetaFields = @metaFields;
-
-            this.Teams = @teams;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(150, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("number", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(50)]
-        public string Number { get; }
+        public string Number { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Always)]
-        public bool Visible { get; }
+        public bool Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         [Newtonsoft.Json.JsonProperty("currency", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(3)]
-        public string Currency { get; }
+        public string Currency { get; set; }
 
         /// <summary>
         /// All visible meta (custom) fields registered with this customer
         /// </summary>
         [Newtonsoft.Json.JsonProperty("metaFields", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<CustomerMeta> MetaFields { get; }
+        public System.Collections.Generic.ICollection<CustomerMeta> MetaFields { get; set; }
 
         /// <summary>
         /// If no team is assigned, everyone can access the customer
         /// </summary>
         [Newtonsoft.Json.JsonProperty("teams", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Team> Teams { get; }
+        public System.Collections.Generic.ICollection<Team> Teams { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class CustomerRateForm
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public CustomerRateForm(double? @internalRate, bool? @isFixed, double @rate, int? @user)
-
-        {
-
-            this.User = @user;
-
-            this.Rate = @rate;
-
-            this.InternalRate = @internalRate;
-
-            this.IsFixed = @isFixed;
-
-        }    /// <summary>
+        /// <summary>
         /// User ID
         /// </summary>
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? User { get; }
+        public int? User { get; set; }
 
         /// <summary>
         /// The rate (eg. 10.5)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Always)]
-        public double Rate { get; }
+        public double Rate { get; set; }
 
         /// <summary>
         /// The internal rate (eg. 10.0 or 10)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("internalRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double? InternalRate { get; }
+        public double? InternalRate { get; set; }
 
         /// <summary>
         /// If "true" each time record gets the same rate, regardless of its duration
         /// </summary>
         [Newtonsoft.Json.JsonProperty("isFixed", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? IsFixed { get; }
+        public bool? IsFixed { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class CustomerRate
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public CustomerRate(int? @id, float? @internalRate, bool @isFixed, float? @rate, User @user)
-
-        {
-
-            this.Id = @id;
-
-            this.User = @user;
-
-            this.Rate = @rate;
-
-            this.InternalRate = @internalRate;
-
-            this.IsFixed = @isFixed;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public User User { get; }
+        public User User { get; set; }
 
         [Newtonsoft.Json.JsonProperty("rate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.Range(0D, double.MaxValue)]
-        public float? Rate { get; }
+        public float? Rate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("internalRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public float? InternalRate { get; }
+        public float? InternalRate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isFixed", Required = Newtonsoft.Json.Required.Always)]
-        public bool IsFixed { get; }
+        public bool IsFixed { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Customer
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Customer(bool @billable, string @color, string @comment, int? @id, string @name, string @number, bool @visible)
-
-        {
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.Number = @number;
-
-            this.Comment = @comment;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(150, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("number", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(50)]
-        public string Number { get; }
+        public string Number { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Always)]
-        public bool Visible { get; }
+        public bool Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class CustomerEntity
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public CustomerEntity(string @address, bool @billable, float @budget, string @budgetType, string @color, string @comment, string @company, string @contact, string @country, string @currency, string @email, string @fax, string @homepage, int? @id, System.Collections.Generic.ICollection<CustomerMeta> @metaFields, string @mobile, string @name, string @number, string @phone, System.Collections.Generic.ICollection<Team> @teams, int @timeBudget, string @timezone, string @vatId, bool @visible)
-
-        {
-
-            this.Id = @id;
-
-            this.Name = @name;
-
-            this.Number = @number;
-
-            this.Comment = @comment;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-            this.Company = @company;
-
-            this.VatId = @vatId;
-
-            this.Contact = @contact;
-
-            this.Address = @address;
-
-            this.Country = @country;
-
-            this.Currency = @currency;
-
-            this.Phone = @phone;
-
-            this.Fax = @fax;
-
-            this.Mobile = @mobile;
-
-            this.Email = @email;
-
-            this.Homepage = @homepage;
-
-            this.Timezone = @timezone;
-
-            this.MetaFields = @metaFields;
-
-            this.Teams = @teams;
-
-            this.Budget = @budget;
-
-            this.TimeBudget = @timeBudget;
-
-            this.BudgetType = @budgetType;
-
-            this.Color = @color;
-
-        }    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Id { get; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(150, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("number", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(50)]
-        public string Number { get; }
+        public string Number { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Always)]
-        public bool Visible { get; }
+        public bool Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Always)]
-        public bool Billable { get; }
+        public bool Billable { get; set; }
 
         [Newtonsoft.Json.JsonProperty("company", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(255)]
-        public string Company { get; }
+        public string Company { get; set; }
 
         [Newtonsoft.Json.JsonProperty("vatId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(50)]
-        public string VatId { get; }
+        public string VatId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("contact", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(255)]
-        public string Contact { get; }
+        public string Contact { get; set; }
 
         [Newtonsoft.Json.JsonProperty("address", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Address { get; }
+        public string Address { get; set; }
 
         [Newtonsoft.Json.JsonProperty("country", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(2)]
-        public string Country { get; }
+        public string Country { get; set; }
 
         [Newtonsoft.Json.JsonProperty("currency", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(3)]
-        public string Currency { get; }
+        public string Currency { get; set; }
 
         [Newtonsoft.Json.JsonProperty("phone", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(255)]
-        public string Phone { get; }
+        public string Phone { get; set; }
 
         [Newtonsoft.Json.JsonProperty("fax", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(255)]
-        public string Fax { get; }
+        public string Fax { get; set; }
 
         [Newtonsoft.Json.JsonProperty("mobile", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(255)]
-        public string Mobile { get; }
+        public string Mobile { get; set; }
 
         /// <summary>
         /// Limited via RFC to 254 chars
         /// </summary>
         [Newtonsoft.Json.JsonProperty("email", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(254)]
-        public string Email { get; }
+        public string Email { get; set; }
 
         [Newtonsoft.Json.JsonProperty("homepage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(255)]
-        public string Homepage { get; }
+        public string Homepage { get; set; }
 
         /// <summary>
         /// Length was determined by a MySQL column via "use mysql;describe time_zone_name;"
@@ -8941,560 +8089,352 @@ namespace MauiForKimai.ApiClient.Client
         [Newtonsoft.Json.JsonProperty("timezone", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(64)]
-        public string Timezone { get; }
+        public string Timezone { get; set; }
 
         /// <summary>
         /// All visible meta (custom) fields registered with this customer
         /// </summary>
         [Newtonsoft.Json.JsonProperty("metaFields", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<CustomerMeta> MetaFields { get; }
+        public System.Collections.Generic.ICollection<CustomerMeta> MetaFields { get; set; }
 
         /// <summary>
         /// If no team is assigned, everyone can access the customer
         /// </summary>
         [Newtonsoft.Json.JsonProperty("teams", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<Team> Teams { get; }
+        public System.Collections.Generic.ICollection<Team> Teams { get; set; }
 
         [Newtonsoft.Json.JsonProperty("budget", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Range(0D, 900000000000D)]
-        public float Budget { get; }
+        public float Budget { get; set; }
 
         [Newtonsoft.Json.JsonProperty("timeBudget", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Range(0, 2145600000)]
-        public int TimeBudget { get; }
+        public int TimeBudget { get; set; }
 
         [Newtonsoft.Json.JsonProperty("budgetType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string BudgetType { get; }
+        public string BudgetType { get; set; }
 
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class CustomerEditForm
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public CustomerEditForm(string @address, bool? @billable, string @color, string @comment, string @company, string @contact, string @country, string @currency, string @email, string @fax, string @homepage, string @mobile, string @name, string @number, string @phone, string @timezone, string @vatId, bool? @visible)
-
-        {
-
-            this.Name = @name;
-
-            this.Number = @number;
-
-            this.Comment = @comment;
-
-            this.Company = @company;
-
-            this.VatId = @vatId;
-
-            this.Contact = @contact;
-
-            this.Address = @address;
-
-            this.Country = @country;
-
-            this.Currency = @currency;
-
-            this.Phone = @phone;
-
-            this.Fax = @fax;
-
-            this.Mobile = @mobile;
-
-            this.Email = @email;
-
-            this.Homepage = @homepage;
-
-            this.Timezone = @timezone;
-
-            this.Color = @color;
-
-            this.Visible = @visible;
-
-            this.Billable = @billable;
-
-        }    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("number", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Number { get; }
+        public string Number { get; set; }
 
         [Newtonsoft.Json.JsonProperty("comment", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Comment { get; }
+        public string Comment { get; set; }
 
         [Newtonsoft.Json.JsonProperty("company", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Company { get; }
+        public string Company { get; set; }
 
         [Newtonsoft.Json.JsonProperty("vatId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string VatId { get; }
+        public string VatId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("contact", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Contact { get; }
+        public string Contact { get; set; }
 
         [Newtonsoft.Json.JsonProperty("address", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Address { get; }
+        public string Address { get; set; }
 
         [Newtonsoft.Json.JsonProperty("country", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Country { get; }
+        public string Country { get; set; }
 
         [Newtonsoft.Json.JsonProperty("currency", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Currency { get; }
+        public string Currency { get; set; }
 
         [Newtonsoft.Json.JsonProperty("phone", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Phone { get; }
+        public string Phone { get; set; }
 
         [Newtonsoft.Json.JsonProperty("fax", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Fax { get; }
+        public string Fax { get; set; }
 
         [Newtonsoft.Json.JsonProperty("mobile", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Mobile { get; }
+        public string Mobile { get; set; }
 
         [Newtonsoft.Json.JsonProperty("email", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Email { get; }
+        public string Email { get; set; }
 
         [Newtonsoft.Json.JsonProperty("homepage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Homepage { get; }
+        public string Homepage { get; set; }
 
         [Newtonsoft.Json.JsonProperty("timezone", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Timezone { get; }
+        public string Timezone { get; set; }
 
         /// <summary>
         /// The hexadecimal color code (default: #d2d6de)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("color", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Color { get; }
+        public string Color { get; set; }
 
         [Newtonsoft.Json.JsonProperty("visible", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Visible { get; }
+        public bool? Visible { get; set; }
 
         [Newtonsoft.Json.JsonProperty("billable", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Billable { get; }
+        public bool? Billable { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class I18nConfig
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public I18nConfig(string @date, string @dateTime, string @duration, string @formDate, bool? @is24hours, System.DateTimeOffset? @now, string @time)
-
-        {
-
-            this.FormDate = @formDate;
-
-            this.DateTime = @dateTime;
-
-            this.Date = @date;
-
-            this.Time = @time;
-
-            this.Duration = @duration;
-
-            this.Is24hours = @is24hours;
-
-            this.Now = @now;
-
-        }    [Newtonsoft.Json.JsonProperty("formDate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string FormDate { get; }
+        [Newtonsoft.Json.JsonProperty("formDate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string FormDate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("dateTime", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string DateTime { get; }
+        public string DateTime { get; set; }
 
         [Newtonsoft.Json.JsonProperty("date", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Date { get; }
+        public string Date { get; set; }
 
         [Newtonsoft.Json.JsonProperty("time", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Time { get; }
+        public string Time { get; set; }
 
         [Newtonsoft.Json.JsonProperty("duration", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Duration { get; }
+        public string Duration { get; set; }
 
         [Newtonsoft.Json.JsonProperty("is24hours", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Is24hours { get; }
+        public bool? Is24hours { get; set; }
 
         [Newtonsoft.Json.JsonProperty("now", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? Now { get; }
+        public System.DateTimeOffset? Now { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TimesheetConfig
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TimesheetConfig(int? @activeEntriesHardLimit, int? @activeEntriesSoftLimit, string @defaultBeginTime, bool? @isAllowFutureTimes, bool? @isAllowOverlapping, string @trackingMode)
-
-        {
-
-            this.TrackingMode = @trackingMode;
-
-            this.DefaultBeginTime = @defaultBeginTime;
-
-            this.ActiveEntriesHardLimit = @activeEntriesHardLimit;
-
-            this.ActiveEntriesSoftLimit = @activeEntriesSoftLimit;
-
-            this.IsAllowFutureTimes = @isAllowFutureTimes;
-
-            this.IsAllowOverlapping = @isAllowOverlapping;
-
-        }    [Newtonsoft.Json.JsonProperty("trackingMode", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string TrackingMode { get; }
+        [Newtonsoft.Json.JsonProperty("trackingMode", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string TrackingMode { get; set; }
 
         [Newtonsoft.Json.JsonProperty("defaultBeginTime", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string DefaultBeginTime { get; }
+        public string DefaultBeginTime { get; set; }
 
         [Newtonsoft.Json.JsonProperty("activeEntriesHardLimit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? ActiveEntriesHardLimit { get; }
+        public int? ActiveEntriesHardLimit { get; set; }
 
         [Newtonsoft.Json.JsonProperty("activeEntriesSoftLimit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? ActiveEntriesSoftLimit { get; }
+        public int? ActiveEntriesSoftLimit { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isAllowFutureTimes", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? IsAllowFutureTimes { get; }
+        public bool? IsAllowFutureTimes { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isAllowOverlapping", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? IsAllowOverlapping { get; }
+        public bool? IsAllowOverlapping { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Version
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Version(string @candidate, string @copyright, string @name, string @semver, string @version, int? @versionId)
-
-        {
-
-            this.Version1 = @version;
-
-            this.VersionId = @versionId;
-
-            this.Candidate = @candidate;
-
-            this.Semver = @semver;
-
-            this.Name = @name;
-
-            this.Copyright = @copyright;
-
-        }    [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Version1 { get; }
+        [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Version1 { get; set; }
 
         /// <summary>
         /// Follows the same logic as PHP_VERSION_ID, see https://www.php.net/manual/de/function.phpversion.php
         /// </summary>
         [Newtonsoft.Json.JsonProperty("versionId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? VersionId { get; }
+        public int? VersionId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("candidate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Candidate { get; }
+        public string Candidate { get; set; }
 
         [Newtonsoft.Json.JsonProperty("semver", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Semver { get; }
+        public string Semver { get; set; }
 
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("copyright", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Copyright { get; }
+        public string Copyright { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Plugin
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Plugin(string @name, string @version)
-
-        {
-
-            this.Name = @name;
-
-            this.Version = @version;
-
-        }    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Name { get; }
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Version { get; }
+        public string Version { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class TimesheetMeta
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public TimesheetMeta(string @name, string @value)
-
-        {
-
-            this.Name = @name;
-
-            this.Value = @value;
-
-        }    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(65535)]
-        public string Value { get; }
+        public string Value { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ActivityMeta
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ActivityMeta(string @name, string @value)
-
-        {
-
-            this.Name = @name;
-
-            this.Value = @value;
-
-        }    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(65535)]
-        public string Value { get; }
+        public string Value { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ProjectMeta
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public ProjectMeta(string @name, string @value)
-
-        {
-
-            this.Name = @name;
-
-            this.Value = @value;
-
-        }    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(65535)]
-        public string Value { get; }
+        public string Value { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class CustomerMeta
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public CustomerMeta(string @name, string @value)
-
-        {
-
-            this.Name = @name;
-
-            this.Value = @value;
-
-        }    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 2)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.StringLength(65535)]
-        public string Value { get; }
+        public string Value { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Body
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Body(string @name, string @value)
-
-        {
-
-            this.Name = @name;
-
-            this.Value = @value;
-
-        }    /// <summary>
+        /// <summary>
         /// The meta-field name
         /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The meta-field value
         /// </summary>
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Value { get; }
+        public string Value { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Body2
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Body2(string @name, string @value)
-
-        {
-
-            this.Name = @name;
-
-            this.Value = @value;
-
-        }    /// <summary>
+        /// <summary>
         /// The meta-field name
         /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The meta-field value
         /// </summary>
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Value { get; }
+        public string Value { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Body3
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Body3(string @name, string @value)
-
-        {
-
-            this.Name = @name;
-
-            this.Value = @value;
-
-        }    /// <summary>
+        /// <summary>
         /// The meta-field name
         /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The meta-field value
         /// </summary>
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Value { get; }
+        public string Value { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Body4
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Body4(string @begin, string @copy)
-
-        {
-
-            this.Copy = @copy;
-
-            this.Begin = @begin;
-
-        }    /// <summary>
+        /// <summary>
         /// Whether data should be copied to the new entry. Allowed values: all, tags (deprecated), rates (deprecated), description (deprecated), meta (deprecated) (default: nothing is copied)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("copy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [System.ComponentModel.DataAnnotations.RegularExpression(@"all|tags|rates|meta|description")]
-        public string Copy { get; }
+        public string Copy { get; set; }
 
         /// <summary>
         /// Changes the restart date to the given one (default: now)
         /// </summary>
         [Newtonsoft.Json.JsonProperty("begin", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Begin { get; }
+        public string Begin { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Body5
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Body5(string @name, string @value)
-
-        {
-
-            this.Name = @name;
-
-            this.Value = @value;
-
-        }    /// <summary>
+        /// <summary>
         /// The meta-field name
         /// </summary>
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The meta-field value
         /// </summary>
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Value { get; }
+        public string Value { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Members
     {
-        [Newtonsoft.Json.JsonConstructor]
-
-        public Members(bool? @teamlead, int? @user)
-
-        {
-
-            this.User = @user;
-
-            this.Teamlead = @teamlead;
-
-        }    /// <summary>
+        /// <summary>
         /// User ID
         /// </summary>
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? User { get; }
+        public int? User { get; set; }
 
         /// <summary>
         /// Whether the user is a teamlead
         /// </summary>
         [Newtonsoft.Json.JsonProperty("teamlead", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Teamlead { get; }
+        public bool? Teamlead { get; set; }
 
     }
 

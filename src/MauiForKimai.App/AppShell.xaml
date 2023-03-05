@@ -3,29 +3,60 @@
     x:Class="MauiForKimai.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MauiForKimai.Pages"
+    xmlns:local="clr-namespace:MauiForKimai.Views"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels.Base"
+    x:DataType="viewmodel:ViewModelBase"
     Shell.FlyoutBehavior="Flyout">
+
+
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="Black" HeightRequest="150">
+                <Image
+                    Aspect="AspectFill"
+                    Opacity="0.6"
+                    Source="blue_background.jpg" />
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"
+                    Text="Maui For Kimai"
+                    TextColor="Black"
+                    VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
 
     <FlyoutItem Title="Login">
         <ShellContent
             Title="Welcome"
-            ContentTemplate="{DataTemplate local:LoginPage}"
-            Route="MainPage" />
+            ContentTemplate="{DataTemplate local:LoginView}"
+            Route="LoginView" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Home">
-        <ShellContent
-            Title="Welcome"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="MyFlyout2">
+    <FlyoutItem Title="Home" IsVisible="{Binding ApiStateProvider.IsAuthenticated}">
         <ShellContent
             Title="Home"
-            ContentTemplate="{DataTemplate local:HomePage}"
-            Route="HomePage" />
+            ContentTemplate="{DataTemplate local:HomeView}"
+            Route="HomeView" />
     </FlyoutItem>
+
+    <FlyoutItem Title="Timesheets" IsVisible="{Binding ApiStateProvider.IsAuthenticated}">
+        <ShellContent
+            Title="Timesheets"
+            ContentTemplate="{DataTemplate local:TimeSheetView}"
+            Route="TimeSheetView" />
+    </FlyoutItem>
+
+    <Shell.FlyoutFooter>
+        <StackLayout>
+
+            <Button
+                Command="{Binding LogOutCommand}"
+                IsVisible="{Binding ApiStateProvider.IsAuthenticated}"
+                Text="Log out" />
+            <Label Text="Bc. David Spavor" />
+        </StackLayout>
+    </Shell.FlyoutFooter>
 
 
 </Shell>

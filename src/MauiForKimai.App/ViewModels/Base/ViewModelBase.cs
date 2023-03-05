@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using MauiForKimai.ApiClient.ApiClient;
 using MauiForKimai.ApiClient.Authentication;
+using MauiForKimai.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +13,25 @@ namespace MauiForKimai.ViewModels.Base;
 public partial class ViewModelBase : ObservableObject
 {
 	
-	public ViewModelBase(AuthHandler auth)
+	public ViewModelBase(ApiStateProvider asp)
 	{
-		authHandler = auth;
+		apiStateProvider = asp;
 	}
 
 	[ObservableProperty]
-	AuthHandler authHandler;
+	public ApiStateProvider apiStateProvider;
+
+	[ObservableProperty]
+	public bool isAuthenticated;
+
+	[RelayCommand]
+    async Task LogOutAsync()
+    { 
+		apiStateProvider.Disconnect();
+		//await Shell.Current.GoToAsync(nameof(LoginView));
+	}
+
+
+
+
 }

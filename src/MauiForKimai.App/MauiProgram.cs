@@ -10,6 +10,8 @@ using MauiForKimai.Services.ServicesConfiguration;
 using MauiForKimai.Pages;
 using MauiForKimai.Pages.ServersManagement;
 using MauiForKimai.ApiClient.Services.Configuration;
+using MauiForKimai.Views;
+using MauiForKimai.ViewModels.Base;
 
 namespace MauiForKimai;
 
@@ -33,15 +35,18 @@ public static class MauiProgram
 		builder.Services.RegisterAppServices();
 
 		//ConfigureApiClients(builder.Services);
+		builder.Services.AddSingleton<ViewModelBase>();
 		builder.Services.AddSingleton<MainViewModel>();
 		builder.Services.AddSingleton<LoginViewModel>();
+		builder.Services.AddSingleton<TimeSheetViewModel>();
 
 		builder.Services.AddTransient<ServerDetailViewModel>();
 		builder.Services.AddTransient<ServerDetailPage>();
 
 
-		builder.Services.AddSingleton<MainPage>();
-		builder.Services.AddSingleton<LoginPage>();
+		builder.Services.AddSingleton<HomeView>();
+		builder.Services.AddSingleton<LoginView>();
+		builder.Services.AddSingleton<TimeSheetView>();
 
 		
 #if DEBUG

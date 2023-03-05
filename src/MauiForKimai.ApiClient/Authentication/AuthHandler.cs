@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using MauiForKimai.ApiClient.ApiClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -7,36 +9,24 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ApiClient.Authentication;
-public class AuthHandler : DelegatingHandler
+
+public partial class AuthHandler : DelegatingHandler
 {
     public const string AUTHENTICATED_CLIENT = nameof(AUTHENTICATED_CLIENT);
 
-    private string _userName = string.Empty;
-    private string _apiPassword = string.Empty;
-    private string _baseUrl = string.Empty;
-
-    private bool _isAuthenticated;
-
-
-    public void SetIsAuthenticated() => _isAuthenticated = true;
-    public void ResetIsAuthenticated() => _isAuthenticated = false;
-
-    public void SetAuthInfo(string baseUrl,string token, string apiPassword)
+    private readonly ApiStateProvider _apiStateProvider; 
+    public AuthHandler(ApiStateProvider apiStateProvider)
     {
-        _baseUrl = baseUrl;
-        _userName = token;
-        _apiPassword = apiPassword;
+        _apiStateProvider = apiStateProvider;
+
     }
-    public string GetBaseUrl() => _baseUrl;
-    public string GetUserNameToken() => _userName;
-    public string GetApiPasswordToken()  => _apiPassword;
 
     //ovveride send async to add authorization
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
  
-        request.Headers.Add("X-AUTH-USER", _userName);
-        request.Headers.Add("X-AUTH-TOKEN", _apiPassword);
+        request.Headers.Add("X-AUTH-USER", _apiStateProvider.UserName);
+        request.Headers.Add("X-AUTH-TOKEN", _apiStateProvider.ApiPassword);
        
         return await base.SendAsync(request, cancellationToken);
     }

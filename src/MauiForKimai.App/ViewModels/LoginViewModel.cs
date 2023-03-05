@@ -1,5 +1,8 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using MauiForKimai.ApiClient.ApiClient;
 using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.ApiClient.Services;
@@ -19,11 +22,10 @@ public partial class LoginViewModel : ViewModelBase
 {
     
     public ObservableCollection<ServerModel> Servers {get; set; } = new();
-    private readonly AuthHandler _authHandler;
     private readonly IEnumerable<IBaseService> _baseServices;
-    public LoginViewModel(AuthHandler aut, IEnumerable<IBaseService> baseServices) : base(aut)
+    private readonly IUserService _userService;
+    public LoginViewModel(ApiStateProvider asp, IEnumerable<IBaseService> baseServices, IUserService userService) : base(asp)
     {
-        _authHandler = aut;
         var defaultServer = new ServerModel()
         {
             Id= 0,
@@ -34,8 +36,21 @@ public partial class LoginViewModel : ViewModelBase
             Url = "https://specter13maui.kimai.cloud/"
             
         };
+
+        var local = new ServerModel()
+        {
+            Id= 1,
+            Username = "admin@admin.com",
+            ApiPasswordKey = "password",
+            IsDefault = false,
+            Name = "My local server",
+            Url = "http://localhost:8001/"
+            
+        };
         _baseServices = baseServices;
+        _userService = userService;
         Servers.Add(defaultServer);
+        Servers.Add(local);
 
     }
 
@@ -51,11 +66,35 @@ public partial class LoginViewModel : ViewModelBase
     async Task Connect(ServerModel server) 
     {
 
-		_authHandler.SetAuthInfo(server.Url,server.Username,server.ApiPasswordKey);
-        
+		base.ApiStateProvider.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
         InitializeClients(server.Url);
-		_authHandler.SetIsAuthenticated();
-       
+        var isConnected = await _baseServices.First().PingServerAsync();
+
+
+        ToastDuration duration = ToastDuration.Short;
+		double fontSize = 14;
+		if(isConnected) 
+        { 
+            base.ApiStateProvider.SetIsAuthenticated();
+            //var id = await _userService.GetUserByIdAsync(1);
+            //var allUsers = await _userService.GetAllUsersAsync();
+            base.ApiStateProvider.ActualUser = await _userService.GetMe();
+
+            string text = "Connection to Kimai established!";
+		    
+
+		    var toast = Toast.Make(text, duration, fontSize);
+		    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+		    await toast.Show(cancellationTokenSource.Token);
+
+        }
+        else
+        { 
+            string text = "Connection failed! Check your credentials!";
+		    var toast = Toast.Make(text, duration, fontSize);
+		    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+		    await toast.Show(cancellationTokenSource.Token);
+        }
     }
 
     private void InitializeClients(string baseUrl)

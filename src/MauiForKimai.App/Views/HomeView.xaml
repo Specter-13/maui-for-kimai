@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiForKimai.Views.HomeView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    Title="Home"
+    x:DataType="viewmodel:MainViewModel">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".20*" />
+            <RowDefinition Height=".50*" />
+            <RowDefinition Height=".30*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Frame Grid.Row="0">
+            <VerticalStackLayout>
+                <Label
+                    Grid.Column="0"
+                    FontSize="Large"
+                    Text="Widget"
+                    TextColor="Black" />
+            </VerticalStackLayout>
+
+        </Frame>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout
+                Padding="30,0"
+                Spacing="25"
+                VerticalOptions="Center">
+
+                <Label Text="Recent timesheets" />
+
+                <CollectionView />
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Frame Grid.Row="2">
+            <VerticalStackLayout>
+                <Label
+                    Grid.Column="0"
+                    FontSize="Large"
+                    Text="Time tracking"
+                    TextColor="Black" />
+
+                <Button Command="{Binding RecentTimesheets}" Text="Get recent Timesheets" />
+            </VerticalStackLayout>
+
+        </Frame>
+
+    </Grid>
+
+
+
+</ContentPage>

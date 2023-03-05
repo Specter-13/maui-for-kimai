@@ -64,25 +64,36 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\HomePage.xaml">
+	  <MauiXaml Update="Controls\FlyoutFooter.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\LoginPage.xaml">
+	  <MauiXaml Update="Views\HomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\ServersManagement\ServerDetailPage.xaml">
+	  <MauiXaml Update="Views\LoginView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ServersManagement\ServerDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\TimeSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Messages\" />
-	  <Folder Include="Views\" />
 	  <Folder Include="Persistence\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\ServersManagement\ServerDetailPage.xaml.cs">
+	  <Compile Update="Views\HomeView.xaml.cs">
+	    <DependentUpon>HomeView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\LoginView.xaml.cs">
+	    <DependentUpon>LoginView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\ServersManagement\ServerDetailPage.xaml.cs">
 	    <DependentUpon>ServerDetailPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
