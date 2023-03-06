@@ -21,16 +21,8 @@ public partial class ViewModelBase : ObservableObject
 	[ObservableProperty]
 	public ApiStateProvider apiStateProvider;
 
-	[ObservableProperty]
-	public bool isAuthenticated;
 
-	[RelayCommand]
-    async Task LogOutAsync()
-    { 
-		apiStateProvider.Disconnect();
-		//await Shell.Current.GoToAsync(nameof(LoginView));
-	}
-
+	
 
 
 

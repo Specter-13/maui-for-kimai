@@ -67,6 +67,9 @@
 	  <MauiXaml Update="Controls\FlyoutFooter.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Shells\AppShellDesktop.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\HomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -87,6 +90,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Shells\AppShellMobile.xaml.cs">
+	    <DependentUpon>AppShellMobile.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Shells\AppShellDesktop.xaml.cs">
+	    <DependentUpon>AppShellDesktop.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\HomeView.xaml.cs">
 	    <DependentUpon>HomeView.xaml</DependentUpon>
 	  </Compile>

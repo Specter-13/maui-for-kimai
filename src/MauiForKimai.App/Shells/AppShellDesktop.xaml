@@ -1,0 +1,44 @@
+<Shell
+    x:Class="MauiForKimai.Shells.AppShellDesktop"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiForKimai.Views"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    x:DataType="viewmodel:MenuViewModel">
+
+
+    <Shell.TitleView>
+        <Label Text="Maui For Kimai" />
+    </Shell.TitleView>
+
+    <!--<Shell.ToolbarItems>
+        <ToolbarItem Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSettingsCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="{x:Static fonts:Fonts.FontAwesome}"
+                                 Glyph="{x:Static fonts:FontAwesomeIcons.Cog}"
+                                 Size="10"
+                                 Color="{DynamicResource NavigationBarTextColor}" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </Shell.ToolbarItems>-->
+
+    <Shell.MenuBarItems>
+        <MenuBarItem Text="Menu">
+            <MenuFlyoutItem Command="{Binding GoToLoginCommand}" Text="Login" />
+            <MenuFlyoutItem Command="{Binding GoToHomeCommand}" Text="Home" />
+
+
+
+
+        </MenuBarItem>
+    </Shell.MenuBarItems>
+
+
+    <ShellContent
+        Title="Login
+        "
+        ContentTemplate="{DataTemplate local:LoginView}"
+        Route="LoginView"
+        Shell.NavBarIsVisible="true" />
+
+</Shell>

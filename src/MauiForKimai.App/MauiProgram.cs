@@ -12,6 +12,7 @@ using MauiForKimai.Pages.ServersManagement;
 using MauiForKimai.ApiClient.Services.Configuration;
 using MauiForKimai.Views;
 using MauiForKimai.ViewModels.Base;
+using MauiForKimai.Shells;
 
 namespace MauiForKimai;
 
@@ -29,13 +30,13 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		
+		builder.Services.ConfigureShell();
 
 		builder.Services.RegisterClientServices();
 		builder.Services.RegisterAppServices();
 
 		//ConfigureApiClients(builder.Services);
-		builder.Services.AddSingleton<ViewModelBase>();
+		builder.Services.AddSingleton<MenuViewModel>();
 		builder.Services.AddSingleton<MainViewModel>();
 		builder.Services.AddSingleton<LoginViewModel>();
 		builder.Services.AddSingleton<TimeSheetViewModel>();
@@ -56,22 +57,15 @@ public static class MauiProgram
 		return builder.Build();
 	}
 
-	// private static void ConfigureApiClients(IServiceCollection services)
-	//{
-	//	services.AddHttpClient<IUserClient, UserClient>((serviceProvider, client) =>
-	//	{
-	//		//var apiOptions = serviceProvider.GetRequiredService<IOptions<ApiOptions>>();
-			
-			
-	//		client.BaseAddress = new Uri("https://specter13maui.kimai.cloud/");
-	//		//client.BaseAddress = new Uri("https://demo-plugins.kimai.org/");
-	//		//client.BaseAddress = new Uri("http://localhost:8001/");
-	//		//client.DefaultRequestHeaders.Add("X-AUTH-USER", "admin@admin.com");
-	//		client.DefaultRequestHeaders.Add("X-AUTH-USER", "dadkos34@gmail.com");
-	//		client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", "internet");
-		
- //       });
-
-       
- //   }
+	public static void ConfigureShell(this IServiceCollection services)
+    {
+        if (DeviceInfo.Idiom == DeviceIdiom.Phone)
+        {
+            services.AddSingleton<AppShellMobile>();
+        }
+        else
+        {
+            services.AddSingleton<AppShellDesktop>();
+        }
+    }
 }
