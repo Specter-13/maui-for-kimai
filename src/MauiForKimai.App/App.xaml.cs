@@ -16,14 +16,12 @@ public partial class App : Application
 		InitializeComponent();
 
 
-		if (DeviceInfo.Idiom == DeviceIdiom.Phone)
-        {
+		#if __MOBILE__
             MainPage = new AppShellMobile(menuViewModel);
-        }
-        else
-        {
+		#else
             MainPage = new AppShellDesktop(menuViewModel);
-        }
+		#endif
+        
 		
 		//MainPage = new AppShell(menuViewModel);
 	}
