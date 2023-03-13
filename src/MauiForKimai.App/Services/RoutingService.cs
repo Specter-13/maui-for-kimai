@@ -16,7 +16,7 @@ namespace MauiForKimai.Services
   //           Routing.RegisterRoute("//loginview", typeof(LoginView));
 		//Routing.RegisterRoute("//homeview", typeof(HomeView));
         new("//login", typeof(LoginView), typeof(LoginViewModel)),
-        new("//home", typeof(HomeView), typeof(MainViewModel)),
+        new("//home", typeof(HomeView), typeof(HomeViewModel)),
         new("//timesheets", typeof(TimeSheetView), typeof(TimeSheetViewModel)),
     };
 

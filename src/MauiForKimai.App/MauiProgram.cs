@@ -40,12 +40,7 @@ public static class MauiProgram
 
 		//ConfigureApiClients(builder.Services);
 		builder.Services.ConfigureViewModels();
-		//builder.Services.AddSingleton<MenuViewModel>();
-		//builder.Services.AddSingleton<MainViewModel>();
-		//builder.Services.AddSingleton<LoginViewModel>();
-		//builder.Services.AddSingleton<TimeSheetViewModel>();
 
-		//builder.Services.AddTransient<ServerDetailViewModel>();
 		builder.Services.AddTransient<ServerDetailPage>();
 
 

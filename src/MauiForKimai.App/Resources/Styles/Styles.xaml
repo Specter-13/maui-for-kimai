@@ -7,7 +7,7 @@
 
     <Style x:Key="BaseLabel" TargetType="Label">
         <Setter Property="FontFamily" Value="OpenSansRegular" />
-        <Setter Property="TextColor" Value="#1F1F1F" />
+        <Setter Property="TextColor" Value="{StaticResource AccentTextColor}" />
     </Style>
 
     <Style

@@ -13,13 +13,20 @@
 #pragma warning disable 3016 // Disable "CS3016 Arrays as attribute arguments is not CLS-compliant"
 #pragma warning disable 8603 // Disable "CS8603 Possible null reference return"
 
-namespace MauiForKimai.ApiClient.Client
+namespace MauiForKimai.ApiClient
 {
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface IActivityClient
+    public partial interface IApiClient
     {
+        /// <summary>
+        /// Sets the value of a meta-field for an existing activity
+        /// </summary>
+        /// <param name="id">Activity record ID to set the meta-field value for</param>
+        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ActivityEntity> MetaAsync(int id, Body body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -27,8 +34,23 @@ namespace MauiForKimai.ApiClient.Client
         /// </summary>
         /// <param name="id">Activity record ID to set the meta-field value for</param>
         /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ActivityEntity> MetaAsync(int id, Body body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ActivityEntity> MetaAsync(int id, Body body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns a collection of activities
+        /// </summary>
+        /// <param name="project">Project ID to filter activities</param>
+        /// <param name="projects">Comma separated list of project IDs to filter activities</param>
+        /// <param name="visible">Visibility status to filter activities. Allowed values: 1=visible, 2=hidden, 3=all (default: 1)</param>
+        /// <param name="globals">Use if you want to fetch only global activities. Allowed values: true (default: false)</param>
+        /// <param name="globalsFirst">Deprecated parameter, value is not used any more</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name, project (default: name)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
+        /// <param name="term">Free search term</param>
+        /// <returns>Returns a collection of activity entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityCollection>> ActivitiesAllAsync(string project, string projects, string visible, string globals, string globalsFirst, string orderBy, string order, string term);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -43,8 +65,18 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
         /// <param name="term">Free search term</param>
         /// <returns>Returns a collection of activity entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityCollection>> ActivitiesAllAsync(string project = null, string projects = null, string visible = null, string globals = null, string globalsFirst = null, string orderBy = null, string order = null, string term = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityCollection>> ActivitiesAllAsync(string project, string projects, string visible, string globals, string globalsFirst, string orderBy, string order, string term, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Creates a new activity
+        /// </summary>
+        /// <remarks>
+        /// Creates a new activity and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created activity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ActivityEntity> ActivitiesPOSTAsync(ActivityEditForm body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -54,8 +86,16 @@ namespace MauiForKimai.ApiClient.Client
         /// Creates a new activity and returns it afterwards
         /// </remarks>
         /// <returns>Returns the new created activity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ActivityEntity> ActivitiesPOSTAsync(ActivityEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ActivityEntity> ActivitiesPOSTAsync(ActivityEditForm body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns one activity
+        /// </summary>
+        /// <param name="id">Activity ID to fetch</param>
+        /// <returns>Returns one activity entity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ActivityEntity> ActivitiesGETAsync(int id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -63,8 +103,19 @@ namespace MauiForKimai.ApiClient.Client
         /// </summary>
         /// <param name="id">Activity ID to fetch</param>
         /// <returns>Returns one activity entity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ActivityEntity> ActivitiesGETAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ActivityEntity> ActivitiesGETAsync(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Update an existing activity
+        /// </summary>
+        /// <remarks>
+        /// Update an existing activity, you can pass all or just a subset of all attributes
+        /// </remarks>
+        /// <param name="id">Activity ID to update</param>
+        /// <returns>Returns the updated activity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ActivityEntity> ActivitiesPATCHAsync(ActivityEditForm body, int id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -75,8 +126,16 @@ namespace MauiForKimai.ApiClient.Client
         /// </remarks>
         /// <param name="id">Activity ID to update</param>
         /// <returns>Returns the updated activity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ActivityEntity> ActivitiesPATCHAsync(ActivityEditForm body, int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ActivityEntity> ActivitiesPATCHAsync(ActivityEditForm body, int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns a collection of all rates for one activity
+        /// </summary>
+        /// <param name="id">The activity whose rates will be returned</param>
+        /// <returns>Returns a collection of activity rate entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityRate>> RatesAllAsync(int id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -84,8 +143,16 @@ namespace MauiForKimai.ApiClient.Client
         /// </summary>
         /// <param name="id">The activity whose rates will be returned</param>
         /// <returns>Returns a collection of activity rate entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityRate>> RatesAllAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityRate>> RatesAllAsync(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Adds a new rate to an activity
+        /// </summary>
+        /// <param name="id">The activity to add the rate for</param>
+        /// <returns>Returns the new created rate</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ActivityRate> RatesPOSTAsync(int id, ActivityRateForm body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -93,8 +160,17 @@ namespace MauiForKimai.ApiClient.Client
         /// </summary>
         /// <param name="id">The activity to add the rate for</param>
         /// <returns>Returns the new created rate</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ActivityRate> RatesPOSTAsync(int id, ActivityRateForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ActivityRate> RatesPOSTAsync(int id, ActivityRateForm body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Deletes one rate for an activity
+        /// </summary>
+        /// <param name="id">The activity whose rate will be removed</param>
+        /// <param name="rateId">The rate to remove</param>
+        /// <returns>Returns no content: 204 on successful delete</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task RatesDELETEAsync(int id, int rateId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -103,18 +179,1062 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The activity whose rate will be removed</param>
         /// <param name="rateId">The rate to remove</param>
         /// <returns>Returns no content: 204 on successful delete</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task RatesDELETEAsync(int id, int rateId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task RatesDELETEAsync(int id, int rateId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns the user specific locale configuration
+        /// </summary>
+        /// <returns>Returns the locale specific configurations for this user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<I18nConfig> I18nAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns the user specific locale configuration
+        /// </summary>
+        /// <returns>Returns the locale specific configurations for this user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<I18nConfig> I18nAsync(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns the timesheet configuration
+        /// </summary>
+        /// <returns>Returns the instance specific timesheet configuration</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetConfig> TimesheetAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns the timesheet configuration
+        /// </summary>
+        /// <returns>Returns the instance specific timesheet configuration</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetConfig> TimesheetAsync(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Sets the value of a meta-field for an existing customer
+        /// </summary>
+        /// <param name="id">Customer record ID to set the meta-field value for</param>
+        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CustomerEntity> Meta2Async(int id, Body2 body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Sets the value of a meta-field for an existing customer
+        /// </summary>
+        /// <param name="id">Customer record ID to set the meta-field value for</param>
+        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CustomerEntity> Meta2Async(int id, Body2 body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns a collection of customers
+        /// </summary>
+        /// <param name="visible">Visibility status to filter activities (1=visible, 2=hidden, 3=both)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name (default: name)</param>
+        /// <param name="term">Free search term</param>
+        /// <returns>Returns a collection of customer entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerCollection>> CustomersAllAsync(string visible, string order, string orderBy, string term);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns a collection of customers
+        /// </summary>
+        /// <param name="visible">Visibility status to filter activities (1=visible, 2=hidden, 3=both)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name (default: name)</param>
+        /// <param name="term">Free search term</param>
+        /// <returns>Returns a collection of customer entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerCollection>> CustomersAllAsync(string visible, string order, string orderBy, string term, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Creates a new customer
+        /// </summary>
+        /// <remarks>
+        /// Creates a new customer and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created customer</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CustomerEntity> CustomersPOSTAsync(CustomerEditForm body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Creates a new customer
+        /// </summary>
+        /// <remarks>
+        /// Creates a new customer and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created customer</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CustomerEntity> CustomersPOSTAsync(CustomerEditForm body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns one customer
+        /// </summary>
+        /// <returns>Returns one customer entity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CustomerEntity> CustomersGETAsync(string id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns one customer
+        /// </summary>
+        /// <returns>Returns one customer entity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CustomerEntity> CustomersGETAsync(string id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Update an existing customer
+        /// </summary>
+        /// <remarks>
+        /// Update an existing customer, you can pass all or just a subset of all attributes
+        /// </remarks>
+        /// <param name="id">Customer ID to update</param>
+        /// <returns>Returns the updated customer</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CustomerEntity> CustomersPATCHAsync(CustomerEditForm body, int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Update an existing customer
+        /// </summary>
+        /// <remarks>
+        /// Update an existing customer, you can pass all or just a subset of all attributes
+        /// </remarks>
+        /// <param name="id">Customer ID to update</param>
+        /// <returns>Returns the updated customer</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CustomerEntity> CustomersPATCHAsync(CustomerEditForm body, int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns a collection of all rates for one customer
+        /// </summary>
+        /// <param name="id">The customer whose rates will be returned</param>
+        /// <returns>Returns a collection of customer rate entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerRate>> RatesAll2Async(int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns a collection of all rates for one customer
+        /// </summary>
+        /// <param name="id">The customer whose rates will be returned</param>
+        /// <returns>Returns a collection of customer rate entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerRate>> RatesAll2Async(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Adds a new rate to a customer
+        /// </summary>
+        /// <param name="id">The customer to add the rate for</param>
+        /// <returns>Returns the new created rate</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CustomerRate> RatesPOST2Async(int id, CustomerRateForm body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Adds a new rate to a customer
+        /// </summary>
+        /// <param name="id">The customer to add the rate for</param>
+        /// <returns>Returns the new created rate</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CustomerRate> RatesPOST2Async(int id, CustomerRateForm body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Deletes one rate for an customer
+        /// </summary>
+        /// <param name="id">The customer whose rate will be removed</param>
+        /// <param name="rateId">The rate to remove</param>
+        /// <returns>Returns no content: 204 on successful delete</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task RatesDELETE2Async(int id, int rateId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Deletes one rate for an customer
+        /// </summary>
+        /// <param name="id">The customer whose rate will be removed</param>
+        /// <param name="rateId">The rate to remove</param>
+        /// <returns>Returns no content: 204 on successful delete</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task RatesDELETE2Async(int id, int rateId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Sets the value of a meta-field for an existing project
+        /// </summary>
+        /// <param name="id">Project record ID to set the meta-field value for</param>
+        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ProjectEntity> Meta3Async(int id, Body3 body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Sets the value of a meta-field for an existing project
+        /// </summary>
+        /// <param name="id">Project record ID to set the meta-field value for</param>
+        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ProjectEntity> Meta3Async(int id, Body3 body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns a collection of projects.
+        /// </summary>
+        /// <param name="customer">Customer ID to filter projects</param>
+        /// <param name="customers">Comma separated list of customer IDs to filter projects</param>
+        /// <param name="visible">Visibility status to filter projects. Allowed values: 1=visible, 2=hidden, 3=both (default: 1)</param>
+        /// <param name="start">Only projects that started before this date will be included. Allowed format: HTML5 (default: now, if end is also empty)</param>
+        /// <param name="end">Only projects that ended after this date will be included. Allowed format: HTML5 (default: now, if start is also empty)</param>
+        /// <param name="ignoreDates">If set, start and end are completely ignored. Allowed values: 1 (default: off)</param>
+        /// <param name="globalActivities">If given, filters projects by their 'global activity' support. Allowed values: 1 (supports global activities) and 0 (without global activities) (default: all)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name, customer (default: name)</param>
+        /// <param name="term">Free search term</param>
+        /// <returns>Returns a collection of project entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectCollection>> ProjectsAllAsync(string customer, string customers, string visible, string start, string end, string ignoreDates, string globalActivities, string order, string orderBy, string term);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns a collection of projects.
+        /// </summary>
+        /// <param name="customer">Customer ID to filter projects</param>
+        /// <param name="customers">Comma separated list of customer IDs to filter projects</param>
+        /// <param name="visible">Visibility status to filter projects. Allowed values: 1=visible, 2=hidden, 3=both (default: 1)</param>
+        /// <param name="start">Only projects that started before this date will be included. Allowed format: HTML5 (default: now, if end is also empty)</param>
+        /// <param name="end">Only projects that ended after this date will be included. Allowed format: HTML5 (default: now, if start is also empty)</param>
+        /// <param name="ignoreDates">If set, start and end are completely ignored. Allowed values: 1 (default: off)</param>
+        /// <param name="globalActivities">If given, filters projects by their 'global activity' support. Allowed values: 1 (supports global activities) and 0 (without global activities) (default: all)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name, customer (default: name)</param>
+        /// <param name="term">Free search term</param>
+        /// <returns>Returns a collection of project entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectCollection>> ProjectsAllAsync(string customer, string customers, string visible, string start, string end, string ignoreDates, string globalActivities, string order, string orderBy, string term, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Creates a new project
+        /// </summary>
+        /// <remarks>
+        /// Creates a new project and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created project</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ProjectEntity> ProjectsPOSTAsync(ProjectEditForm body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Creates a new project
+        /// </summary>
+        /// <remarks>
+        /// Creates a new project and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created project</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ProjectEntity> ProjectsPOSTAsync(ProjectEditForm body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns one project
+        /// </summary>
+        /// <returns>Returns one project entity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ProjectEntity> ProjectsGETAsync(string id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns one project
+        /// </summary>
+        /// <returns>Returns one project entity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ProjectEntity> ProjectsGETAsync(string id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Update an existing project
+        /// </summary>
+        /// <remarks>
+        /// Update an existing project, you can pass all or just a subset of all attributes
+        /// </remarks>
+        /// <param name="id">Project ID to update</param>
+        /// <returns>Returns the updated project</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ProjectEntity> ProjectsPATCHAsync(ProjectEditForm body, int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Update an existing project
+        /// </summary>
+        /// <remarks>
+        /// Update an existing project, you can pass all or just a subset of all attributes
+        /// </remarks>
+        /// <param name="id">Project ID to update</param>
+        /// <returns>Returns the updated project</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ProjectEntity> ProjectsPATCHAsync(ProjectEditForm body, int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns a collection of all rates for one project
+        /// </summary>
+        /// <param name="id">The project whose rates will be returned</param>
+        /// <returns>Returns a collection of project rate entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectRate>> RatesAll3Async(int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns a collection of all rates for one project
+        /// </summary>
+        /// <param name="id">The project whose rates will be returned</param>
+        /// <returns>Returns a collection of project rate entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectRate>> RatesAll3Async(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Adds a new rate to an project
+        /// </summary>
+        /// <param name="id">The project to add the rate for</param>
+        /// <returns>Returns the new created rate</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ProjectRate> RatesPOST3Async(int id, ProjectRateForm body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Adds a new rate to an project
+        /// </summary>
+        /// <param name="id">The project to add the rate for</param>
+        /// <returns>Returns the new created rate</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ProjectRate> RatesPOST3Async(int id, ProjectRateForm body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Deletes one rate for an project
+        /// </summary>
+        /// <param name="id">The project whose rate will be removed</param>
+        /// <param name="rateId">The rate to remove</param>
+        /// <returns>Returns no content: 204 on successful delete</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task RatesDELETE3Async(int id, int rateId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Deletes one rate for an project
+        /// </summary>
+        /// <param name="id">The project whose rate will be removed</param>
+        /// <param name="rateId">The rate to remove</param>
+        /// <returns>Returns no content: 204 on successful delete</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task RatesDELETE3Async(int id, int rateId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// A testing route for the API
+        /// </summary>
+        /// <returns>A simple route that returns a 'pong', which you can use for testing the API</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task PingAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// A testing route for the API
+        /// </summary>
+        /// <returns>A simple route that returns a 'pong', which you can use for testing the API</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task PingAsync(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns information about the Kimai release
+        /// </summary>
+        /// <returns>Returns version information about the current release</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Version> VersionAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns information about the Kimai release
+        /// </summary>
+        /// <returns>Returns version information about the current release</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Version> VersionAsync(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns information about installed Plugins
+        /// </summary>
+        /// <returns>Returns a list of plugin names and versions</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Plugin>> PluginsAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns information about installed Plugins
+        /// </summary>
+        /// <returns>Returns a list of plugin names and versions</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Plugin>> PluginsAsync(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Fetch all existing tags
+        /// </summary>
+        /// <param name="name">Search term to filter tag list</param>
+        /// <returns>Returns the collection of all existing tags as string array</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> TagsAllAsync(string name);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Fetch all existing tags
+        /// </summary>
+        /// <param name="name">Search term to filter tag list</param>
+        /// <returns>Returns the collection of all existing tags as string array</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> TagsAllAsync(string name, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Creates a new tag
+        /// </summary>
+        /// <remarks>
+        /// Creates a new tag and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created tag</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TagEntity> TagsPOSTAsync(TagEditForm body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Creates a new tag
+        /// </summary>
+        /// <remarks>
+        /// Creates a new tag and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created tag</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TagEntity> TagsPOSTAsync(TagEditForm body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Delete a tag
+        /// </summary>
+        /// <param name="id">Tag ID to delete</param>
+        /// <returns>HTTP code 204 for a successful delete</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task TagsDELETEAsync(int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Delete a tag
+        /// </summary>
+        /// <param name="id">Tag ID to delete</param>
+        /// <returns>HTTP code 204 for a successful delete</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task TagsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Fetch all existing teams
+        /// </summary>
+        /// <returns>Returns the collection of all existing teams</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TeamCollection>> TeamsAllAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Fetch all existing teams
+        /// </summary>
+        /// <returns>Returns the collection of all existing teams</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TeamCollection>> TeamsAllAsync(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Creates a new team
+        /// </summary>
+        /// <remarks>
+        /// Creates a new team and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created team</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> TeamsPOSTAsync(TeamEditForm body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Creates a new team
+        /// </summary>
+        /// <remarks>
+        /// Creates a new team and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created team</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> TeamsPOSTAsync(TeamEditForm body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns one team
+        /// </summary>
+        /// <returns>Returns one team entity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> TeamsGETAsync(string id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns one team
+        /// </summary>
+        /// <returns>Returns one team entity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> TeamsGETAsync(string id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Update an existing team
+        /// </summary>
+        /// <remarks>
+        /// Update an existing team, you can pass all or just a subset of all attributes (passing members will replace all existing ones)
+        /// </remarks>
+        /// <param name="id">Team ID to update</param>
+        /// <returns>Returns the updated team</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> TeamsPATCHAsync(TeamEditForm body, int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Update an existing team
+        /// </summary>
+        /// <remarks>
+        /// Update an existing team, you can pass all or just a subset of all attributes (passing members will replace all existing ones)
+        /// </remarks>
+        /// <param name="id">Team ID to update</param>
+        /// <returns>Returns the updated team</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> TeamsPATCHAsync(TeamEditForm body, int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Delete a team
+        /// </summary>
+        /// <param name="id">Team ID to delete</param>
+        /// <returns>Delete one team</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task TeamsDELETEAsync(int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Delete a team
+        /// </summary>
+        /// <param name="id">Team ID to delete</param>
+        /// <returns>Delete one team</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task TeamsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Add a new member to a team
+        /// </summary>
+        /// <param name="id">The team which will receive the new member</param>
+        /// <param name="userId">The team member to add (User ID)</param>
+        /// <returns>Adds a new user to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> MembersPOSTAsync(int id, int userId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Add a new member to a team
+        /// </summary>
+        /// <param name="id">The team which will receive the new member</param>
+        /// <param name="userId">The team member to add (User ID)</param>
+        /// <returns>Adds a new user to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> MembersPOSTAsync(int id, int userId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Removes a member from the team
+        /// </summary>
+        /// <param name="id">The team from which the member will be removed</param>
+        /// <param name="userId">The team member to remove (User ID)</param>
+        /// <returns>Removes a user from the team. The teamlead cannot be removed.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> MembersDELETEAsync(int id, int userId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Removes a member from the team
+        /// </summary>
+        /// <param name="id">The team from which the member will be removed</param>
+        /// <param name="userId">The team member to remove (User ID)</param>
+        /// <returns>Removes a user from the team. The teamlead cannot be removed.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> MembersDELETEAsync(int id, int userId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Grant the team access to a customer
+        /// </summary>
+        /// <param name="id">The team that is granted access</param>
+        /// <param name="customerId">The customer to grant acecess to (Customer ID)</param>
+        /// <returns>Adds a new customer to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> CustomersPOST2Async(int id, int customerId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Grant the team access to a customer
+        /// </summary>
+        /// <param name="id">The team that is granted access</param>
+        /// <param name="customerId">The customer to grant acecess to (Customer ID)</param>
+        /// <returns>Adds a new customer to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> CustomersPOST2Async(int id, int customerId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Revokes access for a customer from a team
+        /// </summary>
+        /// <param name="id">The team whose permission will be revoked</param>
+        /// <param name="customerId">The customer to remove (Customer ID)</param>
+        /// <returns>Removes a customer from the team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> CustomersDELETEAsync(int id, int customerId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Revokes access for a customer from a team
+        /// </summary>
+        /// <param name="id">The team whose permission will be revoked</param>
+        /// <param name="customerId">The customer to remove (Customer ID)</param>
+        /// <returns>Removes a customer from the team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> CustomersDELETEAsync(int id, int customerId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Grant the team access to a project
+        /// </summary>
+        /// <param name="id">The team that is granted access</param>
+        /// <param name="projectId">The project to grant acecess to (Project ID)</param>
+        /// <returns>Adds a new project to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> ProjectsPOST2Async(int id, int projectId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Grant the team access to a project
+        /// </summary>
+        /// <param name="id">The team that is granted access</param>
+        /// <param name="projectId">The project to grant acecess to (Project ID)</param>
+        /// <returns>Adds a new project to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> ProjectsPOST2Async(int id, int projectId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Revokes access for a project from a team
+        /// </summary>
+        /// <param name="id">The team whose permission will be revoked</param>
+        /// <param name="projectId">The project to remove (Project ID)</param>
+        /// <returns>Removes a project from the team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> ProjectsDELETEAsync(int id, int projectId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Revokes access for a project from a team
+        /// </summary>
+        /// <param name="id">The team whose permission will be revoked</param>
+        /// <param name="projectId">The project to remove (Project ID)</param>
+        /// <returns>Removes a project from the team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> ProjectsDELETEAsync(int id, int projectId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Grant the team access to an activity
+        /// </summary>
+        /// <param name="id">The team that is granted access</param>
+        /// <param name="activityId">The activity to grant acecess to (Activity ID)</param>
+        /// <returns>Adds a new activity to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> ActivitiesPOST2Async(int id, int activityId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Grant the team access to an activity
+        /// </summary>
+        /// <param name="id">The team that is granted access</param>
+        /// <param name="activityId">The activity to grant acecess to (Activity ID)</param>
+        /// <returns>Adds a new activity to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> ActivitiesPOST2Async(int id, int activityId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Revokes access for an activity from a team
+        /// </summary>
+        /// <param name="id">The team whose permission will be revoked</param>
+        /// <param name="activityId">The activity to remove (Activity ID)</param>
+        /// <returns>Removes a activity from the team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> ActivitiesDELETEAsync(int id, int activityId);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Revokes access for an activity from a team
+        /// </summary>
+        /// <param name="id">The team whose permission will be revoked</param>
+        /// <param name="activityId">The activity to remove (Activity ID)</param>
+        /// <returns>Removes a activity from the team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Team> ActivitiesDELETEAsync(int id, int activityId, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns the collection of recent user activities
+        /// </summary>
+        /// <param name="user">User ID to filter timesheets. Needs permission 'view_other_timesheet', pass 'all' to fetch data for all user (default: current user)</param>
+        /// <param name="begin">Only records after this date will be included. Default: today - 1 year (format: HTML5)</param>
+        /// <param name="size">The amount of entries (default: 10)</param>
+        /// <returns>Returns the collection of recent user activities (always the latest entry of a unique working set grouped by customer, project and activity)</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> RecentAsync(string user, string begin, string size);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns the collection of recent user activities
+        /// </summary>
+        /// <param name="user">User ID to filter timesheets. Needs permission 'view_other_timesheet', pass 'all' to fetch data for all user (default: current user)</param>
+        /// <param name="begin">Only records after this date will be included. Default: today - 1 year (format: HTML5)</param>
+        /// <param name="size">The amount of entries (default: 10)</param>
+        /// <returns>Returns the collection of recent user activities (always the latest entry of a unique working set grouped by customer, project and activity)</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> RecentAsync(string user, string begin, string size, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns the collection of active timesheet records
+        /// </summary>
+        /// <returns>Returns the collection of active timesheet records for the current user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> ActiveAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns the collection of active timesheet records
+        /// </summary>
+        /// <returns>Returns the collection of active timesheet records for the current user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> ActiveAsync(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Stops an active timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to stop</param>
+        /// <returns>Stops an active timesheet record and returns it afterwards.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> StopAsync(int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Stops an active timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to stop</param>
+        /// <returns>Stops an active timesheet record and returns it afterwards.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> StopAsync(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Restarts a previously stopped timesheet record for the current user
+        /// </summary>
+        /// <param name="id">Timesheet record ID to restart</param>
+        /// <returns>Restarts a timesheet record for the same customer, project, activity combination. The current user will be the owner of the new record. Kimai tries to stop running records, which is expected to fail depending on the configured rules. Data will be copied from the original record if requested.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> RestartAsync(int id, Body4 body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Restarts a previously stopped timesheet record for the current user
+        /// </summary>
+        /// <param name="id">Timesheet record ID to restart</param>
+        /// <returns>Restarts a timesheet record for the same customer, project, activity combination. The current user will be the owner of the new record. Kimai tries to stop running records, which is expected to fail depending on the configured rules. Data will be copied from the original record if requested.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> RestartAsync(int id, Body4 body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Duplicates an existing timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to duplicate</param>
+        /// <returns>Duplicates a timesheet record, resetting the export state only.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> DuplicateAsync(int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Duplicates an existing timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to duplicate</param>
+        /// <returns>Duplicates a timesheet record, resetting the export state only.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> DuplicateAsync(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Switch the export state of a timesheet record to (un-)lock it
+        /// </summary>
+        /// <param name="id">Timesheet record ID to switch export state</param>
+        /// <returns>Switches the exported state on the record and therefor locks / unlocks it for further updates. Needs edit_export_*_timesheet permission.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> ExportAsync(int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Switch the export state of a timesheet record to (un-)lock it
+        /// </summary>
+        /// <param name="id">Timesheet record ID to switch export state</param>
+        /// <returns>Switches the exported state on the record and therefor locks / unlocks it for further updates. Needs edit_export_*_timesheet permission.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> ExportAsync(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Sets the value of a meta-field for an existing timesheet.
+        /// </summary>
+        /// <param name="id">Timesheet record ID to set the meta-field value for</param>
+        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> Meta4Async(int id, Body5 body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Sets the value of a meta-field for an existing timesheet.
+        /// </summary>
+        /// <param name="id">Timesheet record ID to set the meta-field value for</param>
+        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> Meta4Async(int id, Body5 body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns a collection of timesheet records
+        /// </summary>
+        /// <param name="user">User ID to filter timesheets. Needs permission 'view_other_timesheet', pass 'all' to fetch data for all user (default: current user)</param>
+        /// <param name="customer">DEPRECATED: Customer ID to filter timesheets (will be removed with 2.0)</param>
+        /// <param name="customers">Comma separated list of customer IDs to filter timesheets</param>
+        /// <param name="project">DEPRECATED: Project ID to filter timesheets (will be removed with 2.0)</param>
+        /// <param name="projects">Comma separated list of project IDs to filter timesheets</param>
+        /// <param name="activity">DEPRECATED: Activity ID to filter timesheets (will be removed with 2.0)</param>
+        /// <param name="activities">Comma separated list of activity IDs to filter timesheets</param>
+        /// <param name="page">The page to display, renders a 404 if not found (default: 1)</param>
+        /// <param name="size">The amount of entries for each page (default: 50)</param>
+        /// <param name="tags">Comma separated list of tag names</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, begin, end, rate (default: begin)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: DESC)</param>
+        /// <param name="begin">Only records after this date will be included (format: HTML5)</param>
+        /// <param name="end">Only records before this date will be included (format: HTML5)</param>
+        /// <param name="exported">Use this flag if you want to filter for export state. Allowed values: 0=not exported, 1=exported (default: all)</param>
+        /// <param name="active">Filter for running/active records. Allowed values: 0=stopped, 1=active (default: all)</param>
+        /// <param name="billable">Filter for non-/billable records. Allowed values: 0=non-billable, 1=billable (default: all)</param>
+        /// <param name="full">Allows to fetch fully serialized objects including subresources. Allowed values: true (default: false)</param>
+        /// <param name="term">Free search term</param>
+        /// <param name="modified_after">Only records changed after this date will be included (format: HTML5). Available since Kimai 1.10 and works only for records that were created/updated since then.</param>
+        /// <returns>Returns a collection of timesheets records. Be aware that the datetime fields are given in the users local time including the timezone offset via ISO 8601.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollection>> TimesheetsAllAsync(string user, string customer, string customers, string project, string projects, string activity, string activities, string page, string size, string tags, string orderBy, string order, string begin, string end, string exported, string active, string billable, string full, string term, string modified_after);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns a collection of timesheet records
+        /// </summary>
+        /// <param name="user">User ID to filter timesheets. Needs permission 'view_other_timesheet', pass 'all' to fetch data for all user (default: current user)</param>
+        /// <param name="customer">DEPRECATED: Customer ID to filter timesheets (will be removed with 2.0)</param>
+        /// <param name="customers">Comma separated list of customer IDs to filter timesheets</param>
+        /// <param name="project">DEPRECATED: Project ID to filter timesheets (will be removed with 2.0)</param>
+        /// <param name="projects">Comma separated list of project IDs to filter timesheets</param>
+        /// <param name="activity">DEPRECATED: Activity ID to filter timesheets (will be removed with 2.0)</param>
+        /// <param name="activities">Comma separated list of activity IDs to filter timesheets</param>
+        /// <param name="page">The page to display, renders a 404 if not found (default: 1)</param>
+        /// <param name="size">The amount of entries for each page (default: 50)</param>
+        /// <param name="tags">Comma separated list of tag names</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, begin, end, rate (default: begin)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: DESC)</param>
+        /// <param name="begin">Only records after this date will be included (format: HTML5)</param>
+        /// <param name="end">Only records before this date will be included (format: HTML5)</param>
+        /// <param name="exported">Use this flag if you want to filter for export state. Allowed values: 0=not exported, 1=exported (default: all)</param>
+        /// <param name="active">Filter for running/active records. Allowed values: 0=stopped, 1=active (default: all)</param>
+        /// <param name="billable">Filter for non-/billable records. Allowed values: 0=non-billable, 1=billable (default: all)</param>
+        /// <param name="full">Allows to fetch fully serialized objects including subresources. Allowed values: true (default: false)</param>
+        /// <param name="term">Free search term</param>
+        /// <param name="modified_after">Only records changed after this date will be included (format: HTML5). Available since Kimai 1.10 and works only for records that were created/updated since then.</param>
+        /// <returns>Returns a collection of timesheets records. Be aware that the datetime fields are given in the users local time including the timezone offset via ISO 8601.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollection>> TimesheetsAllAsync(string user, string customer, string customers, string project, string projects, string activity, string activities, string page, string size, string tags, string orderBy, string order, string begin, string end, string exported, string active, string billable, string full, string term, string modified_after, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Creates a new timesheet record
+        /// </summary>
+        /// <remarks>
+        /// Creates a new timesheet record for the current user and returns it afterwards.
+        /// </remarks>
+        /// <param name="full">Allows to fetch fully serialized objects including subresources (TimesheetEntityExpanded). Allowed values: true (default: false)</param>
+        /// <returns>Returns the new created timesheet</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPOSTAsync(TimesheetEditForm body, string full);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Creates a new timesheet record
+        /// </summary>
+        /// <remarks>
+        /// Creates a new timesheet record for the current user and returns it afterwards.
+        /// </remarks>
+        /// <param name="full">Allows to fetch fully serialized objects including subresources (TimesheetEntityExpanded). Allowed values: true (default: false)</param>
+        /// <returns>Returns the new created timesheet</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPOSTAsync(TimesheetEditForm body, string full, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns one timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to fetch</param>
+        /// <returns>Returns one timesheet record. Be aware that the datetime fields are given in the users local time including the timezone offset via ISO 8601.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> TimesheetsGETAsync(int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns one timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to fetch</param>
+        /// <returns>Returns one timesheet record. Be aware that the datetime fields are given in the users local time including the timezone offset via ISO 8601.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> TimesheetsGETAsync(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Update an existing timesheet record
+        /// </summary>
+        /// <remarks>
+        /// Update an existing timesheet record, you can pass all or just a subset of the attributes.
+        /// </remarks>
+        /// <param name="id">Timesheet record ID to update</param>
+        /// <returns>Returns the updated timesheet</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPATCHAsync(int id, TimesheetEditForm body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Update an existing timesheet record
+        /// </summary>
+        /// <remarks>
+        /// Update an existing timesheet record, you can pass all or just a subset of the attributes.
+        /// </remarks>
+        /// <param name="id">Timesheet record ID to update</param>
+        /// <returns>Returns the updated timesheet</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPATCHAsync(int id, TimesheetEditForm body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Delete an existing timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to delete</param>
+        /// <returns>Delete one timesheet record</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task TimesheetsDELETEAsync(int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Delete an existing timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to delete</param>
+        /// <returns>Delete one timesheet record</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task TimesheetsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Return the current user entity
+        /// </summary>
+        /// <returns>Return the current user entity.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<UserEntity> MeAsync();
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Return the current user entity
+        /// </summary>
+        /// <returns>Return the current user entity.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<UserEntity> MeAsync(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Returns the collection of all registered users
+        /// </summary>
+        /// <param name="visible">Visibility status to filter users. Allowed values: 1=visible, 2=hidden, 3=all (default: 1)</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, username, alias, email (default: username)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
+        /// <param name="term">Free search term</param>
+        /// <returns>Returns the collection of all registered users. Required permission: view_user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserCollection>> UsersAllAsync(string visible, string orderBy, string order, string term);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns the collection of all registered users
+        /// </summary>
+        /// <param name="visible">Visibility status to filter users. Allowed values: 1=visible, 2=hidden, 3=all (default: 1)</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, username, alias, email (default: username)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
+        /// <param name="term">Free search term</param>
+        /// <returns>Returns the collection of all registered users. Required permission: view_user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserCollection>> UsersAllAsync(string visible, string orderBy, string order, string term, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Creates a new user
+        /// </summary>
+        /// <remarks>
+        /// Creates a new user and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<UserEntity> UsersPOSTAsync(UserCreateForm body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Creates a new user
+        /// </summary>
+        /// <remarks>
+        /// Creates a new user and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<UserEntity> UsersPOSTAsync(UserCreateForm body, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Return one user entity
+        /// </summary>
+        /// <param name="id">User ID to fetch</param>
+        /// <returns>Return one user entity.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<UserEntity> UsersGETAsync(int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Return one user entity
+        /// </summary>
+        /// <param name="id">User ID to fetch</param>
+        /// <returns>Return one user entity.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<UserEntity> UsersGETAsync(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Update an existing user
+        /// </summary>
+        /// <remarks>
+        /// Update an existing user, you can pass all or just a subset of all attributes (passing roles will replace all existing ones)
+        /// </remarks>
+        /// <param name="id">User ID to update</param>
+        /// <returns>Returns the updated user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<UserEntity> UsersPATCHAsync(UserEditForm body, int id);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Update an existing user
+        /// </summary>
+        /// <remarks>
+        /// Update an existing user, you can pass all or just a subset of all attributes (passing roles will replace all existing ones)
+        /// </remarks>
+        /// <param name="id">User ID to update</param>
+        /// <returns>Returns the updated user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<UserEntity> UsersPATCHAsync(UserEditForm body, int id, System.Threading.CancellationToken cancellationToken);
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ActivityClient : IActivityClient
+    public partial class ApiClient : IApiClient
     {
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
-        public ActivityClient(System.Net.Http.HttpClient httpClient)
+        public ApiClient(System.Net.Http.HttpClient httpClient)
         {
             _httpClient = httpClient;
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
@@ -135,14 +1255,25 @@ namespace MauiForKimai.ApiClient.Client
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
+        /// <summary>
+        /// Sets the value of a meta-field for an existing activity
+        /// </summary>
+        /// <param name="id">Activity record ID to set the meta-field value for</param>
+        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ActivityEntity> MetaAsync(int id, Body body)
+        {
+            return MetaAsync(id, body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Sets the value of a meta-field for an existing activity
         /// </summary>
         /// <param name="id">Activity record ID to set the meta-field value for</param>
         /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ActivityEntity> MetaAsync(int id, Body body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ActivityEntity> MetaAsync(int id, Body body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -190,14 +1321,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<ActivityEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -214,6 +1345,24 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns a collection of activities
+        /// </summary>
+        /// <param name="project">Project ID to filter activities</param>
+        /// <param name="projects">Comma separated list of project IDs to filter activities</param>
+        /// <param name="visible">Visibility status to filter activities. Allowed values: 1=visible, 2=hidden, 3=all (default: 1)</param>
+        /// <param name="globals">Use if you want to fetch only global activities. Allowed values: true (default: false)</param>
+        /// <param name="globalsFirst">Deprecated parameter, value is not used any more</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name, project (default: name)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
+        /// <param name="term">Free search term</param>
+        /// <returns>Returns a collection of activity entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityCollection>> ActivitiesAllAsync(string project, string projects, string visible, string globals, string globalsFirst, string orderBy, string order, string term)
+        {
+            return ActivitiesAllAsync(project, projects, visible, globals, globalsFirst, orderBy, order, term, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns a collection of activities
@@ -227,8 +1376,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
         /// <param name="term">Free search term</param>
         /// <returns>Returns a collection of activity entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityCollection>> ActivitiesAllAsync(string project = null, string projects = null, string visible = null, string globals = null, string globalsFirst = null, string orderBy = null, string order = null, string term = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityCollection>> ActivitiesAllAsync(string project, string projects, string visible, string globals, string globalsFirst, string orderBy, string order, string term, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/activities?");
@@ -301,14 +1450,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<ActivityCollection>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -325,6 +1474,19 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Creates a new activity
+        /// </summary>
+        /// <remarks>
+        /// Creates a new activity and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created activity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ActivityEntity> ActivitiesPOSTAsync(ActivityEditForm body)
+        {
+            return ActivitiesPOSTAsync(body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Creates a new activity
@@ -333,8 +1495,8 @@ namespace MauiForKimai.ApiClient.Client
         /// Creates a new activity and returns it afterwards
         /// </remarks>
         /// <returns>Returns the new created activity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ActivityEntity> ActivitiesPOSTAsync(ActivityEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ActivityEntity> ActivitiesPOSTAsync(ActivityEditForm body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -381,14 +1543,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<ActivityEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -405,14 +1567,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns one activity
+        /// </summary>
+        /// <param name="id">Activity ID to fetch</param>
+        /// <returns>Returns one activity entity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ActivityEntity> ActivitiesGETAsync(int id)
+        {
+            return ActivitiesGETAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns one activity
         /// </summary>
         /// <param name="id">Activity ID to fetch</param>
         /// <returns>Returns one activity entity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ActivityEntity> ActivitiesGETAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ActivityEntity> ActivitiesGETAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -456,14 +1629,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<ActivityEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -480,6 +1653,20 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Update an existing activity
+        /// </summary>
+        /// <remarks>
+        /// Update an existing activity, you can pass all or just a subset of all attributes
+        /// </remarks>
+        /// <param name="id">Activity ID to update</param>
+        /// <returns>Returns the updated activity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ActivityEntity> ActivitiesPATCHAsync(ActivityEditForm body, int id)
+        {
+            return ActivitiesPATCHAsync(body, id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Update an existing activity
@@ -489,8 +1676,8 @@ namespace MauiForKimai.ApiClient.Client
         /// </remarks>
         /// <param name="id">Activity ID to update</param>
         /// <returns>Returns the updated activity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ActivityEntity> ActivitiesPATCHAsync(ActivityEditForm body, int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ActivityEntity> ActivitiesPATCHAsync(ActivityEditForm body, int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -541,14 +1728,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<ActivityEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -565,14 +1752,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns a collection of all rates for one activity
+        /// </summary>
+        /// <param name="id">The activity whose rates will be returned</param>
+        /// <returns>Returns a collection of activity rate entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityRate>> RatesAllAsync(int id)
+        {
+            return RatesAllAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns a collection of all rates for one activity
         /// </summary>
         /// <param name="id">The activity whose rates will be returned</param>
         /// <returns>Returns a collection of activity rate entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityRate>> RatesAllAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ActivityRate>> RatesAllAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -616,14 +1814,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<ActivityRate>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -640,14 +1838,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Adds a new rate to an activity
+        /// </summary>
+        /// <param name="id">The activity to add the rate for</param>
+        /// <returns>Returns the new created rate</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ActivityRate> RatesPOSTAsync(int id, ActivityRateForm body)
+        {
+            return RatesPOSTAsync(id, body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Adds a new rate to an activity
         /// </summary>
         /// <param name="id">The activity to add the rate for</param>
         /// <returns>Returns the new created rate</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ActivityRate> RatesPOSTAsync(int id, ActivityRateForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ActivityRate> RatesPOSTAsync(int id, ActivityRateForm body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -698,14 +1907,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<ActivityRate>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -722,6 +1931,18 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Deletes one rate for an activity
+        /// </summary>
+        /// <param name="id">The activity whose rate will be removed</param>
+        /// <param name="rateId">The rate to remove</param>
+        /// <returns>Returns no content: 204 on successful delete</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task RatesDELETEAsync(int id, int rateId)
+        {
+            return RatesDELETEAsync(id, rateId, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Deletes one rate for an activity
@@ -729,8 +1950,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The activity whose rate will be removed</param>
         /// <param name="rateId">The rate to remove</param>
         /// <returns>Returns no content: 204 on successful delete</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task RatesDELETEAsync(int id, int rateId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task RatesDELETEAsync(int id, int rateId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -779,7 +2000,7 @@ namespace MauiForKimai.ApiClient.Client
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -796,189 +2017,23 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
-        protected struct ObjectResponseResult<T>
+        /// <summary>
+        /// Returns the user specific locale configuration
+        /// </summary>
+        /// <returns>Returns the locale specific configurations for this user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<I18nConfig> I18nAsync()
         {
-            public ObjectResponseResult(T responseObject, string responseText)
-            {
-                this.Object = responseObject;
-                this.Text = responseText;
-            }
-
-            public T Object { get; }
-
-            public string Text { get; }
+            return I18nAsync(System.Threading.CancellationToken.None);
         }
-
-        public bool ReadResponseAsString { get; set; }
-
-        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
-        {
-            if (response == null || response.Content == null)
-            {
-                return new ObjectResponseResult<T>(default(T), string.Empty);
-            }
-
-            if (ReadResponseAsString)
-            {
-                var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
-                    return new ObjectResponseResult<T>(typedBody, responseText);
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, responseText, headers, exception);
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    using (var streamReader = new System.IO.StreamReader(responseStream))
-                    using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader))
-                    {
-                        var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
-                        var typedBody = serializer.Deserialize<T>(jsonTextReader);
-                        return new ObjectResponseResult<T>(typedBody, string.Empty);
-                    }
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
-                }
-            }
-        }
-
-        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
-        {
-            if (value == null)
-            {
-                return "";
-            }
-
-            if (value is System.Enum)
-            {
-                var name = System.Enum.GetName(value.GetType(), value);
-                if (name != null)
-                {
-                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
-                    if (field != null)
-                    {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
-                            as System.Runtime.Serialization.EnumMemberAttribute;
-                        if (attribute != null)
-                        {
-                            return attribute.Value != null ? attribute.Value : name;
-                        }
-                    }
-
-                    var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
-                    return converted == null ? string.Empty : converted;
-                }
-            }
-            else if (value is bool) 
-            {
-                return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
-            }
-            else if (value is byte[])
-            {
-                return System.Convert.ToBase64String((byte[]) value);
-            }
-            else if (value.GetType().IsArray)
-            {
-                var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
-                return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
-            }
-
-            var result = System.Convert.ToString(value, cultureInfo);
-            return result == null ? "" : result;
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface IDefaultClient
-    {
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns the user specific locale configuration
         /// </summary>
         /// <returns>Returns the locale specific configurations for this user</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<I18nConfig> I18nAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns the timesheet configuration
-        /// </summary>
-        /// <returns>Returns the instance specific timesheet configuration</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TimesheetConfig> TimesheetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// A testing route for the API
-        /// </summary>
-        /// <returns>A simple route that returns a 'pong', which you can use for testing the API</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task PingAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns information about the Kimai release
-        /// </summary>
-        /// <returns>Returns version information about the current release</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Version> VersionAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns information about installed Plugins
-        /// </summary>
-        /// <returns>Returns a list of plugin names and versions</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Plugin>> PluginsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class DefaultClient : IDefaultClient
-    {
-        private System.Net.Http.HttpClient _httpClient;
-        private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-
-        public DefaultClient(System.Net.Http.HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-            _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
-        }
-
-        private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
-        {
-            var settings = new Newtonsoft.Json.JsonSerializerSettings();
-            UpdateJsonSerializerSettings(settings);
-            return settings;
-        }
-
-        protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
-
-        partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
-
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
-        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns the user specific locale configuration
-        /// </summary>
-        /// <returns>Returns the locale specific configurations for this user</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<I18nConfig> I18nAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<I18nConfig> I18nAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/config/i18n");
@@ -1018,14 +2073,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<I18nConfig>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1042,13 +2097,23 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns the timesheet configuration
+        /// </summary>
+        /// <returns>Returns the instance specific timesheet configuration</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<TimesheetConfig> TimesheetAsync()
+        {
+            return TimesheetAsync(System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns the timesheet configuration
         /// </summary>
         /// <returns>Returns the instance specific timesheet configuration</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TimesheetConfig> TimesheetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TimesheetConfig> TimesheetAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/config/timesheet");
@@ -1088,14 +2153,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<TimesheetConfig>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1112,317 +2177,16 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// A testing route for the API
+        /// Sets the value of a meta-field for an existing customer
         /// </summary>
-        /// <returns>A simple route that returns a 'pong', which you can use for testing the API</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task PingAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <param name="id">Customer record ID to set the meta-field value for</param>
+        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<CustomerEntity> Meta2Async(int id, Body2 body)
         {
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/ping");
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            return;
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
+            return Meta2Async(id, body, System.Threading.CancellationToken.None);
         }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns information about the Kimai release
-        /// </summary>
-        /// <returns>Returns version information about the current release</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Version> VersionAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/version");
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<Version>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns information about installed Plugins
-        /// </summary>
-        /// <returns>Returns a list of plugin names and versions</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Plugin>> PluginsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/plugins");
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    request_.Method = new System.Net.Http.HttpMethod("GET");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Plugin>>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        protected struct ObjectResponseResult<T>
-        {
-            public ObjectResponseResult(T responseObject, string responseText)
-            {
-                this.Object = responseObject;
-                this.Text = responseText;
-            }
-
-            public T Object { get; }
-
-            public string Text { get; }
-        }
-
-        public bool ReadResponseAsString { get; set; }
-
-        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
-        {
-            if (response == null || response.Content == null)
-            {
-                return new ObjectResponseResult<T>(default(T), string.Empty);
-            }
-
-            if (ReadResponseAsString)
-            {
-                var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
-                    return new ObjectResponseResult<T>(typedBody, responseText);
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, responseText, headers, exception);
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    using (var streamReader = new System.IO.StreamReader(responseStream))
-                    using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader))
-                    {
-                        var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
-                        var typedBody = serializer.Deserialize<T>(jsonTextReader);
-                        return new ObjectResponseResult<T>(typedBody, string.Empty);
-                    }
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
-                }
-            }
-        }
-
-        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
-        {
-            if (value == null)
-            {
-                return "";
-            }
-
-            if (value is System.Enum)
-            {
-                var name = System.Enum.GetName(value.GetType(), value);
-                if (name != null)
-                {
-                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
-                    if (field != null)
-                    {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
-                            as System.Runtime.Serialization.EnumMemberAttribute;
-                        if (attribute != null)
-                        {
-                            return attribute.Value != null ? attribute.Value : name;
-                        }
-                    }
-
-                    var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
-                    return converted == null ? string.Empty : converted;
-                }
-            }
-            else if (value is bool) 
-            {
-                return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
-            }
-            else if (value is byte[])
-            {
-                return System.Convert.ToBase64String((byte[]) value);
-            }
-            else if (value.GetType().IsArray)
-            {
-                var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
-                return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
-            }
-
-            var result = System.Convert.ToString(value, cultureInfo);
-            return result == null ? "" : result;
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface ICustomerClient
-    {
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -1430,117 +2194,8 @@ namespace MauiForKimai.ApiClient.Client
         /// </summary>
         /// <param name="id">Customer record ID to set the meta-field value for</param>
         /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CustomerEntity> Meta2Async(int id, Body2 body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns a collection of customers
-        /// </summary>
-        /// <param name="visible">Visibility status to filter activities (1=visible, 2=hidden, 3=both)</param>
-        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
-        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name (default: name)</param>
-        /// <param name="term">Free search term</param>
-        /// <returns>Returns a collection of customer entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerCollection>> CustomersAllAsync(string visible = null, string order = null, string orderBy = null, string term = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Creates a new customer
-        /// </summary>
-        /// <remarks>
-        /// Creates a new customer and returns it afterwards
-        /// </remarks>
-        /// <returns>Returns the new created customer</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CustomerEntity> CustomersPOSTAsync(CustomerEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns one customer
-        /// </summary>
-        /// <returns>Returns one customer entity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CustomerEntity> CustomersGETAsync(string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Update an existing customer
-        /// </summary>
-        /// <remarks>
-        /// Update an existing customer, you can pass all or just a subset of all attributes
-        /// </remarks>
-        /// <param name="id">Customer ID to update</param>
-        /// <returns>Returns the updated customer</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CustomerEntity> CustomersPATCHAsync(CustomerEditForm body, int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns a collection of all rates for one customer
-        /// </summary>
-        /// <param name="id">The customer whose rates will be returned</param>
-        /// <returns>Returns a collection of customer rate entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerRate>> RatesAll2Async(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Adds a new rate to a customer
-        /// </summary>
-        /// <param name="id">The customer to add the rate for</param>
-        /// <returns>Returns the new created rate</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CustomerRate> RatesPOST2Async(int id, CustomerRateForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Deletes one rate for an customer
-        /// </summary>
-        /// <param name="id">The customer whose rate will be removed</param>
-        /// <param name="rateId">The rate to remove</param>
-        /// <returns>Returns no content: 204 on successful delete</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task RatesDELETE2Async(int id, int rateId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class CustomerClient : ICustomerClient
-    {
-        private System.Net.Http.HttpClient _httpClient;
-        private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-
-        public CustomerClient(System.Net.Http.HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-            _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
-        }
-
-        private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
-        {
-            var settings = new Newtonsoft.Json.JsonSerializerSettings();
-            UpdateJsonSerializerSettings(settings);
-            return settings;
-        }
-
-        protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
-
-        partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
-
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
-        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Sets the value of a meta-field for an existing customer
-        /// </summary>
-        /// <param name="id">Customer record ID to set the meta-field value for</param>
-        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<CustomerEntity> Meta2Async(int id, Body2 body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<CustomerEntity> Meta2Async(int id, Body2 body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1588,14 +2243,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<CustomerEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1612,6 +2267,20 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns a collection of customers
+        /// </summary>
+        /// <param name="visible">Visibility status to filter activities (1=visible, 2=hidden, 3=both)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name (default: name)</param>
+        /// <param name="term">Free search term</param>
+        /// <returns>Returns a collection of customer entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerCollection>> CustomersAllAsync(string visible, string order, string orderBy, string term)
+        {
+            return CustomersAllAsync(visible, order, orderBy, term, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns a collection of customers
@@ -1621,8 +2290,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name (default: name)</param>
         /// <param name="term">Free search term</param>
         /// <returns>Returns a collection of customer entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerCollection>> CustomersAllAsync(string visible = null, string order = null, string orderBy = null, string term = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerCollection>> CustomersAllAsync(string visible, string order, string orderBy, string term, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/customers?");
@@ -1679,14 +2348,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<CustomerCollection>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1703,6 +2372,19 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Creates a new customer
+        /// </summary>
+        /// <remarks>
+        /// Creates a new customer and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created customer</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<CustomerEntity> CustomersPOSTAsync(CustomerEditForm body)
+        {
+            return CustomersPOSTAsync(body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Creates a new customer
@@ -1711,8 +2393,8 @@ namespace MauiForKimai.ApiClient.Client
         /// Creates a new customer and returns it afterwards
         /// </remarks>
         /// <returns>Returns the new created customer</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<CustomerEntity> CustomersPOSTAsync(CustomerEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<CustomerEntity> CustomersPOSTAsync(CustomerEditForm body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -1759,14 +2441,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<CustomerEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1783,13 +2465,23 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns one customer
+        /// </summary>
+        /// <returns>Returns one customer entity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<CustomerEntity> CustomersGETAsync(string id)
+        {
+            return CustomersGETAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns one customer
         /// </summary>
         /// <returns>Returns one customer entity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<CustomerEntity> CustomersGETAsync(string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<CustomerEntity> CustomersGETAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1833,14 +2525,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<CustomerEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1857,6 +2549,20 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Update an existing customer
+        /// </summary>
+        /// <remarks>
+        /// Update an existing customer, you can pass all or just a subset of all attributes
+        /// </remarks>
+        /// <param name="id">Customer ID to update</param>
+        /// <returns>Returns the updated customer</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<CustomerEntity> CustomersPATCHAsync(CustomerEditForm body, int id)
+        {
+            return CustomersPATCHAsync(body, id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Update an existing customer
@@ -1866,8 +2572,8 @@ namespace MauiForKimai.ApiClient.Client
         /// </remarks>
         /// <param name="id">Customer ID to update</param>
         /// <returns>Returns the updated customer</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<CustomerEntity> CustomersPATCHAsync(CustomerEditForm body, int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<CustomerEntity> CustomersPATCHAsync(CustomerEditForm body, int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1918,14 +2624,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<CustomerEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -1942,14 +2648,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns a collection of all rates for one customer
+        /// </summary>
+        /// <param name="id">The customer whose rates will be returned</param>
+        /// <returns>Returns a collection of customer rate entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerRate>> RatesAll2Async(int id)
+        {
+            return RatesAll2Async(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns a collection of all rates for one customer
         /// </summary>
         /// <param name="id">The customer whose rates will be returned</param>
         /// <returns>Returns a collection of customer rate entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerRate>> RatesAll2Async(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CustomerRate>> RatesAll2Async(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1993,14 +2710,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<CustomerRate>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -2017,14 +2734,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Adds a new rate to a customer
+        /// </summary>
+        /// <param name="id">The customer to add the rate for</param>
+        /// <returns>Returns the new created rate</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<CustomerRate> RatesPOST2Async(int id, CustomerRateForm body)
+        {
+            return RatesPOST2Async(id, body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Adds a new rate to a customer
         /// </summary>
         /// <param name="id">The customer to add the rate for</param>
         /// <returns>Returns the new created rate</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<CustomerRate> RatesPOST2Async(int id, CustomerRateForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<CustomerRate> RatesPOST2Async(int id, CustomerRateForm body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2075,14 +2803,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<CustomerRate>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -2099,6 +2827,18 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Deletes one rate for an customer
+        /// </summary>
+        /// <param name="id">The customer whose rate will be removed</param>
+        /// <param name="rateId">The rate to remove</param>
+        /// <returns>Returns no content: 204 on successful delete</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task RatesDELETE2Async(int id, int rateId)
+        {
+            return RatesDELETE2Async(id, rateId, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Deletes one rate for an customer
@@ -2106,8 +2846,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The customer whose rate will be removed</param>
         /// <param name="rateId">The rate to remove</param>
         /// <returns>Returns no content: 204 on successful delete</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task RatesDELETE2Async(int id, int rateId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task RatesDELETE2Async(int id, int rateId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2156,7 +2896,7 @@ namespace MauiForKimai.ApiClient.Client
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -2173,112 +2913,16 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
-        protected struct ObjectResponseResult<T>
+        /// <summary>
+        /// Sets the value of a meta-field for an existing project
+        /// </summary>
+        /// <param name="id">Project record ID to set the meta-field value for</param>
+        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ProjectEntity> Meta3Async(int id, Body3 body)
         {
-            public ObjectResponseResult(T responseObject, string responseText)
-            {
-                this.Object = responseObject;
-                this.Text = responseText;
-            }
-
-            public T Object { get; }
-
-            public string Text { get; }
+            return Meta3Async(id, body, System.Threading.CancellationToken.None);
         }
-
-        public bool ReadResponseAsString { get; set; }
-
-        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
-        {
-            if (response == null || response.Content == null)
-            {
-                return new ObjectResponseResult<T>(default(T), string.Empty);
-            }
-
-            if (ReadResponseAsString)
-            {
-                var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
-                    return new ObjectResponseResult<T>(typedBody, responseText);
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, responseText, headers, exception);
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    using (var streamReader = new System.IO.StreamReader(responseStream))
-                    using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader))
-                    {
-                        var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
-                        var typedBody = serializer.Deserialize<T>(jsonTextReader);
-                        return new ObjectResponseResult<T>(typedBody, string.Empty);
-                    }
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
-                }
-            }
-        }
-
-        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
-        {
-            if (value == null)
-            {
-                return "";
-            }
-
-            if (value is System.Enum)
-            {
-                var name = System.Enum.GetName(value.GetType(), value);
-                if (name != null)
-                {
-                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
-                    if (field != null)
-                    {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
-                            as System.Runtime.Serialization.EnumMemberAttribute;
-                        if (attribute != null)
-                        {
-                            return attribute.Value != null ? attribute.Value : name;
-                        }
-                    }
-
-                    var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
-                    return converted == null ? string.Empty : converted;
-                }
-            }
-            else if (value is bool) 
-            {
-                return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
-            }
-            else if (value is byte[])
-            {
-                return System.Convert.ToBase64String((byte[]) value);
-            }
-            else if (value.GetType().IsArray)
-            {
-                var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
-                return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
-            }
-
-            var result = System.Convert.ToString(value, cultureInfo);
-            return result == null ? "" : result;
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface IProjectClient
-    {
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -2286,123 +2930,8 @@ namespace MauiForKimai.ApiClient.Client
         /// </summary>
         /// <param name="id">Project record ID to set the meta-field value for</param>
         /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ProjectEntity> Meta3Async(int id, Body3 body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns a collection of projects.
-        /// </summary>
-        /// <param name="customer">Customer ID to filter projects</param>
-        /// <param name="customers">Comma separated list of customer IDs to filter projects</param>
-        /// <param name="visible">Visibility status to filter projects. Allowed values: 1=visible, 2=hidden, 3=both (default: 1)</param>
-        /// <param name="start">Only projects that started before this date will be included. Allowed format: HTML5 (default: now, if end is also empty)</param>
-        /// <param name="end">Only projects that ended after this date will be included. Allowed format: HTML5 (default: now, if start is also empty)</param>
-        /// <param name="ignoreDates">If set, start and end are completely ignored. Allowed values: 1 (default: off)</param>
-        /// <param name="globalActivities">If given, filters projects by their 'global activity' support. Allowed values: 1 (supports global activities) and 0 (without global activities) (default: all)</param>
-        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
-        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name, customer (default: name)</param>
-        /// <param name="term">Free search term</param>
-        /// <returns>Returns a collection of project entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectCollection>> ProjectsAllAsync(string customer = null, string customers = null, string visible = null, string start = null, string end = null, string ignoreDates = null, string globalActivities = null, string order = null, string orderBy = null, string term = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Creates a new project
-        /// </summary>
-        /// <remarks>
-        /// Creates a new project and returns it afterwards
-        /// </remarks>
-        /// <returns>Returns the new created project</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ProjectEntity> ProjectsPOSTAsync(ProjectEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns one project
-        /// </summary>
-        /// <returns>Returns one project entity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ProjectEntity> ProjectsGETAsync(string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Update an existing project
-        /// </summary>
-        /// <remarks>
-        /// Update an existing project, you can pass all or just a subset of all attributes
-        /// </remarks>
-        /// <param name="id">Project ID to update</param>
-        /// <returns>Returns the updated project</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ProjectEntity> ProjectsPATCHAsync(ProjectEditForm body, int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns a collection of all rates for one project
-        /// </summary>
-        /// <param name="id">The project whose rates will be returned</param>
-        /// <returns>Returns a collection of project rate entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectRate>> RatesAll3Async(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Adds a new rate to an project
-        /// </summary>
-        /// <param name="id">The project to add the rate for</param>
-        /// <returns>Returns the new created rate</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ProjectRate> RatesPOST3Async(int id, ProjectRateForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Deletes one rate for an project
-        /// </summary>
-        /// <param name="id">The project whose rate will be removed</param>
-        /// <param name="rateId">The rate to remove</param>
-        /// <returns>Returns no content: 204 on successful delete</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task RatesDELETE3Async(int id, int rateId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ProjectClient : IProjectClient
-    {
-        private System.Net.Http.HttpClient _httpClient;
-        private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-
-        public ProjectClient(System.Net.Http.HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-            _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
-        }
-
-        private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
-        {
-            var settings = new Newtonsoft.Json.JsonSerializerSettings();
-            UpdateJsonSerializerSettings(settings);
-            return settings;
-        }
-
-        protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
-
-        partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
-
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
-        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Sets the value of a meta-field for an existing project
-        /// </summary>
-        /// <param name="id">Project record ID to set the meta-field value for</param>
-        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ProjectEntity> Meta3Async(int id, Body3 body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ProjectEntity> Meta3Async(int id, Body3 body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2450,14 +2979,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<ProjectEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -2472,6 +3001,26 @@ namespace MauiForKimai.ApiClient.Client
                 if (disposeClient_)
                     client_.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Returns a collection of projects.
+        /// </summary>
+        /// <param name="customer">Customer ID to filter projects</param>
+        /// <param name="customers">Comma separated list of customer IDs to filter projects</param>
+        /// <param name="visible">Visibility status to filter projects. Allowed values: 1=visible, 2=hidden, 3=both (default: 1)</param>
+        /// <param name="start">Only projects that started before this date will be included. Allowed format: HTML5 (default: now, if end is also empty)</param>
+        /// <param name="end">Only projects that ended after this date will be included. Allowed format: HTML5 (default: now, if start is also empty)</param>
+        /// <param name="ignoreDates">If set, start and end are completely ignored. Allowed values: 1 (default: off)</param>
+        /// <param name="globalActivities">If given, filters projects by their 'global activity' support. Allowed values: 1 (supports global activities) and 0 (without global activities) (default: all)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name, customer (default: name)</param>
+        /// <param name="term">Free search term</param>
+        /// <returns>Returns a collection of project entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectCollection>> ProjectsAllAsync(string customer, string customers, string visible, string start, string end, string ignoreDates, string globalActivities, string order, string orderBy, string term)
+        {
+            return ProjectsAllAsync(customer, customers, visible, start, end, ignoreDates, globalActivities, order, orderBy, term, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -2489,8 +3038,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, name, customer (default: name)</param>
         /// <param name="term">Free search term</param>
         /// <returns>Returns a collection of project entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectCollection>> ProjectsAllAsync(string customer = null, string customers = null, string visible = null, string start = null, string end = null, string ignoreDates = null, string globalActivities = null, string order = null, string orderBy = null, string term = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectCollection>> ProjectsAllAsync(string customer, string customers, string visible, string start, string end, string ignoreDates, string globalActivities, string order, string orderBy, string term, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/projects?");
@@ -2571,14 +3120,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<ProjectCollection>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -2595,6 +3144,19 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Creates a new project
+        /// </summary>
+        /// <remarks>
+        /// Creates a new project and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created project</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ProjectEntity> ProjectsPOSTAsync(ProjectEditForm body)
+        {
+            return ProjectsPOSTAsync(body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Creates a new project
@@ -2603,8 +3165,8 @@ namespace MauiForKimai.ApiClient.Client
         /// Creates a new project and returns it afterwards
         /// </remarks>
         /// <returns>Returns the new created project</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ProjectEntity> ProjectsPOSTAsync(ProjectEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ProjectEntity> ProjectsPOSTAsync(ProjectEditForm body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -2651,14 +3213,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<ProjectEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -2675,13 +3237,23 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns one project
+        /// </summary>
+        /// <returns>Returns one project entity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ProjectEntity> ProjectsGETAsync(string id)
+        {
+            return ProjectsGETAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns one project
         /// </summary>
         /// <returns>Returns one project entity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ProjectEntity> ProjectsGETAsync(string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ProjectEntity> ProjectsGETAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2725,14 +3297,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<ProjectEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -2749,6 +3321,20 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Update an existing project
+        /// </summary>
+        /// <remarks>
+        /// Update an existing project, you can pass all or just a subset of all attributes
+        /// </remarks>
+        /// <param name="id">Project ID to update</param>
+        /// <returns>Returns the updated project</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ProjectEntity> ProjectsPATCHAsync(ProjectEditForm body, int id)
+        {
+            return ProjectsPATCHAsync(body, id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Update an existing project
@@ -2758,8 +3344,8 @@ namespace MauiForKimai.ApiClient.Client
         /// </remarks>
         /// <param name="id">Project ID to update</param>
         /// <returns>Returns the updated project</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ProjectEntity> ProjectsPATCHAsync(ProjectEditForm body, int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ProjectEntity> ProjectsPATCHAsync(ProjectEditForm body, int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2810,14 +3396,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<ProjectEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -2834,14 +3420,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns a collection of all rates for one project
+        /// </summary>
+        /// <param name="id">The project whose rates will be returned</param>
+        /// <returns>Returns a collection of project rate entities</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectRate>> RatesAll3Async(int id)
+        {
+            return RatesAll3Async(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns a collection of all rates for one project
         /// </summary>
         /// <param name="id">The project whose rates will be returned</param>
         /// <returns>Returns a collection of project rate entities</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectRate>> RatesAll3Async(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ProjectRate>> RatesAll3Async(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2885,14 +3482,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<ProjectRate>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -2909,14 +3506,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Adds a new rate to an project
+        /// </summary>
+        /// <param name="id">The project to add the rate for</param>
+        /// <returns>Returns the new created rate</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ProjectRate> RatesPOST3Async(int id, ProjectRateForm body)
+        {
+            return RatesPOST3Async(id, body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Adds a new rate to an project
         /// </summary>
         /// <param name="id">The project to add the rate for</param>
         /// <returns>Returns the new created rate</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ProjectRate> RatesPOST3Async(int id, ProjectRateForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ProjectRate> RatesPOST3Async(int id, ProjectRateForm body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2967,14 +3575,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<ProjectRate>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -2991,6 +3599,18 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Deletes one rate for an project
+        /// </summary>
+        /// <param name="id">The project whose rate will be removed</param>
+        /// <param name="rateId">The rate to remove</param>
+        /// <returns>Returns no content: 204 on successful delete</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task RatesDELETE3Async(int id, int rateId)
+        {
+            return RatesDELETE3Async(id, rateId, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Deletes one rate for an project
@@ -2998,8 +3618,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The project whose rate will be removed</param>
         /// <param name="rateId">The rate to remove</param>
         /// <returns>Returns no content: 204 on successful delete</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task RatesDELETE3Async(int id, int rateId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task RatesDELETE3Async(int id, int rateId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3048,7 +3668,7 @@ namespace MauiForKimai.ApiClient.Client
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -3065,112 +3685,251 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
-        protected struct ObjectResponseResult<T>
+        /// <summary>
+        /// A testing route for the API
+        /// </summary>
+        /// <returns>A simple route that returns a 'pong', which you can use for testing the API</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task PingAsync()
         {
-            public ObjectResponseResult(T responseObject, string responseText)
-            {
-                this.Object = responseObject;
-                this.Text = responseText;
-            }
-
-            public T Object { get; }
-
-            public string Text { get; }
+            return PingAsync(System.Threading.CancellationToken.None);
         }
 
-        public bool ReadResponseAsString { get; set; }
-
-        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// A testing route for the API
+        /// </summary>
+        /// <returns>A simple route that returns a 'pong', which you can use for testing the API</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task PingAsync(System.Threading.CancellationToken cancellationToken)
         {
-            if (response == null || response.Content == null)
-            {
-                return new ObjectResponseResult<T>(default(T), string.Empty);
-            }
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/ping");
 
-            if (ReadResponseAsString)
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
             {
-                var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
-                    return new ObjectResponseResult<T>(typedBody, responseText);
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, responseText, headers, exception);
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    using (var streamReader = new System.IO.StreamReader(responseStream))
-                    using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader))
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
                     {
-                        var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
-                        var typedBody = serializer.Deserialize<T>(jsonTextReader);
-                        return new ObjectResponseResult<T>(typedBody, string.Empty);
-                    }
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
-                }
-            }
-        }
-
-        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
-        {
-            if (value == null)
-            {
-                return "";
-            }
-
-            if (value is System.Enum)
-            {
-                var name = System.Enum.GetName(value.GetType(), value);
-                if (name != null)
-                {
-                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
-                    if (field != null)
-                    {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
-                            as System.Runtime.Serialization.EnumMemberAttribute;
-                        if (attribute != null)
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
                         {
-                            return attribute.Value != null ? attribute.Value : name;
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
-
-                    var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
-                    return converted == null ? string.Empty : converted;
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
                 }
             }
-            else if (value is bool) 
+            finally
             {
-                return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
+                if (disposeClient_)
+                    client_.Dispose();
             }
-            else if (value is byte[])
-            {
-                return System.Convert.ToBase64String((byte[]) value);
-            }
-            else if (value.GetType().IsArray)
-            {
-                var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
-                return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
-            }
-
-            var result = System.Convert.ToString(value, cultureInfo);
-            return result == null ? "" : result;
         }
-    }
 
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface ITagClient
-    {
+        /// <summary>
+        /// Returns information about the Kimai release
+        /// </summary>
+        /// <returns>Returns version information about the current release</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Version> VersionAsync()
+        {
+            return VersionAsync(System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns information about the Kimai release
+        /// </summary>
+        /// <returns>Returns version information about the current release</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Version> VersionAsync(System.Threading.CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/version");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Version>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Returns information about installed Plugins
+        /// </summary>
+        /// <returns>Returns a list of plugin names and versions</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Plugin>> PluginsAsync()
+        {
+            return PluginsAsync(System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns information about installed Plugins
+        /// </summary>
+        /// <returns>Returns a list of plugin names and versions</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Plugin>> PluginsAsync(System.Threading.CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/plugins");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Plugin>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Fetch all existing tags
+        /// </summary>
+        /// <param name="name">Search term to filter tag list</param>
+        /// <returns>Returns the collection of all existing tags as string array</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> TagsAllAsync(string name)
+        {
+            return TagsAllAsync(name, System.Threading.CancellationToken.None);
+        }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -3178,66 +3937,8 @@ namespace MauiForKimai.ApiClient.Client
         /// </summary>
         /// <param name="name">Search term to filter tag list</param>
         /// <returns>Returns the collection of all existing tags as string array</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> TagsAllAsync(string name = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Creates a new tag
-        /// </summary>
-        /// <remarks>
-        /// Creates a new tag and returns it afterwards
-        /// </remarks>
-        /// <returns>Returns the new created tag</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TagEntity> TagsPOSTAsync(TagEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Delete a tag
-        /// </summary>
-        /// <param name="id">Tag ID to delete</param>
-        /// <returns>HTTP code 204 for a successful delete</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task TagsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class TagClient : ITagClient
-    {
-        private System.Net.Http.HttpClient _httpClient;
-        private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-
-        public TagClient(System.Net.Http.HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-            _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
-        }
-
-        private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
-        {
-            var settings = new Newtonsoft.Json.JsonSerializerSettings();
-            UpdateJsonSerializerSettings(settings);
-            return settings;
-        }
-
-        protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
-
-        partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
-
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
-        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Fetch all existing tags
-        /// </summary>
-        /// <param name="name">Search term to filter tag list</param>
-        /// <returns>Returns the collection of all existing tags as string array</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> TagsAllAsync(string name = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> TagsAllAsync(string name, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/tags?");
@@ -3282,14 +3983,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<string>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -3306,6 +4007,19 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Creates a new tag
+        /// </summary>
+        /// <remarks>
+        /// Creates a new tag and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created tag</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<TagEntity> TagsPOSTAsync(TagEditForm body)
+        {
+            return TagsPOSTAsync(body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Creates a new tag
@@ -3314,8 +4028,8 @@ namespace MauiForKimai.ApiClient.Client
         /// Creates a new tag and returns it afterwards
         /// </remarks>
         /// <returns>Returns the new created tag</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TagEntity> TagsPOSTAsync(TagEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TagEntity> TagsPOSTAsync(TagEditForm body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -3362,14 +4076,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<TagEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -3386,14 +4100,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Delete a tag
+        /// </summary>
+        /// <param name="id">Tag ID to delete</param>
+        /// <returns>HTTP code 204 for a successful delete</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task TagsDELETEAsync(int id)
+        {
+            return TagsDELETEAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Delete a tag
         /// </summary>
         /// <param name="id">Tag ID to delete</param>
         /// <returns>HTTP code 204 for a successful delete</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task TagsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task TagsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3438,7 +4163,7 @@ namespace MauiForKimai.ApiClient.Client
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -3455,277 +4180,23 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
-        protected struct ObjectResponseResult<T>
+        /// <summary>
+        /// Fetch all existing teams
+        /// </summary>
+        /// <returns>Returns the collection of all existing teams</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TeamCollection>> TeamsAllAsync()
         {
-            public ObjectResponseResult(T responseObject, string responseText)
-            {
-                this.Object = responseObject;
-                this.Text = responseText;
-            }
-
-            public T Object { get; }
-
-            public string Text { get; }
+            return TeamsAllAsync(System.Threading.CancellationToken.None);
         }
-
-        public bool ReadResponseAsString { get; set; }
-
-        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
-        {
-            if (response == null || response.Content == null)
-            {
-                return new ObjectResponseResult<T>(default(T), string.Empty);
-            }
-
-            if (ReadResponseAsString)
-            {
-                var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
-                    return new ObjectResponseResult<T>(typedBody, responseText);
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, responseText, headers, exception);
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    using (var streamReader = new System.IO.StreamReader(responseStream))
-                    using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader))
-                    {
-                        var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
-                        var typedBody = serializer.Deserialize<T>(jsonTextReader);
-                        return new ObjectResponseResult<T>(typedBody, string.Empty);
-                    }
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
-                }
-            }
-        }
-
-        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
-        {
-            if (value == null)
-            {
-                return "";
-            }
-
-            if (value is System.Enum)
-            {
-                var name = System.Enum.GetName(value.GetType(), value);
-                if (name != null)
-                {
-                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
-                    if (field != null)
-                    {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
-                            as System.Runtime.Serialization.EnumMemberAttribute;
-                        if (attribute != null)
-                        {
-                            return attribute.Value != null ? attribute.Value : name;
-                        }
-                    }
-
-                    var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
-                    return converted == null ? string.Empty : converted;
-                }
-            }
-            else if (value is bool) 
-            {
-                return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
-            }
-            else if (value is byte[])
-            {
-                return System.Convert.ToBase64String((byte[]) value);
-            }
-            else if (value.GetType().IsArray)
-            {
-                var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
-                return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
-            }
-
-            var result = System.Convert.ToString(value, cultureInfo);
-            return result == null ? "" : result;
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface ITeamClient
-    {
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Fetch all existing teams
         /// </summary>
         /// <returns>Returns the collection of all existing teams</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TeamCollection>> TeamsAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Creates a new team
-        /// </summary>
-        /// <remarks>
-        /// Creates a new team and returns it afterwards
-        /// </remarks>
-        /// <returns>Returns the new created team</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Team> TeamsPOSTAsync(TeamEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns one team
-        /// </summary>
-        /// <returns>Returns one team entity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Team> TeamsGETAsync(string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Update an existing team
-        /// </summary>
-        /// <remarks>
-        /// Update an existing team, you can pass all or just a subset of all attributes (passing members will replace all existing ones)
-        /// </remarks>
-        /// <param name="id">Team ID to update</param>
-        /// <returns>Returns the updated team</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Team> TeamsPATCHAsync(TeamEditForm body, int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Delete a team
-        /// </summary>
-        /// <param name="id">Team ID to delete</param>
-        /// <returns>Delete one team</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task TeamsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Add a new member to a team
-        /// </summary>
-        /// <param name="id">The team which will receive the new member</param>
-        /// <param name="userId">The team member to add (User ID)</param>
-        /// <returns>Adds a new user to a team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Team> MembersPOSTAsync(int id, int userId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Removes a member from the team
-        /// </summary>
-        /// <param name="id">The team from which the member will be removed</param>
-        /// <param name="userId">The team member to remove (User ID)</param>
-        /// <returns>Removes a user from the team. The teamlead cannot be removed.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Team> MembersDELETEAsync(int id, int userId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Grant the team access to a customer
-        /// </summary>
-        /// <param name="id">The team that is granted access</param>
-        /// <param name="customerId">The customer to grant acecess to (Customer ID)</param>
-        /// <returns>Adds a new customer to a team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Team> CustomersPOST2Async(int id, int customerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Revokes access for a customer from a team
-        /// </summary>
-        /// <param name="id">The team whose permission will be revoked</param>
-        /// <param name="customerId">The customer to remove (Customer ID)</param>
-        /// <returns>Removes a customer from the team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Team> CustomersDELETEAsync(int id, int customerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Grant the team access to a project
-        /// </summary>
-        /// <param name="id">The team that is granted access</param>
-        /// <param name="projectId">The project to grant acecess to (Project ID)</param>
-        /// <returns>Adds a new project to a team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Team> ProjectsPOST2Async(int id, int projectId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Revokes access for a project from a team
-        /// </summary>
-        /// <param name="id">The team whose permission will be revoked</param>
-        /// <param name="projectId">The project to remove (Project ID)</param>
-        /// <returns>Removes a project from the team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Team> ProjectsDELETEAsync(int id, int projectId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Grant the team access to an activity
-        /// </summary>
-        /// <param name="id">The team that is granted access</param>
-        /// <param name="activityId">The activity to grant acecess to (Activity ID)</param>
-        /// <returns>Adds a new activity to a team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Team> ActivitiesPOST2Async(int id, int activityId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Revokes access for an activity from a team
-        /// </summary>
-        /// <param name="id">The team whose permission will be revoked</param>
-        /// <param name="activityId">The activity to remove (Activity ID)</param>
-        /// <returns>Removes a activity from the team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Team> ActivitiesDELETEAsync(int id, int activityId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class TeamClient : ITeamClient
-    {
-        private System.Net.Http.HttpClient _httpClient;
-        private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-
-        public TeamClient(System.Net.Http.HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-            _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
-        }
-
-        private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
-        {
-            var settings = new Newtonsoft.Json.JsonSerializerSettings();
-            UpdateJsonSerializerSettings(settings);
-            return settings;
-        }
-
-        protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
-
-        partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
-
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
-        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Fetch all existing teams
-        /// </summary>
-        /// <returns>Returns the collection of all existing teams</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TeamCollection>> TeamsAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TeamCollection>> TeamsAllAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/teams");
@@ -3765,14 +4236,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<TeamCollection>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -3789,6 +4260,19 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Creates a new team
+        /// </summary>
+        /// <remarks>
+        /// Creates a new team and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created team</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Team> TeamsPOSTAsync(TeamEditForm body)
+        {
+            return TeamsPOSTAsync(body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Creates a new team
@@ -3797,8 +4281,8 @@ namespace MauiForKimai.ApiClient.Client
         /// Creates a new team and returns it afterwards
         /// </remarks>
         /// <returns>Returns the new created team</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> TeamsPOSTAsync(TeamEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Team> TeamsPOSTAsync(TeamEditForm body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -3845,14 +4329,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<Team>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -3869,13 +4353,23 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns one team
+        /// </summary>
+        /// <returns>Returns one team entity</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Team> TeamsGETAsync(string id)
+        {
+            return TeamsGETAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns one team
         /// </summary>
         /// <returns>Returns one team entity</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> TeamsGETAsync(string id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Team> TeamsGETAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3919,14 +4413,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<Team>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -3943,6 +4437,20 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Update an existing team
+        /// </summary>
+        /// <remarks>
+        /// Update an existing team, you can pass all or just a subset of all attributes (passing members will replace all existing ones)
+        /// </remarks>
+        /// <param name="id">Team ID to update</param>
+        /// <returns>Returns the updated team</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Team> TeamsPATCHAsync(TeamEditForm body, int id)
+        {
+            return TeamsPATCHAsync(body, id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Update an existing team
@@ -3952,8 +4460,8 @@ namespace MauiForKimai.ApiClient.Client
         /// </remarks>
         /// <param name="id">Team ID to update</param>
         /// <returns>Returns the updated team</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> TeamsPATCHAsync(TeamEditForm body, int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Team> TeamsPATCHAsync(TeamEditForm body, int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4004,14 +4512,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<Team>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -4028,14 +4536,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Delete a team
+        /// </summary>
+        /// <param name="id">Team ID to delete</param>
+        /// <returns>Delete one team</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task TeamsDELETEAsync(int id)
+        {
+            return TeamsDELETEAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Delete a team
         /// </summary>
         /// <param name="id">Team ID to delete</param>
         /// <returns>Delete one team</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task TeamsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task TeamsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4080,7 +4599,7 @@ namespace MauiForKimai.ApiClient.Client
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -4095,6 +4614,18 @@ namespace MauiForKimai.ApiClient.Client
                 if (disposeClient_)
                     client_.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Add a new member to a team
+        /// </summary>
+        /// <param name="id">The team which will receive the new member</param>
+        /// <param name="userId">The team member to add (User ID)</param>
+        /// <returns>Adds a new user to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Team> MembersPOSTAsync(int id, int userId)
+        {
+            return MembersPOSTAsync(id, userId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4104,8 +4635,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The team which will receive the new member</param>
         /// <param name="userId">The team member to add (User ID)</param>
         /// <returns>Adds a new user to a team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> MembersPOSTAsync(int id, int userId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Team> MembersPOSTAsync(int id, int userId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4154,14 +4685,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<Team>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -4176,6 +4707,18 @@ namespace MauiForKimai.ApiClient.Client
                 if (disposeClient_)
                     client_.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Removes a member from the team
+        /// </summary>
+        /// <param name="id">The team from which the member will be removed</param>
+        /// <param name="userId">The team member to remove (User ID)</param>
+        /// <returns>Removes a user from the team. The teamlead cannot be removed.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Team> MembersDELETEAsync(int id, int userId)
+        {
+            return MembersDELETEAsync(id, userId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4185,8 +4728,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The team from which the member will be removed</param>
         /// <param name="userId">The team member to remove (User ID)</param>
         /// <returns>Removes a user from the team. The teamlead cannot be removed.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> MembersDELETEAsync(int id, int userId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Team> MembersDELETEAsync(int id, int userId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4234,14 +4777,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<Team>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -4256,6 +4799,18 @@ namespace MauiForKimai.ApiClient.Client
                 if (disposeClient_)
                     client_.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Grant the team access to a customer
+        /// </summary>
+        /// <param name="id">The team that is granted access</param>
+        /// <param name="customerId">The customer to grant acecess to (Customer ID)</param>
+        /// <returns>Adds a new customer to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Team> CustomersPOST2Async(int id, int customerId)
+        {
+            return CustomersPOST2Async(id, customerId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4265,8 +4820,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The team that is granted access</param>
         /// <param name="customerId">The customer to grant acecess to (Customer ID)</param>
         /// <returns>Adds a new customer to a team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> CustomersPOST2Async(int id, int customerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Team> CustomersPOST2Async(int id, int customerId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4315,14 +4870,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<Team>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -4337,6 +4892,18 @@ namespace MauiForKimai.ApiClient.Client
                 if (disposeClient_)
                     client_.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Revokes access for a customer from a team
+        /// </summary>
+        /// <param name="id">The team whose permission will be revoked</param>
+        /// <param name="customerId">The customer to remove (Customer ID)</param>
+        /// <returns>Removes a customer from the team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Team> CustomersDELETEAsync(int id, int customerId)
+        {
+            return CustomersDELETEAsync(id, customerId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4346,8 +4913,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The team whose permission will be revoked</param>
         /// <param name="customerId">The customer to remove (Customer ID)</param>
         /// <returns>Removes a customer from the team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> CustomersDELETEAsync(int id, int customerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Team> CustomersDELETEAsync(int id, int customerId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4395,14 +4962,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<Team>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -4417,6 +4984,18 @@ namespace MauiForKimai.ApiClient.Client
                 if (disposeClient_)
                     client_.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Grant the team access to a project
+        /// </summary>
+        /// <param name="id">The team that is granted access</param>
+        /// <param name="projectId">The project to grant acecess to (Project ID)</param>
+        /// <returns>Adds a new project to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Team> ProjectsPOST2Async(int id, int projectId)
+        {
+            return ProjectsPOST2Async(id, projectId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4426,8 +5005,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The team that is granted access</param>
         /// <param name="projectId">The project to grant acecess to (Project ID)</param>
         /// <returns>Adds a new project to a team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> ProjectsPOST2Async(int id, int projectId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Team> ProjectsPOST2Async(int id, int projectId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4476,14 +5055,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<Team>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -4498,6 +5077,18 @@ namespace MauiForKimai.ApiClient.Client
                 if (disposeClient_)
                     client_.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Revokes access for a project from a team
+        /// </summary>
+        /// <param name="id">The team whose permission will be revoked</param>
+        /// <param name="projectId">The project to remove (Project ID)</param>
+        /// <returns>Removes a project from the team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Team> ProjectsDELETEAsync(int id, int projectId)
+        {
+            return ProjectsDELETEAsync(id, projectId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -4507,8 +5098,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The team whose permission will be revoked</param>
         /// <param name="projectId">The project to remove (Project ID)</param>
         /// <returns>Removes a project from the team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> ProjectsDELETEAsync(int id, int projectId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Team> ProjectsDELETEAsync(int id, int projectId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4556,14 +5147,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<Team>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -4580,6 +5171,18 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Grant the team access to an activity
+        /// </summary>
+        /// <param name="id">The team that is granted access</param>
+        /// <param name="activityId">The activity to grant acecess to (Activity ID)</param>
+        /// <returns>Adds a new activity to a team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Team> ActivitiesPOST2Async(int id, int activityId)
+        {
+            return ActivitiesPOST2Async(id, activityId, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Grant the team access to an activity
@@ -4587,8 +5190,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The team that is granted access</param>
         /// <param name="activityId">The activity to grant acecess to (Activity ID)</param>
         /// <returns>Adds a new activity to a team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> ActivitiesPOST2Async(int id, int activityId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Team> ActivitiesPOST2Async(int id, int activityId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4637,14 +5240,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<Team>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -4661,6 +5264,18 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Revokes access for an activity from a team
+        /// </summary>
+        /// <param name="id">The team whose permission will be revoked</param>
+        /// <param name="activityId">The activity to remove (Activity ID)</param>
+        /// <returns>Removes a activity from the team.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<Team> ActivitiesDELETEAsync(int id, int activityId)
+        {
+            return ActivitiesDELETEAsync(id, activityId, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Revokes access for an activity from a team
@@ -4668,8 +5283,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="id">The team whose permission will be revoked</param>
         /// <param name="activityId">The activity to remove (Activity ID)</param>
         /// <returns>Removes a activity from the team.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> ActivitiesDELETEAsync(int id, int activityId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Team> ActivitiesDELETEAsync(int id, int activityId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4717,14 +5332,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<Team>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -4741,112 +5356,18 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
-        protected struct ObjectResponseResult<T>
+        /// <summary>
+        /// Returns the collection of recent user activities
+        /// </summary>
+        /// <param name="user">User ID to filter timesheets. Needs permission 'view_other_timesheet', pass 'all' to fetch data for all user (default: current user)</param>
+        /// <param name="begin">Only records after this date will be included. Default: today - 1 year (format: HTML5)</param>
+        /// <param name="size">The amount of entries (default: 10)</param>
+        /// <returns>Returns the collection of recent user activities (always the latest entry of a unique working set grouped by customer, project and activity)</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> RecentAsync(string user, string begin, string size)
         {
-            public ObjectResponseResult(T responseObject, string responseText)
-            {
-                this.Object = responseObject;
-                this.Text = responseText;
-            }
-
-            public T Object { get; }
-
-            public string Text { get; }
+            return RecentAsync(user, begin, size, System.Threading.CancellationToken.None);
         }
-
-        public bool ReadResponseAsString { get; set; }
-
-        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
-        {
-            if (response == null || response.Content == null)
-            {
-                return new ObjectResponseResult<T>(default(T), string.Empty);
-            }
-
-            if (ReadResponseAsString)
-            {
-                var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
-                    return new ObjectResponseResult<T>(typedBody, responseText);
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, responseText, headers, exception);
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    using (var streamReader = new System.IO.StreamReader(responseStream))
-                    using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader))
-                    {
-                        var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
-                        var typedBody = serializer.Deserialize<T>(jsonTextReader);
-                        return new ObjectResponseResult<T>(typedBody, string.Empty);
-                    }
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
-                }
-            }
-        }
-
-        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
-        {
-            if (value == null)
-            {
-                return "";
-            }
-
-            if (value is System.Enum)
-            {
-                var name = System.Enum.GetName(value.GetType(), value);
-                if (name != null)
-                {
-                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
-                    if (field != null)
-                    {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
-                            as System.Runtime.Serialization.EnumMemberAttribute;
-                        if (attribute != null)
-                        {
-                            return attribute.Value != null ? attribute.Value : name;
-                        }
-                    }
-
-                    var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
-                    return converted == null ? string.Empty : converted;
-                }
-            }
-            else if (value is bool) 
-            {
-                return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
-            }
-            else if (value is byte[])
-            {
-                return System.Convert.ToBase64String((byte[]) value);
-            }
-            else if (value.GetType().IsArray)
-            {
-                var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
-                return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
-            }
-
-            var result = System.Convert.ToString(value, cultureInfo);
-            return result == null ? "" : result;
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface ITimesheetClient
-    {
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -4856,171 +5377,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="begin">Only records after this date will be included. Default: today - 1 year (format: HTML5)</param>
         /// <param name="size">The amount of entries (default: 10)</param>
         /// <returns>Returns the collection of recent user activities (always the latest entry of a unique working set grouped by customer, project and activity)</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> RecentAsync(string user = null, string begin = null, string size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns the collection of active timesheet records
-        /// </summary>
-        /// <returns>Returns the collection of active timesheet records for the current user</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> ActiveAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Stops an active timesheet record
-        /// </summary>
-        /// <param name="id">Timesheet record ID to stop</param>
-        /// <returns>Stops an active timesheet record and returns it afterwards.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TimesheetEntity> StopAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Restarts a previously stopped timesheet record for the current user
-        /// </summary>
-        /// <param name="id">Timesheet record ID to restart</param>
-        /// <returns>Restarts a timesheet record for the same customer, project, activity combination. The current user will be the owner of the new record. Kimai tries to stop running records, which is expected to fail depending on the configured rules. Data will be copied from the original record if requested.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TimesheetEntity> RestartAsync(int id, Body4 body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Duplicates an existing timesheet record
-        /// </summary>
-        /// <param name="id">Timesheet record ID to duplicate</param>
-        /// <returns>Duplicates a timesheet record, resetting the export state only.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TimesheetEntity> DuplicateAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Switch the export state of a timesheet record to (un-)lock it
-        /// </summary>
-        /// <param name="id">Timesheet record ID to switch export state</param>
-        /// <returns>Switches the exported state on the record and therefor locks / unlocks it for further updates. Needs edit_export_*_timesheet permission.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TimesheetEntity> ExportAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Sets the value of a meta-field for an existing timesheet.
-        /// </summary>
-        /// <param name="id">Timesheet record ID to set the meta-field value for</param>
-        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TimesheetEntity> Meta4Async(int id, Body5 body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns a collection of timesheet records
-        /// </summary>
-        /// <param name="user">User ID to filter timesheets. Needs permission 'view_other_timesheet', pass 'all' to fetch data for all user (default: current user)</param>
-        /// <param name="customer">DEPRECATED: Customer ID to filter timesheets (will be removed with 2.0)</param>
-        /// <param name="customers">Comma separated list of customer IDs to filter timesheets</param>
-        /// <param name="project">DEPRECATED: Project ID to filter timesheets (will be removed with 2.0)</param>
-        /// <param name="projects">Comma separated list of project IDs to filter timesheets</param>
-        /// <param name="activity">DEPRECATED: Activity ID to filter timesheets (will be removed with 2.0)</param>
-        /// <param name="activities">Comma separated list of activity IDs to filter timesheets</param>
-        /// <param name="page">The page to display, renders a 404 if not found (default: 1)</param>
-        /// <param name="size">The amount of entries for each page (default: 50)</param>
-        /// <param name="tags">Comma separated list of tag names</param>
-        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, begin, end, rate (default: begin)</param>
-        /// <param name="order">The result order. Allowed values: ASC, DESC (default: DESC)</param>
-        /// <param name="begin">Only records after this date will be included (format: HTML5)</param>
-        /// <param name="end">Only records before this date will be included (format: HTML5)</param>
-        /// <param name="exported">Use this flag if you want to filter for export state. Allowed values: 0=not exported, 1=exported (default: all)</param>
-        /// <param name="active">Filter for running/active records. Allowed values: 0=stopped, 1=active (default: all)</param>
-        /// <param name="billable">Filter for non-/billable records. Allowed values: 0=non-billable, 1=billable (default: all)</param>
-        /// <param name="full">Allows to fetch fully serialized objects including subresources. Allowed values: true (default: false)</param>
-        /// <param name="term">Free search term</param>
-        /// <param name="modified_after">Only records changed after this date will be included (format: HTML5). Available since Kimai 1.10 and works only for records that were created/updated since then.</param>
-        /// <returns>Returns a collection of timesheets records. Be aware that the datetime fields are given in the users local time including the timezone offset via ISO 8601.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollection>> TimesheetsAllAsync(string user = null, string customer = null, string customers = null, string project = null, string projects = null, string activity = null, string activities = null, string page = null, string size = null, string tags = null, string orderBy = null, string order = null, string begin = null, string end = null, string exported = null, string active = null, string billable = null, string full = null, string term = null, string modified_after = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Creates a new timesheet record
-        /// </summary>
-        /// <remarks>
-        /// Creates a new timesheet record for the current user and returns it afterwards.
-        /// </remarks>
-        /// <param name="full">Allows to fetch fully serialized objects including subresources (TimesheetEntityExpanded). Allowed values: true (default: false)</param>
-        /// <returns>Returns the new created timesheet</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPOSTAsync(TimesheetEditForm body, string full = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns one timesheet record
-        /// </summary>
-        /// <param name="id">Timesheet record ID to fetch</param>
-        /// <returns>Returns one timesheet record. Be aware that the datetime fields are given in the users local time including the timezone offset via ISO 8601.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TimesheetEntity> TimesheetsGETAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Update an existing timesheet record
-        /// </summary>
-        /// <remarks>
-        /// Update an existing timesheet record, you can pass all or just a subset of the attributes.
-        /// </remarks>
-        /// <param name="id">Timesheet record ID to update</param>
-        /// <returns>Returns the updated timesheet</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPATCHAsync(int id, TimesheetEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Delete an existing timesheet record
-        /// </summary>
-        /// <param name="id">Timesheet record ID to delete</param>
-        /// <returns>Delete one timesheet record</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task TimesheetsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class TimesheetClient : ITimesheetClient
-    {
-        private System.Net.Http.HttpClient _httpClient;
-        private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-
-        public TimesheetClient(System.Net.Http.HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-            _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
-        }
-
-        private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
-        {
-            var settings = new Newtonsoft.Json.JsonSerializerSettings();
-            UpdateJsonSerializerSettings(settings);
-            return settings;
-        }
-
-        protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
-
-        partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
-
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
-        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns the collection of recent user activities
-        /// </summary>
-        /// <param name="user">User ID to filter timesheets. Needs permission 'view_other_timesheet', pass 'all' to fetch data for all user (default: current user)</param>
-        /// <param name="begin">Only records after this date will be included. Default: today - 1 year (format: HTML5)</param>
-        /// <param name="size">The amount of entries (default: 10)</param>
-        /// <returns>Returns the collection of recent user activities (always the latest entry of a unique working set grouped by customer, project and activity)</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> RecentAsync(string user = null, string begin = null, string size = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> RecentAsync(string user, string begin, string size, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/timesheets/recent?");
@@ -5073,14 +5431,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -5097,13 +5455,23 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns the collection of active timesheet records
+        /// </summary>
+        /// <returns>Returns the collection of active timesheet records for the current user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> ActiveAsync()
+        {
+            return ActiveAsync(System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns the collection of active timesheet records
         /// </summary>
         /// <returns>Returns the collection of active timesheet records for the current user</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> ActiveAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> ActiveAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/timesheets/active");
@@ -5143,14 +5511,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -5167,14 +5535,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Stops an active timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to stop</param>
+        /// <returns>Stops an active timesheet record and returns it afterwards.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<TimesheetEntity> StopAsync(int id)
+        {
+            return StopAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Stops an active timesheet record
         /// </summary>
         /// <param name="id">Timesheet record ID to stop</param>
         /// <returns>Stops an active timesheet record and returns it afterwards.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TimesheetEntity> StopAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TimesheetEntity> StopAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5219,14 +5598,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<TimesheetEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -5243,14 +5622,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Restarts a previously stopped timesheet record for the current user
+        /// </summary>
+        /// <param name="id">Timesheet record ID to restart</param>
+        /// <returns>Restarts a timesheet record for the same customer, project, activity combination. The current user will be the owner of the new record. Kimai tries to stop running records, which is expected to fail depending on the configured rules. Data will be copied from the original record if requested.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<TimesheetEntity> RestartAsync(int id, Body4 body)
+        {
+            return RestartAsync(id, body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Restarts a previously stopped timesheet record for the current user
         /// </summary>
         /// <param name="id">Timesheet record ID to restart</param>
         /// <returns>Restarts a timesheet record for the same customer, project, activity combination. The current user will be the owner of the new record. Kimai tries to stop running records, which is expected to fail depending on the configured rules. Data will be copied from the original record if requested.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TimesheetEntity> RestartAsync(int id, Body4 body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TimesheetEntity> RestartAsync(int id, Body4 body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5298,14 +5688,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<TimesheetEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -5322,14 +5712,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Duplicates an existing timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to duplicate</param>
+        /// <returns>Duplicates a timesheet record, resetting the export state only.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<TimesheetEntity> DuplicateAsync(int id)
+        {
+            return DuplicateAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Duplicates an existing timesheet record
         /// </summary>
         /// <param name="id">Timesheet record ID to duplicate</param>
         /// <returns>Duplicates a timesheet record, resetting the export state only.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TimesheetEntity> DuplicateAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TimesheetEntity> DuplicateAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5374,14 +5775,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<TimesheetEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -5398,14 +5799,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Switch the export state of a timesheet record to (un-)lock it
+        /// </summary>
+        /// <param name="id">Timesheet record ID to switch export state</param>
+        /// <returns>Switches the exported state on the record and therefor locks / unlocks it for further updates. Needs edit_export_*_timesheet permission.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<TimesheetEntity> ExportAsync(int id)
+        {
+            return ExportAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Switch the export state of a timesheet record to (un-)lock it
         /// </summary>
         /// <param name="id">Timesheet record ID to switch export state</param>
         /// <returns>Switches the exported state on the record and therefor locks / unlocks it for further updates. Needs edit_export_*_timesheet permission.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TimesheetEntity> ExportAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TimesheetEntity> ExportAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5450,14 +5862,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<TimesheetEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -5474,14 +5886,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Sets the value of a meta-field for an existing timesheet.
+        /// </summary>
+        /// <param name="id">Timesheet record ID to set the meta-field value for</param>
+        /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<TimesheetEntity> Meta4Async(int id, Body5 body)
+        {
+            return Meta4Async(id, body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Sets the value of a meta-field for an existing timesheet.
         /// </summary>
         /// <param name="id">Timesheet record ID to set the meta-field value for</param>
         /// <returns>Sets the value of an existing/configured meta-field. You cannot create unknown meta-fields, if the given name is not a configured meta-field, this will return an exception.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TimesheetEntity> Meta4Async(int id, Body5 body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TimesheetEntity> Meta4Async(int id, Body5 body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5529,14 +5952,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<TimesheetEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -5551,6 +5974,36 @@ namespace MauiForKimai.ApiClient.Client
                 if (disposeClient_)
                     client_.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Returns a collection of timesheet records
+        /// </summary>
+        /// <param name="user">User ID to filter timesheets. Needs permission 'view_other_timesheet', pass 'all' to fetch data for all user (default: current user)</param>
+        /// <param name="customer">DEPRECATED: Customer ID to filter timesheets (will be removed with 2.0)</param>
+        /// <param name="customers">Comma separated list of customer IDs to filter timesheets</param>
+        /// <param name="project">DEPRECATED: Project ID to filter timesheets (will be removed with 2.0)</param>
+        /// <param name="projects">Comma separated list of project IDs to filter timesheets</param>
+        /// <param name="activity">DEPRECATED: Activity ID to filter timesheets (will be removed with 2.0)</param>
+        /// <param name="activities">Comma separated list of activity IDs to filter timesheets</param>
+        /// <param name="page">The page to display, renders a 404 if not found (default: 1)</param>
+        /// <param name="size">The amount of entries for each page (default: 50)</param>
+        /// <param name="tags">Comma separated list of tag names</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, begin, end, rate (default: begin)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: DESC)</param>
+        /// <param name="begin">Only records after this date will be included (format: HTML5)</param>
+        /// <param name="end">Only records before this date will be included (format: HTML5)</param>
+        /// <param name="exported">Use this flag if you want to filter for export state. Allowed values: 0=not exported, 1=exported (default: all)</param>
+        /// <param name="active">Filter for running/active records. Allowed values: 0=stopped, 1=active (default: all)</param>
+        /// <param name="billable">Filter for non-/billable records. Allowed values: 0=non-billable, 1=billable (default: all)</param>
+        /// <param name="full">Allows to fetch fully serialized objects including subresources. Allowed values: true (default: false)</param>
+        /// <param name="term">Free search term</param>
+        /// <param name="modified_after">Only records changed after this date will be included (format: HTML5). Available since Kimai 1.10 and works only for records that were created/updated since then.</param>
+        /// <returns>Returns a collection of timesheets records. Be aware that the datetime fields are given in the users local time including the timezone offset via ISO 8601.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollection>> TimesheetsAllAsync(string user, string customer, string customers, string project, string projects, string activity, string activities, string page, string size, string tags, string orderBy, string order, string begin, string end, string exported, string active, string billable, string full, string term, string modified_after)
+        {
+            return TimesheetsAllAsync(user, customer, customers, project, projects, activity, activities, page, size, tags, orderBy, order, begin, end, exported, active, billable, full, term, modified_after, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5578,8 +6031,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="term">Free search term</param>
         /// <param name="modified_after">Only records changed after this date will be included (format: HTML5). Available since Kimai 1.10 and works only for records that were created/updated since then.</param>
         /// <returns>Returns a collection of timesheets records. Be aware that the datetime fields are given in the users local time including the timezone offset via ISO 8601.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollection>> TimesheetsAllAsync(string user = null, string customer = null, string customers = null, string project = null, string projects = null, string activity = null, string activities = null, string page = null, string size = null, string tags = null, string orderBy = null, string order = null, string begin = null, string end = null, string exported = null, string active = null, string billable = null, string full = null, string term = null, string modified_after = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollection>> TimesheetsAllAsync(string user, string customer, string customers, string project, string projects, string activity, string activities, string page, string size, string tags, string orderBy, string order, string begin, string end, string exported, string active, string billable, string full, string term, string modified_after, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/timesheets?");
@@ -5700,14 +6153,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<TimesheetCollection>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -5724,6 +6177,20 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Creates a new timesheet record
+        /// </summary>
+        /// <remarks>
+        /// Creates a new timesheet record for the current user and returns it afterwards.
+        /// </remarks>
+        /// <param name="full">Allows to fetch fully serialized objects including subresources (TimesheetEntityExpanded). Allowed values: true (default: false)</param>
+        /// <returns>Returns the new created timesheet</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPOSTAsync(TimesheetEditForm body, string full)
+        {
+            return TimesheetsPOSTAsync(body, full, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Creates a new timesheet record
@@ -5733,8 +6200,8 @@ namespace MauiForKimai.ApiClient.Client
         /// </remarks>
         /// <param name="full">Allows to fetch fully serialized objects including subresources (TimesheetEntityExpanded). Allowed values: true (default: false)</param>
         /// <returns>Returns the new created timesheet</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPOSTAsync(TimesheetEditForm body, string full = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPOSTAsync(TimesheetEditForm body, string full, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -5786,14 +6253,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<TimesheetEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -5810,14 +6277,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns one timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to fetch</param>
+        /// <returns>Returns one timesheet record. Be aware that the datetime fields are given in the users local time including the timezone offset via ISO 8601.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<TimesheetEntity> TimesheetsGETAsync(int id)
+        {
+            return TimesheetsGETAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns one timesheet record
         /// </summary>
         /// <param name="id">Timesheet record ID to fetch</param>
         /// <returns>Returns one timesheet record. Be aware that the datetime fields are given in the users local time including the timezone offset via ISO 8601.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TimesheetEntity> TimesheetsGETAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TimesheetEntity> TimesheetsGETAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5861,14 +6339,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<TimesheetEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -5885,6 +6363,20 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Update an existing timesheet record
+        /// </summary>
+        /// <remarks>
+        /// Update an existing timesheet record, you can pass all or just a subset of the attributes.
+        /// </remarks>
+        /// <param name="id">Timesheet record ID to update</param>
+        /// <returns>Returns the updated timesheet</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPATCHAsync(int id, TimesheetEditForm body)
+        {
+            return TimesheetsPATCHAsync(id, body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Update an existing timesheet record
@@ -5894,8 +6386,8 @@ namespace MauiForKimai.ApiClient.Client
         /// </remarks>
         /// <param name="id">Timesheet record ID to update</param>
         /// <returns>Returns the updated timesheet</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPATCHAsync(int id, TimesheetEditForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<TimesheetEntity> TimesheetsPATCHAsync(int id, TimesheetEditForm body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5946,14 +6438,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<TimesheetEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -5970,14 +6462,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Delete an existing timesheet record
+        /// </summary>
+        /// <param name="id">Timesheet record ID to delete</param>
+        /// <returns>Delete one timesheet record</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task TimesheetsDELETEAsync(int id)
+        {
+            return TimesheetsDELETEAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Delete an existing timesheet record
         /// </summary>
         /// <param name="id">Timesheet record ID to delete</param>
         /// <returns>Delete one timesheet record</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task TimesheetsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task TimesheetsDELETEAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -6022,7 +6525,7 @@ namespace MauiForKimai.ApiClient.Client
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -6039,201 +6542,23 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
-        protected struct ObjectResponseResult<T>
+        /// <summary>
+        /// Return the current user entity
+        /// </summary>
+        /// <returns>Return the current user entity.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<UserEntity> MeAsync()
         {
-            public ObjectResponseResult(T responseObject, string responseText)
-            {
-                this.Object = responseObject;
-                this.Text = responseText;
-            }
-
-            public T Object { get; }
-
-            public string Text { get; }
+            return MeAsync(System.Threading.CancellationToken.None);
         }
-
-        public bool ReadResponseAsString { get; set; }
-
-        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
-        {
-            if (response == null || response.Content == null)
-            {
-                return new ObjectResponseResult<T>(default(T), string.Empty);
-            }
-
-            if (ReadResponseAsString)
-            {
-                var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
-                    return new ObjectResponseResult<T>(typedBody, responseText);
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, responseText, headers, exception);
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    using (var streamReader = new System.IO.StreamReader(responseStream))
-                    using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader))
-                    {
-                        var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
-                        var typedBody = serializer.Deserialize<T>(jsonTextReader);
-                        return new ObjectResponseResult<T>(typedBody, string.Empty);
-                    }
-                }
-                catch (Newtonsoft.Json.JsonException exception)
-                {
-                    var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
-                }
-            }
-        }
-
-        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
-        {
-            if (value == null)
-            {
-                return "";
-            }
-
-            if (value is System.Enum)
-            {
-                var name = System.Enum.GetName(value.GetType(), value);
-                if (name != null)
-                {
-                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
-                    if (field != null)
-                    {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
-                            as System.Runtime.Serialization.EnumMemberAttribute;
-                        if (attribute != null)
-                        {
-                            return attribute.Value != null ? attribute.Value : name;
-                        }
-                    }
-
-                    var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
-                    return converted == null ? string.Empty : converted;
-                }
-            }
-            else if (value is bool) 
-            {
-                return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
-            }
-            else if (value is byte[])
-            {
-                return System.Convert.ToBase64String((byte[]) value);
-            }
-            else if (value.GetType().IsArray)
-            {
-                var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
-                return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
-            }
-
-            var result = System.Convert.ToString(value, cultureInfo);
-            return result == null ? "" : result;
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial interface IUserClient
-    {
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Return the current user entity
         /// </summary>
         /// <returns>Return the current user entity.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UserEntity> MeAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Returns the collection of all registered users
-        /// </summary>
-        /// <param name="visible">Visibility status to filter users. Allowed values: 1=visible, 2=hidden, 3=all (default: 1)</param>
-        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, username, alias, email (default: username)</param>
-        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
-        /// <param name="term">Free search term</param>
-        /// <returns>Returns the collection of all registered users. Required permission: view_user</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserCollection>> UsersAllAsync(string visible = null, string orderBy = null, string order = null, string term = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Creates a new user
-        /// </summary>
-        /// <remarks>
-        /// Creates a new user and returns it afterwards
-        /// </remarks>
-        /// <returns>Returns the new created user</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UserEntity> UsersPOSTAsync(UserCreateForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Return one user entity
-        /// </summary>
-        /// <param name="id">User ID to fetch</param>
-        /// <returns>Return one user entity.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UserEntity> UsersGETAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Update an existing user
-        /// </summary>
-        /// <remarks>
-        /// Update an existing user, you can pass all or just a subset of all attributes (passing roles will replace all existing ones)
-        /// </remarks>
-        /// <param name="id">User ID to update</param>
-        /// <returns>Returns the updated user</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UserEntity> UsersPATCHAsync(UserEditForm body, int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class UserClient : IUserClient
-    {
-        private System.Net.Http.HttpClient _httpClient;
-        private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-
-        public UserClient(System.Net.Http.HttpClient httpClient)
-        {
-            _httpClient = httpClient;
-            _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
-        }
-
-        private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
-        {
-            var settings = new Newtonsoft.Json.JsonSerializerSettings();
-            UpdateJsonSerializerSettings(settings);
-            return settings;
-        }
-
-        protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
-
-        partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
-
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
-        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
-        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Return the current user entity
-        /// </summary>
-        /// <returns>Return the current user entity.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<UserEntity> MeAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<UserEntity> MeAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/users/me");
@@ -6273,14 +6598,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<UserEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -6297,6 +6622,20 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Returns the collection of all registered users
+        /// </summary>
+        /// <param name="visible">Visibility status to filter users. Allowed values: 1=visible, 2=hidden, 3=all (default: 1)</param>
+        /// <param name="orderBy">The field by which results will be ordered. Allowed values: id, username, alias, email (default: username)</param>
+        /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
+        /// <param name="term">Free search term</param>
+        /// <returns>Returns the collection of all registered users. Required permission: view_user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserCollection>> UsersAllAsync(string visible, string orderBy, string order, string term)
+        {
+            return UsersAllAsync(visible, orderBy, order, term, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Returns the collection of all registered users
@@ -6306,8 +6645,8 @@ namespace MauiForKimai.ApiClient.Client
         /// <param name="order">The result order. Allowed values: ASC, DESC (default: ASC)</param>
         /// <param name="term">Free search term</param>
         /// <returns>Returns the collection of all registered users. Required permission: view_user</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserCollection>> UsersAllAsync(string visible = null, string orderBy = null, string order = null, string term = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<UserCollection>> UsersAllAsync(string visible, string orderBy, string order, string term, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/users?");
@@ -6364,14 +6703,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<UserCollection>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -6388,6 +6727,19 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Creates a new user
+        /// </summary>
+        /// <remarks>
+        /// Creates a new user and returns it afterwards
+        /// </remarks>
+        /// <returns>Returns the new created user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<UserEntity> UsersPOSTAsync(UserCreateForm body)
+        {
+            return UsersPOSTAsync(body, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Creates a new user
@@ -6396,8 +6748,8 @@ namespace MauiForKimai.ApiClient.Client
         /// Creates a new user and returns it afterwards
         /// </remarks>
         /// <returns>Returns the new created user</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<UserEntity> UsersPOSTAsync(UserCreateForm body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<UserEntity> UsersPOSTAsync(UserCreateForm body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -6444,14 +6796,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<UserEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -6468,14 +6820,25 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Return one user entity
+        /// </summary>
+        /// <param name="id">User ID to fetch</param>
+        /// <returns>Return one user entity.</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<UserEntity> UsersGETAsync(int id)
+        {
+            return UsersGETAsync(id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Return one user entity
         /// </summary>
         /// <param name="id">User ID to fetch</param>
         /// <returns>Return one user entity.</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<UserEntity> UsersGETAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<UserEntity> UsersGETAsync(int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -6519,14 +6882,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<UserEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -6543,6 +6906,20 @@ namespace MauiForKimai.ApiClient.Client
             }
         }
 
+        /// <summary>
+        /// Update an existing user
+        /// </summary>
+        /// <remarks>
+        /// Update an existing user, you can pass all or just a subset of all attributes (passing roles will replace all existing ones)
+        /// </remarks>
+        /// <param name="id">User ID to update</param>
+        /// <returns>Returns the updated user</returns>
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<UserEntity> UsersPATCHAsync(UserEditForm body, int id)
+        {
+            return UsersPATCHAsync(body, id, System.Threading.CancellationToken.None);
+        }
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Update an existing user
@@ -6552,8 +6929,8 @@ namespace MauiForKimai.ApiClient.Client
         /// </remarks>
         /// <param name="id">User ID to update</param>
         /// <returns>Returns the updated user</returns>
-        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<UserEntity> UsersPATCHAsync(UserEditForm body, int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<UserEntity> UsersPATCHAsync(UserEditForm body, int id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -6604,14 +6981,14 @@ namespace MauiForKimai.ApiClient.Client
                             var objectResponse_ = await ReadObjectResponseAsync<UserEntity>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally
@@ -6661,13 +7038,14 @@ namespace MauiForKimai.ApiClient.Client
                 catch (Newtonsoft.Json.JsonException exception)
                 {
                     var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, responseText, headers, exception);
+                    throw new KiamiApiException(message, (int)response.StatusCode, responseText, headers, exception);
                 }
             }
             else
             {
                 try
                 {
+                    var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
                     using (var streamReader = new System.IO.StreamReader(responseStream))
                     using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader))
@@ -6680,7 +7058,7 @@ namespace MauiForKimai.ApiClient.Client
                 catch (Newtonsoft.Json.JsonException exception)
                 {
                     var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
-                    throw new KimaiApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
+                    throw new KiamiApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
                 }
             }
         }
@@ -7493,6 +7871,8 @@ namespace MauiForKimai.ApiClient.Client
     {
         [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int? Project { get; set; }
+        //public ProjectExpanded Project { get; set; }
+
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int? Id { get; set; }
@@ -7741,7 +8121,9 @@ namespace MauiForKimai.ApiClient.Client
     public partial class Project
     {
         [Newtonsoft.Json.JsonProperty("customer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Customer { get; set; }
+        public Customer Customer { get; set; } = new Customer();
+        //public int? Customer { get; set; }
+
 
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int? Id { get; set; }
@@ -8538,11 +8920,14 @@ namespace MauiForKimai.ApiClient.Client
         [System.Runtime.Serialization.EnumMember(Value = @"tr")]
         Tr = 31,
 
+        [System.Runtime.Serialization.EnumMember(Value = @"uk")]
+        Uk = 32,
+
         [System.Runtime.Serialization.EnumMember(Value = @"vi")]
-        Vi = 32,
+        Vi = 33,
 
         [System.Runtime.Serialization.EnumMember(Value = @"zh_CN")]
-        Zh_CN = 33,
+        Zh_CN = 34,
 
     }
 
@@ -8661,11 +9046,14 @@ namespace MauiForKimai.ApiClient.Client
         [System.Runtime.Serialization.EnumMember(Value = @"tr")]
         Tr = 31,
 
+        [System.Runtime.Serialization.EnumMember(Value = @"uk")]
+        Uk = 32,
+
         [System.Runtime.Serialization.EnumMember(Value = @"vi")]
-        Vi = 32,
+        Vi = 33,
 
         [System.Runtime.Serialization.EnumMember(Value = @"zh_CN")]
-        Zh_CN = 33,
+        Zh_CN = 34,
 
     }
 
@@ -8687,7 +9075,7 @@ namespace MauiForKimai.ApiClient.Client
 
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class KimaiApiException : System.Exception
+    public partial class KiamiApiException : System.Exception
     {
         public int StatusCode { get; private set; }
 
@@ -8695,7 +9083,7 @@ namespace MauiForKimai.ApiClient.Client
 
         public System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> Headers { get; private set; }
 
-        public KimaiApiException(string message, int statusCode, string response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Exception innerException)
+        public KiamiApiException(string message, int statusCode, string response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Exception innerException)
             : base(message + "\n\nStatus: " + statusCode + "\nResponse: \n" + ((response == null) ? "(null)" : response.Substring(0, response.Length >= 512 ? 512 : response.Length)), innerException)
         {
             StatusCode = statusCode;
@@ -8710,11 +9098,11 @@ namespace MauiForKimai.ApiClient.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class KimaiApiException<TResult> : KimaiApiException
+    public partial class KiamiApiException<TResult> : KiamiApiException
     {
         public TResult Result { get; private set; }
 
-        public KimaiApiException(string message, int statusCode, string response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, TResult result, System.Exception innerException)
+        public KiamiApiException(string message, int statusCode, string response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, TResult result, System.Exception innerException)
             : base(message, statusCode, response, headers, innerException)
         {
             Result = result;

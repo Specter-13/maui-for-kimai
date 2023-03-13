@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using MauiForKimai.ApiClient.ApiClient;
 using MauiForKimai.ViewModels.Base;
 using MauiForKimai.Views;
 using System;
@@ -21,7 +20,7 @@ namespace MauiForKimai.ViewModels
         {
             if(base.ApiStateProvider.IsAuthenticated)
             { 
-                var route = base.RoutingService.GetRouteByViewModel<MainViewModel>();
+                var route = base.RoutingService.GetRouteByViewModel<HomeViewModel>();
                 await Shell.Current.GoToAsync(route);
             }
         }
@@ -37,6 +36,7 @@ namespace MauiForKimai.ViewModels
         async Task LogOutAsync()
         { 
 		    base.ApiStateProvider.Disconnect();
+            await GoToLoginAsync();
 		    //await Shell.Current.GoToAsync(nameof(LoginView));
 	    }
 

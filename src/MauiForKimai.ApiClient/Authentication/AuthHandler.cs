@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MauiForKimai.ApiClient.ApiClient;
+using MauiForKimai.ApiClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;

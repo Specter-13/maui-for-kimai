@@ -4,10 +4,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
-    xmlns:model="clr-namespace:MauiForKimai.ApiClient.Client;assembly=MauiForKimai.ApiClient"
+    xmlns:model="clr-namespace:MauiForKimai.ApiClient;assembly=MauiForKimai.ApiClient"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     Title="Home"
-    x:DataType="viewmodel:MainViewModel">
+    x:DataType="viewmodel:HomeViewModel">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +19,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Frame Grid.Row="0">
+        <Frame Grid.Row="0" BackgroundColor="SlateGray">
             <VerticalStackLayout>
                 <Label
                     Grid.Column="0"
@@ -39,10 +39,17 @@
         <ScrollView Grid.Row="1">
 
             <CollectionView ItemsSource="{Binding RecentTimesheets}">
+
+                <CollectionView.Header>
+                    <ContentView Padding="10">
+                        <Label Style="{StaticResource LargeLabel}">Recent Timesheets</Label>
+                    </ContentView>
+                </CollectionView.Header>
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:TimesheetCollectionExpanded">
                         <Grid Padding="10">
-                            <Frame HeightRequest="125">
+                            <Frame BackgroundColor="SlateGrey" HeightRequest="125">
                                 <Grid RowDefinitions=".5*,.5*">
                                     <Label
                                         Grid.Row="0"
@@ -63,13 +70,13 @@
 
         </ScrollView>
 
-        <Grid
-            Grid.Row="2"
-            Padding="30"
-            VerticalOptions="Center">
+        <Grid Grid.Row="2" VerticalOptions="Center">
 
 
-            <Frame x:Name="SwipeMenu">
+            <Frame
+                x:Name="SwipeMenu"
+                BackgroundColor="SlateGray"
+                CornerRadius="40">
                 <Frame.GestureRecognizers>
                     <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
                 </Frame.GestureRecognizers>

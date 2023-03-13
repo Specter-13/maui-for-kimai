@@ -1,4 +1,4 @@
-﻿using MauiForKimai.ApiClient.Client;
+﻿using MauiForKimai.ApiClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;

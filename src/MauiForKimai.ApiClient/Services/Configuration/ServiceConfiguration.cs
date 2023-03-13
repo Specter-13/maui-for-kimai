@@ -1,5 +1,4 @@
-﻿using MauiForKimai.ApiClient.ApiClient;
-using MauiForKimai.ApiClient.Authentication;
+﻿using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.ApiClient.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +15,7 @@ public static class ServicesConfiguration
     public static void RegisterClientServices(this IServiceCollection services)
     {
         services.AddSingleton<ApiStateProvider>();
-        services.AddScoped<AuthHandler>();
+        services.AddTransient<AuthHandler>();
 
         services.AddHttpClient(AuthHandler.AUTHENTICATED_CLIENT)
             .AddHttpMessageHandler((s) => s.GetService<AuthHandler>());

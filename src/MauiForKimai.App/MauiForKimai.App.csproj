@@ -104,4 +104,8 @@
 	  </Compile>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Views\Timesheets\" />
+	</ItemGroup>
+
 </Project>

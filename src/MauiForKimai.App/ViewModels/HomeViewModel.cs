@@ -5,15 +5,14 @@ using CommunityToolkit.Maui.Core.Extensions;
 
 namespace MauiForKimai.ViewModels;
 
-public partial class MainViewModel : ViewModelBase
+public partial class HomeViewModel : ViewModelBase
 {
 	protected readonly ITimesheetService timesheetService;
 
-	public MainViewModel(ITimesheetService ts, ApiStateProvider asp, IRoutingService routingService) : base(asp, routingService)
+	public HomeViewModel(ITimesheetService ts, ApiStateProvider asp, IRoutingService routingService) : base(asp, routingService)
 	{
 		timesheetService = ts;
 
-		
 	}
 	
 	

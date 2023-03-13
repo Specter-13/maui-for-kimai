@@ -1,12 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MauiForKimai.ApiClient.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MauiForKimai.ApiClient.ApiClient;
+namespace MauiForKimai.ApiClient;
 
 public partial class ApiStateProvider : ObservableObject
 {

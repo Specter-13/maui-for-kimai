@@ -4,8 +4,8 @@ namespace MauiForKimai.Views;
 
 public partial class HomeView : ContentPage
 {
-	private readonly MainViewModel _vm;
-	public HomeView(MainViewModel vm)
+	private readonly HomeViewModel _vm;
+	public HomeView(HomeViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;
@@ -19,11 +19,12 @@ public partial class HomeView : ContentPage
 
     private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
     {
-        if(e.StatusType == GestureStatus.Running)
-        { 
+        //if(e.StatusType == GestureStatus.Running)
+        //{ 
             SwipeMenu.TranslationY = e.TotalY;
-        }
+        //}
         //SwipeMenu.ScaleYTo(SwipeMenu.Scale ,250,Easing.Linear);
 
     }
+
 }

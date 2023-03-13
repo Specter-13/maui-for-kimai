@@ -1,5 +1,4 @@
-﻿using MauiForKimai.ApiClient.ApiClient;
-using MauiForKimai.ApiClient.Authentication;
+﻿using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.ViewModels.Base;
 using System;
 using System.Collections.Generic;

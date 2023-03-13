@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiForKimai.ApiClient.ApiClient;
 using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.Views;
 using System;

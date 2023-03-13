@@ -1,8 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using MauiForKimai.ApiClient.ApiClient;
+using MauiForKimai.ApiClient;
 using MauiForKimai.ApiClient.Authentication;
-using MauiForKimai.ApiClient.Client;
 using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.ApplicationLayer.Messages;
 using Microsoft.Extensions.Options;
@@ -14,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ApiClient.Services;
-public class BaseService 
+public class BaseService : IBaseService
 {
 	protected IHttpClientFactory _httpClientFactory;
 	protected HttpClient _httpClient;
@@ -26,17 +25,19 @@ public class BaseService
 		ApiStateProvider = asp;
 	}
 
-    protected void CreateNewHttpClient(string baseUrl)
+	public IApiClient ApiClient {get; set;}
+    public void InitializeClient(string baseUrl)
 	{ 
 		_httpClient = _httpClientFactory.CreateClient(AuthHandler.AUTHENTICATED_CLIENT);
 		_httpClient.BaseAddress = new Uri(baseUrl);
+		ApiClient = new ApiClient(_httpClient);
 	}
 	public async Task<bool> PingServerAsync()
 	{
-		var defualtClient = new DefaultClient(_httpClient);
+		//var defualtClient = new ApiClient.DefaultClient(_httpClient);
 		try
 		{
-			await defualtClient.PingAsync();
+			await ApiClient.PingAsync();
 			return true;
 		}
 		catch 
