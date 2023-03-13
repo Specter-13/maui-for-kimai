@@ -10,16 +10,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ViewModels.Base;
-public partial class ViewModelBase : ObservableObject
+public abstract partial class ViewModelBase : ObservableObject, IViewModel
 {
 	
-	public ViewModelBase(ApiStateProvider asp)
+	public ViewModelBase(ApiStateProvider asp, IRoutingService routingService)
 	{
 		apiStateProvider = asp;
+		RoutingService = routingService;
 	}
 
 	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(IsNotBusy))]
+	bool isBusy;
+
+
+	[ObservableProperty]
 	public ApiStateProvider apiStateProvider;
+
+	public IRoutingService RoutingService { get; }
+
+	public bool IsNotBusy => !IsBusy;
 
 
 	

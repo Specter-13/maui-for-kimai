@@ -11,12 +11,13 @@
 
     <VerticalStackLayout>
         <Label
-            FontSize="Large"
             HorizontalOptions="Center"
+            Style="{StaticResource LargeLabel}"
             Text="Welcome!"
             VerticalOptions="Center" />
         <Label
             HorizontalOptions="Center"
+            Style="{StaticResource MediumLabel}"
             Text="Choose your Kimai server"
             VerticalOptions="Center" />
 
@@ -24,17 +25,14 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:ServerModel">
-                    <Frame BackgroundColor="White">
+                    <Frame>
                         <Grid ColumnDefinitions="0.75*,0.25*">
                             <Label
                                 Grid.Column="0"
-                                FontSize="Large"
-                                Text="{Binding Name}"
-                                TextColor="Black" />
+                                Style="{StaticResource MediumLabel}"
+                                Text="{Binding Name}" />
                             <Button
                                 Grid.Column="1"
-                                BorderColor="Red"
-                                BorderWidth="1"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LoginViewModel}}, Path=ConnectCommand}"
                                 CommandParameter="{Binding .}"
                                 Text="Connect" />

@@ -3,15 +3,18 @@
     x:Class="MauiForKimai.Shells.AppShellMobile"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:local="clr-namespace:MauiForKimai.Views"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     x:DataType="viewmodel:MenuViewModel"
     Shell.FlyoutBehavior="Flyout">
 
 
+
+
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
-            <Grid BackgroundColor="Black" HeightRequest="150">
+            <Grid HeightRequest="150">
                 <Image
                     Aspect="AspectFill"
                     Opacity="0.6"
@@ -20,7 +23,6 @@
                     FontAttributes="Bold"
                     HorizontalTextAlignment="Center"
                     Text="Maui For Kimai"
-                    TextColor="Black"
                     VerticalTextAlignment="Center" />
             </Grid>
         </DataTemplate>
@@ -28,29 +30,31 @@
 
     <FlyoutItem Title="Login">
         <ShellContent
-            Title="Welcome"
+            Title="Login"
             ContentTemplate="{DataTemplate local:LoginView}"
-            Route="LoginView" />
+            Icon="login.png"
+            Route="login" />
     </FlyoutItem>
 
     <FlyoutItem Title="Home" IsVisible="{Binding ApiStateProvider.IsAuthenticated}">
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate local:HomeView}"
-            Route="HomeView" />
+            Icon="home.png"
+            Route="home" />
     </FlyoutItem>
 
     <FlyoutItem Title="Timesheets" IsVisible="{Binding ApiStateProvider.IsAuthenticated}">
         <ShellContent
             Title="Timesheets"
             ContentTemplate="{DataTemplate local:TimeSheetView}"
-            Route="TimeSheetView" />
+            Route="timesheet" />
     </FlyoutItem>
 
     <Shell.FlyoutFooter>
         <StackLayout>
-
             <Button
+                Margin="10,10"
                 Command="{Binding LogOutCommand}"
                 IsVisible="{Binding ApiStateProvider.IsAuthenticated}"
                 Text="Log out" />

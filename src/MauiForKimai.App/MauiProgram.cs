@@ -6,13 +6,14 @@ using MauiForKimai.ApiClient.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.ApiClient.Services;
-using MauiForKimai.Services.ServicesConfiguration;
 using MauiForKimai.Pages;
 using MauiForKimai.Pages.ServersManagement;
 using MauiForKimai.ApiClient.Services.Configuration;
 using MauiForKimai.Views;
 using MauiForKimai.ViewModels.Base;
 using MauiForKimai.Shells;
+using MauiForKimai.Services;
+using MauiForKimai.DependencyInjection;
 
 namespace MauiForKimai;
 
@@ -28,6 +29,7 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				fonts.AddFont(filename: "materialdesignicons-webfont.ttf", alias: "MaterialDesignIcons");
 			});
 
 		//builder.Services.ConfigureShell();
@@ -35,13 +37,15 @@ public static class MauiProgram
 		builder.Services.RegisterClientServices();
 		builder.Services.RegisterAppServices();
 
-		//ConfigureApiClients(builder.Services);
-		builder.Services.AddSingleton<MenuViewModel>();
-		builder.Services.AddSingleton<MainViewModel>();
-		builder.Services.AddSingleton<LoginViewModel>();
-		builder.Services.AddSingleton<TimeSheetViewModel>();
 
-		builder.Services.AddTransient<ServerDetailViewModel>();
+		//ConfigureApiClients(builder.Services);
+		builder.Services.ConfigureViewModels();
+		//builder.Services.AddSingleton<MenuViewModel>();
+		//builder.Services.AddSingleton<MainViewModel>();
+		//builder.Services.AddSingleton<LoginViewModel>();
+		//builder.Services.AddSingleton<TimeSheetViewModel>();
+
+		//builder.Services.AddTransient<ServerDetailViewModel>();
 		builder.Services.AddTransient<ServerDetailPage>();
 
 
@@ -54,18 +58,21 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
+		 var app = builder.Build();
+
+        RegisterRoutes(app);
+
+        return app;
 	}
 
-	public static void ConfigureShell(this IServiceCollection services)
+
+	private static void RegisterRoutes(MauiApp app)
     {
-        if (DeviceInfo.Idiom == DeviceIdiom.Phone)
+        var routingService = app.Services.GetRequiredService<IRoutingService>();
+
+        foreach (var routeModel in routingService.Routes)
         {
-            services.AddSingleton<AppShellMobile>();
-        }
-        else
-        {
-            services.AddSingleton<AppShellDesktop>();
+            Routing.RegisterRoute(routeModel.Route, routeModel.ViewType);
         }
     }
 }

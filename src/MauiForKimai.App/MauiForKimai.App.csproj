@@ -50,23 +50,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\materialdesignicons-webfont.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
     <PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Scrutor" Version="4.2.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\MauiForKimai.ApiClient\MauiForKimai.ApiClient.csproj" />
-	  <ProjectReference Include="..\MauiForKimai.ApplicationLayer\MauiForKimai.ApplicationLayer.csproj" />
+	  <ProjectReference Include="..\MauiForKimai.ApplicationLayer\MauiForKimai.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Controls\FlyoutFooter.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Shells\AppShellDesktop.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -82,11 +84,6 @@
 	  <MauiXaml Update="Views\TimeSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Messages\" />
-	  <Folder Include="Persistence\" />
 	</ItemGroup>
 
 	<ItemGroup>

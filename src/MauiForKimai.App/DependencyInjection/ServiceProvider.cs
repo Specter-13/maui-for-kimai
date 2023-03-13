@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MauiForKimai.Helpers;
+namespace MauiForKimai.DependencyInjection;
 
-public static class ServiceHelper
+public static class ServiceProvider
 {
     public static TService GetService<TService>()
         => Current.GetService<TService>();

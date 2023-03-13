@@ -24,32 +24,24 @@ public partial class LoginViewModel : ViewModelBase
     public ObservableCollection<ServerModel> Servers {get; set; } = new();
     private readonly IEnumerable<IBaseService> _baseServices;
     private readonly IUserService _userService;
-    public LoginViewModel(ApiStateProvider asp, IEnumerable<IBaseService> baseServices, IUserService userService) : base(asp)
+    public LoginViewModel(ApiStateProvider asp, IEnumerable<IBaseService> baseServices, IUserService userService, IRoutingService routingService) : base(asp, routingService)
     {
-        var defaultServer = new ServerModel()
-        {
-            Id= 0,
-            Username = "dadkos34@gmail.com",
-            ApiPasswordKey = "internet",
-            IsDefault = true,
-            Name = "My Kimai server",
-            Url = "https://specter13maui.kimai.cloud/"
-            
-        };
 
+        //TODO use secure storage for api password token
         var local = new ServerModel()
         {
             Id= 1,
             Username = "admin@admin.com",
-            ApiPasswordKey = "password",
+            ApiPasswordKey = "internet",
             IsDefault = false,
             Name = "My local server",
             Url = "http://localhost:8001/"
             
         };
+
+   
         _baseServices = baseServices;
         _userService = userService;
-        Servers.Add(defaultServer);
         Servers.Add(local);
 
     }

@@ -14,11 +14,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiForKimai.App", "MauiFor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiForKimai.ApiClient", "MauiForKimai.ApiClient\MauiForKimai.ApiClient.csproj", "{EC04CA39-7BEF-41AE-AA50-DE50DD6034C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiForKimai.ApplicationLayer", "MauiForKimai.ApplicationLayer\MauiForKimai.ApplicationLayer.csproj", "{F04059BA-5C13-47D8-A111-2451D95BA036}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiForKimai.Core", "MauiForKimai.ApplicationLayer\MauiForKimai.Core.csproj", "{F04059BA-5C13-47D8-A111-2451D95BA036}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{917505C7-9468-4BA2-B169-D84BA68ED443}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{EAD42E6C-2058-4D11-9A2F-6CA67C5B7571}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiForKimai.Domain", "MauiForKimai.Domain\MauiForKimai.Domain.csproj", "{4ED009F4-DA23-4D3B-A9EE-2DEAEEA1E666}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4CC975CE-A29F-4065-923C-C63629439A93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +44,10 @@ Global
 		{F04059BA-5C13-47D8-A111-2451D95BA036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F04059BA-5C13-47D8-A111-2451D95BA036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F04059BA-5C13-47D8-A111-2451D95BA036}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ED009F4-DA23-4D3B-A9EE-2DEAEEA1E666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ED009F4-DA23-4D3B-A9EE-2DEAEEA1E666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ED009F4-DA23-4D3B-A9EE-2DEAEEA1E666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ED009F4-DA23-4D3B-A9EE-2DEAEEA1E666}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,7 @@ Global
 		{932D57E1-6276-4F9B-9E86-DEF9ABAD1B88} = {EAD42E6C-2058-4D11-9A2F-6CA67C5B7571}
 		{EC04CA39-7BEF-41AE-AA50-DE50DD6034C1} = {EAD42E6C-2058-4D11-9A2F-6CA67C5B7571}
 		{F04059BA-5C13-47D8-A111-2451D95BA036} = {917505C7-9468-4BA2-B169-D84BA68ED443}
+		{4ED009F4-DA23-4D3B-A9EE-2DEAEEA1E666} = {4CC975CE-A29F-4065-923C-C63629439A93}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}

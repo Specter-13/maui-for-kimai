@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ViewModels;
 public partial class ServerDetailViewModel : ViewModelBase
 {
-	public ServerDetailViewModel(ApiStateProvider asp) : base(asp)
+	public ServerDetailViewModel(ApiStateProvider asp, IRoutingService routingService) : base(asp, routingService)
 	{
 
 	}

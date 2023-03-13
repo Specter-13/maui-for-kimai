@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MauiForKimai.ApplicationLayer\MauiForKimai.ApplicationLayer.csproj" />
+    <ProjectReference Include="..\MauiForKimai.ApplicationLayer\MauiForKimai.Core.csproj" />
   </ItemGroup>
 
 </Project>

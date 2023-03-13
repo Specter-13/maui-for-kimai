@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ViewModels;
 public partial class TimeSheetViewModel : ViewModelBase
 {
-    public TimeSheetViewModel(ApiStateProvider asp) : base(asp)
+    public TimeSheetViewModel(ApiStateProvider asp, IRoutingService routingService) : base(asp, routingService)
     {
     }
 }

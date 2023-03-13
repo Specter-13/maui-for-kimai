@@ -12,7 +12,6 @@ public partial class AppShellMobile : Shell
 	{
 		InitializeComponent();
 		BindingContext = menuViewModel;
-		Routing.RegisterRoute(nameof(ServerDetailPage), typeof(ServerDetailPage));
-		Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
+
 	}
 }

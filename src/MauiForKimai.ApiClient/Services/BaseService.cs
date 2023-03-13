@@ -19,18 +19,12 @@ public class BaseService
 	protected IHttpClientFactory _httpClientFactory;
 	protected HttpClient _httpClient;
 	protected ApiStateProvider ApiStateProvider;
-    private IHttpClientFactory httpClientFactory;
 
     public BaseService(IHttpClientFactory httpClientFactory, ApiStateProvider asp) 
 	{
 		_httpClientFactory = httpClientFactory;
 		ApiStateProvider = asp;
 	}
-
-    public BaseService(IHttpClientFactory httpClientFactory)
-    {
-        this.httpClientFactory = httpClientFactory;
-    }
 
     protected void CreateNewHttpClient(string baseUrl)
 	{ 
@@ -42,11 +36,10 @@ public class BaseService
 		var defualtClient = new DefaultClient(_httpClient);
 		try
 		{
-			//await defualtClient.Get_app_api_status_pingAsync();
 			await defualtClient.PingAsync();
 			return true;
 		}
-		catch (Exception)
+		catch 
 		{
 			return false;
 		}

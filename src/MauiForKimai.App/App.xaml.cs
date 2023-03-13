@@ -12,11 +12,10 @@ public partial class App : Application
 {
 	public App(MenuViewModel menuViewModel)
 	{
-		this.UserAppTheme = Microsoft.Maui.ApplicationModel.AppTheme.Light;
 		InitializeComponent();
 
 
-		#if __MOBILE__
+		#if ANDROID
             MainPage = new AppShellMobile(menuViewModel);
 		#else
             MainPage = new AppShellDesktop(menuViewModel);
