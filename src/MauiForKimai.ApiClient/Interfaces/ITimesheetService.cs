@@ -6,8 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ApiClient.Interfaces;
-public interface ITimesheetService : IBaseService
+public interface ITimesheetService : IBaseService, ICrudOperations<TimesheetEntity, TimesheetEditForm>
 {
      Task<ICollection<TimesheetCollection>> GetAllTimesheetsAsync();
      Task<ICollection<TimesheetCollectionExpanded>> GetTenRecentTimesheetsAsync();
+
+     Task<ICollection<TimesheetCollectionExpanded>> GetActive();
+     Task<TimesheetEntity> StopActive(int id);
 }

@@ -16,6 +16,22 @@ public class TimesheetService : BaseService, ITimesheetService
     {
     }
 
+    public Task<TimesheetEntity> Create(TimesheetEditForm entity)
+    {
+        if(entity == null)
+            return null;
+
+        var timesheet = ApiClient.TimesheetsPOSTAsync(entity,null);
+
+        return timesheet;
+    }
+
+
+    public Task Delete(int id)
+    {
+        return ApiClient.TimesheetsDELETEAsync(id);
+    }
+
     public Task<ICollection<TimesheetCollection>> GetAllTimesheetsAsync()
 	{ 
         return null;
@@ -30,9 +46,21 @@ public class TimesheetService : BaseService, ITimesheetService
         //return  _timesheetClient.Get_recent_timesheetAsync(base.ApiStateProvider.ActualUser.Id.ToString());
     }
 
- //   public void InitializeClient(string baseUrl)
-	//{
-	//	base.CreateNewHttpClient(baseUrl);
-	//	//_timesheetClient = new TimesheetClient(base._httpClient);
-	//}
+    public Task<TimesheetEntity> Read(int id)
+    {
+        return ApiClient.TimesheetsGETAsync(id);
+    }
+
+    public Task<TimesheetEntity> Update(int id, TimesheetEditForm body)
+    {
+        return ApiClient.TimesheetsPATCHAsync(id, body);
+    }
+    public Task<ICollection<TimesheetCollectionExpanded>> GetActive()
+    {
+        return ApiClient.ActiveAsync();
+    }
+    public Task<TimesheetEntity> StopActive(int id)
+    {
+        return ApiClient.StopAsync(id);
+    }
 }

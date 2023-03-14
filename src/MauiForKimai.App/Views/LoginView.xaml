@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<mvvm:TinyView
     x:Class="MauiForKimai.Views.LoginView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:model="clr-namespace:MauiForKimai.Models"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     Title="Login"
     x:DataType="viewmodel:LoginViewModel">
@@ -25,8 +26,8 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:ServerModel">
-                    <Frame>
-                        <Grid ColumnDefinitions="0.75*,0.25*">
+                    <Frame BackgroundColor="SlateGray">
+                        <Grid ColumnDefinitions="0.70*,0.30*">
                             <Label
                                 Grid.Column="0"
                                 Style="{StaticResource MediumLabel}"
@@ -51,4 +52,4 @@
             Text="Create new"
             VerticalOptions="EndAndExpand" />
     </VerticalStackLayout>
-</ContentPage>
+</mvvm:TinyView>

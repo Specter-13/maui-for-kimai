@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TinyMvvm;
 
 namespace MauiForKimai.DependencyInjection;
 
@@ -27,6 +28,15 @@ public static class ServicesConfiguration
         services.Scan(selector => selector
             .FromAssemblyOf<App>()
             .AddClasses(filter => filter.AssignableTo<IViewModel>())
+            .AsSelfWithInterfaces()
+            .WithTransientLifetime());
+    }
+
+    public static void ConfigureViews(this IServiceCollection services)
+    {
+        services.Scan(selector => selector
+            .FromAssemblyOf<App>()
+            .AddClasses(filter => filter.AssignableTo<TinyView>())
             .AsSelfWithInterfaces()
             .WithTransientLifetime());
     }

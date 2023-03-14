@@ -2,7 +2,7 @@ using MauiForKimai.ViewModels;
 
 namespace MauiForKimai.Views;
 
-public partial class TimeSheetView : ContentPage
+public partial class TimeSheetView
 {
 	public TimeSheetView(TimeSheetViewModel vm)
 	{

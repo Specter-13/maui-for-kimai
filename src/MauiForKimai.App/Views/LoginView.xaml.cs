@@ -2,7 +2,7 @@ using MauiForKimai.ViewModels;
 
 namespace MauiForKimai.Views;
 
-public partial class LoginView : ContentPage
+public partial class LoginView
 {
 	public LoginView(LoginViewModel vm)
 	{

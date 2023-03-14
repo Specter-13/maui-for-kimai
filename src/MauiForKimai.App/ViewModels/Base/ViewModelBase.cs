@@ -7,9 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TinyMvvm;
 
 namespace MauiForKimai.ViewModels.Base;
-public abstract partial class ViewModelBase : ObservableObject, IViewModel
+public abstract partial class ViewModelBase : TinyViewModel, IViewModel
 {
 	
 	public ViewModelBase(ApiStateProvider asp, IRoutingService routingService)
@@ -18,17 +19,12 @@ public abstract partial class ViewModelBase : ObservableObject, IViewModel
 		RoutingService = routingService;
 	}
 
-	[ObservableProperty]
-	[NotifyPropertyChangedFor(nameof(IsNotBusy))]
-	bool isBusy;
-
 
 	[ObservableProperty]
 	public ApiStateProvider apiStateProvider;
 
 	public IRoutingService RoutingService { get; }
 
-	public bool IsNotBusy => !IsBusy;
 
 
 	

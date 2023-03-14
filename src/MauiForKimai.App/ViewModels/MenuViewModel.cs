@@ -21,7 +21,7 @@ namespace MauiForKimai.ViewModels
             if(base.ApiStateProvider.IsAuthenticated)
             { 
                 var route = base.RoutingService.GetRouteByViewModel<HomeViewModel>();
-                await Shell.Current.GoToAsync(route);
+                await Navigation.NavigateTo(route);
             }
         }
 
@@ -29,14 +29,15 @@ namespace MauiForKimai.ViewModels
         async Task GoToLoginAsync()
         {
              var route = base.RoutingService.GetRouteByViewModel<LoginViewModel>();
-            await Shell.Current.GoToAsync(route);
+            await Navigation.NavigateTo(route);
         }
 
         [RelayCommand]
         async Task LogOutAsync()
         { 
-		    base.ApiStateProvider.Disconnect();
             await GoToLoginAsync();
+		    base.ApiStateProvider.Disconnect();
+            
 		    //await Shell.Current.GoToAsync(nameof(LoginView));
 	    }
 

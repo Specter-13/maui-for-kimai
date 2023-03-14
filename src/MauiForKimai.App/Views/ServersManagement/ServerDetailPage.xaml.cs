@@ -2,7 +2,7 @@ using MauiForKimai.ViewModels;
 
 namespace MauiForKimai.Pages.ServersManagement;
 
-public partial class ServerDetailPage : ContentPage
+public partial class ServerDetailPage 
 {
 	public ServerDetailPage(ServerDetailViewModel vm)
 	{

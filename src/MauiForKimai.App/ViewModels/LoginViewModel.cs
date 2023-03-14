@@ -50,7 +50,7 @@ public partial class LoginViewModel : ViewModelBase
     [RelayCommand]
     async Task AddNewServer() 
     {
-        await Shell.Current.GoToAsync(nameof(ServerDetailPage));
+        //await Navigation.NavigateTo(nameof(ServerDetailPage));
     }
 
     [RelayCommand]

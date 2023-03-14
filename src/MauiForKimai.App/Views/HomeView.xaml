@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<mvvm:TinyView
     x:Class="MauiForKimai.Views.HomeView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:model="clr-namespace:MauiForKimai.ApiClient;assembly=MauiForKimai.ApiClient"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     Title="Home"
     x:DataType="viewmodel:HomeViewModel">
@@ -87,9 +88,15 @@
                         FontSize="Large"
                         Text="Time tracking" />
 
-                    <Button Command="{Binding GetTimeSheetsCommand}" Text="Get recent Timesheets" />
 
-
+                    <Button
+                        Margin="10"
+                        Command="{Binding StartNewTimesheetCommand}"
+                        Text="Start" />
+                    <Button
+                        Margin="10"
+                        Command="{Binding StopActiveTimesheetCommand}"
+                        Text="Stop" />
 
                 </VerticalStackLayout>
 
@@ -107,4 +114,4 @@
 
 
 
-</ContentPage>
+</mvvm:TinyView>

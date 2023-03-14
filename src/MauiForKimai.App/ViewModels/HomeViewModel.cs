@@ -15,11 +15,46 @@ public partial class HomeViewModel : ViewModelBase
 
 	}
 	
-	
+	public override async Task OnAppearing()
+	{
+		await GetTimeSheets();
+		var activeTimesheets = await timesheetService.GetActive();
+		if (activeTimesheets.Any()) 
+		{
+			ActiveTimesheetId = (int)activeTimesheets.First().Id;
+		}
+	}
 
 	public ObservableCollection<TimesheetCollectionExpanded> RecentTimesheets {get;set; } = new();
 
+	[ObservableProperty]
+	int activeTimesheetId;
 
+	[RelayCommand]
+	async Task StartNewTimesheet()
+	{
+		var timesheet = new TimesheetEditForm
+		{ 
+			Begin = DateTimeOffset.Now,
+			Project = 1,
+			Activity = 1,
+			Billable = true,
+		};
+
+		var active = await timesheetService.Create(timesheet);
+		ActiveTimesheetId = (int)active.Id;
+	}
+
+	[RelayCommand]
+	async Task StopActiveTimesheet()
+	{
+		if(ActiveTimesheetId != 0)
+		{ 
+
+			await timesheetService.StopActive(ActiveTimesheetId);
+			ActiveTimesheetId = 0;
+		}
+	}
 
     [RelayCommand]
     async Task GetTimeSheets()
@@ -33,15 +68,6 @@ public partial class HomeViewModel : ViewModelBase
 		{ 
 			RecentTimesheets.Add(timesheet);
 		}
-
-
-		string text = "Timesheets returned!";
-		ToastDuration duration = ToastDuration.Short;
-		double fontSize = 14;
-
-		var toast = Toast.Make(text, duration, fontSize);
-		CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-		await toast.Show(cancellationTokenSource.Token);
 
 		IsBusy = false;
         

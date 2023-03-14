@@ -2,7 +2,7 @@ using MauiForKimai.ViewModels;
 
 namespace MauiForKimai.Views;
 
-public partial class HomeView : ContentPage
+public partial class HomeView
 {
 	private readonly HomeViewModel _vm;
 	public HomeView(HomeViewModel vm)

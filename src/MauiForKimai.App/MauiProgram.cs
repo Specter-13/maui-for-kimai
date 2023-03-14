@@ -14,6 +14,7 @@ using MauiForKimai.ViewModels.Base;
 using MauiForKimai.Shells;
 using MauiForKimai.Services;
 using MauiForKimai.DependencyInjection;
+using TinyMvvm;
 
 namespace MauiForKimai;
 
@@ -30,7 +31,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				fonts.AddFont(filename: "materialdesignicons-webfont.ttf", alias: "MaterialDesignIcons");
-			});
+			})
+			.UseTinyMvvm();
 
 		//builder.Services.ConfigureShell();
 
@@ -40,13 +42,14 @@ public static class MauiProgram
 
 		//ConfigureApiClients(builder.Services);
 		builder.Services.ConfigureViewModels();
+		builder.Services.ConfigureViews();
 
-		builder.Services.AddTransient<ServerDetailPage>();
+		//builder.Services.AddTransient<ServerDetailPage>();
 
 
-		builder.Services.AddSingleton<HomeView>();
-		builder.Services.AddSingleton<LoginView>();
-		builder.Services.AddSingleton<TimeSheetView>();
+		//builder.Services.AddSingleton<HomeView>();
+		//builder.Services.AddSingleton<LoginView>();
+		//builder.Services.AddSingleton<TimeSheetView>();
 
 		
 #if DEBUG
