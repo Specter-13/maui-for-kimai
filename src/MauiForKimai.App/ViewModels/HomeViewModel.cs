@@ -30,9 +30,14 @@ public partial class HomeViewModel : ViewModelBase
 	[ObservableProperty]
 	int activeTimesheetId;
 
+	[ObservableProperty]
+	bool isTimetrackingActive;
+
+
 	[RelayCommand]
 	async Task StartNewTimesheet()
 	{
+		
 		var timesheet = new TimesheetEditForm
 		{ 
 			Begin = DateTimeOffset.Now,
@@ -43,17 +48,21 @@ public partial class HomeViewModel : ViewModelBase
 
 		var active = await timesheetService.Create(timesheet);
 		ActiveTimesheetId = (int)active.Id;
+		IsTimetrackingActive = true;
+
 	}
 
 	[RelayCommand]
 	async Task StopActiveTimesheet()
 	{
 		if(ActiveTimesheetId != 0)
-		{ 
+		{
 
 			await timesheetService.StopActive(ActiveTimesheetId);
 			ActiveTimesheetId = 0;
 		}
+		IsTimetrackingActive = false;
+
 	}
 
     [RelayCommand]
@@ -70,6 +79,14 @@ public partial class HomeViewModel : ViewModelBase
 		}
 
 		IsBusy = false;
+        
+    }
+
+	[RelayCommand]
+    async Task TimesheetOnTap(TimesheetCollectionExpanded currentTimesheet)
+    {
+		var x = 10;
+		var z = currentTimesheet;
         
     }
 }

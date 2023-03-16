@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MauiForKimai.Controls.TimesheetListItemControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:MauiForKimai.ApiClient;assembly=MauiForKimai.ApiClient"
+    x:Name="TimesheetListItem">
+    <Grid Padding="10">
+        <Frame BackgroundColor="SlateGrey" HeightRequest="125">
+
+            <!--<Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=TimesheetOnTapCommand}" CommandParameter="{Binding .}" />
+            </Frame.GestureRecognizers>-->
+            <Grid RowDefinitions=".5*,.5*">
+                <Label
+                    Grid.Row="0"
+                    BindingContext="{x:Reference TimesheetListItem}"
+                    Style="{StaticResource LargeLabel}"
+                    Text="{Binding Timesheet.Activity.Name}" />
+                <Label
+                    Grid.Row="1"
+                    BindingContext="{x:Reference TimesheetListItem}"
+                    Style="{StaticResource MediumLabel}"
+                    Text="{Binding Timesheet.Duration}" />
+            </Grid>
+        </Frame>
+    </Grid>
+</ContentView>

@@ -3,12 +3,27 @@
     x:Class="MauiForKimai.Views.HomeView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MauiForKimai.Controls"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:model="clr-namespace:MauiForKimai.ApiClient;assembly=MauiForKimai.ApiClient"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     Title="Home"
     x:DataType="viewmodel:HomeViewModel">
+
+    <ContentPage.Resources>
+
+
+
+        <mct:BoolToObjectConverter
+            x:Key="BoolToObjectConverter"
+            FalseObject="0"
+            TrueObject="42" />
+
+        <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+
+    </ContentPage.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -51,6 +66,10 @@
                     <DataTemplate x:DataType="model:TimesheetCollectionExpanded">
                         <Grid Padding="10">
                             <Frame BackgroundColor="SlateGrey" HeightRequest="125">
+
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=TimesheetOnTapCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
                                 <Grid RowDefinitions=".5*,.5*">
                                     <Label
                                         Grid.Row="0"
@@ -63,6 +82,7 @@
                                 </Grid>
                             </Frame>
                         </Grid>
+                        <!--<controls:TimesheetListItemControl ="{Binding .}" />-->
                     </DataTemplate>
 
                 </CollectionView.ItemTemplate>
@@ -88,15 +108,60 @@
                         FontSize="Large"
                         Text="Time tracking" />
 
+                    <Label Text="{Binding IsTimetrackingActive, Mode=TwoWay, Converter={StaticResource BoolToObjectConverter}}" />
 
-                    <Button
-                        Margin="10"
+
+                    <ImageButton
+                        x:Name="start"
+                        ClassId="StartButton"
                         Command="{Binding StartNewTimesheetCommand}"
-                        Text="Start" />
-                    <Button
-                        Margin="10"
+                        HeightRequest="60"
+                        IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}"
+                        MaximumHeightRequest="100"
+                        Source="play_circle_outline.png"
+                        VerticalOptions="Start">
+
+                        <ImageButton.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        </ImageButton.GestureRecognizers>
+                    </ImageButton>
+
+                    <ImageButton
+                        x:Name="stop"
+                        ClassId="StopButton"
                         Command="{Binding StopActiveTimesheetCommand}"
-                        Text="Stop" />
+                        HeightRequest="60"
+                        IsVisible="{Binding IsTimetrackingActive}"
+                        MaximumHeightRequest="100"
+                        Source="pause_circle_outline.png"
+                        VerticalOptions="Start">
+
+                        <ImageButton.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        </ImageButton.GestureRecognizers>
+                    </ImageButton>
+
+
+                    <!--<Button Margin="10" Command="{Binding StartNewTimesheetCommand}">
+
+                        <Button.ImageSource>
+                            <FontImageSource
+                                FontFamily="MaterialDesignIcons"
+                                Glyph="{x:Static helpers:MaterialDesignIconsFonts.PlayCircleOutline}"
+                                Size="25" />
+                        </Button.ImageSource>
+                    </Button>
+
+
+                    <Button Margin="10" Command="{Binding StopActiveTimesheetCommand}">
+
+                        <Button.ImageSource>
+                            <FontImageSource
+                                FontFamily="MaterialDesignIcons"
+                                Glyph="{x:Static helpers:MaterialDesignIconsFonts.PauseCircleOutline}"
+                                Size="25" />
+                        </Button.ImageSource>
+                    </Button>-->
 
                 </VerticalStackLayout>
 
