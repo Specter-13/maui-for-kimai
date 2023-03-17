@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Core.Extensions;
+using System.Numerics;
 
 namespace MauiForKimai.ViewModels;
 
@@ -34,10 +35,21 @@ public partial class HomeViewModel : ViewModelBase
 	bool isTimetrackingActive;
 
 
+	private IDispatcherTimer _timer {get;set;}
+
 	[RelayCommand]
 	async Task StartNewTimesheet()
 	{
+		_timer = Application.Current.Dispatcher.CreateTimer();
+		_timer.Interval = TimeSpan.FromMilliseconds(1000);
+		_timer.Tick += (s, e) =>
+		{
+			_seconds += 1;
+			Time = TimeSpan.FromSeconds(_seconds);
+		};
+
 		
+
 		var timesheet = new TimesheetEditForm
 		{ 
 			Begin = DateTimeOffset.Now,
@@ -46,23 +58,38 @@ public partial class HomeViewModel : ViewModelBase
 			Billable = true,
 		};
 
-		var active = await timesheetService.Create(timesheet);
-		ActiveTimesheetId = (int)active.Id;
+		_timer.Start();
+		//var active = await timesheetService.Create(timesheet);
+		//ActiveTimesheetId = (int)active.Id;
 		IsTimetrackingActive = true;
 
 	}
 
-	[RelayCommand]
+	[ObservableProperty]
+    public TimeSpan time = new TimeSpan();
+
+	private uint _seconds;
+
+    [RelayCommand]
 	async Task StopActiveTimesheet()
 	{
-		if(ActiveTimesheetId != 0)
+		
+		
+		if (ActiveTimesheetId != 0)
 		{
 
-			await timesheetService.StopActive(ActiveTimesheetId);
+			//await timesheetService.StopActive(ActiveTimesheetId);
+			
 			ActiveTimesheetId = 0;
 		}
+		_timer.Stop();
+		_seconds = 0;
 		IsTimetrackingActive = false;
 
+	}
+	private void timer_Tick(object sender, EventArgs e)
+	{
+		_seconds += 1;
 	}
 
     [RelayCommand]

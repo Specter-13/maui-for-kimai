@@ -2,14 +2,39 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-
-
-
-    <Style x:Key="BaseLabel" TargetType="Label">
-        <Setter Property="FontFamily" Value="OpenSansRegular" />
-        <Setter Property="TextColor" Value="{StaticResource AccentTextColor}" />
+    <!--  Pages  -->
+    <Style ApplyToDerivedTypes="True" TargetType="Page">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
     </Style>
 
+    <!--  Navigation  -->
+    <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+        <Setter Property="BarBackgroundColor" Value="{StaticResource AccentColor}" />
+        <Setter Property="BarTextColor" Value="White" />
+    </Style>
+
+    <!--  Buttons  -->
+    <Style TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+        <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
+    </Style>
+
+    <!--  Cards  -->
+    <Style x:Key="CardTimesheetView" TargetType="Frame">
+        <Setter Property="BorderColor" Value="#DDDDDD" />
+        <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="IsClippedToBounds" Value="True" />
+    </Style>
+
+    <!--  Labels  -->
+    <Style x:Key="BaseLabel" TargetType="Label">
+        <Setter Property="FontFamily" Value="OpenSansRegular" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource AccentTextColorDark}, Dark={StaticResource AccentTextColorLight}}" />
+    </Style>
     <Style
         x:Key="MicroLabel"
         BasedOn="{StaticResource BaseLabel}"
@@ -39,10 +64,7 @@
     </Style>
 
 
-    <Style TargetType="Button">
-        <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
-        <Setter Property="TextColor" Value="{StaticResource AccentTextColor}" />
-    </Style>
+
 
 
 

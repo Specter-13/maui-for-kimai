@@ -26,16 +26,21 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:ServerModel">
-                    <Frame BackgroundColor="SlateGray">
+                    <Frame Style="{StaticResource CardTimesheetView}">
                         <Grid ColumnDefinitions="0.70*,0.30*">
-                            <Label
-                                Grid.Column="0"
-                                Style="{StaticResource MediumLabel}"
-                                Text="{Binding Name}" />
+                            <VerticalStackLayout Grid.Column="0">
+
+                                <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
+                                <Label Style="{StaticResource MediumLabel}" Text="{Binding Url}" />
+                                <Label Style="{StaticResource MediumLabel}" Text="{Binding IsDefault}" />
+
+                            </VerticalStackLayout>
+
                             <Button
                                 Grid.Column="1"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LoginViewModel}}, Path=ConnectCommand}"
                                 CommandParameter="{Binding .}"
+                                HeightRequest="40"
                                 Text="Connect" />
                         </Grid>
 
