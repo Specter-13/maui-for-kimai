@@ -15,6 +15,9 @@ using MauiForKimai.Shells;
 using MauiForKimai.Services;
 using MauiForKimai.DependencyInjection;
 using TinyMvvm;
+using Mopups.Hosting;
+using Mopups.Interfaces;
+using Mopups.Services;
 
 namespace MauiForKimai;
 
@@ -26,6 +29,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
+			.ConfigureMopups()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -35,6 +39,8 @@ public static class MauiProgram
 			.UseTinyMvvm();
 
 		//builder.Services.ConfigureShell();
+
+		builder.Services.AddSingleton<IPopupNavigation>(MopupService.Instance);
 
 		builder.Services.RegisterClientServices();
 		builder.Services.RegisterAppServices();

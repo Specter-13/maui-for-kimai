@@ -16,7 +16,7 @@ namespace MauiForKimai.ApiClient.Services;
 public class BaseService : IBaseService
 {
 	protected IHttpClientFactory _httpClientFactory;
-	protected HttpClient _httpClient;
+	protected HttpClient? _httpClient;
 	protected ApiStateProvider ApiStateProvider;
 
     public BaseService(IHttpClientFactory httpClientFactory, ApiStateProvider asp) 
@@ -25,7 +25,7 @@ public class BaseService : IBaseService
 		ApiStateProvider = asp;
 	}
 
-	public IApiClient ApiClient {get; set;}
+	public IApiClient? ApiClient {get; set;}
     public void InitializeClient(string baseUrl)
 	{ 
 		_httpClient = _httpClientFactory.CreateClient(AuthHandler.AUTHENTICATED_CLIENT);

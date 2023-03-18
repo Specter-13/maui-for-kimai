@@ -3,6 +3,7 @@ using CommunityToolkit.Maui.Core;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Core.Extensions;
 using System.Numerics;
+using MauiForKimai.ViewModels.Timesheets;
 
 namespace MauiForKimai.ViewModels;
 
@@ -13,7 +14,19 @@ public partial class HomeViewModel : ViewModelBase
 	public HomeViewModel(ITimesheetService ts, ApiStateProvider asp, IRoutingService routingService) : base(asp, routingService)
 	{
 		timesheetService = ts;
+		CreateTimer();
 
+	}
+
+	private void CreateTimer()
+	{ 
+		_timer = Application.Current.Dispatcher.CreateTimer();
+		_timer.Interval = TimeSpan.FromMilliseconds(1000);
+		_timer.Tick += (s, e) =>
+		{
+			_seconds += 1;
+			Time = TimeSpan.FromSeconds(_seconds);
+		};
 	}
 	
 	public override async Task OnAppearing()
@@ -37,54 +50,47 @@ public partial class HomeViewModel : ViewModelBase
 
 	private IDispatcherTimer _timer {get;set;}
 
-	[RelayCommand]
-	async Task StartNewTimesheet()
-	{
-		_timer = Application.Current.Dispatcher.CreateTimer();
-		_timer.Interval = TimeSpan.FromMilliseconds(1000);
-		_timer.Tick += (s, e) =>
-		{
-			_seconds += 1;
-			Time = TimeSpan.FromSeconds(_seconds);
-		};
-
-		
-
-		var timesheet = new TimesheetEditForm
-		{ 
-			Begin = DateTimeOffset.Now,
-			Project = 1,
-			Activity = 1,
-			Billable = true,
-		};
-
-		_timer.Start();
-		//var active = await timesheetService.Create(timesheet);
-		//ActiveTimesheetId = (int)active.Id;
-		IsTimetrackingActive = true;
-
-	}
+	[ObservableProperty]
+	private TimesheetEditForm actualTimesheet;
 
 	[ObservableProperty]
     public TimeSpan time = new TimeSpan();
 
 	private uint _seconds;
 
-    [RelayCommand]
-	async Task StopActiveTimesheet()
+	[RelayCommand]
+	async Task StartNewTimesheet()
 	{
 		
+		ActualTimesheet = new TimesheetEditForm
+		{ 
+			Begin = DateTimeOffset.Now
+		};
+
+		_timer.Start();
+		IsTimetrackingActive = true;
+		//var active = await timesheetService.Create(timesheet);
+		//ActiveTimesheetId = (int)active.Id;
 		
+
+	}
+
+    [RelayCommand]
+	async Task StopActiveTimesheet()
+	{	
 		if (ActiveTimesheetId != 0)
 		{
-
 			//await timesheetService.StopActive(ActiveTimesheetId);
-			
 			ActiveTimesheetId = 0;
 		}
 		_timer.Stop();
+		ActualTimesheet.End = DateTimeOffset.Now;
 		_seconds = 0;
+		Time = new TimeSpan();
 		IsTimetrackingActive = false;
+
+		var route = RoutingService.GetRouteByViewModel<TimesheetCreateViewModel>();
+		await Navigation.NavigateTo(route, ActualTimesheet);
 
 	}
 	private void timer_Tick(object sender, EventArgs e)

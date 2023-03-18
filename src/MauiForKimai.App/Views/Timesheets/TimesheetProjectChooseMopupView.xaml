@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage
+    x:Class="MauiForKimai.Views.Timesheets.TimesheetProjectChooseMopupView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    Title="TimesheetProjectChooseMopupView"
+    BackgroundColor="#80000000">
+
+
+    <!--#region Animation-->
+    <mopups:PopupPage.Animation>
+        <animations:MoveAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Bottom"
+            PositionOut="Bottom" />
+    </mopups:PopupPage.Animation>
+
+    <!--#endregion Animation-->
+    <!--<VerticalStackLayout>
+        <Label
+            HorizontalOptions="Center"
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" />
+    </VerticalStackLayout>-->
+
+
+    <!--#region PopupContent-->
+    <Grid VerticalOptions="EndAndExpand">
+        <Border>
+            <StackLayout>
+                <Label
+                    FontSize="44"
+                    HorizontalOptions="Start"
+                    Text="x">
+                    <!--<Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="No_Tapped"/>
+                    </Label.GestureRecognizers>-->
+                </Label>
+                <Label
+                    HorizontalOptions="StartAndExpand"
+                    HorizontalTextAlignment="Start"
+                    Text="SELECT YOUR DATETIME" />
+                <!--<LayoutComponentViews:DateTimePickerView
+                    x:Name="DateTimePicker"
+                    IsTimeVisible="{Binding Source={x:Reference datetimepopupview},Path=IsTimeVisible}"
+                    Padding="{OnIdiom Phone='0,50',Tablet='0,100'}"/>-->
+
+            </StackLayout>
+        </Border>
+    </Grid>
+    <!--#endregion PopupContent-->
+</mopups:PopupPage>

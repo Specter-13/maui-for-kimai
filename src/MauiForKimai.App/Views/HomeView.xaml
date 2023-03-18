@@ -88,17 +88,22 @@
             <Frame
                 x:Name="SwipeMenu"
                 CornerRadius="20"
-                Style="{StaticResource CardTimesheetView}">
+                Style="{StaticResource TimeTrackingCard}">
                 <Frame.GestureRecognizers>
                     <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
                 </Frame.GestureRecognizers>
 
                 <VerticalStackLayout>
-                    <Label
-                        Grid.Column="0"
-                        FontSize="Large"
-                        HorizontalTextAlignment="Center"
-                        Text="Time tracking" />
+
+                    <Picker x:Name="picker" Title="Select a mode">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Track instantly</x:String>
+                                <x:String>Create new</x:String>
+                                <x:String>Choose template</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
 
                     <Label
                         Grid.Column="0"
@@ -130,13 +135,16 @@
                         HeightRequest="70"
                         IsVisible="{Binding IsTimetrackingActive}"
                         MaximumHeightRequest="150"
-                        Source="pause_circle_outline.png"
+                        Source="stop_circle_outline.png"
                         VerticalOptions="Start">
 
                         <ImageButton.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                         </ImageButton.GestureRecognizers>
                     </ImageButton>
+
+
+
 
                 </VerticalStackLayout>
 

@@ -66,7 +66,7 @@ public partial class LoginViewModel : ViewModelBase
 		double fontSize = 14;
 		if(isConnected) 
         { 
-            base.ApiStateProvider.SetIsAuthenticated();
+            
             //var id = await _userService.GetUserByIdAsync(1);
             //var allUsers = await _userService.GetAllUsersAsync();
             base.ApiStateProvider.ActualUser = await _userService.GetMe();
@@ -77,6 +77,7 @@ public partial class LoginViewModel : ViewModelBase
 		    var toast = Toast.Make(text, duration, fontSize);
 		    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 		    await toast.Show(cancellationTokenSource.Token);
+            base.ApiStateProvider.SetIsAuthenticated();
 
         }
         else

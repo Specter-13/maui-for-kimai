@@ -57,6 +57,7 @@
     <PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Mopups" Version="1.1.1" />
 		<PackageReference Include="Scrutor" Version="4.2.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />
@@ -84,6 +85,12 @@
 	  <MauiXaml Update="Views\ServersManagement\ServerDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Timesheets\TimesheetCreateView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Timesheets\TimesheetProjectChooseMopupView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\TimeSheetView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -108,10 +115,6 @@
 	  <Compile Update="Views\ServersManagement\ServerDetailPage.xaml.cs">
 	    <DependentUpon>ServerDetailPage.xaml</DependentUpon>
 	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Views\Timesheets\" />
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mvvm:TinyView
+    x:Class="MauiForKimai.Views.Timesheets.TimesheetCreateView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels.Timesheets"
+    Title="Create Timesheet"
+    x:DataType="viewmodel:TimesheetCreateViewModel">
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".20*" />
+            <RowDefinition Height=".80*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".30*" />
+                <RowDefinition Height=".20*" />
+                <RowDefinition Height=".50*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".50*" />
+                <ColumnDefinition Width=".50*" />
+            </Grid.ColumnDefinitions>
+
+            <Label
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="Center"
+                Style="{StaticResource LargeLabel}"
+                Text="{Binding Duration}"
+                VerticalOptions="Center" />
+
+            <Label
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="Center"
+                Style="{StaticResource MediumLabel}"
+                Text="{Binding BeginDateString}"
+                VerticalOptions="Center" />
+
+            <HorizontalStackLayout Grid.Row="2">
+
+                <Button
+                    Margin="10"
+                    Command="{Binding ShowProjectMopupCommand}"
+                    HeightRequest="40"
+                    Text="Choose template" />
+                <Button
+                    Margin="10"
+                    HeightRequest="40"
+                    Text="Cancel" />
+
+                <Button
+                    Margin="10"
+                    HeightRequest="40"
+                    Text="Save" />
+            </HorizontalStackLayout>
+        </Grid>
+
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout>
+
+                <HorizontalStackLayout>
+
+                    <VerticalStackLayout Margin="10">
+                        <Label Text="Begin Time" />
+                        <TimePicker Format="HH:mm:ss" Time="{Binding BeginTime}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Margin="10">
+                        <Label Text="Begin Date" />
+                        <DatePicker Date="{Binding BeginDate}" />
+
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout>
+
+                    <VerticalStackLayout Margin="10">
+                        <Label Text="End Time" />
+                        <TimePicker Format="HH:mm:ss" Time="{Binding EndTime}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Margin="10">
+                        <Label Text="End Date" />
+                        <DatePicker Date="{Binding EndDate}" />
+
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+
+
+                <Label Text="Project" />
+                <Entry Text="Project" />
+
+                <Label Text="Activity" />
+                <Entry Text="Activity" />
+
+                <Label Text="Description" />
+                <Entry Text="Description" />
+
+                <Label Text="Tags" />
+                <Entry Text="Tags" />
+
+                <Grid Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".50*" />
+                        <ColumnDefinition Width=".50*" />
+                    </Grid.ColumnDefinitions>
+
+                    <VerticalStackLayout Grid.Column="0">
+                        <Label Text="Fixed rate" />
+                        <Entry Text="fixed rate" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Hourly rate" />
+                        <Entry Text="hourly rate" />
+                    </VerticalStackLayout>
+
+                </Grid>
+
+                <Grid Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".50*" />
+                        <ColumnDefinition Width=".50*" />
+                    </Grid.ColumnDefinitions>
+
+
+
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Billable" />
+                        <Picker x:Name="picker" Title="Select a mode">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Automatic</x:String>
+                                    <x:String>Yes</x:String>
+                                    <x:String>No</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Column="0">
+                        <Label Text="Export" />
+                        <Switch />
+                    </VerticalStackLayout>
+
+                </Grid>
+
+
+            </VerticalStackLayout>
+
+
+        </ScrollView>
+    </Grid>
+
+
+</mvvm:TinyView>

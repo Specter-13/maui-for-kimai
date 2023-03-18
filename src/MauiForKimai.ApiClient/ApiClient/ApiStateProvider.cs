@@ -13,7 +13,7 @@ public partial class ApiStateProvider : ObservableObject
     public string ApiPassword {get; private set; } = string.Empty;
     public string BaseUrl {get; private set; } = string.Empty;
 
-    public UserEntity ActualUser {get; set;}
+    public UserEntity? ActualUser {get; set;}
 
     [ObservableProperty]
     public bool isAuthenticated;

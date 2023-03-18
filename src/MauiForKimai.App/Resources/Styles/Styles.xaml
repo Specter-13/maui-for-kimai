@@ -30,6 +30,13 @@
         <Setter Property="IsClippedToBounds" Value="True" />
     </Style>
 
+    <Style x:Key="TimeTrackingCard" TargetType="Frame">
+        <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
+        <Setter Property="IsClippedToBounds" Value="True" />
+    </Style>
+
     <!--  Labels  -->
     <Style x:Key="BaseLabel" TargetType="Label">
         <Setter Property="FontFamily" Value="OpenSansRegular" />
