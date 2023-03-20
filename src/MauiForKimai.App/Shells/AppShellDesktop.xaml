@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MauiForKimai.Views"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    x:DataType="viewmodel:MenuViewModel">
+    x:DataType="viewmodel:MenuViewModel"
+    FlyoutBehavior="Locked">
 
 
 
@@ -20,23 +21,75 @@
         </ToolbarItem>
     </Shell.ToolbarItems>-->
 
-    <Shell.MenuBarItems>
-        <MenuBarItem Text="Menu">
-            <MenuFlyoutItem Command="{Binding GoToLoginCommand}" Text="Login" />
 
-            <MenuFlyoutItem Command="{Binding GoToHomeCommand}" Text="Home" />
+    <!--<TabBar>
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:HomeView}"
+            Icon="home.png"
+            Route="home" />
+        <ShellContent
+            Title="Timesheets"
+            ContentTemplate="{DataTemplate local:TimeSheetView}"
+            Route="timesheet" />
+        <ShellContent
+            Title="Login"
+            ContentTemplate="{DataTemplate local:LoginView}"
+            Icon="login.png"
+            Route="login" />
+    </TabBar>-->
+
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid HeightRequest="150">
+                <Image
+                    Aspect="AspectFill"
+                    Opacity="0.6"
+                    Source="blue_background.jpg" />
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"
+                    Text="Maui For Kimai"
+                    VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <FlyoutItem Title="Login">
+        <ShellContent
+            Title="Login"
+            ContentTemplate="{DataTemplate local:LoginView}"
+            Icon="login.png"
+            Route="login" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Home" IsEnabled="{Binding ApiStateProvider.IsAuthenticated}">
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:HomeView}"
+            Icon="home.png"
+            Route="home" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Timesheets" IsEnabled="{Binding ApiStateProvider.IsAuthenticated}">
+        <ShellContent
+            Title="Timesheets"
+            ContentTemplate="{DataTemplate local:TimeSheetView}"
+            Route="timesheet" />
+    </FlyoutItem>
+
+    <Shell.FlyoutFooter>
+        <StackLayout>
+            <Button
+                Margin="10,10"
+                Command="{Binding LogOutCommand}"
+                IsVisible="{Binding ApiStateProvider.IsAuthenticated}"
+                Text="Log out" />
+            <Label Text="Bc. David Spavor" />
+        </StackLayout>
+    </Shell.FlyoutFooter>
 
 
 
-
-        </MenuBarItem>
-    </Shell.MenuBarItems>
-
-
-    <ShellContent
-        Title="Login         "
-        ContentTemplate="{DataTemplate local:LoginView}"
-        Route="login"
-        Shell.NavBarIsVisible="true" />
 
 </Shell>

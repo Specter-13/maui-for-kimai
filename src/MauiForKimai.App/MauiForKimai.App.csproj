@@ -82,13 +82,19 @@
 	  <MauiXaml Update="Views\LoginView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Management\ManagementView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Projects\ProjectChooseView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\ServersManagement\ServerDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Timesheets\TimesheetCreateView.xaml">
+	  <MauiXaml Update="Views\Templates\TemplateView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Timesheets\TimesheetProjectChooseMopupView.xaml">
+	  <MauiXaml Update="Views\Timesheets\TimesheetCreateView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\TimeSheetView.xaml">

@@ -1,4 +1,9 @@
-﻿using MauiForKimai.Views.Timesheets;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Messaging;
+using MauiForKimai.Messenger;
+using MauiForKimai.Models;
+using MauiForKimai.ViewModels.Projects;
+using MauiForKimai.Views.Timesheets;
 using Mopups.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -6,14 +11,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MauiForKimai.ViewModels.Timesheets;
 
 public partial class TimesheetCreateViewModel : ViewModelBase
 {
-    private readonly IPopupNavigation _mopup;
-    public TimesheetCreateViewModel(ApiStateProvider asp, IRoutingService routingService, IPopupNavigation mopup) : base(asp, routingService)
+    static Page Page => Application.Current?.MainPage ?? throw new NullReferenceException();
+    private readonly IProjectService _projectService;
+
+    public TimesheetCreateViewModel(ApiStateProvider asp, IRoutingService routingService, IProjectService projectService) : base(asp, routingService)
     {
-        _mopup = mopup;
+        _projectService = projectService;
+
+        WeakReferenceMessenger.Default.Register<TimesheetProjectChooseMessage>(this, (r, m) =>
+        {
+            ActualProject = m.Value;
+        });
     }
 
     [ObservableProperty]
@@ -37,6 +50,8 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     [ObservableProperty]
     TimeSpan endTime;
 
+    [ObservableProperty]
+    ProjectListModel actualProject;
 
     public override async Task OnParameterSet()
     {
@@ -59,7 +74,19 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     [RelayCommand]
     async Task ShowProjectMopup()
     {
-        await _mopup.PushAsync(new TimesheetProjectChooseMopupView());
+        //var vm = new TimesheetProjectChooseMopupViewModel(_projectService);
+        var route = RoutingService.GetRouteByViewModel<ProjectChooseViewModel>();
+        await Navigation.NavigateTo(route);
+     
+    
+    }
+
+     [RelayCommand]
+    async Task CreateTimesheet()
+    {
+        ActualTimesheet.Project = ActualProject.Id;
+
+
     }
 
 

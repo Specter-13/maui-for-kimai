@@ -29,7 +29,6 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
-			.ConfigureMopups()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -40,7 +39,8 @@ public static class MauiProgram
 
 		//builder.Services.ConfigureShell();
 
-		builder.Services.AddSingleton<IPopupNavigation>(MopupService.Instance);
+		
+		
 
 		builder.Services.RegisterClientServices();
 		builder.Services.RegisterAppServices();

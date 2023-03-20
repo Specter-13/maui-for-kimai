@@ -31,11 +31,14 @@ public partial class HomeViewModel : ViewModelBase
 	
 	public override async Task OnAppearing()
 	{
-		await GetTimeSheets();
-		var activeTimesheets = await timesheetService.GetActive();
-		if (activeTimesheets.Any()) 
-		{
-			ActiveTimesheetId = (int)activeTimesheets.First().Id;
+		if(base.ApiStateProvider.IsAuthenticated)
+		{ 
+			GetTimeSheets();
+			var activeTimesheets = await timesheetService.GetActive();
+			if (activeTimesheets.Any()) 
+			{
+				ActiveTimesheetId = (int)activeTimesheets.First().Id;
+			}
 		}
 	}
 
@@ -73,6 +76,13 @@ public partial class HomeViewModel : ViewModelBase
 		//ActiveTimesheetId = (int)active.Id;
 		
 
+	}
+
+	[RelayCommand]
+	async Task GoToLogin()
+	{	
+		var route = base.RoutingService.GetRouteByViewModel<LoginViewModel>();
+		await Navigation.NavigateTo(route);
 	}
 
     [RelayCommand]

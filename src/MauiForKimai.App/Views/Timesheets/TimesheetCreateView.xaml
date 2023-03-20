@@ -50,7 +50,6 @@
 
                 <Button
                     Margin="10"
-                    Command="{Binding ShowProjectMopupCommand}"
                     HeightRequest="40"
                     Text="Choose template" />
                 <Button
@@ -99,7 +98,21 @@
 
 
                 <Label Text="Project" />
-                <Entry Text="Project" />
+                <Entry
+                    IsReadOnly="True"
+                    Placeholder="Select project"
+                    Text="{Binding ActualProject.Name}">
+                    <Entry.GestureRecognizers>
+
+                        <TapGestureRecognizer Command="{Binding ShowProjectMopupCommand}" />
+
+                    </Entry.GestureRecognizers>
+                </Entry>
+                <Button
+                    Command="{Binding ShowProjectMopupCommand}"
+                    IsVisible="{OnIdiom Phone=False,
+                                        Desktop=True}"
+                    Text="Choose project" />
 
                 <Label Text="Activity" />
                 <Entry Text="Activity" />

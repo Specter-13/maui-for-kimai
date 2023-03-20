@@ -6,8 +6,7 @@
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:local="clr-namespace:MauiForKimai.Views"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    x:DataType="viewmodel:MenuViewModel"
-    Shell.FlyoutBehavior="Flyout">
+    x:DataType="viewmodel:MenuViewModel">
 
 
     <!--<Shell.Resources>
@@ -30,7 +29,35 @@
         </ResourceDictionary>
     </Shell.Resources>-->
 
-    <Shell.FlyoutHeaderTemplate>
+    <TabBar>
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:HomeView}"
+            Icon="home_clock.png"
+            Route="home" />
+        <ShellContent
+            Title="Timesheets"
+            ContentTemplate="{DataTemplate local:TimeSheetView}"
+            Icon="clipboard_text_clock.png"
+            Route="timesheet" />
+        <ShellContent
+            Title="Templates"
+            ContentTemplate="{DataTemplate local:TemplateView}"
+            Icon="star.png"
+            Route="template" />
+        <ShellContent
+            Title="Management"
+            ContentTemplate="{DataTemplate local:ManagementView}"
+            Icon="database.png"
+            Route="management" />
+        <!--<ShellContent
+            Title="Login"
+            ContentTemplate="{DataTemplate local:LoginView}"
+            Icon="login.png"
+            Route="login" />-->
+    </TabBar>
+
+    <!--<Shell.FlyoutHeaderTemplate>
         <DataTemplate>
             <Grid HeightRequest="150">
                 <Image
@@ -78,7 +105,7 @@
                 Text="Log out" />
             <Label Text="Bc. David Spavor" />
         </StackLayout>
-    </Shell.FlyoutFooter>
+    </Shell.FlyoutFooter>-->
 
 
 </Shell>

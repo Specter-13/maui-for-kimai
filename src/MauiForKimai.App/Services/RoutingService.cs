@@ -1,7 +1,10 @@
 ﻿using MauiForKimai.Models;
 using MauiForKimai.ViewModels;
+using MauiForKimai.ViewModels.Management;
+using MauiForKimai.ViewModels.Projects;
 using MauiForKimai.ViewModels.Timesheets;
 using MauiForKimai.Views;
+using MauiForKimai.Views.Projects;
 using MauiForKimai.Views.Timesheets;
 using System;
 using System.Collections.Generic;
@@ -19,7 +22,10 @@ public class RoutingService : IRoutingService
 		//Routing.RegisterRoute("//homeview", typeof(HomeView));
     new("//login", typeof(LoginView), typeof(LoginViewModel)),
     new("//home", typeof(HomeView), typeof(HomeViewModel)),
-    new("//home//createtimesheet", typeof(TimesheetCreateView), typeof(TimesheetCreateViewModel)),
+    new("//templates", typeof(TemplateView), typeof(TemplateViewModel)),
+    new("//management", typeof(ManagementView), typeof(ManagementViewModel)),
+    new("//home/createtimesheet", typeof(TimesheetCreateView), typeof(TimesheetCreateViewModel)),
+    new("//home/createtimesheet/chooseproject", typeof(ProjectChooseView), typeof(ProjectChooseViewModel)),
     new("//timesheets", typeof(TimeSheetView), typeof(TimeSheetViewModel)),
 };
 

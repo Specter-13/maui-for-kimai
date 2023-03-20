@@ -9,8 +9,10 @@
     xmlns:model="clr-namespace:MauiForKimai.ApiClient;assembly=MauiForKimai.ApiClient"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    Title="Home"
-    x:DataType="viewmodel:HomeViewModel">
+    x:DataType="viewmodel:HomeViewModel"
+    Shell.NavBarIsVisible="False">
+
+
 
     <ContentPage.Resources>
         <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
@@ -18,15 +20,31 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height=".05*" />
             <RowDefinition Height=".20*" />
             <RowDefinition Height=".50*" />
-            <RowDefinition Height=".30*" />
+            <RowDefinition Height=".25*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Frame Grid.Row="0" Style="{StaticResource CardTimesheetView}">
+
+
+        <HorizontalStackLayout Grid.Row="0" BackgroundColor="SlateGray">
+
+            <Button
+                Command="{Binding GoToLoginCommand}"
+                HorizontalOptions="End"
+                Text="Login"
+                VerticalOptions="EndAndExpand" />
+        </HorizontalStackLayout>
+
+
+
+
+
+        <Frame Grid.Row="1" Style="{StaticResource CardTimesheetView}">
             <VerticalStackLayout>
                 <Label
                     Grid.Column="0"
@@ -43,7 +61,7 @@
 
         </Frame>
 
-        <ScrollView Grid.Row="1">
+        <ScrollView Grid.Row="2">
 
             <CollectionView ItemsSource="{Binding RecentTimesheets}">
 
@@ -82,16 +100,16 @@
 
         </ScrollView>
 
-        <Grid Grid.Row="2" VerticalOptions="Center">
+        <Grid Grid.Row="3" VerticalOptions="Center">
 
 
             <Frame
                 x:Name="SwipeMenu"
                 CornerRadius="20"
                 Style="{StaticResource TimeTrackingCard}">
-                <Frame.GestureRecognizers>
+                <!--<Frame.GestureRecognizers>
                     <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
-                </Frame.GestureRecognizers>
+                </Frame.GestureRecognizers>-->
 
                 <VerticalStackLayout>
 
