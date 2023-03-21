@@ -79,8 +79,5 @@ public partial class ProjectChooseViewModel : ViewModelBase
 
         IsBusy = false;
         ShowCollection = true;
-
-
-        
     }
 }

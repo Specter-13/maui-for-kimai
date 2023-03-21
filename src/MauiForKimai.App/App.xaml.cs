@@ -11,10 +11,10 @@ namespace MauiForKimai;
 
 public partial class App : TinyApplication
 {
-	private readonly ILoginService _loginService;
+	//private readonly ILoginService _loginService;
 	public App(MenuViewModel menuViewModel, ILoginService loginService)
 	{
-		_loginService = loginService;
+		//_loginService = loginService;
 		InitializeComponent();
 
 
@@ -29,16 +29,16 @@ public partial class App : TinyApplication
 		//MainPage = new AppShell(menuViewModel);
 	}
 
-	protected override async Task Initialize()
-    {
-        await base.Initialize();
+	//protected override async Task Initialize()
+ //   {
+ //       await base.Initialize();
 		
-		var islogged = await _loginService.LoginToDefaultOnStartUp();
+		
 
-		//To test that it not hangs the application.
-		for(int i = 0; i < 100; i++)
-		{
-			await Task.Delay(1000);
-		}
-    }
+	//	//To test that it not hangs the application.
+	//	for(int i = 0; i < 100; i++)
+	//	{
+	//		await Task.Delay(1000);
+	//	}
+ //   }
 }

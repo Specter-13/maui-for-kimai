@@ -59,8 +59,9 @@
 
                 <Button
                     Margin="10"
+                    Command="{Binding StartTimesheetCommand}"
                     HeightRequest="40"
-                    Text="Save" />
+                    Text="Start" />
             </HorizontalStackLayout>
         </Grid>
 
@@ -115,7 +116,21 @@
                     Text="Choose project" />
 
                 <Label Text="Activity" />
-                <Entry Text="Activity" />
+                <Entry
+                    IsReadOnly="True"
+                    Placeholder="Select Activity"
+                    Text="{Binding ActualActivity.Name}">
+                    <Entry.GestureRecognizers>
+
+                        <TapGestureRecognizer Command="{Binding ShowActivityChooseViewCommand}" />
+
+                    </Entry.GestureRecognizers>
+                </Entry>
+                <Button
+                    Command="{Binding ShowActivityChooseViewCommand}"
+                    IsVisible="{OnIdiom Phone=False,
+                                        Desktop=True}"
+                    Text="Choose Activity" />
 
                 <Label Text="Description" />
                 <Entry Text="Description" />

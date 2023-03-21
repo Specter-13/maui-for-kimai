@@ -85,6 +85,9 @@
 	  <MauiXaml Update="Views\Management\ManagementView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Activity\ActivityChooseView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Projects\ProjectChooseView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

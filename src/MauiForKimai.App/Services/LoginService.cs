@@ -1,4 +1,5 @@
-﻿using MauiForKimai.Models;
+﻿using MauiForKimai.ApiClient;
+using MauiForKimai.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -48,13 +49,15 @@ public class LoginService : ILoginService
         _asp.SetAuthInfo(defaultServer.Username,defaultServer.ApiPasswordKey,defaultServer.Url);  
         InitializeClients(defaultServer.Url);
 
-         _asp.ActualUser = await _userService.GetMe();
-
-        if(_asp.ActualUser == null )
-        { 
-            // connection failed
+        try
+        {
+            _asp.ActualUser = await _userService.GetMe();
+        }
+        catch (KiamiApiException)
+        {
             return false;
         }
+         
 
         //connection successfull
         _asp.SetIsAuthenticated();

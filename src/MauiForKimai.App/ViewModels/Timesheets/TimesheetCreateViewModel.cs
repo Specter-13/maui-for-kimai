@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
 using MauiForKimai.Models;
+using MauiForKimai.ViewModels.Activity;
 using MauiForKimai.ViewModels.Projects;
 using MauiForKimai.Views.Timesheets;
 using Mopups.Interfaces;
@@ -26,6 +27,11 @@ public partial class TimesheetCreateViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Register<TimesheetProjectChooseMessage>(this, (r, m) =>
         {
             ActualProject = m.Value;
+        });
+
+         WeakReferenceMessenger.Default.Register<TimesheetActivityChooseMessage>(this, (r, m) =>
+        {
+            ActualActivity = m.Value;
         });
     }
 
@@ -53,10 +59,13 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     [ObservableProperty]
     ProjectListModel actualProject;
 
+    [ObservableProperty]
+    ActivityListModel actualActivity;
+
     public override async Task OnParameterSet()
     {
-        ActualTimesheet = NavigationParameter as TimesheetEditForm;
-        
+        //ActualTimesheet = NavigationParameter as TimesheetEditForm;
+        ActualTimesheet = new TimesheetEditForm();
 
 
         BeginTime = ActualTimesheet.Begin.TimeOfDay;
@@ -81,11 +90,23 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     
     }
 
-     [RelayCommand]
-    async Task CreateTimesheet()
+    [RelayCommand]
+    async Task ShowActivityChooseView()
+    {
+        //var vm = new TimesheetProjectChooseMopupViewModel(_projectService);
+        var route = RoutingService.GetRouteByViewModel<ActivityChooseViewModel>();
+        await Navigation.NavigateTo(route);
+     
+    }
+
+    [RelayCommand]
+    async Task StartTimesheet()
     {
         ActualTimesheet.Project = ActualProject.Id;
-
+        
+        WeakReferenceMessenger.Default.Send(new TimesheetStartMessage(ActualTimesheet));
+        //WeakReferenceMessenger.Default.Send
+        await Navigation.NavigateTo("..");
 
     }
 

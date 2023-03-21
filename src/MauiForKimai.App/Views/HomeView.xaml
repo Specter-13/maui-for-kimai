@@ -46,6 +46,7 @@
                 Grid.Column="2"
                 Command="{Binding GoToLoginCommand}"
                 HorizontalOptions="End"
+                IsVisible="{Binding ApiStateProvider.IsAuthenticated}"
                 Text="Login"
                 VerticalOptions="Fill" />
 
