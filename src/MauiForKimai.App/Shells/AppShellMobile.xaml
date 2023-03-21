@@ -9,7 +9,7 @@
     x:DataType="viewmodel:MenuViewModel">
 
 
-    <!--<Shell.Resources>
+    <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource AccentColor}" />
@@ -27,7 +27,7 @@
                 BasedOn="{StaticResource BaseStyle}"
                 TargetType="ShellItem" />
         </ResourceDictionary>
-    </Shell.Resources>-->
+    </Shell.Resources>
 
     <TabBar>
         <ShellContent

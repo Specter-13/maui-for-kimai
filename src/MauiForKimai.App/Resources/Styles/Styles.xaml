@@ -20,6 +20,15 @@
         <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
     </Style>
 
+    <Style x:Key="TimetrackingButton" TargetType="ImageButton">
+        <Setter Property="Aspect" Value="AspectFill" />
+        <Setter Property="HeightRequest" Value="70" />
+        <Setter Property="WidthRequest" Value="70" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+      
+    </Style>
+
     <!--  Cards  -->
     <Style x:Key="CardTimesheetView" TargetType="Frame">
         <Setter Property="BorderColor" Value="#DDDDDD" />
@@ -30,11 +39,24 @@
         <Setter Property="IsClippedToBounds" Value="True" />
     </Style>
 
-    <Style x:Key="TimeTrackingCard" TargetType="Frame">
+    <Style x:Key="RecentTimesheetCard" TargetType="Frame">
         <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
+        <Setter Property="CornerRadius" Value="10" />
         <Setter Property="IsClippedToBounds" Value="True" />
+        <Setter Property="HeightRequest" Value="110" />
+    </Style>
+
+    <Style x:Key="TimeTrackingCard" TargetType="Border">
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 30,30,0,0" />
+    </Style>
+
+    <Style x:Key="InfoStatusBar" TargetType="Grid">
+        <Setter Property="Padding" Value="2" />
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
     </Style>
 
     <!--  Labels  -->

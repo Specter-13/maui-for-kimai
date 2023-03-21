@@ -6,7 +6,7 @@
     xmlns:controls="clr-namespace:MauiForKimai.Controls"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:model="clr-namespace:MauiForKimai.ApiClient;assembly=MauiForKimai.ApiClient"
+    xmlns:model="clr-namespace:MauiForKimai.Models"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     x:DataType="viewmodel:HomeViewModel"
@@ -20,9 +20,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height=".05*" />
+            <RowDefinition Height=".06*" />
             <RowDefinition Height=".20*" />
-            <RowDefinition Height=".50*" />
+            <RowDefinition Height=".49*" />
             <RowDefinition Height=".25*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -31,20 +31,38 @@
 
 
 
-        <HorizontalStackLayout Grid.Row="0" BackgroundColor="SlateGray">
+        <Grid Grid.Row="0" Style="{StaticResource InfoStatusBar}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
+            <Label Text="Maui For Kimai" VerticalOptions="Center" />
             <Button
+                Grid.Column="2"
                 Command="{Binding GoToLoginCommand}"
                 HorizontalOptions="End"
                 Text="Login"
-                VerticalOptions="EndAndExpand" />
-        </HorizontalStackLayout>
+                VerticalOptions="Fill" />
+
+            <Button
+                Grid.Column="1"
+                Command="{Binding GoToLoginCommand}"
+                Text="Profile" />
+        </Grid>
 
 
 
 
 
-        <Frame Grid.Row="1" Style="{StaticResource CardTimesheetView}">
+        <Frame
+            Grid.Row="1"
+            Margin="5"
+            Style="{StaticResource CardTimesheetView}">
             <VerticalStackLayout>
                 <Label
                     Grid.Column="0"
@@ -72,18 +90,19 @@
                 </CollectionView.Header>
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:TimesheetCollectionExpanded">
-                        <Grid Padding="10">
-                            <Frame HeightRequest="125" Style="{StaticResource CardTimesheetView}">
+                    <DataTemplate x:DataType="model:TimesheetRecentListModel">
+                        <Grid Padding="10,5">
+                            <Frame Style="{StaticResource RecentTimesheetCard}">
 
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=TimesheetOnTapCommand}" CommandParameter="{Binding .}" />
                                 </Frame.GestureRecognizers>
+
                                 <Grid RowDefinitions=".5*,.5*">
                                     <Label
                                         Grid.Row="0"
                                         Style="{StaticResource LargeLabel}"
-                                        Text="{Binding Activity.Name}" />
+                                        Text="{Binding ActivityName}" />
                                     <Label
                                         Grid.Row="1"
                                         Style="{StaticResource MediumLabel}"
@@ -103,17 +122,14 @@
         <Grid Grid.Row="3" VerticalOptions="Center">
 
 
-            <Frame
-                x:Name="SwipeMenu"
-                CornerRadius="20"
-                Style="{StaticResource TimeTrackingCard}">
+            <Border x:Name="SwipeMenu" Style="{StaticResource TimeTrackingCard}">
                 <!--<Frame.GestureRecognizers>
                     <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
                 </Frame.GestureRecognizers>-->
 
                 <VerticalStackLayout>
 
-                    <Picker x:Name="picker" Title="Select a mode">
+                    <!--<Picker x:Name="picker" Title="Select a mode">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>Track instantly</x:String>
@@ -121,7 +137,7 @@
                                 <x:String>Choose template</x:String>
                             </x:Array>
                         </Picker.ItemsSource>
-                    </Picker>
+                    </Picker>-->
 
                     <Label
                         Grid.Column="0"
@@ -135,11 +151,9 @@
                         x:Name="start"
                         ClassId="StartButton"
                         Command="{Binding StartNewTimesheetCommand}"
-                        HeightRequest="70"
                         IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}"
-                        MaximumHeightRequest="150"
-                        Source="play_circle_outline.png"
-                        VerticalOptions="Start">
+                        Source="play_circle_outline_blue.png"
+                        Style="{StaticResource TimetrackingButton}">
 
                         <ImageButton.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
@@ -150,11 +164,9 @@
                         x:Name="stop"
                         ClassId="StopButton"
                         Command="{Binding StopActiveTimesheetCommand}"
-                        HeightRequest="70"
                         IsVisible="{Binding IsTimetrackingActive}"
-                        MaximumHeightRequest="150"
-                        Source="stop_circle_outline.png"
-                        VerticalOptions="Start">
+                        Source="stop_circle_outline_red.png"
+                        Style="{StaticResource TimetrackingButton}">
 
                         <ImageButton.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
@@ -166,7 +178,7 @@
 
                 </VerticalStackLayout>
 
-            </Frame>
+            </Border>
         </Grid>
         <ActivityIndicator
             Grid.RowSpan="3"

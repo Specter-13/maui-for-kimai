@@ -4,19 +4,19 @@
 
 
 
-    <Color x:Key="AccentColor">#5091F5</Color>
+    <Color x:Key="AccentColor">#2069e0</Color>
 
     <Color x:Key="AccentTextColorLight">#FFFFFF</Color>
     <Color x:Key="AccentTextColorDark">#1A1A1B</Color>
 
 
-    <Color x:Key="Tertiary">#2B0B98</Color>
+    <Color x:Key="Tertiary">#007acc</Color>
 
 
     <Color x:Key="BackgroundLight">#FFFFFF</Color>
-    <Color x:Key="BackgroundDark">#1A1A1B</Color>
+    <Color x:Key="BackgroundDark">#1e1e1e</Color>
 
     <Color x:Key="CardBackgroundLight">#F7F7F7</Color>
-    <Color x:Key="CardBackgroundDark">#3F403D</Color>
+    <Color x:Key="CardBackgroundDark">#2d2d30</Color>
 
 </ResourceDictionary>

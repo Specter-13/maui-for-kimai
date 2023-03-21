@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Core.Extensions;
 using System.Numerics;
 using MauiForKimai.ViewModels.Timesheets;
+using MauiForKimai.Models;
 
 namespace MauiForKimai.ViewModels;
 
@@ -42,7 +43,7 @@ public partial class HomeViewModel : ViewModelBase
 		}
 	}
 
-	public ObservableCollection<TimesheetCollectionExpanded> RecentTimesheets {get;set; } = new();
+	public ObservableCollection<TimesheetRecentListModel> RecentTimesheets {get;set; } = new();
 
 	[ObservableProperty]
 	int activeTimesheetId;
@@ -69,7 +70,6 @@ public partial class HomeViewModel : ViewModelBase
 		{ 
 			Begin = DateTimeOffset.Now
 		};
-
 		_timer.Start();
 		IsTimetrackingActive = true;
 		//var active = await timesheetService.Create(timesheet);
@@ -118,7 +118,7 @@ public partial class HomeViewModel : ViewModelBase
 		RecentTimesheets.Clear();
 		foreach(var timesheet in timeheets)
 		{ 
-			RecentTimesheets.Add(timesheet);
+			RecentTimesheets.Add((TimesheetRecentListModel)timesheet);
 		}
 
 		IsBusy = false;
@@ -126,7 +126,7 @@ public partial class HomeViewModel : ViewModelBase
     }
 
 	[RelayCommand]
-    async Task TimesheetOnTap(TimesheetCollectionExpanded currentTimesheet)
+    async Task TimesheetOnTap(TimesheetRecentListModel currentTimesheet)
     {
 		var x = 10;
 		var z = currentTimesheet;
