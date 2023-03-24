@@ -3,6 +3,7 @@
     x:Class="MauiForKimai.Views.ServerListView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:model="clr-namespace:MauiForKimai.Models"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
@@ -11,58 +12,103 @@
     Shell.NavBarIsVisible="False">
 
 
-    <VerticalStackLayout>
-        <Label
+
+
+
+    <Grid Padding="10,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--<Label
+            Grid.Row="0"
             HorizontalOptions="Center"
             Style="{StaticResource LargeLabel}"
             Text="You are connected to:"
-            VerticalOptions="Center" />
+            VerticalOptions="Center" />-->
         <Label
-            
+            Grid.Row="0"
             HorizontalOptions="Center"
             Style="{StaticResource MediumLabel}"
             Text="{Binding ApiStateProvider.IsAuthenticated}"
             VerticalOptions="Center" />
 
-        <CollectionView ItemsSource="{Binding Servers}">
+        <ScrollView Grid.Row="1">
+            <CollectionView ItemsSource="{Binding Servers}">
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:ServerModel">
-                    <Frame Style="{StaticResource CardTimesheetView}">
-                        <Grid ColumnDefinitions="0.70*,0.30*">
-                            <VerticalStackLayout Grid.Column="0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:ServerModel">
+                        <Frame Style="{StaticResource ServerListCard}">
 
-                                <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
-                                <Label Style="{StaticResource MediumLabel}" Text="{Binding Url}" />
-                                <Label Style="{StaticResource MediumLabel}" Text="{Binding IsDefault}" />
 
-                            </VerticalStackLayout>
 
-                            <Button
-                                Grid.Column="1"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ConnectCommand}"
-                                CommandParameter="{Binding .}"
-                                HeightRequest="40"
-                                Text="Connect" />
-                        </Grid>
+                            <Grid ColumnDefinitions="0.70*,0.30*">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ServerTappedCommand}" CommandParameter="{Binding .}" />
+                                    <!--<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  ></TapGestureRecognizer>-->
+                                </Grid.GestureRecognizers>
+                                <VerticalStackLayout Grid.Column="0">
 
-                    </Frame>
+                                    <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
+                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding Url}" />
+                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding IsDefault}" />
 
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                </VerticalStackLayout>
+
+                                <!--<Button
+                                    Grid.Column="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ConnectCommand}"
+                                    CommandParameter="{Binding .}"
+                                    HeightRequest="40"
+                                    Text="Connect" />-->
+                            </Grid>
+
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </ScrollView>
+
 
 
         <Button
-            Command="{Binding AddNewServerCommand}"
+            Grid.Row="1"
+            Margin="0,0,20,22"
+            BackgroundColor="{StaticResource AccentColor}"
+            BorderColor="#2b3c3c"
+            BorderWidth="1"
+            CornerRadius="60"
+            FontAttributes="Bold"
+            HeightRequest="70"
             HorizontalOptions="End"
-            Text="Create new"
-            VerticalOptions="EndAndExpand" />
+            TextColor="White"
+            VerticalOptions="End"
+            WidthRequest="70">
 
-        <Button
-            Command="{Binding AddNewServerCommand}"
-            HorizontalOptions="End"
-            Text="Logout"
-            VerticalOptions="EndAndExpand" />
-    </VerticalStackLayout>
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="MaterialDesignIcons"
+                    Glyph="{x:Static helpers:MaterialDesignIconsFonts.Plus}"
+                    Size="25" />
+            </Button.ImageSource>
+        </Button>
+    </Grid>
+
+
+
+    <!--<Button
+        Command="{Binding AddNewServerCommand}"
+        HorizontalOptions="End"
+        Text="Create new"
+        VerticalOptions="EndAndExpand" />
+
+    <Button
+        Command="{Binding LogoutCommand}"
+        HorizontalOptions="End"
+        Text="Logout"
+        VerticalOptions="EndAndExpand" />-->
+
 </mvvm:TinyView>

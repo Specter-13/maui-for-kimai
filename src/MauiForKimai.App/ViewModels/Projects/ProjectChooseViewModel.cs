@@ -22,9 +22,9 @@ public partial class ProjectChooseViewModel : ViewModelBase
         _projectService = projectService;
     }
 
-    public override async Task OnAppearing()
+    public override async Task Initialize()
     {
-        GetProjects();
+        await GetProjects();
 		
 	}
     

@@ -44,7 +44,12 @@ public partial class ServerListViewModel : ViewModelBase
 
     }
 
-
+    [RelayCommand]
+    async Task ServerTapped(ServerModel server) 
+    {
+        var route = routingService.GetRouteByViewModel<ServerDetailViewModel>();
+        await Navigation.NavigateTo(route, server);
+    }
 
     [RelayCommand]
     async Task AddNewServer() 
@@ -55,7 +60,7 @@ public partial class ServerListViewModel : ViewModelBase
     [RelayCommand]
     async Task Logout() 
     {
-        
+          base.ApiStateProvider.Disconnect();
         //await Navigation.NavigateTo(nameof(ServerDetailPage));
     }
 

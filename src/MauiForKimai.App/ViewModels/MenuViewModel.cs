@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.Input;
 using MauiForKimai.ViewModels.Base;
 using MauiForKimai.Views;
 using System;
@@ -11,9 +13,13 @@ namespace MauiForKimai.ViewModels;
 
 public partial class MenuViewModel : ViewModelBase
 {
+
+    private readonly ILoginService _loginService;
     public MenuViewModel(IRoutingService rs, ILoginService ls) : base(rs, ls)
     {
+        _loginService = ls;
     }
+    
 
     [RelayCommand]
     async Task GoToHomeAsync()

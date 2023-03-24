@@ -24,6 +24,22 @@ public partial class HomeViewModel : ViewModelBase
 		
 
 	}
+	public override async Task Initialize()
+    {
+        //var ls = MauiForKimai.DependencyInjection.ServiceProvider.GetService<ILoginService>();
+		var isSuccessfull = await _loginService.LoginToDefaultOnStartUp();
+		IToast toast;
+
+		if(isSuccessfull)
+		{
+			toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
+		}
+		else
+		{
+			toast = Toast.Make("Connection to Kimai failed!", ToastDuration.Short, 14);
+		}
+		await toast.Show();
+    }
 
 	private void RegisterMessages()
 	{ 
@@ -58,47 +74,21 @@ public partial class HomeViewModel : ViewModelBase
 	
 	public override async Task OnAppearing()
 	{
-		if(base.ApiStateProvider.IsAuthenticated)
-		{ 
-			GetTimeSheets();
-			var activeTimesheets = await timesheetService.GetActive();
-			if (activeTimesheets.Any()) 
-			{
-				//ActiveTimesheetId = (int)activeTimesheets.First().Id;
-			}
+	
+		NetworkAccess accessType = Connectivity.Current.NetworkAccess;
+
+		if (base.ApiStateProvider.IsAuthenticated && accessType == NetworkAccess.Internet)
+		{
+			// Connection to internet is available
+				await GetTimeSheets();
+
 		}
 		else
-		{
-			NetworkAccess accessType = Connectivity.Current.NetworkAccess;
-
-			if (accessType == NetworkAccess.Internet)
-			{
-				// Connection to internet is available
-				var status = await _loginService.LoginToDefaultOnStartUp();
-				if(status == true)
-				{ 
-
-					var toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
-					await toast.Show();
-
-					base.ApiStateProvider.SetIsAuthenticated();
-
-					GetTimeSheets();
-					var activeTimesheets = await timesheetService.GetActive();
-					if (activeTimesheets.Any()) 
-					{
-						//ActiveTimesheetId = (int)activeTimesheets.First().Id;
-					}
-				}
-				else
-				{ 
-					var toast = Toast.Make("Connection Failed!", ToastDuration.Short, 14);
-					await toast.Show();
-					base.ApiStateProvider.SetIsAuthenticated();
-				}
-			}
-			
+		{ 
+			var toast = Toast.Make("Cannot load data!", ToastDuration.Short, 14);
+			await toast.Show();
 		}
+
 	}
 
 	public ObservableCollection<TimesheetRecentListModel> RecentTimesheets {get;set; } = new();

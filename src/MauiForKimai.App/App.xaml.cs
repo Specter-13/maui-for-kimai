@@ -1,5 +1,7 @@
 ﻿
 
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.Shells;
 using MauiForKimai.ViewModels;
@@ -11,11 +13,14 @@ namespace MauiForKimai;
 
 public partial class App : TinyApplication
 {
-	//private readonly ILoginService _loginService;
+	private readonly ILoginService _loginService;
 	public App(MenuViewModel menuViewModel, ILoginService loginService)
 	{
-		//_loginService = loginService;
+
 		InitializeComponent();
+		_loginService = loginService;
+
+
 
 
 		#if ANDROID
@@ -24,21 +29,11 @@ public partial class App : TinyApplication
             MainPage = new AppShellDesktop(menuViewModel);
 		#endif
         
+
 		//try to login on startup to default application
 		
 		//MainPage = new AppShell(menuViewModel);
 	}
 
-	//protected override async Task Initialize()
- //   {
- //       await base.Initialize();
-		
-		
-
-	//	//To test that it not hangs the application.
-	//	for(int i = 0; i < 100; i++)
-	//	{
-	//		await Task.Delay(1000);
-	//	}
- //   }
+	
 }

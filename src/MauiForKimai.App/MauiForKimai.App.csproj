@@ -79,7 +79,7 @@
 	  <MauiXaml Update="Views\HomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Management\Servers\ServerDetailViewModel.xaml">
+	  <MauiXaml Update="Views\Management\Servers\ServerDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Management\Servers\ServersListView.xaml">
@@ -117,6 +117,9 @@
 	  </Compile>
 	  <Compile Update="Views\HomeView.xaml.cs">
 	    <DependentUpon>HomeView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Management\Servers\ServerDetailView.xaml.cs">
+	    <DependentUpon>ServerDetailView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Management\Servers\ServersListView.xaml.cs">
 	    <DependentUpon>ServersListView.xaml</DependentUpon>

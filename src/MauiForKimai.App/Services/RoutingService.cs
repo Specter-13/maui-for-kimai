@@ -26,6 +26,7 @@ public class RoutingService : IRoutingService
     new("//templates", typeof(TemplateView), typeof(TemplateViewModel)),
     new("//reports", typeof(TemplateView), typeof(TemplateViewModel)),
     new("//serverlistview", typeof(ServerListView), typeof(ServerListViewModel)),
+    new("//serverlistview/detail", typeof(ServerDetailView), typeof(ServerDetailViewModel)),
     new("//home/createtimesheet", typeof(TimesheetCreateView), typeof(TimesheetCreateViewModel)),
     new("//home/createtimesheet/chooseproject", typeof(ProjectChooseView), typeof(ProjectChooseViewModel)),
     new("//home/createtimesheet/chooseactivity", typeof(ActivityChooseView), typeof(ActivityChooseViewModel)),

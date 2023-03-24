@@ -9,4 +9,9 @@ public partial class ServerListView
 		InitializeComponent();
 		BindingContext= vm;
 	}
+
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+		var x =10;
+    }
 }

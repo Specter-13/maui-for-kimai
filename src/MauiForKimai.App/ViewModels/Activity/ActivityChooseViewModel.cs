@@ -21,10 +21,9 @@ public partial class ActivityChooseViewModel : ViewModelBase
     {
         _activityService = activityService;
     }
-
-    public override async Task OnAppearing()
+    public override async Task Initialize()
     {
-        GetActivities();
+        await GetActivities();
 		
 	}
     

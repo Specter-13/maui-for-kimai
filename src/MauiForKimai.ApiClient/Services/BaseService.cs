@@ -32,6 +32,21 @@ public class BaseService : IBaseService
 		_httpClient.BaseAddress = new Uri(baseUrl);
 		ApiClient = new ApiClient(_httpClient);
 	}
+
+	public void DeInitializeClient()
+	{ 
+		if(_httpClient != null)
+		{
+			_httpClient.Dispose();
+		}
+
+		if(ApiClient != null) 
+		{
+			ApiClient = null;
+		}
+	
+		
+	}
 	public async Task<bool> PingServerAsync()
 	{
 		//var defualtClient = new ApiClient.DefaultClient(_httpClient);

@@ -55,15 +55,9 @@
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
 
-    <FlyoutItem Title="Login">
-        <ShellContent
-            Title="Login"
-            ContentTemplate="{DataTemplate local:ServerListView}"
-            Icon="login.png"
-            Route="login" />
-    </FlyoutItem>
 
-    <FlyoutItem Title="Home" IsEnabled="{Binding ApiStateProvider.IsAuthenticated}">
+
+    <FlyoutItem Title="Home">
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate local:HomeView}"
@@ -71,11 +65,19 @@
             Route="home" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Timesheets" IsEnabled="{Binding ApiStateProvider.IsAuthenticated}">
+    <FlyoutItem Title="Timesheets">
         <ShellContent
             Title="Timesheets"
             ContentTemplate="{DataTemplate local:TimeSheetView}"
             Route="timesheet" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Management">
+        <ShellContent
+            Title="Login"
+            ContentTemplate="{DataTemplate local:ServerListView}"
+            Icon="login.png"
+            Route="login" />
     </FlyoutItem>
 
     <Shell.FlyoutFooter>

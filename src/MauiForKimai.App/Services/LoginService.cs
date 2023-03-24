@@ -68,18 +68,18 @@ public class LoginService : ILoginService
         if (defaultServer == null)
              return false;
 
-        _asp.SetAuthInfo(defaultServer.Username,defaultServer.ApiPasswordKey,defaultServer.Url);  
-        InitializeClients(defaultServer.Url);
-
         try
         {
+            _asp.SetAuthInfo(defaultServer.Username,defaultServer.ApiPasswordKey,defaultServer.Url);  
+            InitializeClients(defaultServer.Url);
             _asp.ActualUser = await _userService.GetMe();
         }
-        catch (KiamiApiException)
+        catch (Exception)
         {
+            _asp.Disconnect();
+            DeInitializeClients();
             return false;
         }
-         
 
         //connection successfull
         _asp.SetIsAuthenticated();
@@ -88,11 +88,19 @@ public class LoginService : ILoginService
     }
 
 
-     private void InitializeClients(string baseUrl)
+    private void InitializeClients(string baseUrl)
     {
         foreach (var baseService in _baseServices)
         {
             baseService.InitializeClient(baseUrl);
+        }
+    }
+
+    private void DeInitializeClients()
+    {
+        foreach (var baseService in _baseServices)
+        {
+            baseService.DeInitializeClient();
         }
     }
 
