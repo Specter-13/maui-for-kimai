@@ -25,6 +25,7 @@ public static class ServicesConfiguration
         services.AddSingleton<ITimesheetService, IBaseService, TimesheetService>();
         services.AddSingleton<IProjectService, IBaseService, ProjectService>();
         services.AddSingleton<IActivityService, IBaseService, ActivityService>();
+        services.AddSingleton<ICustomerService, IBaseService, CustomerService>();
 
     }
 

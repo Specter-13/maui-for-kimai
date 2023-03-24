@@ -76,13 +76,16 @@
 	  <MauiXaml Update="Shells\AppShellDesktop.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Customer\CustomerChooseView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\HomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Management\Servers\ServerDetailView.xaml">
+	  <MauiXaml Update="Views\Servers\ServerDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Management\Servers\ServersListView.xaml">
+	  <MauiXaml Update="Views\Servers\ServersListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Activity\ActivityChooseView.xaml">
@@ -118,10 +121,10 @@
 	  <Compile Update="Views\HomeView.xaml.cs">
 	    <DependentUpon>HomeView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Management\Servers\ServerDetailView.xaml.cs">
+	  <Compile Update="Views\Servers\ServerDetailView.xaml.cs">
 	    <DependentUpon>ServerDetailView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Management\Servers\ServersListView.xaml.cs">
+	  <Compile Update="Views\Servers\ServersListView.xaml.cs">
 	    <DependentUpon>ServersListView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>

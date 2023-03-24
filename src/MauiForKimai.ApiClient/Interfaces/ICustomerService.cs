@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ApiClient.Interfaces;
-public interface IProjectService
+public interface ICustomerService : IBaseService
 {
-    Task<ICollection<ProjectCollection>> GetProjects();
-    Task<ICollection<ProjectCollection>> GetProjectsByCustomer(int customerId);
+    Task<ICollection<CustomerCollection>> GetCustomers();
 }

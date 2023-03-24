@@ -15,7 +15,7 @@
 
 
 
-    <Grid Padding="10,0,0,0">
+    <Grid Padding="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*" />
             <RowDefinition Height="*" />
@@ -43,7 +43,7 @@
 
 
 
-                            <Grid ColumnDefinitions="0.70*,0.30*">
+                            <Grid ColumnDefinitions="0.90*,0.10*">
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ServerTappedCommand}" CommandParameter="{Binding .}" />
                                     <!--<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  ></TapGestureRecognizer>-->

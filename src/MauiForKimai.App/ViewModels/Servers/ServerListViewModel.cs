@@ -31,16 +31,41 @@ public partial class ServerListViewModel : ViewModelBase
             Id= 1,
             Username = "admin@admin.com",
             ApiPasswordKey = "internet",
-            IsDefault = false,
+            IsDefault = true,
             Name = "My local server",
             Url = "http://localhost:8001/"
             
         };
 
+        var demo = new ServerModel()
+        {
+            Id= 2,
+            Username = "john_user",
+            ApiPasswordKey = "kitten123",
+            IsDefault = false,
+            Name = "Demo server online",
+            Url = "https://demo-plugins.kimai.org/"
+            
+        };
+
+        var localJan = new ServerModel()
+        {
+            Id= 2,
+            Username = "jan@jan.com",
+            ApiPasswordKey = "internet",
+            IsDefault = false,
+            Name = "My local server Jan",
+            Url = "http://localhost:8001/"
+            
+        };
+        
+
    
         _baseServices = baseServices;
         _userService = userService;
         Servers.Add(local);
+        Servers.Add(demo);
+         Servers.Add(localJan);
 
     }
 
@@ -64,41 +89,7 @@ public partial class ServerListViewModel : ViewModelBase
         //await Navigation.NavigateTo(nameof(ServerDetailPage));
     }
 
-    [RelayCommand]
-    async Task Connect(ServerModel server) 
-    {
-
-		base.ApiStateProvider.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
-        InitializeClients(server.Url);
-        var isConnected = await _baseServices.First().PingServerAsync();
-
-
-        ToastDuration duration = ToastDuration.Short;
-		double fontSize = 14;
-		if(isConnected) 
-        { 
-            
-            //var id = await _userService.GetUserByIdAsync(1);
-            //var allUsers = await _userService.GetAllUsersAsync();
-            base.ApiStateProvider.ActualUser = await _userService.GetMe();
-
-            string text = "Connection to Kimai established!";
-		    
-
-		    var toast = Toast.Make(text, duration, fontSize);
-		    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-		    await toast.Show(cancellationTokenSource.Token);
-            base.ApiStateProvider.SetIsAuthenticated();
-
-        }
-        else
-        { 
-            string text = "Connection failed! Check your credentials!";
-		    var toast = Toast.Make(text, duration, fontSize);
-		    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-		    await toast.Show(cancellationTokenSource.Token);
-        }
-    }
+    
 
     private void InitializeClients(string baseUrl)
     {

@@ -14,6 +14,6 @@ public partial class ProjectChooseView
 
 	private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-		_vm.FilterProjectsCommand.Execute(e.NewTextValue);
+		_vm.FilterCommand.Execute(e.NewTextValue);
     }
 }

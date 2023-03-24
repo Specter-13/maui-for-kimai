@@ -70,33 +70,66 @@
         <ScrollView Grid.Row="1">
             <VerticalStackLayout>
 
-                <HorizontalStackLayout>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-                    <VerticalStackLayout Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+
+                    <VerticalStackLayout Grid.Row="0">
                         <Label Text="Begin Time" />
                         <TimePicker Format="HH:mm:ss" Time="{Binding BeginTime}" />
                     </VerticalStackLayout>
 
-                    <VerticalStackLayout Margin="10">
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="1">
                         <Label Text="Begin Date" />
                         <DatePicker Date="{Binding BeginDate}" />
 
                     </VerticalStackLayout>
-                </HorizontalStackLayout>
 
-                <HorizontalStackLayout>
-
-                    <VerticalStackLayout Margin="10">
+                    <VerticalStackLayout Grid.Column="2" IsVisible="False">
                         <Label Text="End Time" />
                         <TimePicker Format="HH:mm:ss" Time="{Binding EndTime}" />
                     </VerticalStackLayout>
 
-                    <VerticalStackLayout Margin="10">
+                    <VerticalStackLayout Grid.Column="3" IsVisible="False">
                         <Label Text="End Date" />
                         <DatePicker Date="{Binding EndDate}" />
 
                     </VerticalStackLayout>
-                </HorizontalStackLayout>
+
+
+                </Grid>
+
+
+
+                <!--  Customer  -->
+                <Label Text="Customer" />
+                <Entry
+                    IsReadOnly="True"
+                    Placeholder="Select customer"
+                    Text="{Binding ChosenCustomer.Name}">
+                    <Entry.GestureRecognizers>
+
+                        <TapGestureRecognizer Command="{Binding ShowCustomerChooseViewCommand}" />
+
+                    </Entry.GestureRecognizers>
+                </Entry>
+                <Button
+                    Command="{Binding ShowCustomerChooseViewCommand}"
+                    IsVisible="{OnIdiom Phone=False,
+                                        Desktop=True}"
+                    Text="Choose customer" />
+
 
                 <!--  Project  -->
                 <Label Text="Project" />

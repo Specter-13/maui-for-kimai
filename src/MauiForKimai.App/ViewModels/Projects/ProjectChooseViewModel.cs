@@ -22,11 +22,26 @@ public partial class ProjectChooseViewModel : ViewModelBase
         _projectService = projectService;
     }
 
-    public override async Task Initialize()
+    [ObservableProperty]
+    CustomerListModel chosenCustomer;
+
+    public async override Task OnParameterSet()
     {
+        IsBusy = true;
+
+        if (NavigationParameter is CustomerListModel customer)
+        {
+            ChosenCustomer = customer;
+        }
+
+       
         await GetProjects();
-		
-	}
+        
+      
+
+        IsBusy = false;
+    }
+  
     
     [ObservableProperty]
     ProjectListModel selectedProject;
@@ -37,7 +52,7 @@ public partial class ProjectChooseViewModel : ViewModelBase
 
 
     [RelayCommand]
-    void FilterProjects(string filterText)
+    void Filter(string filterText)
     {
         var filtered = _allProjects.Where(p => p.Name.Contains(filterText,StringComparison.InvariantCultureIgnoreCase));
         SearchResults.Clear();
@@ -67,8 +82,16 @@ public partial class ProjectChooseViewModel : ViewModelBase
     public async Task GetProjects()
     { 
         ShowCollection = true;
-        IsBusy = true;
-        var projects = await _projectService.GetProjects();  
+
+        ICollection<ProjectCollection> projects;
+        if(ChosenCustomer != null)
+        { 
+            projects = await _projectService.GetProjectsByCustomer(ChosenCustomer.Id);  
+        }
+        else
+        { 
+            projects = await _projectService.GetProjects();  
+        }
         
         foreach (var project in projects) 
         {
@@ -77,7 +100,6 @@ public partial class ProjectChooseViewModel : ViewModelBase
             SearchResults.Add(projectListModel);
         }
 
-        IsBusy = false;
         ShowCollection = true;
     }
 }

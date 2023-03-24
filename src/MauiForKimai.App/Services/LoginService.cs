@@ -34,26 +34,61 @@ public class LoginService : ILoginService
             
         };
 
-        // var local2 = new ServerModel()
-        //{
-        //    Id= 1,
-        //    Username = "admin@admin.com",
-        //    ApiPasswordKey = "internet",
-        //    IsDefault = true,
-        //    Name = "My local server",
-        //    Url = "http://localhost:8001/"
+       var demo = new ServerModel()
+        {
+            Id= 2,
+            Username = "john_user",
+            ApiPasswordKey = "kitten",
+            IsDefault = false,
+            Name = "Demo server online",
+            Url = "https://demo-plugins.kimai.org/"
             
-        //};
+        };
+
+         var localJan = new ServerModel()
+        {
+            Id= 2,
+            Username = "jan@jan.com",
+            ApiPasswordKey = "internet",
+            IsDefault = false,
+            Name = "My local server Jan",
+            Url = "http://localhost:8001/"
+            
+        };
+        
 
         _asp = asp;
         _baseServices = baseServices;
         _userService = userService;
         Servers.Add(local);
+        Servers.Add(demo);
+        Servers.Add(localJan);
         
     }
     public ApiStateProvider GetApiStateProvider()
     {
         return _asp;
+    }
+
+    public async Task<bool> TestConnection(ServerModel server)
+    {
+        bool isSuccess;
+        try
+        {
+             DeInitializeClients();
+            _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
+            InitializeClients(server.Url);
+            await _userService.PingServerAsync();
+            isSuccess = true;
+        }
+        catch (Exception)
+        {
+            isSuccess = false;
+        }
+
+        _asp.Disconnect();
+        DeInitializeClients();
+        return isSuccess;
     }
 
     public bool IsLogged()
@@ -63,15 +98,48 @@ public class LoginService : ILoginService
 
     public async Task<bool> LoginToDefaultOnStartUp()
     {
-       
         var defaultServer = Servers.FirstOrDefault(x=> x.IsDefault == true);
         if (defaultServer == null)
              return false;
+        
+        return await TryToLogin(defaultServer);
+    }
 
+    public bool CheckIfConnected(ServerModel server)
+    {
+        if(_asp.IsAuthenticated && _asp.BaseUrl == server.Url && 
+           _asp.UserName == server.Username && _userService.IsClientInitialized()) 
+        {
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public Task<bool> Login(ServerModel server)
+    {
+        return TryToLogin(server); 
+
+    }
+
+    public Task Logout()
+    {
+        return Task.Run(() =>
+        {
+            _asp.Disconnect();
+            DeInitializeClients();
+        });
+       
+    }
+
+
+    private async Task<bool> TryToLogin(ServerModel server)
+    { 
         try
         {
-            _asp.SetAuthInfo(defaultServer.Username,defaultServer.ApiPasswordKey,defaultServer.Url);  
-            InitializeClients(defaultServer.Url);
+            _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
+            InitializeClients(server.Url);
             _asp.ActualUser = await _userService.GetMe();
         }
         catch (Exception)
@@ -80,14 +148,12 @@ public class LoginService : ILoginService
             DeInitializeClients();
             return false;
         }
-
-        //connection successfull
         _asp.SetIsAuthenticated();
-         return true;
-
+        return true;
     }
 
 
+  
     private void InitializeClients(string baseUrl)
     {
         foreach (var baseService in _baseServices)
@@ -104,19 +170,5 @@ public class LoginService : ILoginService
         }
     }
 
-    public Task Login()
-    {
-        throw new NotImplementedException();
-    }
 
-    public void Logout()
-    {
-        _asp.Disconnect();
-        //throw new NotImplementedException();
-    }
-
-    public Task TryToGetDefaultServer()
-    {
-        throw new NotImplementedException();
-    }
 }

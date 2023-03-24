@@ -26,6 +26,9 @@ public class BaseService : IBaseService
 	}
 
 	public IApiClient? ApiClient {get; set;}
+
+	public bool IsClientInitialized() => ApiClient != null;
+
     public void InitializeClient(string baseUrl)
 	{ 
 		_httpClient = _httpClientFactory.CreateClient(AuthHandler.AUTHENTICATED_CLIENT);

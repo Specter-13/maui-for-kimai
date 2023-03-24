@@ -8,4 +8,6 @@ namespace MauiForKimai.ApiClient.Interfaces;
 public interface IActivityService
 {
      Task<ICollection<ActivityCollection>> GetActivities();
+     Task<ICollection<ActivityCollection>> GetActivitiesByProject(int projectId);
+     Task<ICollection<ActivityCollection>> GetGlobalActivities();
 }

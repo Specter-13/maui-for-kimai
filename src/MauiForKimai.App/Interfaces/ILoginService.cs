@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MauiForKimai.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,12 @@ public interface ILoginService
 {
     ApiStateProvider GetApiStateProvider();
     bool IsLogged();
-    Task<bool> LoginToDefaultOnStartUp();
-    Task Login();
-    void Logout();
+    bool CheckIfConnected(ServerModel server);
 
-    Task TryToGetDefaultServer();
+    Task<bool> TestConnection(ServerModel server);
+    Task<bool> LoginToDefaultOnStartUp();
+
+    Task<bool> Login(ServerModel server);
+    Task Logout();
+
 }

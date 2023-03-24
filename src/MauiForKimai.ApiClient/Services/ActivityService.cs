@@ -16,4 +16,14 @@ public class ActivityService : BaseService, IActivityService
     {
        return base.ApiClient.ActivitiesAllAsync(null,null,null,null,null,null,null,null);
     }
-}
+
+    public Task<ICollection<ActivityCollection>> GetActivitiesByProject(int projectId)
+    {
+       return base.ApiClient.ActivitiesAllAsync(projectId.ToString(),null,null,null,null,"project","DESC",null);
+    }
+
+      public Task<ICollection<ActivityCollection>> GetGlobalActivities()
+    {
+       return base.ApiClient.ActivitiesAllAsync(null,null,null,"true",null,null,null,null);
+    }
+}   

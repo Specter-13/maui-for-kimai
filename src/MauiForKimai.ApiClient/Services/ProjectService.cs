@@ -13,11 +13,16 @@ public class ProjectService : BaseService, IProjectService
     }
 
 
-     public Task<ICollection<ProjectCollection>> GetProjects()
+    public Task<ICollection<ProjectCollection>> GetProjects()
     {
         return ApiClient.ProjectsAllAsync(null,null,null,null,null,null,null,null,null,null);
     }
 
+
+    public Task<ICollection<ProjectCollection>> GetProjectsByCustomer(int customerId)
+    {
+        return ApiClient.ProjectsAllAsync(customerId.ToString(),null,null,null,null,null,null,null,null,null);
+    }
     public Task<ProjectEntity> Create(ProjectEditForm entity)
     {
         return ApiClient.ProjectsPOSTAsync(entity);

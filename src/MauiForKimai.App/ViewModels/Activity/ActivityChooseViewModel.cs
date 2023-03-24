@@ -21,11 +21,25 @@ public partial class ActivityChooseViewModel : ViewModelBase
     {
         _activityService = activityService;
     }
-    public override async Task Initialize()
+
+    [ObservableProperty]
+    ProjectListModel chosenProject;
+    public async override Task OnParameterSet()
     {
+        IsBusy = true;
+
+        if (NavigationParameter is ProjectListModel project)
+        {
+            ChosenProject = project;
+        }
+
+        
         await GetActivities();
-		
-	}
+        
+      
+
+        IsBusy = false;
+    }
     
     [ObservableProperty]
     ActivityListModel selectedActivity;
@@ -36,7 +50,7 @@ public partial class ActivityChooseViewModel : ViewModelBase
 
 
     [RelayCommand]
-    void FilterActivity(string filterText)
+    void Filter(string filterText)
     {
         var filtered = _allActivites.Where(p => p.Name.Contains(filterText,StringComparison.InvariantCultureIgnoreCase));
         SearchResults.Clear();
@@ -66,8 +80,18 @@ public partial class ActivityChooseViewModel : ViewModelBase
     public async Task GetActivities()
     { 
         ShowCollection = true;
-        IsBusy = true;
-        var activities = await _activityService.GetActivities();  
+
+        ICollection<ActivityCollection> activities;
+
+        if(ChosenProject != null)
+        { 
+           activities = await _activityService.GetActivitiesByProject(ChosenProject.Id);  
+        }
+        else
+        {
+           activities = await _activityService.GetGlobalActivities(); 
+        }
+      
         
         foreach (var activity in activities) 
         {
@@ -76,7 +100,6 @@ public partial class ActivityChooseViewModel : ViewModelBase
             SearchResults.Add(activityListModel);
         }
 
-        IsBusy = false;
         ShowCollection = true;
     }
 }

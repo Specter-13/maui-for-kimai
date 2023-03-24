@@ -11,17 +11,26 @@
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels.Projects"
     Title="ProjectChooseView">
 
-
-
-    <Grid>
-        <VerticalStackLayout>
-
+    <Shell.TitleView>
+        <Grid Padding="0,10,10,10">
             <SearchBar
                 x:Name="searchBar"
-                BackgroundColor="DimGrey"
-                SearchCommand="{Binding FilterProjectsCommand}"
+                BackgroundColor="Transparent"
+                SearchCommand="{Binding FilterCommand}"
                 SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                 TextChanged="searchBar_TextChanged" />
+        </Grid>
+    </Shell.TitleView>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+
+        <VerticalStackLayout Grid.Row="0">
+
+
             <Label
                 HorizontalOptions="StartAndExpand"
                 HorizontalTextAlignment="Start"
@@ -38,38 +47,39 @@
                 IsVisible="{Binding IsBusy}"
                 VerticalOptions="Center" />
 
-
-            <ScrollView IsVisible="{Binding ShowCollection}">
-                <CollectionView
-                    x:Name="searchResults"
-                    ItemsSource="{Binding SearchResults}"
-                    SelectedItem="{Binding SelectedProject}"
-                    SelectionMode="Single">
-
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:ProjectCollection">
-
-                            <Frame
-                                Margin="10"
-                                Padding="10"
-                                HeightRequest="40"
-                                Style="{StaticResource CardTimesheetView}">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProjectChooseViewModel}}, Path=ProjectTappedCommand}" CommandParameter="{Binding .}" />
-                                </Frame.GestureRecognizers>
-                                <Label Style="{StaticResource MediumLabel}" Text="{Binding Name}" />
-                            </Frame>
-                        </DataTemplate>
-
-                    </CollectionView.ItemTemplate>
-
-                </CollectionView>
-            </ScrollView>
-
-
-
-
-
         </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1" IsVisible="{Binding ShowCollection}">
+            <CollectionView
+                x:Name="searchResults"
+                ItemsSource="{Binding SearchResults}"
+                SelectedItem="{Binding SelectedProject}"
+                SelectionMode="Single">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:ProjectCollection">
+
+                        <Frame
+                            Margin="10"
+                            Padding="10"
+                            HeightRequest="40"
+                            Style="{StaticResource CardTimesheetView}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProjectChooseViewModel}}, Path=ProjectTappedCommand}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                            <Label Style="{StaticResource MediumLabel}" Text="{Binding Name}" />
+                        </Frame>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </ScrollView>
+
+
+
+
+
+
     </Grid>
 </mvvm:TinyView>

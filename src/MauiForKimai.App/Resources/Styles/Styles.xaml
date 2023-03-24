@@ -58,6 +58,7 @@
         <Setter Property="Padding" Value="10" />
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
         <Setter Property="IsClippedToBounds" Value="True" />
+        <Setter Property="Margin" Value="5" />
         <Setter Property="HeightRequest" Value="100" />
     </Style>
 

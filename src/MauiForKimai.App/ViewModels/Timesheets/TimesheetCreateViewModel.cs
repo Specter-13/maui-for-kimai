@@ -51,6 +51,11 @@ public partial class TimesheetCreateViewModel : ViewModelBase
             ChosenActivity = m.Value;
             Timesheet.Activity = ChosenActivity.Id;
         });
+
+        WeakReferenceMessenger.Default.Register<TimesheetCustomerChooseMessage>(this, (r, m) =>
+        {
+            ChosenCustomer = m.Value;
+        });
     }
 
 
@@ -74,6 +79,9 @@ public partial class TimesheetCreateViewModel : ViewModelBase
 
     [ObservableProperty]
     TimesheetEditForm timesheet;
+
+    [ObservableProperty]
+    CustomerListModel chosenCustomer;
 
     [ObservableProperty]
     ProjectListModel chosenProject;
@@ -106,13 +114,20 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     async Task ShowProjectChooseView()
     {
         var route = routingService.GetRouteByViewModel<ProjectChooseViewModel>();
-        await Navigation.NavigateTo(route);
+        await Navigation.NavigateTo(route, ChosenCustomer);
     }
 
     [RelayCommand]
     async Task ShowActivityChooseView()
     {
         var route = routingService.GetRouteByViewModel<ActivityChooseViewModel>();
+        await Navigation.NavigateTo(route, ChosenProject);
+    }
+
+    [RelayCommand]
+    async Task ShowCustomerChooseView()
+    {
+        var route = routingService.GetRouteByViewModel<CustomerChooseViewModel>();
         await Navigation.NavigateTo(route);
     }
 
@@ -122,10 +137,13 @@ public partial class TimesheetCreateViewModel : ViewModelBase
         var startTime = new DateTimeOffset(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds, new TimeSpan(1,0,0));
         //var end = new DateTimeOffset(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds, new TimeSpan(0,0,0));
         Timesheet.Begin = startTime;
-        Timesheet.Billable = false;
-        Timesheet.User = base.ApiStateProvider.ActualUser.Id;
-        Timesheet.FixedRate = 0;
-        Timesheet.HourlyRate = 0;
+      
+        //Timesheet.User = base.ApiStateProvider.ActualUser.Id;
+
+        //Timesheet.Billable = false;
+        //Timesheet.Exported = false;
+        //Timesheet.FixedRate = 0;
+        //Timesheet.HourlyRate = 0;
         //Timesheet.P
 
         WeakReferenceMessenger.Default.Send(new TimesheetStartMessage(Timesheet));

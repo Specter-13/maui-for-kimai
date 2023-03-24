@@ -13,6 +13,6 @@ public partial class ActivityChooseView
 	}
 	private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-		_vm.FilterActivityCommand.Execute(e.NewTextValue);
+		_vm.FilterCommand.Execute(e.NewTextValue);
     }
 }
