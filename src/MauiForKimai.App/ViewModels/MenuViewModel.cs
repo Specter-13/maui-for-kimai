@@ -11,7 +11,7 @@ namespace MauiForKimai.ViewModels;
 
 public partial class MenuViewModel : ViewModelBase
 {
-    public MenuViewModel(ApiStateProvider asp, IRoutingService routingService) : base(asp, routingService)
+    public MenuViewModel(IRoutingService rs, ILoginService ls) : base(rs, ls)
     {
     }
 
@@ -20,7 +20,7 @@ public partial class MenuViewModel : ViewModelBase
     {
         if(base.ApiStateProvider.IsAuthenticated)
         { 
-            var route = base.RoutingService.GetRouteByViewModel<HomeViewModel>();
+            var route = base.routingService.GetRouteByViewModel<HomeViewModel>();
             await Navigation.NavigateTo(route);
         }
     }
@@ -28,7 +28,7 @@ public partial class MenuViewModel : ViewModelBase
      [RelayCommand]
     async Task GoToLoginAsync()
     {
-         var route = base.RoutingService.GetRouteByViewModel<LoginViewModel>();
+         var route = base.routingService.GetRouteByViewModel<ServerListViewModel>();
         await Navigation.NavigateTo(route);
     }
 

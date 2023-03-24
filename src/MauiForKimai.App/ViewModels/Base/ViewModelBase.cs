@@ -13,17 +13,18 @@ namespace MauiForKimai.ViewModels.Base;
 public abstract partial class ViewModelBase : TinyViewModel, IViewModel
 {
 	
-	public ViewModelBase(ApiStateProvider asp, IRoutingService routingService)
+	protected ILoginService loginService {get; }
+	protected IRoutingService routingService { get; }
+	public ViewModelBase(IRoutingService rs, ILoginService ls)
 	{
-		apiStateProvider = asp;
-		RoutingService = routingService;
+		routingService = rs;
+		loginService = ls;
+		ApiStateProvider = loginService.GetApiStateProvider();
 	}
 
+    [ObservableProperty]
+	ApiStateProvider apiStateProvider;
 
-	[ObservableProperty]
-	public ApiStateProvider apiStateProvider;
-
-	public IRoutingService RoutingService { get; }
 
 
 

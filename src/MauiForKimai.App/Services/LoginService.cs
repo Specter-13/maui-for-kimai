@@ -14,7 +14,8 @@ public class LoginService : ILoginService
 
     private readonly IEnumerable<IBaseService> _baseServices;
     private readonly IUserService _userService;
-     private readonly ApiStateProvider _asp;
+    private readonly ApiStateProvider _asp;
+
     private List<ServerModel> Servers {get; set; } = new();
     public LoginService(ISecureStorageService secureStorageService,
         IEnumerable<IBaseService> baseServices, 
@@ -33,12 +34,33 @@ public class LoginService : ILoginService
             
         };
 
+        // var local2 = new ServerModel()
+        //{
+        //    Id= 1,
+        //    Username = "admin@admin.com",
+        //    ApiPasswordKey = "internet",
+        //    IsDefault = true,
+        //    Name = "My local server",
+        //    Url = "http://localhost:8001/"
+            
+        //};
+
         _asp = asp;
         _baseServices = baseServices;
         _userService = userService;
         Servers.Add(local);
         
     }
+    public ApiStateProvider GetApiStateProvider()
+    {
+        return _asp;
+    }
+
+    public bool IsLogged()
+    {
+        return _asp.IsAuthenticated;
+    }
+
     public async Task<bool> LoginToDefaultOnStartUp()
     {
        
@@ -65,20 +87,6 @@ public class LoginService : ILoginService
 
     }
 
-    Task ILoginService.Login()
-    {
-        throw new NotImplementedException();
-    }
-
-    Task ILoginService.Logout()
-    {
-        throw new NotImplementedException();
-    }
-
-    Task ILoginService.TryToGetDefaultServer()
-    {
-        throw new NotImplementedException();
-    }
 
      private void InitializeClients(string baseUrl)
     {
@@ -86,5 +94,21 @@ public class LoginService : ILoginService
         {
             baseService.InitializeClient(baseUrl);
         }
+    }
+
+    public Task Login()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Logout()
+    {
+        _asp.Disconnect();
+        //throw new NotImplementedException();
+    }
+
+    public Task TryToGetDefaultServer()
+    {
+        throw new NotImplementedException();
     }
 }

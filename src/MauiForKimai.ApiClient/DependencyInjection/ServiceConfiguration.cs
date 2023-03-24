@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MauiForKimai.ApiClient.Services.Configuration;
+namespace MauiForKimai.ApiClient.DependencyInjection;
 
 public static class ServicesConfiguration
 {
@@ -21,20 +21,20 @@ public static class ServicesConfiguration
             .AddHttpMessageHandler((s) => s.GetService<AuthHandler>());
 
 
-        services.AddSingleton<IUserService,IBaseService,UserService>();
-        services.AddSingleton<ITimesheetService,IBaseService,TimesheetService>();
-        services.AddSingleton<IProjectService,IBaseService,ProjectService>();
-        services.AddSingleton<IActivityService,IBaseService,ActivityService>();
+        services.AddSingleton<IUserService, IBaseService, UserService>();
+        services.AddSingleton<ITimesheetService, IBaseService, TimesheetService>();
+        services.AddSingleton<IProjectService, IBaseService, ProjectService>();
+        services.AddSingleton<IActivityService, IBaseService, ActivityService>();
 
     }
 
-     public static void AddSingleton<I1, I2, T>(this IServiceCollection services) 
-            where T : class, I1, I2
-            where I1 : class
-            where I2 : class
+    public static void AddSingleton<I1, I2, T>(this IServiceCollection services)
+           where T : class, I1, I2
+           where I1 : class
+           where I2 : class
     {
         services.AddSingleton<I1, T>();
-        services.AddSingleton<I2, T>(x => (T) x.GetService<I1>());
+        services.AddSingleton<I2, T>(x => (T)x.GetService<I1>());
     }
 }
 

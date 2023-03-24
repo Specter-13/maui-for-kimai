@@ -2,9 +2,9 @@ using MauiForKimai.ViewModels;
 
 namespace MauiForKimai.Views;
 
-public partial class LoginView
+public partial class ServerListView
 {
-	public LoginView(LoginViewModel vm)
+	public ServerListView(ServerListViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext= vm;

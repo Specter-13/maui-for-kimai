@@ -15,24 +15,31 @@ public partial class HomeViewModel : ViewModelBase
 {
 	protected readonly ITimesheetService timesheetService;
 	protected readonly ILoginService _loginService;
-	public HomeViewModel(ITimesheetService ts, ApiStateProvider asp, IRoutingService routingService, ILoginService loginService) : base(asp, routingService)
+	public HomeViewModel(IRoutingService rs, ILoginService ls, ITimesheetService ts, ApiStateProvider asp) : base(rs, ls)
 	{
 		timesheetService = ts;
-		_loginService = loginService;
+		_loginService = ls;
 		CreateTimer();
-
-		 WeakReferenceMessenger.Default.Register<TimesheetStartMessage>(this, (r, m) =>
-        {
-            ActiveTimesheet = m.Value;
-			_timer.Start();
-
-			timesheetService.Create(ActiveTimesheet);
-        });
+		RegisterMessages();
+		
 
 	}
 
+	private void RegisterMessages()
+	{ 
+		 WeakReferenceMessenger.Default.Register<TimesheetStartMessage>(this, async (r, m) =>
+        {
+            var timesheetEditForm = m.Value;
+			ActiveTimesheet = await timesheetService.Create(timesheetEditForm);
+			_timer.Start();
+			IsTimetrackingActive = true;
+        });
+	}
+
+
 	[ObservableProperty]
-	TimesheetEditForm actualProject;
+	private TimesheetEntity activeTimesheet;
+
 	private void CreateTimer()
 	{ 
 		_timer = Application.Current.Dispatcher.CreateTimer();
@@ -43,6 +50,11 @@ public partial class HomeViewModel : ViewModelBase
 			Time = TimeSpan.FromSeconds(_seconds);
 		};
 	}
+	private uint _seconds;
+	private void timer_Tick(object sender, EventArgs e)
+	{
+		_seconds += 1;
+	}
 	
 	public override async Task OnAppearing()
 	{
@@ -52,7 +64,7 @@ public partial class HomeViewModel : ViewModelBase
 			var activeTimesheets = await timesheetService.GetActive();
 			if (activeTimesheets.Any()) 
 			{
-				ActiveTimesheetId = (int)activeTimesheets.First().Id;
+				//ActiveTimesheetId = (int)activeTimesheets.First().Id;
 			}
 		}
 		else
@@ -66,8 +78,6 @@ public partial class HomeViewModel : ViewModelBase
 				if(status == true)
 				{ 
 
-					double fontSize = 14;
-
 					var toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
 					await toast.Show();
 
@@ -77,7 +87,7 @@ public partial class HomeViewModel : ViewModelBase
 					var activeTimesheets = await timesheetService.GetActive();
 					if (activeTimesheets.Any()) 
 					{
-						ActiveTimesheetId = (int)activeTimesheets.First().Id;
+						//ActiveTimesheetId = (int)activeTimesheets.First().Id;
 					}
 				}
 				else
@@ -88,14 +98,10 @@ public partial class HomeViewModel : ViewModelBase
 				}
 			}
 			
-			
 		}
 	}
 
 	public ObservableCollection<TimesheetRecentListModel> RecentTimesheets {get;set; } = new();
-
-	[ObservableProperty]
-	int activeTimesheetId;
 
 	[ObservableProperty]
 	bool isTimetrackingActive;
@@ -103,65 +109,43 @@ public partial class HomeViewModel : ViewModelBase
 
 	private IDispatcherTimer _timer {get;set;}
 
-	[ObservableProperty]
-	private TimesheetEditForm activeTimesheet;
+
 
 	[ObservableProperty]
     public TimeSpan time = new TimeSpan();
 
-	private uint _seconds;
+
 
 	[RelayCommand]
-	async Task StartNewTimesheet()
+	async Task StartTimeTracking()
 	{
-		
-		//ActiveTimesheet = new TimesheetEditForm
-		//{ 
-		//	Begin = DateTimeOffset.Now
-		//};
+		var route = routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
+		await Navigation.NavigateTo(route,"cau");
 
-		var route = RoutingService.GetRouteByViewModel<TimesheetCreateViewModel>();
-		await Navigation.NavigateTo(route);
+	}
+
+	[RelayCommand]
+	async Task StopTimeTracking()
+	{	
+		var stopped = await timesheetService.StopActive(ActiveTimesheet.Id.Value);
+		_timer.Stop();
+		IsTimetrackingActive = false;
+		_seconds = 0;
+		Time = new TimeSpan();
 
 
-		//_timer.Start();
-		//IsTimetrackingActive = true;
-		//var active = await timesheetService.Create(timesheet);
-		//ActiveTimesheetId = (int)active.Id;
 		
 
 	}
+
 
 	[RelayCommand]
 	async Task GoToLogin()
 	{	
-		var route = base.RoutingService.GetRouteByViewModel<LoginViewModel>();
+		var route = base.routingService.GetRouteByViewModel<ServerListViewModel>();
 		await Navigation.NavigateTo(route);
 	}
 
-    [RelayCommand]
-	async Task StopActiveTimesheet()
-	{	
-		if (ActiveTimesheetId != 0)
-		{
-            //await timesheetService.StopActive(ActiveTimesheetId);
-			ActiveTimesheetId = 0;
-		}
-		//timesheetService.StopActive(ActiveTimesheet.);
-		_timer.Stop();
-		ActiveTimesheet.End = DateTimeOffset.Now;
-		_seconds = 0;
-		Time = new TimeSpan();
-		IsTimetrackingActive = false;
-
-		//var route = RoutingService.GetRouteByViewModel<TimesheetCreateViewModel>();
-		//await Navigation.NavigateTo(route, ActualTimesheet);
-
-	}
-	private void timer_Tick(object sender, EventArgs e)
-	{
-		_seconds += 1;
-	}
 
     [RelayCommand]
     async Task GetTimeSheets()

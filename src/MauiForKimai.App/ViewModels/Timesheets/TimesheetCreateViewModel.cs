@@ -20,23 +20,39 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     static Page Page => Application.Current?.MainPage ?? throw new NullReferenceException();
     private readonly IProjectService _projectService;
 
-    public TimesheetCreateViewModel(ApiStateProvider asp, IRoutingService routingService, IProjectService projectService) : base(asp, routingService)
+    public TimesheetCreateViewModel(IRoutingService rs,ILoginService ls, IProjectService projectService) : base(rs, ls)
     {
         _projectService = projectService;
+         RegisterMessages();
 
+         Timesheet = new TimesheetEditForm();
+        Timesheet.Begin = new DateTimeOffset(DateTime.Now);
+
+        BeginTime = Timesheet.Begin.TimeOfDay;
+        //EndTime = Timesheet.End.Value.TimeOfDay;
+
+        BeginDate = Timesheet.Begin.Date;
+        //EndDate = Timesheet.End.Value.Date;
+
+        Duration = (EndTime - BeginTime).ToString(@"hh\:mm\:ss");
+        BeginDateString = BeginDate.ToString("dddd, dd MMMM yyyy");
+    }
+
+    private void RegisterMessages()
+    { 
         WeakReferenceMessenger.Default.Register<TimesheetProjectChooseMessage>(this, (r, m) =>
         {
-            ActualProject = m.Value;
+            ChosenProject = m.Value;
+            Timesheet.Project = ChosenProject.Id;
         });
 
-         WeakReferenceMessenger.Default.Register<TimesheetActivityChooseMessage>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<TimesheetActivityChooseMessage>(this, (r, m) =>
         {
-            ActualActivity = m.Value;
+            ChosenActivity = m.Value;
+            Timesheet.Activity = ChosenActivity.Id;
         });
     }
 
-    [ObservableProperty]
-    TimesheetEditForm actualTimesheet;
 
     [ObservableProperty]
     string duration;
@@ -57,54 +73,62 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     TimeSpan endTime;
 
     [ObservableProperty]
-    ProjectListModel actualProject;
+    TimesheetEditForm timesheet;
 
     [ObservableProperty]
-    ActivityListModel actualActivity;
+    ProjectListModel chosenProject;
+
+    [ObservableProperty]
+    ActivityListModel chosenActivity;
+
+    [ObservableProperty]
+    string selectedBillableMode;
 
     public override async Task OnParameterSet()
     {
-        //ActualTimesheet = NavigationParameter as TimesheetEditForm;
-        ActualTimesheet = new TimesheetEditForm();
+        var x  = NavigationParameter as string;
+        //Timesheet = new TimesheetEditForm();
+        //Timesheet.Begin = new DateTimeOffset(DateTime.Now);
 
+        //BeginTime = Timesheet.Begin.TimeOfDay;
+        ////EndTime = Timesheet.End.Value.TimeOfDay;
 
-        BeginTime = ActualTimesheet.Begin.TimeOfDay;
-        EndTime = ActualTimesheet.End.Value.TimeOfDay;
+        //BeginDate = Timesheet.Begin.Date;
+        ////EndDate = Timesheet.End.Value.Date;
 
-        BeginDate = ActualTimesheet.Begin.Date;
-        EndDate = ActualTimesheet.End.Value.Date;
-
-        Duration = (EndTime - BeginTime).ToString(@"hh\:mm\:ss");
-        BeginDateString = BeginDate.ToString("dddd, dd MMMM yyyy");
+        //Duration = (EndTime - BeginTime).ToString(@"hh\:mm\:ss");
+        //BeginDateString = BeginDate.ToString("dddd, dd MMMM yyyy");
 
     }
 
 
     [RelayCommand]
-    async Task ShowProjectMopup()
+    async Task ShowProjectChooseView()
     {
-        //var vm = new TimesheetProjectChooseMopupViewModel(_projectService);
-        var route = RoutingService.GetRouteByViewModel<ProjectChooseViewModel>();
+        var route = routingService.GetRouteByViewModel<ProjectChooseViewModel>();
         await Navigation.NavigateTo(route);
-     
-    
     }
 
     [RelayCommand]
     async Task ShowActivityChooseView()
     {
-        //var vm = new TimesheetProjectChooseMopupViewModel(_projectService);
-        var route = RoutingService.GetRouteByViewModel<ActivityChooseViewModel>();
+        var route = routingService.GetRouteByViewModel<ActivityChooseViewModel>();
         await Navigation.NavigateTo(route);
-     
     }
 
     [RelayCommand]
     async Task StartTimesheet()
     {
-        ActualTimesheet.Project = ActualProject.Id;
-        
-        WeakReferenceMessenger.Default.Send(new TimesheetStartMessage(ActualTimesheet));
+        var startTime = new DateTimeOffset(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds, new TimeSpan(1,0,0));
+        //var end = new DateTimeOffset(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds, new TimeSpan(0,0,0));
+        Timesheet.Begin = startTime;
+        Timesheet.Billable = false;
+        Timesheet.User = base.ApiStateProvider.ActualUser.Id;
+        Timesheet.FixedRate = 0;
+        Timesheet.HourlyRate = 0;
+        //Timesheet.P
+
+        WeakReferenceMessenger.Default.Send(new TimesheetStartMessage(Timesheet));
         //WeakReferenceMessenger.Default.Send
         await Navigation.NavigateTo("..");
 

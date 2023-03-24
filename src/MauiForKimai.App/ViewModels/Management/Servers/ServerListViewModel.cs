@@ -7,7 +7,6 @@ using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.ApiClient.Services;
 using MauiForKimai.ApplicationLayer.Messages;
 using MauiForKimai.Models;
-using MauiForKimai.Pages.ServersManagement;
 using MauiForKimai.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -17,13 +16,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ViewModels;
-public partial class LoginViewModel : ViewModelBase
+public partial class ServerListViewModel : ViewModelBase
 {
     
     public ObservableCollection<ServerModel> Servers {get; set; } = new();
     private readonly IEnumerable<IBaseService> _baseServices;
     private readonly IUserService _userService;
-    public LoginViewModel(ApiStateProvider asp, IEnumerable<IBaseService> baseServices, IUserService userService, IRoutingService routingService) : base(asp, routingService)
+    public ServerListViewModel(IRoutingService rs, ILoginService ls, IEnumerable<IBaseService> baseServices, IUserService userService) : base(rs, ls)
     {
 
         //TODO use secure storage for api password token
@@ -50,6 +49,13 @@ public partial class LoginViewModel : ViewModelBase
     [RelayCommand]
     async Task AddNewServer() 
     {
+        //await Navigation.NavigateTo(nameof(ServerDetailPage));
+    }
+
+    [RelayCommand]
+    async Task Logout() 
+    {
+        
         //await Navigation.NavigateTo(nameof(ServerDetailPage));
     }
 

@@ -79,10 +79,10 @@
 	  <MauiXaml Update="Views\HomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\LoginView.xaml">
+	  <MauiXaml Update="Views\Management\Servers\ServerDetailViewModel.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Management\ManagementView.xaml">
+	  <MauiXaml Update="Views\Management\Servers\ServersListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Activity\ActivityChooseView.xaml">
@@ -91,7 +91,7 @@
 	  <MauiXaml Update="Views\Projects\ProjectChooseView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\ServersManagement\ServerDetailPage.xaml">
+	  <MauiXaml Update="Views\Reports\ReportsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Templates\TemplateView.xaml">
@@ -118,11 +118,8 @@
 	  <Compile Update="Views\HomeView.xaml.cs">
 	    <DependentUpon>HomeView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\LoginView.xaml.cs">
-	    <DependentUpon>LoginView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ServersManagement\ServerDetailPage.xaml.cs">
-	    <DependentUpon>ServerDetailPage.xaml</DependentUpon>
+	  <Compile Update="Views\Management\Servers\ServersListView.xaml.cs">
+	    <DependentUpon>ServersListView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

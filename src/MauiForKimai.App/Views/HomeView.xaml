@@ -99,15 +99,56 @@
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=TimesheetOnTapCommand}" CommandParameter="{Binding .}" />
                                 </Frame.GestureRecognizers>
 
-                                <Grid RowDefinitions=".5*,.5*">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1.3*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
                                     <Label
                                         Grid.Row="0"
-                                        Style="{StaticResource LargeLabel}"
+                                        Grid.Column="0"
+                                        Style="{StaticResource MediumLabel}"
                                         Text="{Binding ActivityName}" />
                                     <Label
                                         Grid.Row="1"
-                                        Style="{StaticResource MediumLabel}"
+                                        Grid.Column="0"
+                                        Style="{StaticResource SmallLabel}"
+                                        Text="{Binding ProjectName}" />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Style="{StaticResource SmallLabel}"
+                                        Text="{Binding CustomerName}" />
+
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Style="{StaticResource SmallLabel}"
+                                        Text="{Binding Date}" />
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Style="{StaticResource LargeLabel}"
                                         Text="{Binding Duration}" />
+
+
+                                    <Button
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        HorizontalOptions="End"
+                                        Style="{StaticResource Key=RecentRestartButton}">
+                                        <Button.ImageSource>
+                                            <FontImageSource
+                                                FontFamily="MaterialDesignIcons"
+                                                Glyph="{x:Static helpers:MaterialDesignIconsFonts.PlayOutline}"
+                                                Size="25" />
+                                        </Button.ImageSource>
+                                    </Button>
                                 </Grid>
                             </Frame>
                         </Grid>
@@ -151,7 +192,7 @@
                     <ImageButton
                         x:Name="start"
                         ClassId="StartButton"
-                        Command="{Binding StartNewTimesheetCommand}"
+                        Command="{Binding StartTimeTrackingCommand}"
                         IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}"
                         Source="play_circle_outline_blue.png"
                         Style="{StaticResource TimetrackingButton}">
@@ -164,7 +205,7 @@
                     <ImageButton
                         x:Name="stop"
                         ClassId="StopButton"
-                        Command="{Binding StopActiveTimesheetCommand}"
+                        Command="{Binding StopTimeTrackingCommand}"
                         IsVisible="{Binding IsTimetrackingActive}"
                         Source="stop_circle_outline_red.png"
                         Style="{StaticResource TimetrackingButton}">

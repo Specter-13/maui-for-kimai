@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mvvm:TinyView
-    x:Class="MauiForKimai.Views.LoginView"
+    x:Class="MauiForKimai.Views.ServerListView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:model="clr-namespace:MauiForKimai.Models"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     Title="Login"
-    x:DataType="viewmodel:LoginViewModel">
+    x:DataType="viewmodel:ServerListViewModel"
+    Shell.NavBarIsVisible="False">
 
 
     <VerticalStackLayout>
         <Label
             HorizontalOptions="Center"
             Style="{StaticResource LargeLabel}"
-            Text="Welcome!"
+            Text="You are connected to:"
             VerticalOptions="Center" />
         <Label
+            
             HorizontalOptions="Center"
             Style="{StaticResource MediumLabel}"
-            Text="Choose your Kimai server"
+            Text="{Binding ApiStateProvider.IsAuthenticated}"
             VerticalOptions="Center" />
 
         <CollectionView ItemsSource="{Binding Servers}">
@@ -38,7 +40,7 @@
 
                             <Button
                                 Grid.Column="1"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LoginViewModel}}, Path=ConnectCommand}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ConnectCommand}"
                                 CommandParameter="{Binding .}"
                                 HeightRequest="40"
                                 Text="Connect" />
@@ -55,6 +57,12 @@
             Command="{Binding AddNewServerCommand}"
             HorizontalOptions="End"
             Text="Create new"
+            VerticalOptions="EndAndExpand" />
+
+        <Button
+            Command="{Binding AddNewServerCommand}"
+            HorizontalOptions="End"
+            Text="Logout"
             VerticalOptions="EndAndExpand" />
     </VerticalStackLayout>
 </mvvm:TinyView>

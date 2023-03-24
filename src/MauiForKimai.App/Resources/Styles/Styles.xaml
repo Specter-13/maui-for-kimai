@@ -20,13 +20,19 @@
         <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
     </Style>
 
+    <Style x:Key="RecentRestartButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+        <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
+        <Setter Property="Padding" Value="3,0,3,0" />
+    </Style>
+
     <Style x:Key="TimetrackingButton" TargetType="ImageButton">
         <Setter Property="Aspect" Value="AspectFill" />
         <Setter Property="HeightRequest" Value="70" />
         <Setter Property="WidthRequest" Value="70" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-      
+
     </Style>
 
     <!--  Cards  -->
@@ -43,9 +49,8 @@
         <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
-        <Setter Property="CornerRadius" Value="10" />
         <Setter Property="IsClippedToBounds" Value="True" />
-        <Setter Property="HeightRequest" Value="110" />
+        <Setter Property="HeightRequest" Value="100" />
     </Style>
 
     <Style x:Key="TimeTrackingCard" TargetType="Border">

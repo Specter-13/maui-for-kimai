@@ -17,7 +17,7 @@ public partial class ActivityChooseViewModel : ViewModelBase
     private readonly IActivityService _activityService;
  
     
-    public ActivityChooseViewModel(ApiStateProvider asp, IRoutingService routingService,IActivityService activityService) : base(asp, routingService)
+    public ActivityChooseViewModel(IRoutingService rs, ILoginService ls, IActivityService activityService) : base(rs,ls)
     {
         _activityService = activityService;
     }
@@ -59,7 +59,7 @@ public partial class ActivityChooseViewModel : ViewModelBase
     {
         SelectedActivity = model;
         WeakReferenceMessenger.Default.Send(new TimesheetActivityChooseMessage(SelectedActivity));
-        var route = RoutingService.GetRouteByViewModel<TimesheetCreateViewModel>();
+        var route = routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
         await Navigation.NavigateTo("..");
     }
     

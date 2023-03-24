@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MauiForKimai.Interfaces
-{
-    public interface ILoginService
-    {
-        Task<bool> LoginToDefaultOnStartUp();
-        Task Login();
-        Task Logout();
+namespace MauiForKimai.Interfaces;
 
-        Task TryToGetDefaultServer();
-    }
+public interface ILoginService
+{
+    ApiStateProvider GetApiStateProvider();
+    bool IsLogged();
+    Task<bool> LoginToDefaultOnStartUp();
+    Task Login();
+    void Logout();
+
+    Task TryToGetDefaultServer();
 }

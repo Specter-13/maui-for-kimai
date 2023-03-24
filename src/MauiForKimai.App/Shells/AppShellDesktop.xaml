@@ -58,7 +58,7 @@
     <FlyoutItem Title="Login">
         <ShellContent
             Title="Login"
-            ContentTemplate="{DataTemplate local:LoginView}"
+            ContentTemplate="{DataTemplate local:ServerListView}"
             Icon="login.png"
             Route="login" />
     </FlyoutItem>

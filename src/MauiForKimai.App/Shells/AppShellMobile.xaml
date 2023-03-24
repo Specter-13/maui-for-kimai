@@ -35,21 +35,66 @@
             ContentTemplate="{DataTemplate local:HomeView}"
             Icon="home_clock.png"
             Route="home" />
+
+
+        <Tab Title="Timesheets" Icon="clipboard_text_clock.png">
+
+
+            <ShellContent
+                Title="Templates"
+                ContentTemplate="{DataTemplate local:TimeSheetView}"
+                Route="timesheet" />
+
+            <ShellContent
+                Title="Timesheets"
+                ContentTemplate="{DataTemplate local:TimeSheetView}"
+                Route="timesheet" />
+
+        </Tab>
+
         <ShellContent
-            Title="Timesheets"
-            ContentTemplate="{DataTemplate local:TimeSheetView}"
-            Icon="clipboard_text_clock.png"
-            Route="timesheet" />
-        <ShellContent
-            Title="Templates"
-            ContentTemplate="{DataTemplate local:TemplateView}"
-            Icon="star.png"
-            Route="template" />
-        <ShellContent
+            Title="Reports"
+            ContentTemplate="{DataTemplate local:ReportsView}"
+            Icon="chart_line.png"
+            Route="reports" />
+
+        <Tab Title="Management" Icon="database.png">
+
+
+            <ShellContent
+                Title="Servers"
+                ContentTemplate="{DataTemplate local:ServerListView}"
+                Route="serverlistview" />
+
+            <ShellContent
+                Title="Projects"
+                ContentTemplate="{DataTemplate local:ServerListView}"
+                Route="serverlistview" />
+
+            <ShellContent
+                Title="Customers"
+                ContentTemplate="{DataTemplate local:ServerListView}"
+                Route="serverlistview" />
+
+            <ShellContent
+                Title="Activities"
+                ContentTemplate="{DataTemplate local:ServerListView}"
+                Route="serverlistview" />
+            
+            <ShellContent
+                Title="Teams"
+                ContentTemplate="{DataTemplate local:ServerListView}"
+                Route="serverlistview" />
+
+
+
+        </Tab>
+
+        <!--<ShellContent
             Title="Management"
             ContentTemplate="{DataTemplate local:ManagementView}"
             Icon="database.png"
-            Route="management" />
+            Route="management" />-->
         <!--<ShellContent
             Title="Login"
             ContentTemplate="{DataTemplate local:LoginView}"

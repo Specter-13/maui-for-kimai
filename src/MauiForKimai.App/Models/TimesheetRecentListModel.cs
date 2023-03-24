@@ -10,9 +10,12 @@ namespace MauiForKimai.Models
     {
         public int Id { get; set; }
         public int ActivityId { get; set; }
-        public int ProjectId { get; set; }
-
         public string ActivityName { get; set; }
+        public int ProjectId { get; set; }
+        public string ProjectName { get; set; }
+        public string CustomerName { get; set; }
+        public string Date { get; set; }
+     
         public string Duration { get; set; }
 
 
@@ -24,6 +27,9 @@ namespace MauiForKimai.Models
                 ActivityId = timesheet.Activity.Id.Value,
                 ActivityName = timesheet.Activity.Name,
                 ProjectId = timesheet.Project.Id.Value,
+                ProjectName = timesheet.Project.Name,
+                CustomerName = timesheet.Project.Customer.Name,
+                Date = timesheet.Begin.Date.ToShortDateString(),
                 Duration = TimeSpan.FromSeconds(timesheet.Duration.Value).ToString(@"hh\:mm")
             };
         }

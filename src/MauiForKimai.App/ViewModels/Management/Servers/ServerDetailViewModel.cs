@@ -11,10 +11,7 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ViewModels;
 public partial class ServerDetailViewModel : ViewModelBase
 {
-	public ServerDetailViewModel(ApiStateProvider asp, IRoutingService routingService) : base(asp, routingService)
-	{
-
-	}
+	
     [ObservableProperty]
 	private string name;
     [ObservableProperty]
@@ -26,9 +23,13 @@ public partial class ServerDetailViewModel : ViewModelBase
 	[ObservableProperty]
 	private string isDefault;
 
-	//[RelayCommand]
- //   async Task Add()
- //   { 
-		
-	//}
+    public ServerDetailViewModel(IRoutingService rs, ILoginService ls) : base(rs, ls)
+    {
+    }
+
+    //[RelayCommand]
+    //   async Task Add()
+    //   { 
+
+    //}
 }

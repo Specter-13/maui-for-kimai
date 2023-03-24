@@ -50,6 +50,11 @@
 
                 <Button
                     Margin="10"
+                    Command="{Binding StartTimesheetCommand}"
+                    HeightRequest="40"
+                    Text="Start" />
+                <Button
+                    Margin="10"
                     HeightRequest="40"
                     Text="Choose template" />
                 <Button
@@ -57,11 +62,7 @@
                     HeightRequest="40"
                     Text="Cancel" />
 
-                <Button
-                    Margin="10"
-                    Command="{Binding StartTimesheetCommand}"
-                    HeightRequest="40"
-                    Text="Start" />
+
             </HorizontalStackLayout>
         </Grid>
 
@@ -97,29 +98,31 @@
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
 
-
+                <!--  Project  -->
                 <Label Text="Project" />
                 <Entry
                     IsReadOnly="True"
                     Placeholder="Select project"
-                    Text="{Binding ActualProject.Name}">
+                    Text="{Binding ChosenProject.Name}">
                     <Entry.GestureRecognizers>
 
-                        <TapGestureRecognizer Command="{Binding ShowProjectMopupCommand}" />
+                        <TapGestureRecognizer Command="{Binding ShowProjectChooseViewCommand}" />
 
                     </Entry.GestureRecognizers>
                 </Entry>
                 <Button
-                    Command="{Binding ShowProjectMopupCommand}"
+                    Command="{Binding ShowProjectChooseViewCommand}"
                     IsVisible="{OnIdiom Phone=False,
                                         Desktop=True}"
                     Text="Choose project" />
 
+                <!--  Activity  -->
                 <Label Text="Activity" />
+
                 <Entry
                     IsReadOnly="True"
                     Placeholder="Select Activity"
-                    Text="{Binding ActualActivity.Name}">
+                    Text="{Binding ChosenActivity.Name}">
                     <Entry.GestureRecognizers>
 
                         <TapGestureRecognizer Command="{Binding ShowActivityChooseViewCommand}" />
@@ -133,10 +136,10 @@
                     Text="Choose Activity" />
 
                 <Label Text="Description" />
-                <Entry Text="Description" />
+                <Entry Text="{Binding Timesheet.Description}" />
 
                 <Label Text="Tags" />
-                <Entry Text="Tags" />
+                <Entry Text="{Binding Timesheet.Tags}" />
 
                 <Grid Padding="10">
                     <Grid.RowDefinitions>
@@ -172,7 +175,10 @@
 
                     <VerticalStackLayout Grid.Column="1">
                         <Label Text="Billable" />
-                        <Picker x:Name="picker" Title="Select a mode">
+                        <Picker
+                            x:Name="picker"
+                            Title="Select a mode"
+                            SelectedItem="{Binding SelectedBillableMode}">
                             <Picker.ItemsSource>
                                 <x:Array Type="{x:Type x:String}">
                                     <x:String>Automatic</x:String>
@@ -184,8 +190,8 @@
                     </VerticalStackLayout>
 
                     <VerticalStackLayout Grid.Column="0">
-                        <Label Text="Export" />
-                        <Switch />
+                        <Label Text="Exported" />
+                        <CheckBox IsChecked="{Binding Timesheet.Exported}" />
                     </VerticalStackLayout>
 
                 </Grid>

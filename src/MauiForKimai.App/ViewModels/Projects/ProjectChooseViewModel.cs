@@ -17,7 +17,7 @@ public partial class ProjectChooseViewModel : ViewModelBase
      private readonly IProjectService _projectService;
  
     
-    public ProjectChooseViewModel(ApiStateProvider asp, IRoutingService routingService,IProjectService projectService) : base(asp, routingService)
+    public ProjectChooseViewModel(IRoutingService rs,ILoginService ls,IProjectService projectService) : base(rs, ls)
     {
         _projectService = projectService;
     }
@@ -59,7 +59,7 @@ public partial class ProjectChooseViewModel : ViewModelBase
     {
         SelectedProject = model;
         WeakReferenceMessenger.Default.Send(new TimesheetProjectChooseMessage(SelectedProject));
-        var route = RoutingService.GetRouteByViewModel<TimesheetCreateViewModel>();
+        var route = routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
         await Navigation.NavigateTo("..");
     }
     
