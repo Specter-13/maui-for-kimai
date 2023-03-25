@@ -42,13 +42,13 @@
 
             <ShellContent
                 Title="Templates"
-                ContentTemplate="{DataTemplate local:TimeSheetView}"
-                Route="timesheet" />
+                ContentTemplate="{DataTemplate local:TemplateListView}"
+                Route="templates" />
 
             <ShellContent
                 Title="Timesheets"
-                ContentTemplate="{DataTemplate local:TimeSheetView}"
-                Route="timesheet" />
+                ContentTemplate="{DataTemplate local:TimesheetListView}"
+                Route="timesheets" />
 
         </Tab>
 

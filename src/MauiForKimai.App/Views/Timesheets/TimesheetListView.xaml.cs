@@ -2,9 +2,9 @@ using MauiForKimai.ViewModels;
 
 namespace MauiForKimai.Views;
 
-public partial class TimeSheetView
+public partial class TimesheetListView
 {
-	public TimeSheetView(TimeSheetViewModel vm)
+	public TimesheetListView(TimesheetListViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;

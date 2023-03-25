@@ -23,15 +23,15 @@ public class RoutingService : IRoutingService
 		//Routing.RegisterRoute("//homeview", typeof(HomeView));
     //new("//login", typeof(LoginView), typeof(LoginViewModel)),
     new("//home", typeof(HomeView), typeof(HomeViewModel)),
-    new("//templates", typeof(TemplateView), typeof(TemplateViewModel)),
-    new("//reports", typeof(TemplateView), typeof(TemplateViewModel)),
+    new("//templates", typeof(TemplateListView), typeof(TemplateListViewModel)),
+    new("//reports", typeof(TemplateListView), typeof(TemplateListViewModel)),
     new("//serverlistview", typeof(ServerListView), typeof(ServerListViewModel)),
     new("//serverlistview/detail", typeof(ServerDetailView), typeof(ServerDetailViewModel)),
     new("//home/createtimesheet", typeof(TimesheetCreateView), typeof(TimesheetCreateViewModel)),
     new("//home/createtimesheet/choosecustomer", typeof(CustomerChooseView), typeof(CustomerChooseViewModel)),
     new("//home/createtimesheet/chooseproject", typeof(ProjectChooseView), typeof(ProjectChooseViewModel)),
     new("//home/createtimesheet/chooseactivity", typeof(ActivityChooseView), typeof(ActivityChooseViewModel)),
-    new("//timesheets", typeof(TimeSheetView), typeof(TimeSheetViewModel)),
+    new("//timesheets", typeof(TimesheetListView), typeof(TimesheetListViewModel)),
 };
 
 private static IEnumerable<RouteModel> routesPhone = new List<RouteModel>

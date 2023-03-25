@@ -68,8 +68,8 @@
     <FlyoutItem Title="Timesheets">
         <ShellContent
             Title="Timesheets"
-            ContentTemplate="{DataTemplate local:TimeSheetView}"
-            Route="timesheet" />
+            ContentTemplate="{DataTemplate local:TimesheetListView}"
+            Route="timesheets" />
     </FlyoutItem>
 
     <FlyoutItem Title="Management">

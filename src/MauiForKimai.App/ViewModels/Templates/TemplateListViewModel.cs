@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace MauiForKimai.ViewModels;
 
-public class TemplateViewModel
+public class TemplateListViewModel
 {
 }

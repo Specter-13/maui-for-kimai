@@ -97,13 +97,13 @@
 	  <MauiXaml Update="Views\Reports\ReportsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Templates\TemplateView.xaml">
+	  <MauiXaml Update="Views\Templates\TemplateListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Timesheets\TimesheetCreateView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\TimeSheetView.xaml">
+	  <MauiXaml Update="Views\Timesheets\TimesheetListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
@@ -126,6 +126,12 @@
 	  </Compile>
 	  <Compile Update="Views\Servers\ServersListView.xaml.cs">
 	    <DependentUpon>ServersListView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Templates\TemplateListView.xaml.cs">
+	    <DependentUpon>TemplateListView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Timesheets\TimesheetListView.xaml.cs">
+	    <DependentUpon>TimesheetListView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

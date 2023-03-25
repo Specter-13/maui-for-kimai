@@ -125,7 +125,7 @@
                     </Entry.GestureRecognizers>
                 </Entry>
                 <Button
-                    Command="{Binding ShowCustomerChooseViewCommand}"
+                    Command="{Binding ShowCustomerChooseViewCommand }"
                     IsVisible="{OnIdiom Phone=False,
                                         Desktop=True}"
                     Text="Choose customer" />

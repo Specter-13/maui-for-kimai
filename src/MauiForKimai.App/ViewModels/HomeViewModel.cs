@@ -26,7 +26,6 @@ public partial class HomeViewModel : ViewModelBase
 	}
 	public override async Task Initialize()
     {
-        //var ls = MauiForKimai.DependencyInjection.ServiceProvider.GetService<ILoginService>();
 		var isSuccessfull = await _loginService.LoginToDefaultOnStartUp();
 		IToast toast;
 
@@ -40,6 +39,25 @@ public partial class HomeViewModel : ViewModelBase
 		}
 		await toast.Show();
     }
+
+	public override async Task OnAppearing()
+	{
+	
+		NetworkAccess accessType = Connectivity.Current.NetworkAccess;
+
+		if (base.ApiStateProvider.IsAuthenticated && accessType == NetworkAccess.Internet)
+		{
+			// Connection to internet is available
+				await GetTimeSheets();
+
+		}
+		else
+		{ 
+			var toast = Toast.Make("Cannot load data!", ToastDuration.Short, 14);
+			await toast.Show();
+		}
+
+	}
 
 	private void RegisterMessages()
 	{ 
@@ -72,24 +90,7 @@ public partial class HomeViewModel : ViewModelBase
 		_seconds += 1;
 	}
 	
-	public override async Task OnAppearing()
-	{
-	
-		NetworkAccess accessType = Connectivity.Current.NetworkAccess;
 
-		if (base.ApiStateProvider.IsAuthenticated && accessType == NetworkAccess.Internet)
-		{
-			// Connection to internet is available
-				await GetTimeSheets();
-
-		}
-		else
-		{ 
-			var toast = Toast.Make("Cannot load data!", ToastDuration.Short, 14);
-			await toast.Show();
-		}
-
-	}
 
 	public ObservableCollection<TimesheetRecentListModel> RecentTimesheets {get;set; } = new();
 
@@ -122,10 +123,6 @@ public partial class HomeViewModel : ViewModelBase
 		IsTimetrackingActive = false;
 		_seconds = 0;
 		Time = new TimeSpan();
-
-
-		
-
 	}
 
 
@@ -136,11 +133,20 @@ public partial class HomeViewModel : ViewModelBase
 		await Navigation.NavigateTo(route);
 	}
 
-
+	
+	[RelayCommand]
+	async Task RefreshTimesheets()
+	{	
+		
+		await GetTimeSheets();
+		
+	}
+	[ObservableProperty]
+    bool isRefreshing;
     [RelayCommand]
     async Task GetTimeSheets()
     {
-		IsBusy = true;
+		IsRefreshing = true;
 
 		var timeheets = (await timesheetService.GetTenRecentTimesheetsAsync()).ToObservableCollection();
 
@@ -150,7 +156,7 @@ public partial class HomeViewModel : ViewModelBase
 			RecentTimesheets.Add((TimesheetRecentListModel)timesheet);
 		}
 
-		IsBusy = false;
+		IsRefreshing = false;
         
     }
 
