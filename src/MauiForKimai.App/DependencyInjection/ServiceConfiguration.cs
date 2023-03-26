@@ -3,6 +3,7 @@ using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.ApiClient.Services;
 using MauiForKimai.Interfaces;
 using MauiForKimai.Services;
+using MauiForKimai.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,10 @@ public static class ServicesConfiguration
     {
         
         services.AddSingleton<IRoutingService,RoutingService>();
-		services.AddSingleton<ServerService>();
-        services.AddSingleton<ISecureStorageService,SecureStorageService>();
+		//services.AddSingleton<ServerService>();
+        //services.AddSingleton<ISecureStorageService,SecureStorageService>();
         services.AddSingleton<ILoginService,LoginService>();
+        services.AddSingleton<IDispatcherWrapper,DispatcherWrapper>();
     }
 
     public static void ConfigureViewModels(this IServiceCollection services)

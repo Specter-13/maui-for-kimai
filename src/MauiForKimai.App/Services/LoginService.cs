@@ -17,8 +17,7 @@ public class LoginService : ILoginService
     private readonly ApiStateProvider _asp;
 
     private List<ServerModel> Servers {get; set; } = new();
-    public LoginService(ISecureStorageService secureStorageService,
-        IEnumerable<IBaseService> baseServices, 
+    public LoginService(IEnumerable<IBaseService> baseServices, 
         IUserService userService,
         ApiStateProvider asp) 
     {

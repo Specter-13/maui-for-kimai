@@ -12,9 +12,6 @@ using MauiForKimai.Shells;
 using MauiForKimai.Services;
 using MauiForKimai.DependencyInjection;
 using TinyMvvm;
-using Mopups.Hosting;
-using Mopups.Interfaces;
-using Mopups.Services;
 using MauiForKimai.ApiClient.DependencyInjection;
 
 namespace MauiForKimai;

@@ -7,6 +7,7 @@ using MauiForKimai.ViewModels.Timesheets;
 using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
 using MauiForKimai.ApiClient.Services;
+using MauiForKimai.Wrappers;
 
 namespace MauiForKimai.ViewModels;
 
@@ -14,10 +15,12 @@ public partial class HomeViewModel : ViewModelBase
 {
 	protected readonly ITimesheetService timesheetService;
 	protected readonly ILoginService _loginService;
-	public HomeViewModel(IRoutingService rs, ILoginService ls, ITimesheetService ts, ApiStateProvider asp) : base(rs, ls)
+	private readonly IDispatcherWrapper _dispatcherWrapper;
+	public HomeViewModel(IRoutingService rs, ILoginService ls, ITimesheetService ts, ApiStateProvider asp, IDispatcherWrapper dispatcherWrapper) : base(rs, ls)
 	{
 		timesheetService = ts;
 		_loginService = ls;
+		_dispatcherWrapper = dispatcherWrapper ?? new DispatcherWrapper(Application.Current.Dispatcher);
 		CreateTimer();
 		RegisterMessages();
 	}
@@ -162,7 +165,7 @@ public partial class HomeViewModel : ViewModelBase
 
 	private void CreateTimer()
 	{ 
-		_timer = Application.Current.Dispatcher.CreateTimer();
+		_timer = _dispatcherWrapper.CreateTimer();
 		_timer.Interval = TimeSpan.FromMilliseconds(1000);
 		_timer.Tick += (s, e) =>
 		{
