@@ -26,33 +26,20 @@ public class TimesheetService : BaseService, ITimesheetService
         return timesheet;
     }
 
-
     public Task Delete(int id)
     {
         return ApiClient.TimesheetsDELETEAsync(id);
     }
 
-    public Task<ICollection<TimesheetCollection>> GetAllTimesheetsAsync()
-	{ 
-        return null;
-        //return ApiClient.TimesheetsAllAsync();
-		//return _timesheetClient.TimesheetsAllAsync();
-		//return _timesheetClient.Get_get_timesheetsAsync();
-	}
 
     public Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsIncrementalyAsync(int page, int sizePerPage)
 	{ 
         return ApiClient.TimesheetsAllExpandedAsync(ApiStateProvider.ActualUser.Id.ToString(),null,null,null,null,null,null,page.ToString(),sizePerPage.ToString(),null,null,null,null,null,null,null,null,"true",null,null);
-        //return null;
-        //return ApiClient.TimesheetsAllAsync();
-		//return _timesheetClient.TimesheetsAllAsync();
-		//return _timesheetClient.Get_get_timesheetsAsync();
 	}
 
     public Task<ICollection<TimesheetCollectionExpanded>> GetTenRecentTimesheetsAsync()
     {
         return ApiClient.RecentAsync(base.ApiStateProvider.ActualUser.Id.ToString(),null,null);
-        //return  _timesheetClient.Get_recent_timesheetAsync(base.ApiStateProvider.ActualUser.Id.ToString());
     }
 
     public Task<TimesheetEntity> Read(int id)

@@ -3,7 +3,6 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiForKimai.ApiClient.Authentication;
-using MauiForKimai.Models;
 using MauiForKimai.ViewModels.Base;
 using System;
 using System.Collections.Generic;

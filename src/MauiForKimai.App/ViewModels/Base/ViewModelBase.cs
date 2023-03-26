@@ -26,9 +26,8 @@ public abstract partial class ViewModelBase : TinyViewModel, IViewModel
 	ApiStateProvider apiStateProvider;
 
 
+    public NetworkAccess GetConnectivity => Connectivity.Current.NetworkAccess;
 
-
-	
 
 
 

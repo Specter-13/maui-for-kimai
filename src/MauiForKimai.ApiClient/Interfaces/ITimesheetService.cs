@@ -9,7 +9,6 @@ namespace MauiForKimai.ApiClient.Interfaces;
 public interface ITimesheetService : IBaseService, ICrudOperations<TimesheetEntity, TimesheetEditForm>
 {
      Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsIncrementalyAsync(int page, int sizePerPage);
-     Task<ICollection<TimesheetCollection>> GetAllTimesheetsAsync();
      Task<ICollection<TimesheetCollectionExpanded>> GetTenRecentTimesheetsAsync();
 
      Task<ICollection<TimesheetCollectionExpanded>> GetActive();

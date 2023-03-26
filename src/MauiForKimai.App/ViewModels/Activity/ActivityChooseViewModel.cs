@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
-using MauiForKimai.Models;
 using MauiForKimai.ViewModels.Timesheets;
 using System;
 using System.Collections.Generic;
@@ -95,7 +94,7 @@ public partial class ActivityChooseViewModel : ViewModelBase
         
         foreach (var activity in activities) 
         {
-            var activityListModel = new ActivityListModel((int)activity.Id, activity.Name);
+            var activityListModel = new ActivityListModel((int)activity.Id, activity.Name, activity.Billable);
             _allActivites.Add(activityListModel);
             SearchResults.Add(activityListModel);
         }

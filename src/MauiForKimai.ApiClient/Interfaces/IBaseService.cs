@@ -11,4 +11,5 @@ public interface IBaseService
         void InitializeClient(string baseUrl);
         void DeInitializeClient();
         Task<bool> PingServerAsync();
+        Task<I18nConfig> GetI18nConfig();
 }

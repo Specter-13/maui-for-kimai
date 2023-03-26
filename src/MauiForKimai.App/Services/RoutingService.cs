@@ -1,4 +1,4 @@
-﻿using MauiForKimai.Models;
+﻿
 using MauiForKimai.ViewModels;
 using MauiForKimai.ViewModels.Activity;
 using MauiForKimai.ViewModels.Projects;

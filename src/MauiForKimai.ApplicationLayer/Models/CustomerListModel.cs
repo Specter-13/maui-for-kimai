@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MauiForKimai.Models;
+namespace MauiForKimai.Core.Models;
 public class CustomerListModel
 {
-    public CustomerListModel(int id, string name)
+    public CustomerListModel(int id, string name, bool billable)
     {
         Id = id; 
         Name = name;
+        Billable = billable;
     }
     public int Id { get; set; }
     public string Name { get; set; }
+    public bool Billable { get; set; }
 }

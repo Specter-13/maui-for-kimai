@@ -5,18 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace MauiForKimai.Models;
+namespace MauiForKimai.Core.Models;
 
 public class ActivityListModel
 {
-    public ActivityListModel(int id, string name)
+    public ActivityListModel(int id, string name, bool billable)
     {
         Id = id; 
         Name = name;
+        Billable = billable;
     }
     
     public int Id { get; set; }
     public string Name { get; set; }
+
+    public bool Billable { get; set; }
    
 
 }

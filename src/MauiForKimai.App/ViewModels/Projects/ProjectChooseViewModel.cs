@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using MauiForKimai.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -95,7 +94,7 @@ public partial class ProjectChooseViewModel : ViewModelBase
         
         foreach (var project in projects) 
         {
-            var projectListModel = new ProjectListModel((int)project.Id, project.Name);
+            var projectListModel = new ProjectListModel(project.Id.Value, project.Name, project.Customer.Value, project.Billable);
             _allProjects.Add(projectListModel);
             SearchResults.Add(projectListModel);
         }

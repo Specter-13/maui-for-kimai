@@ -5,8 +5,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.ApiClient.Services;
-using MauiForKimai.ApplicationLayer.Messages;
-using MauiForKimai.Models;
 using MauiForKimai.ViewModels.Base;
 using System;
 using System.Collections.Generic;

@@ -16,4 +16,9 @@ public class CustomerService : BaseService, ICustomerService
     {
         return ApiClient.CustomersAllAsync(null,null,null,null);
     }
+
+    public Task<CustomerEntity> GetById(int id)
+    { 
+        return ApiClient.CustomersGETAsync(id.ToString());
+    }
 }

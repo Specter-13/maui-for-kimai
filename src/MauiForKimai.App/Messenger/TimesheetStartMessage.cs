@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MauiForKimai.Messenger
+namespace MauiForKimai.Messenger;
+
+public class TimesheetStartMessage : ValueChangedMessage<TimesheetEditForm>
 {
-    public class TimesheetStartMessage : ValueChangedMessage<TimesheetEditForm>
+    public TimesheetStartMessage(TimesheetEditForm value) : base(value)
     {
-         public TimesheetStartMessage(TimesheetEditForm value) : base(value)
-        {
-        }
     }
 }

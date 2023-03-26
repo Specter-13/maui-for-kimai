@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
-using MauiForKimai.Models;
+
 using MauiForKimai.ViewModels.Timesheets;
 using System;
 using System.Collections.Generic;
@@ -68,7 +68,7 @@ public partial class CustomerChooseViewModel : ViewModelBase
         
         foreach (var customer in customers) 
         {
-            var customerListModel = new CustomerListModel(customer.Id.Value, customer.Name);
+            var customerListModel = new CustomerListModel(customer.Id.Value, customer.Name, customer.Billable);
             _allCustomers.Add(customerListModel);
             SearchResults.Add(customerListModel);
         }

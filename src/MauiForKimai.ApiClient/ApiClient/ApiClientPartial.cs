@@ -190,4 +190,5 @@ public partial class ApiClient
                     client_.Dispose();
             }
         }
+
 }

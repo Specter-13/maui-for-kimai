@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Core.Extensions;
 using System.Numerics;
 using MauiForKimai.ViewModels.Timesheets;
-using MauiForKimai.Models;
 using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
 using MauiForKimai.ApiClient.Services;
@@ -21,9 +20,22 @@ public partial class HomeViewModel : ViewModelBase
 		_loginService = ls;
 		CreateTimer();
 		RegisterMessages();
-		
-
 	}
+	// Initialize methods
+	private void RegisterMessages()
+	{ 
+		 WeakReferenceMessenger.Default.Register<TimesheetStartMessage>(this, async (r, m) =>
+        {
+            var timesheetEditForm = m.Value;
+			//await timesheetService.CreateExpanded(timesheetEditForm);
+			await timesheetService.Create(timesheetEditForm);
+			_timer.Start();
+			IsTimetrackingActive = true;
+			var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
+			ActiveTimesheet =  activeTimesheet.ToTimesheetActiveModel();
+        });
+	}
+
 	public override async Task Initialize()
     {
 		var isSuccessfull = await _loginService.LoginToDefaultOnStartUp();
@@ -42,14 +54,14 @@ public partial class HomeViewModel : ViewModelBase
 
 	public override async Task OnAppearing()
 	{
-	
-		NetworkAccess accessType = Connectivity.Current.NetworkAccess;
 
-		if (base.ApiStateProvider.IsAuthenticated && accessType == NetworkAccess.Internet)
+		if (base.ApiStateProvider.IsAuthenticated && base.GetConnectivity == NetworkAccess.Internet)
 		{
+			IsBusy = true;
 			// Connection to internet is available
-				await GetTimeSheets();
-
+			await GetTimeSheets();
+			await TryToGetActiveTimesheet();
+			IsBusy = false;
 		}
 		else
 		{ 
@@ -59,66 +71,38 @@ public partial class HomeViewModel : ViewModelBase
 
 	}
 
-	private void RegisterMessages()
-	{ 
-		 WeakReferenceMessenger.Default.Register<TimesheetStartMessage>(this, async (r, m) =>
-        {
-            var timesheetEditForm = m.Value;
-			ActiveTimesheet = await timesheetService.Create(timesheetEditForm);
-			_timer.Start();
-			IsTimetrackingActive = true;
-        });
-	}
-
-
+	//Properties
 	[ObservableProperty]
-	private TimesheetEntity activeTimesheet;
-
-	private void CreateTimer()
-	{ 
-		_timer = Application.Current.Dispatcher.CreateTimer();
-		_timer.Interval = TimeSpan.FromMilliseconds(1000);
-		_timer.Tick += (s, e) =>
-		{
-			_seconds += 1;
-			Time = TimeSpan.FromSeconds(_seconds);
-		};
-	}
-	private uint _seconds;
-	private void timer_Tick(object sender, EventArgs e)
-	{
-		_seconds += 1;
-	}
-	
-
-
+	private TimesheetActiveModel activeTimesheet;
 	public ObservableCollection<TimesheetRecentListModel> RecentTimesheets {get;set; } = new();
 
 	[ObservableProperty]
 	bool isTimetrackingActive;
 
-
-	private IDispatcherTimer _timer {get;set;}
-
-
+	
 
 	[ObservableProperty]
     public TimeSpan time = new TimeSpan();
 
+	[ObservableProperty]
+    bool isRefreshing;
 
+	private double _seconds;
+	private IDispatcherTimer _timer;
 
+	// Commands
 	[RelayCommand]
 	async Task StartTimeTracking()
 	{
 		var route = routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
-		await Navigation.NavigateTo(route,"cau");
+		await Navigation.NavigateTo(route);
 
 	}
 
 	[RelayCommand]
 	async Task StopTimeTracking()
 	{	
-		var stopped = await timesheetService.StopActive(ActiveTimesheet.Id.Value);
+		var stopped = await timesheetService.StopActive(ActiveTimesheet.Id);
 		_timer.Stop();
 		IsTimetrackingActive = false;
 		_seconds = 0;
@@ -137,27 +121,22 @@ public partial class HomeViewModel : ViewModelBase
 	[RelayCommand]
 	async Task RefreshTimesheets()
 	{	
-		
+		IsRefreshing = true;
 		await GetTimeSheets();
-		
+		IsRefreshing = false;
 	}
-	[ObservableProperty]
-    bool isRefreshing;
+
     [RelayCommand]
     async Task GetTimeSheets()
     {
-		IsRefreshing = true;
-
 		var timeheets = (await timesheetService.GetTenRecentTimesheetsAsync()).ToObservableCollection();
 
 		RecentTimesheets.Clear();
 		foreach(var timesheet in timeheets)
 		{ 
-			RecentTimesheets.Add((TimesheetRecentListModel)timesheet);
+			RecentTimesheets.Add(timesheet.ToTimesheetRecentListModel());
 		}
 
-		IsRefreshing = false;
-        
     }
 
 	[RelayCommand]
@@ -167,5 +146,34 @@ public partial class HomeViewModel : ViewModelBase
 		var z = currentTimesheet;
         
     }
-}
+	// private methods
+	private async Task TryToGetActiveTimesheet()
+	{ 
+		var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
+		
+		if(activeTimesheet != null)
+		{
+			ActiveTimesheet = activeTimesheet.ToTimesheetActiveModel();
+			IsTimetrackingActive = true;
+			_seconds = ActiveTimesheet.Duration;
+			_timer.Start();
+		}
+	}
 
+	private void CreateTimer()
+	{ 
+		_timer = Application.Current.Dispatcher.CreateTimer();
+		_timer.Interval = TimeSpan.FromMilliseconds(1000);
+		_timer.Tick += (s, e) =>
+		{
+			_seconds += 1;
+			Time = TimeSpan.FromSeconds(_seconds);
+		};
+	}
+	private void timer_Tick(object sender, EventArgs e)
+	{
+		_seconds += 1;
+	}
+	
+
+}

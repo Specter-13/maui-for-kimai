@@ -8,4 +8,6 @@ namespace MauiForKimai.ApiClient.Interfaces;
 public interface ICustomerService : IBaseService
 {
     Task<ICollection<CustomerCollection>> GetCustomers();
+
+    Task<CustomerEntity> GetById(int id);
 }

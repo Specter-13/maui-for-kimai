@@ -14,6 +14,11 @@
         <Setter Property="BarTextColor" Value="White" />
     </Style>
 
+    <!--  Entry  -->
+    <Style ApplyToDerivedTypes="True" TargetType="Entry">
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+
     <!--  Buttons  -->
     <Style TargetType="Button">
         <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
@@ -70,7 +75,8 @@
 
     <Style x:Key="InfoStatusBar" TargetType="Grid">
         <Setter Property="Padding" Value="2" />
-        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource AccentColor}, Dark={StaticResource AccentColor}}" />
+        <Setter Property="HeightRequest" Value="55" />
     </Style>
 
     <!--  Labels  -->
@@ -78,6 +84,19 @@
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource AccentTextColorDark}, Dark={StaticResource AccentTextColorLight}}" />
     </Style>
+
+    <Style
+        x:Key="NotValidLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="TextColor" Value="Red" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="VerticalOptions" Value="Start" />
+        <Setter Property="VerticalTextAlignment" Value="Start" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+    </Style>
+
     <Style
         x:Key="MicroLabel"
         BasedOn="{StaticResource BaseLabel}"

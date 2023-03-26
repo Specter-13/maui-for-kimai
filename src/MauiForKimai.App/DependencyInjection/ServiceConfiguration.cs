@@ -21,8 +21,6 @@ public static class ServicesConfiguration
         services.AddSingleton<IRoutingService,RoutingService>();
 		services.AddSingleton<ServerService>();
         services.AddSingleton<ISecureStorageService,SecureStorageService>();
-
-
         services.AddSingleton<ILoginService,LoginService>();
     }
 

@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.ApiClient;
 using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.ApiClient.Interfaces;
-using MauiForKimai.ApplicationLayer.Messages;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -52,7 +51,6 @@ public class BaseService : IBaseService
 	}
 	public async Task<bool> PingServerAsync()
 	{
-		//var defualtClient = new ApiClient.DefaultClient(_httpClient);
 		try
 		{
 			await ApiClient.PingAsync();
@@ -64,6 +62,11 @@ public class BaseService : IBaseService
 		}
 		
 
+	}
+
+	public async Task<I18nConfig> GetI18nConfig()
+	{
+		return await ApiClient.I18nAsync();
 	}
 
 

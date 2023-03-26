@@ -1,5 +1,5 @@
 ﻿using MauiForKimai.ApiClient;
-using MauiForKimai.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -133,14 +133,24 @@ public class LoginService : ILoginService
        
     }
 
+    public TimeSpan GetUserTimeOffset() => _userTimeOffset;
+
+
+    private TimeSpan _userTimeOffset;
 
     private async Task<bool> TryToLogin(ServerModel server)
     { 
         try
         {
+            _asp.Disconnect();
             _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
             InitializeClients(server.Url);
-            _asp.ActualUser = await _userService.GetMe();
+            var user = await _userService.GetMe();
+            _asp.SetLoggedUser(user);
+            _asp.SetRoles(user);
+            //set timezone offset by server
+            var config = await _userService.GetI18nConfig();
+            _userTimeOffset = config.Now.Value.Offset;
         }
         catch (Exception)
         {

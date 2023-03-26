@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MauiForKimai.Interfaces
+namespace MauiForKimai.Interfaces;
+
+public interface IViewModel
 {
-    public interface IViewModel
-    {
-    }
 }

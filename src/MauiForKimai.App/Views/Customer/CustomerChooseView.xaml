@@ -6,7 +6,7 @@
     xmlns:controls="clr-namespace:MauiForKimai.Controls"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:model="clr-namespace:MauiForKimai.Models"
+    xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     Title="CustomerChooseView"
