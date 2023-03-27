@@ -3,6 +3,7 @@ namespace MauiForKimai.Tests;
 using MauiForKimai.ApiClient;
 using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.Interfaces;
+using MauiForKimai.Tests.Data;
 using MauiForKimai.Tests.Mocks;
 using MauiForKimai.ViewModels;
 using MauiForKimai.Wrappers;
@@ -10,49 +11,40 @@ using Moq;
 
 public class HomeViewModelTests
 {
-    [Fact]
-    public async Task Test1()
+
+    private HomeViewModel vm {get; set;}
+    private Mock<HomeViewModel> mockVm {get; set;}
+
+    private Mock<IRoutingService> routeMock = new Mock<IRoutingService>();
+    private Mock<ILoginService> loginMock = new Mock<ILoginService>();
+    private Mock<ITimesheetService> timesheetMock = new Mock<ITimesheetService>();
+    private Mock<FakeDispatcherWrapper> dispatcherMock = new Mock<FakeDispatcherWrapper>();
+    public HomeViewModelTests()
     {
-        var asp = new ApiStateProvider();
-        var routeMock = new Mock<IRoutingService>();
-        var loginMock = new Mock<ILoginService>();
-        var timesheetMock = new Mock<ITimesheetService>();
-        var dispatcherMock = new Mock<FakeDispatcherWrapper>();
-   
+        mockVm = new Mock<HomeViewModel>(routeMock.Object,loginMock.Object,timesheetMock.Object,TestData.Asp ,dispatcherMock.Object);
+        mockVm.Setup(x=> x.GetConnectivity()).Returns(NetworkAccess.Internet);
+        vm = mockVm.Object;
+    }    
 
-        var vm = new HomeViewModel(routeMock.Object,loginMock.Object,timesheetMock.Object,asp ,dispatcherMock.Object);
-
-        var customer = new Customer();
-        customer.Name = "cau";
-
-        var activity = new ActivityExpanded();
-        activity.Id = 1;
-        activity.Name = "Test";
-
-        var project = new ProjectExpanded();
-        project.Id = 1;
-        project.Name = "Test";
-        project.Customer = customer;
-
-        var item = new TimesheetCollectionExpanded();
-        item.Id = 1;
-        item.Activity = activity;
-        item.Project = project;
-        item.Duration = 1;
-
+    [Fact]
+    public async Task GetRecentTimesheets_ListNotEmpty_Success()
+    {
+      
+        //arrange
         List<TimesheetCollectionExpanded> list = new List<TimesheetCollectionExpanded>();
-        list.Add(item);
-
-
+        list.Add(TestData.TestTimesheetCollectionExpanded);
         timesheetMock.Setup(x => x.GetTenRecentTimesheetsAsync()).ReturnsAsync(list);
 
-
+        //act
         await vm.GetTimeSheetsCommand.ExecuteAsync(true);
 
         var x = vm.RecentTimesheets.FirstOrDefault();
 
-        Assert.NotNull(x);
+        //assert
+        Assert.Contains(x, vm.RecentTimesheets);
 
 
     }
+
+
 }
