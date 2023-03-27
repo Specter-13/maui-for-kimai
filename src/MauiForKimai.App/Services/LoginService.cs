@@ -16,52 +16,48 @@ public class LoginService : ILoginService
     private readonly IUserService _userService;
     private readonly ApiStateProvider _asp;
 
-    private List<ServerModel> Servers {get; set; } = new();
     public LoginService(IEnumerable<IBaseService> baseServices, 
         IUserService userService,
         ApiStateProvider asp) 
     {
 
-         var local = new ServerModel()
-        {
-            Id= 1,
-            Username = "admin@admin.com",
-            ApiPasswordKey = "internet",
-            IsDefault = true,
-            Name = "My local server",
-            Url = "http://localhost:8001/"
+       //  var local = new ServerModel()
+       // {
+       //     Id= 1,
+       //     Username = "admin@admin.com",
+       //     ApiPasswordKey = "internet",
+       //     IsDefault = true,
+       //     Name = "My local server",
+       //     Url = "http://localhost:8001/"
             
-        };
+       // };
 
-       var demo = new ServerModel()
-        {
-            Id= 2,
-            Username = "john_user",
-            ApiPasswordKey = "kitten",
-            IsDefault = false,
-            Name = "Demo server online",
-            Url = "https://demo-plugins.kimai.org/"
+       //var demo = new ServerModel()
+       // {
+       //     Id= 2,
+       //     Username = "john_user",
+       //     ApiPasswordKey = "kitten",
+       //     IsDefault = false,
+       //     Name = "Demo server online",
+       //     Url = "https://demo-plugins.kimai.org/"
             
-        };
+       // };
 
-         var localJan = new ServerModel()
-        {
-            Id= 2,
-            Username = "jan@jan.com",
-            ApiPasswordKey = "internet",
-            IsDefault = false,
-            Name = "My local server Jan",
-            Url = "http://localhost:8001/"
+       //  var localJan = new ServerModel()
+       // {
+       //     Id= 2,
+       //     Username = "jan@jan.com",
+       //     ApiPasswordKey = "internet",
+       //     IsDefault = false,
+       //     Name = "My local server Jan",
+       //     Url = "http://localhost:8001/"
             
-        };
+       // };
         
 
         _asp = asp;
         _baseServices = baseServices;
         _userService = userService;
-        Servers.Add(local);
-        Servers.Add(demo);
-        Servers.Add(localJan);
         
     }
     public ApiStateProvider GetApiStateProvider()
@@ -74,10 +70,18 @@ public class LoginService : ILoginService
         bool isSuccess;
         try
         {
+            var oldUserName = _asp.UserName;
+            var oldApiPsw = _asp.ApiPassword;
+            var oldUrl = _asp.BaseUrl;
+
              DeInitializeClients();
             _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
             InitializeClients(server.Url);
             await _userService.PingServerAsync();
+
+            //is success
+            //TODO - fix unlogin when testing connection!
+
             isSuccess = true;
         }
         catch (Exception)
@@ -95,9 +99,8 @@ public class LoginService : ILoginService
         return _asp.IsAuthenticated;
     }
 
-    public async Task<bool> LoginToDefaultOnStartUp()
+    public async Task<bool> LoginToDefaultOnStartUp(ServerModel defaultServer)
     {
-        var defaultServer = Servers.FirstOrDefault(x=> x.IsDefault == true);
         if (defaultServer == null)
              return false;
         
@@ -151,7 +154,7 @@ public class LoginService : ILoginService
             var config = await _userService.GetI18nConfig();
             _userTimeOffset = config.Now.Value.Offset;
         }
-        catch (Exception)
+        catch (Exception e)
         {
             _asp.Disconnect();
             DeInitializeClients();

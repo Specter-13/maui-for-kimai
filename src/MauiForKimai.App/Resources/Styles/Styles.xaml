@@ -31,6 +31,11 @@
         <Setter Property="Padding" Value="3,0,3,0" />
     </Style>
 
+    <Style x:Key="DeleteButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentColorDanger}" />
+        <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
+    </Style>
+
     <Style x:Key="TimetrackingButton" TargetType="ImageButton">
         <Setter Property="Aspect" Value="AspectFill" />
         <Setter Property="HeightRequest" Value="70" />

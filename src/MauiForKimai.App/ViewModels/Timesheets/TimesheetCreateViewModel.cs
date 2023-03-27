@@ -147,7 +147,6 @@ public partial class TimesheetCreateViewModel : ViewModelBase
            await SetBillable();
         }
 
-        // TODO handle automatic billable 
 
 
         //Timesheet.User = base.ApiStateProvider.ActualUser.Id;

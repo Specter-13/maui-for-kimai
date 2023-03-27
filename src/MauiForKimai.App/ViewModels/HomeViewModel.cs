@@ -17,10 +17,20 @@ public partial class HomeViewModel : ViewModelBase
 	protected readonly ITimesheetService timesheetService;
 	protected readonly ILoginService _loginService;
 	private readonly IDispatcherWrapper _dispatcherWrapper;
-	public HomeViewModel(IRoutingService rs, ILoginService ls, ITimesheetService ts, ApiStateProvider asp, IDispatcherWrapper dispatcherWrapper) : base(rs, ls)
+	private readonly IServerService _serverService;
+    private readonly ISecureStorageService  _secureStorageService;
+
+	public HomeViewModel(IRoutingService rs, 
+		ILoginService ls, 
+		ITimesheetService ts, 
+		IDispatcherWrapper dispatcherWrapper, 
+		IServerService ss, 
+		ISecureStorageService sc) : base(rs, ls)
 	{
 		timesheetService = ts;
 		_loginService = ls;
+		_serverService = ss;
+        _secureStorageService = sc;
 		_dispatcherWrapper = dispatcherWrapper ?? new DispatcherWrapper(Application.Current.Dispatcher);
 		CreateTimer();
 		RegisterMessages();
@@ -47,10 +57,21 @@ public partial class HomeViewModel : ViewModelBase
 
 	public override async Task Initialize()
     {
-		var isSuccessfull = await _loginService.LoginToDefaultOnStartUp();
+		var defaultServer = await _serverService.GetDefaultServer();
+		if (defaultServer == null) 
+		{
+			return;
+		}
+		var key = $"{defaultServer.Id}_{defaultServer.Username}";
+		//check whether this throw excpetion TODO
+		var apiPassword = await _secureStorageService.Get(key);
+		var defaultServerModel = (ServerModel) defaultServer;
+		defaultServerModel.ApiPasswordKey = apiPassword;
+
+		var isSuccessfull = await _loginService.LoginToDefaultOnStartUp(defaultServerModel);
 		IToast toast;
 
-		if(isSuccessfull)
+		if (isSuccessfull)
 		{
 			toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
 		}
@@ -59,7 +80,7 @@ public partial class HomeViewModel : ViewModelBase
 			toast = Toast.Make("Connection to Kimai failed!", ToastDuration.Short, 14);
 		}
 		await toast.Show();
-    }
+	}
 
 	public override async Task OnAppearing()
 	{

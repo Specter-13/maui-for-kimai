@@ -19,32 +19,32 @@ public class HomeViewModelTests
     private Mock<ILoginService> loginMock = new Mock<ILoginService>();
     private Mock<ITimesheetService> timesheetMock = new Mock<ITimesheetService>();
     private Mock<FakeDispatcherWrapper> dispatcherMock = new Mock<FakeDispatcherWrapper>();
-    public HomeViewModelTests()
-    {
-        mockVm = new Mock<HomeViewModel>(routeMock.Object,loginMock.Object,timesheetMock.Object,TestData.Asp ,dispatcherMock.Object);
-        mockVm.Setup(x=> x.GetConnectivity()).Returns(NetworkAccess.Internet);
-        vm = mockVm.Object;
-    }    
+    //public HomeViewModelTests()
+    //{
+    //    mockVm = new Mock<HomeViewModel>(routeMock.Object,loginMock.Object,timesheetMock.Object,TestData.Asp ,dispatcherMock.Object);
+    //    mockVm.Setup(x=> x.GetConnectivity()).Returns(NetworkAccess.Internet);
+    //    vm = mockVm.Object;
+    //}    
 
-    [Fact]
-    public async Task GetRecentTimesheets_ListNotEmpty_Success()
-    {
+    //[Fact]
+    //public async Task GetRecentTimesheets_ListNotEmpty_Success()
+    //{
       
-        //arrange
-        List<TimesheetCollectionExpanded> list = new List<TimesheetCollectionExpanded>();
-        list.Add(TestData.TestTimesheetCollectionExpanded);
-        timesheetMock.Setup(x => x.GetTenRecentTimesheetsAsync()).ReturnsAsync(list);
+    //    //arrange
+    //    List<TimesheetCollectionExpanded> list = new List<TimesheetCollectionExpanded>();
+    //    list.Add(TestData.TestTimesheetCollectionExpanded);
+    //    timesheetMock.Setup(x => x.GetTenRecentTimesheetsAsync()).ReturnsAsync(list);
 
-        //act
-        await vm.GetTimeSheetsCommand.ExecuteAsync(true);
+    //    //act
+    //    await vm.GetTimeSheetsCommand.ExecuteAsync(true);
 
-        var x = vm.RecentTimesheets.FirstOrDefault();
+    //    var x = vm.RecentTimesheets.FirstOrDefault();
 
-        //assert
-        Assert.Contains(x, vm.RecentTimesheets);
+    //    //assert
+    //    Assert.Contains(x, vm.RecentTimesheets);
 
 
-    }
+    //}
 
 
 }

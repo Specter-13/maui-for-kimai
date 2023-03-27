@@ -5,7 +5,9 @@ using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.ApiClient.Services;
+using MauiForKimai.Messenger;
 using MauiForKimai.ViewModels.Base;
+using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,58 +19,81 @@ namespace MauiForKimai.ViewModels;
 public partial class ServerListViewModel : ViewModelBase
 {
     
-    public ObservableCollection<ServerModel> Servers {get; set; } = new();
-    private readonly IEnumerable<IBaseService> _baseServices;
-    private readonly IUserService _userService;
-    public ServerListViewModel(IRoutingService rs, ILoginService ls, IEnumerable<IBaseService> baseServices, IUserService userService) : base(rs, ls)
+ 
+
+    private readonly IServerService _serverService;
+    private readonly ISecureStorageService  _secureStorageService;
+
+    public ServerListViewModel(IRoutingService rs, 
+        ILoginService ls, 
+        IServerService serverService,
+        ISecureStorageService sc) : base(rs, ls)
     {
-
+        _serverService = serverService;
+        _secureStorageService = sc;
         //TODO use secure storage for api password token
-        var local = new ServerModel()
-        {
-            Id= 1,
-            Username = "admin@admin.com",
-            ApiPasswordKey = "internet",
-            IsDefault = true,
-            Name = "My local server",
-            Url = "http://localhost:8001/"
+        //var local = new ServerModel()
+        //{
+        //    Id= 1,
+        //    Username = "admin@admin.com",
+        //    ApiPasswordKey = "internet",
+        //    IsDefault = true,
+        //    Name = "My local server",
+        //    Url = "http://localhost:8001/"
             
-        };
+        //};
 
-        var demo = new ServerModel()
-        {
-            Id= 2,
-            Username = "john_user",
-            ApiPasswordKey = "kitten123",
-            IsDefault = false,
-            Name = "Demo server online",
-            Url = "https://demo-plugins.kimai.org/"
+        //var demo = new ServerModel()
+        //{
+        //    Id= 2,
+        //    Username = "john_user",
+        //    ApiPasswordKey = "kitten123",
+        //    IsDefault = false,
+        //    Name = "Demo server online",
+        //    Url = "https://demo-plugins.kimai.org/"
             
-        };
+        //};
 
-        var localJan = new ServerModel()
-        {
-            Id= 2,
-            Username = "jan@jan.com",
-            ApiPasswordKey = "internet",
-            IsDefault = false,
-            Name = "My local server Jan",
-            Url = "http://localhost:8001/"
+        //var localJan = new ServerModel()
+        //{
+        //    Id= 2,
+        //    Username = "jan@jan.com",
+        //    ApiPasswordKey = "internet",
+        //    IsDefault = false,
+        //    Name = "My local server Jan",
+        //    Url = "http://localhost:8001/"
             
-        };
+        //};
         
-
-   
-        _baseServices = baseServices;
-        _userService = userService;
-        Servers.Add(local);
-        Servers.Add(demo);
-         Servers.Add(localJan);
-
+        WeakReferenceMessenger.Default.Register<ServerAcquireMessage>(this, async (r, m) =>
+        {
+			await GetServersFromDb();
+        });
+        
     }
 
+
+    public override async Task Initialize()
+    {
+        await GetServersFromDb();
+    }
+
+    private async Task GetServersFromDb()
+    { 
+        IsBusy = true;
+        var servers = await _serverService.GetAll();
+        Servers.Clear();
+        foreach (var server in servers) 
+        {
+            Servers.Add(server);
+        }
+        IsBusy = false;
+    }
+    public ObservableCollection<ServerEntity> Servers {get; set; } = new();
+
+
     [RelayCommand]
-    async Task ServerTapped(ServerModel server) 
+    async Task ServerTapped(ServerEntity server) 
     {
         var route = routingService.GetRouteByViewModel<ServerDetailViewModel>();
         await Navigation.NavigateTo(route, server);
@@ -77,23 +102,11 @@ public partial class ServerListViewModel : ViewModelBase
     [RelayCommand]
     async Task AddNewServer() 
     {
-        //await Navigation.NavigateTo(nameof(ServerDetailPage));
-    }
 
-    [RelayCommand]
-    async Task Logout() 
-    {
-          base.ApiStateProvider.Disconnect();
-        //await Navigation.NavigateTo(nameof(ServerDetailPage));
-    }
+        var route = routingService.GetRouteByViewModel<ServerDetailViewModel>();
+        await Navigation.NavigateTo(route, true);
 
+
+    }
     
-
-    private void InitializeClients(string baseUrl)
-    {
-        foreach (var baseService in _baseServices)
-        {
-            baseService.InitializeClient(baseUrl);
-        }
-    }
 }

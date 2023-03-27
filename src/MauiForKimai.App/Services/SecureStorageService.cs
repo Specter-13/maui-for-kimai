@@ -21,6 +21,11 @@ public class SecureStorageService : ISecureStorageService
         return true;
     }
 
+    public bool Remove(string key)
+    {
+        return SecureStorage.Default.Remove(key);
+    }
+
     public async Task<string> Get(string key)
     {
          var result = await SecureStorage.Default.GetAsync(key);

@@ -2,7 +2,9 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.ApiClient.Authentication;
+using MauiForKimai.Messenger;
 using MauiForKimai.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -13,57 +15,117 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ViewModels;
 public partial class ServerDetailViewModel : ViewModelBase
 {
-	
-    [ObservableProperty]
-	private string name;
-    [ObservableProperty]
-	private string url;
-    [ObservableProperty]
-	private string username;
+
 	[ObservableProperty]
 	private string apiPassword;
-	[ObservableProperty]
-	private string isDefault;
 
+    [ObservableProperty]
+	private bool isCreation;
 
+    [ObservableProperty]
+	private bool isLoggedToThisServer;
+
+    
+    [ObservableProperty]
+	private bool isConnecting;
+
+    private readonly IServerService _serverService;
+    private readonly ISecureStorageService  _secureStorageService;
     [ObservableProperty]
     private ServerModel server = new();
 
-    public ServerDetailViewModel(IRoutingService rs, ILoginService ls) : base(rs, ls)
+    public ServerDetailViewModel(IRoutingService rs, ILoginService ls, IServerService ss, ISecureStorageService sc) : base(rs, ls)
     {
+        _serverService = ss;
+        _secureStorageService = sc;
     }
 
 
-    public override Task OnParameterSet()
+    public override async Task OnParameterSet()
     {
         IsBusy = true;
 
-        if (NavigationParameter is ServerModel myServer)
+        if (NavigationParameter is ServerEntity myServer)
         {
-            Server = myServer;
+            Server = (ServerModel) myServer;
+            IsLoggedToThisServer = loginService.CheckIfConnected(Server);
+            var key = $"{Server.Id}_{Server.Username}";
+
+            try
+            {
+                  var apiPassword = await _secureStorageService.Get(key);
+                  Server.ApiPasswordKey = apiPassword;
+            }
+            catch (KeyNotFoundException)
+            {
+                var toast = Toast.Make("Api key was not found in secure storage! Delete server and try to create it again.", ToastDuration.Short, 14);
+                await toast.Show();
+            }
         }
-      
+
+        if (NavigationParameter is bool creation)
+        {
+            if(creation == true)
+            { 
+                IsCreation = creation;
+            }
+
+        }
 
         IsBusy = false;
-        return base.OnParameterSet();
     }
+
+    
+    [RelayCommand]
+    async Task ConnectandCreate() 
+    {
+       IsConnecting = true;
+       var isSuccess = await loginService.Login(Server);
+        
+       IToast toast;
+       if(!isSuccess) 
+       {
+            toast = Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14);
+            await toast.Show();
+            return;
+       }
+
+        //create server
+        var newServer = await _serverService.Create(Server);
+
+        //create api key in secure storage
+        var key = $"{newServer.Id}_{newServer.Username}";
+        await _secureStorageService.Save(key, Server.ApiPasswordKey);
+        
+        toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
+        IsCreation = false;
+        IsLoggedToThisServer = true;
+        WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
+        await toast.Show();
+        IsConnecting = false;
+    }
+
 
     [RelayCommand]
     async Task Connect() 
     {
-
-        IToast toast;
+        IsConnecting = true;
         if (loginService.CheckIfConnected(Server))
         {
-            toast = Toast.Make($"Already connected to {Server.Name}!", ToastDuration.Short, 14);
+            var toast = Toast.Make($"Already connected to {Server.Name}!", ToastDuration.Short, 14);
             await toast.Show();
             return;
         }
 
+        await ConnectToServer();
+        IsConnecting = false;
+    }
 
-
+    private async Task ConnectToServer()
+    { 
+   
         var isSuccess = await loginService.Login(Server);
-        
+        IToast toast;
         if(isSuccess) 
         {
             toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
@@ -83,11 +145,11 @@ public partial class ServerDetailViewModel : ViewModelBase
         IToast toast;
         if(isSuccess) 
         {
-            toast = Toast.Make("Test successfull! Server is reachable!", ToastDuration.Short, 14);
+            toast = Toast.Make("Server is reachable! Credentials are correct.", ToastDuration.Short, 14);
         }
 		else
 		{
-			toast = Toast.Make("Connection to Kimai failed! Check your url and internet connection!", ToastDuration.Short, 14);
+			toast = Toast.Make("Server cannot be reached! Check your credentials and internet connection.", ToastDuration.Short, 14);
 		}
         await toast.Show();
     }
@@ -101,9 +163,24 @@ public partial class ServerDetailViewModel : ViewModelBase
 
     }
 
-    //[RelayCommand]
-    //   async Task Add()
-    //   { 
+   [RelayCommand]
+    async Task Delete() 
+    {
+        var isLogged = loginService.CheckIfConnected(Server);
+        if(isLogged)
+        { 
+		    await loginService.Logout();
+        }
+        //remove secure key if exists
+        var key = $"{Server.Id}_{Server.Username}";
+        _secureStorageService.Remove(key);
 
-    //}
+        //delete server from db
+        await _serverService.Delete(Server.Id);
+
+        //notify and navigate back
+        WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
+        await Navigation.NavigateTo("..");
+
+    }
 }

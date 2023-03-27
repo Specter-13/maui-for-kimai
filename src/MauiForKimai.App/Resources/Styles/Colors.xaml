@@ -9,6 +9,7 @@
     <Color x:Key="AccentTextColorLight">#FFFFFF</Color>
     <Color x:Key="AccentTextColorDark">#1A1A1B</Color>
 
+    <Color x:Key="AccentColorDanger">#8F2E2F</Color>
 
     <Color x:Key="Tertiary">#007acc</Color>
 

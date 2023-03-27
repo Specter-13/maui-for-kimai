@@ -3,6 +3,7 @@
     x:Class="MauiForKimai.Views.ServerListView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:entity="clr-namespace:MauiForKimai.Core.Entities;assembly=MauiForKimai.Core"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
@@ -38,7 +39,7 @@
             <CollectionView ItemsSource="{Binding Servers}">
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:ServerModel">
+                    <DataTemplate x:DataType="entity:ServerEntity">
                         <Frame Style="{StaticResource ServerListCard}">
 
 
@@ -80,6 +81,7 @@
             BackgroundColor="{StaticResource AccentColor}"
             BorderColor="#2b3c3c"
             BorderWidth="1"
+            Command="{Binding AddNewServerCommand}"
             CornerRadius="60"
             FontAttributes="Bold"
             HeightRequest="70"
