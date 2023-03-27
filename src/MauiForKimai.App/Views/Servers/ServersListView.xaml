@@ -7,9 +7,9 @@
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    Title="Login"
+    Title="Servers"
     x:DataType="viewmodel:ServerListViewModel"
-    Shell.NavBarIsVisible="False">
+    Shell.NavBarIsVisible="True">
 
 
 

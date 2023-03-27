@@ -1,12 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<!--<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>-->
-    <TargetFrameworks>net7.0-android;</TargetFrameworks>
+    
+		<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+    <!--<TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>-->
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
-		<OutputType>Exe</OutputType>
+
+    <!-- add this condition as well -->
+    <OutputType Condition="'$(TargetFramework)' != 'net7.0'">Exe</OutputType>
+    <!--<OutputType Condition="'$(TargetFramework)' == 'net7.0'">Library</OutputType>-->
+		<!--<OutputType>Exe</OutputType>-->
 		<RootNamespace>MauiForKimai</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
@@ -57,7 +62,6 @@
     <PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-		<PackageReference Include="Mopups" Version="1.1.1" />
 		<PackageReference Include="Scrutor" Version="4.2.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />
@@ -134,5 +138,6 @@
 	    <DependentUpon>TimesheetListView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
+  
 
 </Project>

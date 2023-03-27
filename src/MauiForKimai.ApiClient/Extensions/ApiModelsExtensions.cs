@@ -6,6 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ApiClient.Extensions;
+public static class TimeExtensions
+{
+    public static TimeSpan StripMilliseconds(this TimeSpan time)
+    {
+        return new TimeSpan(time.Days, time.Hours, time.Minutes, time.Seconds);
+    }
+}
+
 public static class ApiModelsExtensions
 {
 
@@ -51,7 +59,7 @@ public static class ApiModelsExtensions
             Duration = TimeSpan.FromSeconds(timesheet.Duration.Value).ToString(@"hh\:mm")
         };
     }
-
+ 
     private static double GetDuration(DateTimeOffset begin)
     {
         var difference = DateTimeOffset.Now - begin;
