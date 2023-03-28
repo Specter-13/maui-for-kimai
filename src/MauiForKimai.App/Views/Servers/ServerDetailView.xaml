@@ -14,7 +14,14 @@
 
     <ContentPage.Resources>
         <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
     </ContentPage.Resources>
+
 
     <VerticalStackLayout>
 
@@ -45,7 +52,20 @@
 
 
             <Label Text="Server name *" />
-            <Entry Text="{Binding Server.Name}" />
+            <Entry Text="{Binding Server.Name}">
+
+                <Entry.Behaviors>
+                    <mct:TextValidationBehavior
+                        x:Name="ServerNameValidator"
+                        Flags="ValidateOnUnfocusing"
+                        MinimumLength="1" />
+                </Entry.Behaviors>
+
+            </Entry>
+            <Label
+                IsVisible="{Binding IsNotValid, Source={x:Reference ServerNameValidator}}"
+                Style="{StaticResource NotValidLabel}"
+                Text="Server name is required" />
 
             <Label Text="Url *" />
             <Entry Text="{Binding Server.Url}" />
@@ -53,8 +73,9 @@
             <Label Text="Username *" />
             <Entry Text="{Binding Server.Username}" />
 
+
             <Label Text="API password *" />
-            <Entry IsPassword="True" Text="{Binding Server.ApiPasswordKey}" />
+            <Entry IsPassword="true" Text="{Binding Server.ApiPasswordKey, Mode=TwoWay}" />
 
             <Label Text="Default" />
             <Switch HorizontalOptions="Start" IsToggled="{Binding Server.IsDefault}" />
@@ -78,12 +99,6 @@
                 IsVisible="{Binding IsLoggedToThisServer}"
                 Text="Disconnect" />
 
-            <Button
-                Margin="10"
-                Command="{Binding TestConnectionCommand}"
-                Text="Test server connection" />
-
-
 
             <Button
                 Margin="10"
@@ -91,6 +106,12 @@
                 IsVisible="{Binding IsCreation, Converter={StaticResource InvertedBoolConverter}}"
                 Style="{StaticResource DeleteButton}"
                 Text="Delete" />
+
+            <Button
+                Margin="10"
+                Command="{Binding SaveCommand}"
+                IsVisible="{Binding IsCreation, Converter={StaticResource InvertedBoolConverter}}"
+                Text="Save" />
 
 
         </VerticalStackLayout>

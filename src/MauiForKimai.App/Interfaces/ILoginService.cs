@@ -14,7 +14,6 @@ public interface ILoginService
     bool CheckIfConnected(ServerModel server);
     TimeSpan GetUserTimeOffset();
   
-    Task<bool> TestConnection(ServerModel server);
     Task<bool> LoginToDefaultOnStartUp(ServerModel defaultServer);
 
     Task<bool> Login(ServerModel server);

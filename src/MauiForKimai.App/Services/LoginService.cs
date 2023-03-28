@@ -65,34 +65,34 @@ public class LoginService : ILoginService
         return _asp;
     }
 
-    public async Task<bool> TestConnection(ServerModel server)
-    {
-        bool isSuccess;
-        try
-        {
-            var oldUserName = _asp.UserName;
-            var oldApiPsw = _asp.ApiPassword;
-            var oldUrl = _asp.BaseUrl;
+    //public async Task<bool> TestConnection(ServerModel server)
+    //{
+    //    bool isSuccess;
+    //    try
+    //    {
+    //        var oldUserName = _asp.UserName;
+    //        var oldApiPsw = _asp.ApiPassword;
+    //        var oldUrl = _asp.BaseUrl;
 
-             DeInitializeClients();
-            _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
-            InitializeClients(server.Url);
-            await _userService.PingServerAsync();
+    //         DeInitializeClients();
+    //        _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
+    //        InitializeClients(server.Url);
+    //        await _userService.PingServerAsync();
 
-            //is success
-            //TODO - fix unlogin when testing connection!
+    //        //is success
+    //        //TODO - fix unlogin when testing connection!
 
-            isSuccess = true;
-        }
-        catch (Exception)
-        {
-            isSuccess = false;
-        }
+    //        isSuccess = true;
+    //    }
+    //    catch (Exception)
+    //    {
+    //        isSuccess = false;
+    //    }
 
-        _asp.Disconnect();
-        DeInitializeClients();
-        return isSuccess;
-    }
+    //    _asp.Disconnect();
+    //    DeInitializeClients();
+    //    return isSuccess;
+    //}
 
     public bool IsLogged()
     {

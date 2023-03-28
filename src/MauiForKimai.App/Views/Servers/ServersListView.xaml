@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:entity="clr-namespace:MauiForKimai.Core.Entities;assembly=MauiForKimai.Core"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
@@ -12,6 +13,14 @@
     x:DataType="viewmodel:ServerListViewModel"
     Shell.NavBarIsVisible="True">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <mct:BoolToObjectConverter
+                x:Key="BoolToBorderColorConverter"
+                FalseObject="blue"
+                TrueObject="red" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
 
 
@@ -40,7 +49,7 @@
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="entity:ServerEntity">
-                        <Frame Style="{StaticResource ServerListCard}">
+                        <Frame BorderColor="{Binding IsDefault, Converter={StaticResource BoolToBorderColorConverter}}" Style="{StaticResource ServerListCard}">
 
 
 
@@ -52,7 +61,7 @@
                                 <VerticalStackLayout Grid.Column="0">
 
                                     <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
-                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding Url}" />
+                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding Username}" />
                                     <Label Style="{StaticResource MediumLabel}" Text="{Binding IsDefault}" />
 
                                 </VerticalStackLayout>

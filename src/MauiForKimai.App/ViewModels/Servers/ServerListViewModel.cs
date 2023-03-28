@@ -85,7 +85,14 @@ public partial class ServerListViewModel : ViewModelBase
         Servers.Clear();
         foreach (var server in servers) 
         {
-            Servers.Add(server);
+            if(server.IsDefault)
+            {
+                Servers.Insert(0,server);
+            }
+            else
+            { 
+                Servers.Add(server);
+            }
         }
         IsBusy = false;
     }

@@ -3,8 +3,10 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Maui.Views;
 using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.Messenger;
+using MauiForKimai.Popups;
 using MauiForKimai.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -22,22 +24,29 @@ public partial class ServerDetailViewModel : ViewModelBase
     [ObservableProperty]
 	private bool isCreation;
 
+
     [ObservableProperty]
 	private bool isLoggedToThisServer;
-
     
     [ObservableProperty]
 	private bool isConnecting;
 
+
     private readonly IServerService _serverService;
     private readonly ISecureStorageService  _secureStorageService;
+    private readonly PopupSizeConstants _popupSizeConstants;
+
+    private bool previousIsDefaultValue;
+    private string previousUserName;
+
     [ObservableProperty]
     private ServerModel server = new();
 
-    public ServerDetailViewModel(IRoutingService rs, ILoginService ls, IServerService ss, ISecureStorageService sc) : base(rs, ls)
+    public ServerDetailViewModel(IRoutingService rs, ILoginService ls, IServerService ss, ISecureStorageService sc,PopupSizeConstants psc) : base(rs, ls)
     {
         _serverService = ss;
         _secureStorageService = sc;
+        _popupSizeConstants = psc;
     }
 
 
@@ -48,6 +57,8 @@ public partial class ServerDetailViewModel : ViewModelBase
         if (NavigationParameter is ServerEntity myServer)
         {
             Server = (ServerModel) myServer;
+            previousIsDefaultValue = myServer.IsDefault;
+            previousUserName = myServer.Username;
             IsLoggedToThisServer = loginService.CheckIfConnected(Server);
             var key = $"{Server.Id}_{Server.Username}";
 
@@ -55,6 +66,7 @@ public partial class ServerDetailViewModel : ViewModelBase
             {
                   var apiPassword = await _secureStorageService.Get(key);
                   Server.ApiPasswordKey = apiPassword;
+                  OnPropertyChanged(nameof(Server));
             }
             catch (KeyNotFoundException)
             {
@@ -75,20 +87,27 @@ public partial class ServerDetailViewModel : ViewModelBase
         IsBusy = false;
     }
 
-    
+    private bool Validate()
+    {
+        return !string.IsNullOrEmpty(Server.Name) && !string.IsNullOrEmpty(Server.Url) &&
+            !string.IsNullOrEmpty(Server.Username) && !string.IsNullOrEmpty(Server.ApiPasswordKey);
+    }
+
     [RelayCommand]
     async Task ConnectandCreate() 
     {
        IsConnecting = true;
+
        var isSuccess = await loginService.Login(Server);
         
        IToast toast;
        if(!isSuccess) 
        {
-            toast = Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14);
-            await toast.Show();
+            await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
             return;
        }
+
+        await UnsetDefaultServerIfChanged();
 
         //create server
         var newServer = await _serverService.Create(Server);
@@ -121,38 +140,27 @@ public partial class ServerDetailViewModel : ViewModelBase
         IsConnecting = false;
     }
 
-    private async Task ConnectToServer()
+    private async Task<bool> ConnectToServer()
     { 
-   
+        var isValid = Validate();
+        if (!isValid) 
+        {
+            await Toast.Make("Form validation failed!", ToastDuration.Short, 14).Show();
+            return false;
+        }
         var isSuccess = await loginService.Login(Server);
-        IToast toast;
         if(isSuccess) 
         {
-            toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
+            await Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14).Show();
+            return true;
         }
 		else
 		{
-			toast = Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14);
+			await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
+            return false;
 		}
-        await toast.Show();
     }
 
-    [RelayCommand]
-    async Task TestConnection() 
-    {
-
-		var isSuccess = await loginService.TestConnection(Server);
-        IToast toast;
-        if(isSuccess) 
-        {
-            toast = Toast.Make("Server is reachable! Credentials are correct.", ToastDuration.Short, 14);
-        }
-		else
-		{
-			toast = Toast.Make("Server cannot be reached! Check your credentials and internet connection.", ToastDuration.Short, 14);
-		}
-        await toast.Show();
-    }
 
     [RelayCommand]
     async Task Disconnect() 
@@ -162,6 +170,45 @@ public partial class ServerDetailViewModel : ViewModelBase
         await Toast.Make("Disconected successfully!", ToastDuration.Short, 14).Show();
 
     }
+
+
+    [RelayCommand]
+    async Task Save() 
+    {
+        IsBusy = true;
+
+        await UnsetDefaultServerIfChanged();
+        
+        //if i'm logged to this server, logout and try to login again with new credentialss
+        if(IsLoggedToThisServer)
+        {
+            await loginService.Logout();
+            var isSuccess = await loginService.Login(Server);;
+            if(!isSuccess)
+            { 
+                await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
+                return;
+            }
+        }
+
+        //delete previous key from secure storage
+        var key = $"{Server.Id}_{previousUserName}";
+        _secureStorageService.Remove(key);
+
+        //create new key
+        key = $"{Server.Id}_{Server.Username}";
+        await _secureStorageService.Save(key, Server.ApiPasswordKey);
+
+        //update changes in db
+        await _serverService.Update(Server);
+
+        await Toast.Make("Connection and save successfull!", ToastDuration.Short, 14).Show();
+
+        IsBusy = false;
+
+    }
+
+   
 
    [RelayCommand]
     async Task Delete() 
@@ -182,5 +229,26 @@ public partial class ServerDetailViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
         await Navigation.NavigateTo("..");
 
+    }
+
+    
+    private async Task UnsetDefaultServerIfChanged()
+    { 
+        //if there was a change of default server, ask user for consent to override default server
+        if(previousIsDefaultValue != Server.IsDefault && Server.IsDefault == true) 
+        {
+            var isDefaultOverride = await DisplayServerDefaultPopup();
+            if(!isDefaultOverride)
+            { 
+                return;
+            }
+            await _serverService.UnsetDefaultPropertyExceptOne(Server.Id);
+        }
+    }
+    private async Task<bool> DisplayServerDefaultPopup()
+    {
+        var popup = new ServerDefaultPopup(_popupSizeConstants);
+
+        return (bool) await Page.ShowPopupAsync(popup);
     }
 }

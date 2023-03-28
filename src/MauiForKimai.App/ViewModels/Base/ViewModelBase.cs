@@ -8,11 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TinyMvvm;
+using CommunityToolkit.Maui.Views;
 
 namespace MauiForKimai.ViewModels.Base;
 public abstract partial class ViewModelBase : TinyViewModel, IViewModel
 {
-	
+	//for popups
+	public static Page Page => Application.Current?.MainPage ?? throw new NullReferenceException();
 	protected ILoginService loginService {get; }
 	protected IRoutingService routingService { get; }
 	public ViewModelBase(IRoutingService rs, ILoginService ls)

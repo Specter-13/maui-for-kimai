@@ -84,22 +84,12 @@ public partial class HomeViewModel : ViewModelBase
 
 	public override async Task OnAppearing()
 	{
-
-		if (base.ApiStateProvider.IsAuthenticated && base.GetConnectivity() == NetworkAccess.Internet)
-		{
-			IsBusy = true;
-			// Connection to internet is available
-			await GetTimeSheets();
-			await TryToGetActiveTimesheet();
-			IsBusy = false;
-		}
-		else
-		{ 
-			var toast = Toast.Make("Cannot load data!", ToastDuration.Short, 14);
-			await toast.Show();
-		}
-
+		IsBusy = true;
+		// Connection to internet is available
+		await Refresh();
+		IsBusy = false;
 	}
+
 
 	//Properties
 	[ObservableProperty]
@@ -132,7 +122,7 @@ public partial class HomeViewModel : ViewModelBase
 	[RelayCommand]
 	async Task StopTimeTracking()
 	{	
-		var stopped = await timesheetService.StopActive(ActiveTimesheet.Id);
+		await timesheetService.StopActive(ActiveTimesheet.Id);
 		_timer.Stop();
 		IsTimetrackingActive = false;
 		_seconds = 0;
@@ -152,7 +142,7 @@ public partial class HomeViewModel : ViewModelBase
 	async Task RefreshTimesheets()
 	{	
 		IsRefreshing = true;
-		await GetTimeSheets();
+		await Refresh();
 		IsRefreshing = false;
 	}
 
@@ -177,6 +167,20 @@ public partial class HomeViewModel : ViewModelBase
         
     }
 	// private methods
+	private async Task Refresh()
+	{ 
+		if (base.ApiStateProvider.IsAuthenticated && base.GetConnectivity() == NetworkAccess.Internet)
+		{
+			await GetTimeSheets();
+			await TryToGetActiveTimesheet();
+		}
+		else
+		{ 
+			var toast = Toast.Make("Cannot acquire data!", ToastDuration.Short, 14);
+			await toast.Show();
+		}
+	}
+
 	private async Task TryToGetActiveTimesheet()
 	{ 
 		var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
@@ -187,6 +191,14 @@ public partial class HomeViewModel : ViewModelBase
 			IsTimetrackingActive = true;
 			_seconds = ActiveTimesheet.Duration;
 			_timer.Start();
+		}
+		else
+		{
+			IsTimetrackingActive = false;
+			_timer.Stop();
+			_seconds = 0;
+			Time = TimeSpan.FromSeconds(_seconds);
+			
 		}
 	}
 

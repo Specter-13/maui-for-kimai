@@ -5543,6 +5543,7 @@ namespace MauiForKimai.ApiClient
         /// <exception cref="KiamiApiException">A server side error occurred.</exception>
         public virtual System.Threading.Tasks.Task<TimesheetEntity> StopAsync(int id)
         {
+
             return StopAsync(id, System.Threading.CancellationToken.None);
         }
 

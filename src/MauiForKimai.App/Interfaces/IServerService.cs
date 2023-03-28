@@ -8,4 +8,5 @@ namespace MauiForKimai.Interfaces;
 public interface IServerService: ICrudOperationsMySql<ServerEntity,ServerModel>
 {
    Task<ServerEntity> GetDefaultServer();
+   Task<ServerEntity> UnsetDefaultPropertyExceptOne(int id);
 }

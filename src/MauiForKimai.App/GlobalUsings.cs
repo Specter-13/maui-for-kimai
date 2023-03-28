@@ -2,6 +2,7 @@
 
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
+global using CommunityToolkit.Maui.Views;
 
 global using MauiForKimai.ApiClient.Interfaces;
 global using MauiForKimai.ApiClient;

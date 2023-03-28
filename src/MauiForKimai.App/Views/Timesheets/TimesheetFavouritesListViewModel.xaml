@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mvvm:TinyView
+    x:Class="MauiForKimai.Views.TimesheetFavouritesListViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MauiForKimai.Controls"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    Title="TimesheetFavouritesListViewModel">
+    <VerticalStackLayout>
+        <Label
+            HorizontalOptions="Center"
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" />
+    </VerticalStackLayout>
+</mvvm:TinyView>

@@ -8,5 +8,7 @@ public partial class ServerDetailView
 	{
 		InitializeComponent();
 		BindingContext = vm;
+
+		
 	}
 }
