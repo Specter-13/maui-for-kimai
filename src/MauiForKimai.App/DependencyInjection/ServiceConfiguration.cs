@@ -25,6 +25,7 @@ public static class ServicesConfiguration
         services.AddSingleton<IServerService,ServerService>();
         services.AddSingleton<ILoginService,LoginService>();
         services.AddSingleton<IDispatcherWrapper,DispatcherWrapper>();
+        services.AddSingleton<IFavouritesTimesheetService,FavouriteTimesheetService>();
     }
 
     public static void ConfigureViewModels(this IServiceCollection services)

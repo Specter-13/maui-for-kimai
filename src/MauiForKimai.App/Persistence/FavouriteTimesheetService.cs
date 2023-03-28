@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.Persistence;
-public class FavouriteTimesheetService
+public class FavouriteTimesheetService : IFavouritesTimesheetService
 {
      private SQLiteAsyncConnection _db;
 
@@ -17,13 +17,12 @@ public class FavouriteTimesheetService
 
          var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Constants.FAVOURITES_DB_NAME);
         _db = new SQLiteAsyncConnection(dbPath);
-        var result = await _db.CreateTableAsync<ServerEntity>();
+        var result = await _db.CreateTableAsync<TimesheetFavouriteEntity>();
     }
 
-    public async Task<ServerEntity> Create(ServerModel model)
+    public async Task<TimesheetFavouriteEntity> Create(TimesheetFavouriteEntity entity)
     {
         await Init();
-        var entity = (ServerEntity) model;
         var numberOfaddedRows = await _db.InsertAsync(entity);
         if (numberOfaddedRows > 0)
         {
@@ -35,26 +34,25 @@ public class FavouriteTimesheetService
     public async Task<bool> Delete(int id)
     {
         await Init();
-        var numOfDeleteTRows = await _db.Table<ServerEntity>().DeleteAsync(x=> x.Id == id);
+        var numOfDeleteTRows = await _db.Table<TimesheetFavouriteEntity>().DeleteAsync(x=> x.Id == id);
         return numOfDeleteTRows > 0;
     }
 
-    public async Task<ICollection<ServerEntity>> GetAll()
+    public async Task<ICollection<TimesheetFavouriteEntity>> GetAll()
     {
         await Init();
-        return await _db.Table<ServerEntity>().ToListAsync();
+        return await _db.Table<TimesheetFavouriteEntity>().ToListAsync();
     }
 
-    public async Task<ServerEntity> Read(int id)
+    public async Task<TimesheetFavouriteEntity> Read(int id)
     {
         await Init();
-        return await _db.GetAsync<ServerEntity>(id);
+        return await _db.GetAsync<TimesheetFavouriteEntity>(id);
     }
 
-    public async Task<ServerEntity> Update(ServerModel model)
+    public async Task<TimesheetFavouriteEntity> Update(TimesheetFavouriteEntity entity)
     {
         await Init();
-        var entity = (ServerEntity) model;
         var numOfUpdatedTRows = await _db.UpdateAsync(entity);
         if (numOfUpdatedTRows > 0)
         {

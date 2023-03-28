@@ -26,7 +26,7 @@
     </Style>
 
     <Style x:Key="RecentRestartButton" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
         <Setter Property="Padding" Value="3,0,3,0" />
     </Style>
@@ -61,6 +61,15 @@
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
         <Setter Property="IsClippedToBounds" Value="True" />
         <Setter Property="HeightRequest" Value="100" />
+    </Style>
+
+    <Style x:Key="FavouritesTimesheetCard" TargetType="Frame">
+        <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
+        <Setter Property="IsClippedToBounds" Value="True" />
+        <Setter Property="HeightRequest" Value="70" />
     </Style>
 
     <Style x:Key="ServerListCard" TargetType="Frame">

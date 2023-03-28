@@ -6,11 +6,13 @@
     xmlns:model="clr-namespace:MauiForKimai.ApiClient;assembly=MauiForKimai.ApiClient"
     x:Name="TimesheetListItem">
     <Grid Padding="10">
-        <Frame BackgroundColor="SlateGrey" HeightRequest="125">
+        <!--<Frame BackgroundColor="SlateGrey" HeightRequest="125">
 
-            <!--<Frame.GestureRecognizers>
+        -->
+        <!--<Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=TimesheetOnTapCommand}" CommandParameter="{Binding .}" />
             </Frame.GestureRecognizers>-->
+        <!--
             <Grid RowDefinitions=".5*,.5*">
                 <Label
                     Grid.Row="0"
@@ -23,6 +25,6 @@
                     Style="{StaticResource MediumLabel}"
                     Text="{Binding Timesheet.Duration}" />
             </Grid>
-        </Frame>
+        </Frame>-->
     </Grid>
 </ContentView>

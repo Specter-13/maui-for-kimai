@@ -40,10 +40,15 @@
         <Tab Title="Timesheets" Icon="clipboard_text_clock.png">
 
 
-            <ShellContent
+            <!--<ShellContent
                 Title="Templates"
                 ContentTemplate="{DataTemplate local:TemplateListView}"
-                Route="templates" />
+                Route="templates" />-->
+
+            <ShellContent
+                Title="Favourites"
+                ContentTemplate="{DataTemplate local:TimesheetFavouritesListView}"
+                Route="favourites" />
 
             <ShellContent
                 Title="Timesheets"
