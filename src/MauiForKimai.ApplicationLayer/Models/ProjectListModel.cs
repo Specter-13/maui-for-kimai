@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MauiForKimai.Core.Enums;
+using MauiForKimai.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace MauiForKimai.Core.Models;
 
-public class ProjectListModel
+public class ProjectListModel : IChooseItem
 {
+    public ProjectListModel()
+    {
+        
+    }
     public ProjectListModel(int id, string name, int customerId, bool billable)
     {
         Id = id; 
@@ -20,4 +26,5 @@ public class ProjectListModel
 
     public int CustomerId { get; set; }
     public bool Billable { get; set; }
+
 }

@@ -85,7 +85,7 @@
 	  <MauiXaml Update="Shells\AppShellDesktop.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Customer\CustomerChooseView.xaml">
+	  <MauiXaml Update="Views\ChooseItemView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\HomeView.xaml">
@@ -98,9 +98,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Activity\ActivityChooseView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Projects\ProjectChooseView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Reports\ReportsView.xaml">
@@ -151,6 +148,11 @@
 	  <Compile Update="Views\Timesheets\TimesheetListView.xaml.cs">
 	    <DependentUpon>TimesheetListView.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Views\Customer\" />
+	  <Folder Include="Views\Projects\" />
 	</ItemGroup>
   
 

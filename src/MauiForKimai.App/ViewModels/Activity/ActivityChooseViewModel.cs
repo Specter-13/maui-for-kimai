@@ -69,10 +69,10 @@ public partial class ActivityChooseViewModel : ViewModelBase
     [RelayCommand]
     async Task ActivityTapped(ActivityListModel model)
     {
-        SelectedActivity = model;
-        WeakReferenceMessenger.Default.Send(new TimesheetActivityChooseMessage(SelectedActivity));
-        var route = routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
-        await Navigation.NavigateTo("..");
+        //SelectedActivity = model;
+        //WeakReferenceMessenger.Default.Send(new TimesheetActivityChooseMessage(SelectedActivity));
+        //var route = routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
+        //await Navigation.NavigateTo("..");
     }
     
 

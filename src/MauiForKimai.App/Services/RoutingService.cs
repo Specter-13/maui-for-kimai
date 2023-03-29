@@ -1,11 +1,9 @@
 ﻿
 using MauiForKimai.ViewModels;
 using MauiForKimai.ViewModels.Activity;
-using MauiForKimai.ViewModels.Projects;
 using MauiForKimai.ViewModels.Timesheets;
 using MauiForKimai.Views;
 using MauiForKimai.Views.Activity;
-using MauiForKimai.Views.Projects;
 using MauiForKimai.Views.Timesheets;
 using System;
 using System.Collections.Generic;
@@ -27,9 +25,9 @@ public class RoutingService : IRoutingService
 
     new("//favourites", typeof(TimesheetFavouritesListView), typeof(TimesheetFavouritesListViewModel)),
     new("//favourites/create", typeof(TimesheetFavouritesCreateView), typeof(TimesheetFavouritesCreateViewModel)),
-    //new("//favourites/create/choosecustomer", typeof(CustomerChooseView), typeof(CustomerChooseViewModel)),
-    //new("//favourites/create/chooseproject", typeof(ProjectChooseView), typeof(ProjectChooseViewModel)),
-    //new("//favourites/create/chooseactivity", typeof(ActivityChooseView), typeof(ActivityChooseViewModel)),
+    new("//favourites/create/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseFavouriteViewModel)),
+    new("//favourites/create/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseFavouriteViewModel)),
+    new("//favourites/create/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseFavouriteViewModel)),
 
     new("//reports", typeof(TemplateListView), typeof(TemplateListViewModel)),
 
@@ -37,9 +35,9 @@ public class RoutingService : IRoutingService
     new("//serverlistview/detail", typeof(ServerDetailView), typeof(ServerDetailViewModel)),
 
     new("//home/createtimesheet", typeof(TimesheetCreateView), typeof(TimesheetCreateViewModel)),
-    new("//home/createtimesheet/choosecustomer", typeof(CustomerChooseView), typeof(CustomerChooseViewModel)),
-    new("//home/createtimesheet/chooseproject", typeof(ProjectChooseView), typeof(ProjectChooseViewModel)),
-    new("//home/createtimesheet/chooseactivity", typeof(ActivityChooseView), typeof(ActivityChooseViewModel)),
+    new("//home/createtimesheet/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseTimesheetViewModel)),
+    new("//home/createtimesheet/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseTimesheetViewModel)),
+    new("//home/createtimesheet/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseTimesheetViewModel)),
     
     new("//timesheets", typeof(TimesheetListView), typeof(TimesheetListViewModel)),
 };

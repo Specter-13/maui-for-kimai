@@ -2,8 +2,8 @@
 using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
 using MauiForKimai.ViewModels.Activity;
-using MauiForKimai.ViewModels.Projects;
 using MauiForKimai.Views.Timesheets;
+using MauiForKimai.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,6 @@ namespace MauiForKimai.ViewModels.Timesheets;
 
 public partial class TimesheetCreateViewModel : ViewModelBase
 {
-    static Page Page => Application.Current?.MainPage ?? throw new NullReferenceException();
     private readonly ICustomerService _customerService;
 
     public TimesheetCreateViewModel(IRoutingService rs,ILoginService ls, ICustomerService customerService) : base(rs, ls)
@@ -40,26 +39,43 @@ public partial class TimesheetCreateViewModel : ViewModelBase
 
     private void RegisterMessages()
     { 
-        WeakReferenceMessenger.Default.Register<TimesheetProjectChooseMessage>(this, (r, m) =>
-        {
-            ChosenProject = m.Value;
-            Timesheet.Project = ChosenProject.Id;
-            IsProjectNotValid = false;
-        });
+         WeakReferenceMessenger.Default.Register<ItemChooseMessage,int>(this, (int)ChooseItemMode.Timesheet, (r, m) =>
+         { 
 
-        WeakReferenceMessenger.Default.Register<TimesheetActivityChooseMessage>(this, (r, m) =>
-        {
-            ChosenActivity = m.Value;
-            Timesheet.Activity = ChosenActivity.Id;
-            IsActivityNotValid = false;
-        });
+            if (m.Value.ChooseItem is CustomerListModel customer)
+            {
+                ChosenCustomer = customer;
+                if(! string.IsNullOrEmpty(ChosenProject.Name) )
+                    ChosenProject = new();
+            }
 
-        WeakReferenceMessenger.Default.Register<TimesheetCustomerChooseMessage>(this, (r, m) =>
-        {
-            ChosenCustomer = m.Value;
-            // validation, that user never pick project, which customer do not contain
-            if(ChosenProject != null) ChosenProject = null;
+            if (m.Value.ChooseItem is ProjectListModel project)
+            {
+                 ChosenProject = project;
+                  if(! string.IsNullOrEmpty(ChosenActivity.Name) )
+                    ChosenActivity = new();
+            }
+
+            if (m.Value.ChooseItem is ActivityListModel activity)
+            {
+                ChosenActivity = activity;
+            }
+
+
+
+            //ChosenProject = m.Value;
+            //Favourite.ProjectId = ChosenProject.Id; ;
+            //Favourite.ProjectName = ChosenProject.Name; ;
+            //IsProjectNotValid = false;
         });
+    }
+
+    public override Task OnDisappearing()
+    {
+        //WeakReferenceMessenger.Default.Unregister<TimesheetProjectChooseMessage>(this);
+        //WeakReferenceMessenger.Default.Unregister<TimesheetActivityChooseMessage>(this);
+        //WeakReferenceMessenger.Default.Unregister<TimesheetCustomerChooseMessage>(this);
+        return base.OnDisappearing();
     }
 
 
@@ -85,14 +101,14 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     TimesheetEditForm timesheet;
 
     [ObservableProperty]
-    CustomerListModel chosenCustomer;
+    CustomerListModel chosenCustomer = new();
 
     [ObservableProperty]
-    ProjectListModel chosenProject;
+    ProjectListModel chosenProject = new();
 
     [ObservableProperty]
-    ActivityListModel chosenActivity;
-
+    ActivityListModel chosenActivity = new();
+    
     [ObservableProperty]
     string selectedBillableMode;
 
@@ -109,22 +125,27 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     [RelayCommand]
     async Task ShowProjectChooseView()
     {
-        var route = routingService.GetRouteByViewModel<ProjectChooseViewModel>();
-        await Navigation.NavigateTo(route, ChosenCustomer);
+        var route = routingService.GetRouteByViewModel<ProjectChooseTimesheetViewModel>();
+        var wrapper = new ChooseItemWrapper(ChosenProject,ChooseItemMode.Timesheet);
+        wrapper.ChosenCustomerId = ChosenCustomer.Id;
+        await Navigation.NavigateTo(route, wrapper);
     }
 
     [RelayCommand]
     async Task ShowActivityChooseView()
     {
-        var route = routingService.GetRouteByViewModel<ActivityChooseViewModel>();
-        await Navigation.NavigateTo(route, ChosenProject);
+        var route = routingService.GetRouteByViewModel<CustomerChooseTimesheetViewModel>();
+        var wrapper = new ChooseItemWrapper(ChosenActivity,ChooseItemMode.Timesheet);
+        wrapper.ChosenProjectId = ChosenProject.Id;
+        await Navigation.NavigateTo(route, wrapper);
     }
 
     [RelayCommand]
     async Task ShowCustomerChooseView()
     {
-        var route = routingService.GetRouteByViewModel<CustomerChooseViewModel>();
-        await Navigation.NavigateTo(route);
+        var route = routingService.GetRouteByViewModel<CustomerChooseTimesheetViewModel>();
+        var wrapper = new ChooseItemWrapper(ChosenCustomer,ChooseItemMode.Timesheet);
+        await Navigation.NavigateTo(route, wrapper);
     }
 
     [RelayCommand]
@@ -133,9 +154,10 @@ public partial class TimesheetCreateViewModel : ViewModelBase
         var startTime = new DateTimeOffset(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds, loginService.GetUserTimeOffset());
         //var end = new DateTimeOffset(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds, new TimeSpan(0,0,0));
         Timesheet.Begin = startTime;
-      
+        Timesheet.Project = ChosenProject.Id;
+        Timesheet.Activity = ChosenActivity.Id;
 
-        if(!Validate()) return;
+        //if(!Validate()) return;
 
         IsTagNotValid = false;
         IsProjectNotValid = false;

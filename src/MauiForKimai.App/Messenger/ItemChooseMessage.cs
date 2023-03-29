@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MauiForKimai.Messenger;
-public class TimesheetCustomerChooseMessage : ValueChangedMessage<ChooseItemWrapper>
+public class ItemChooseMessage : ValueChangedMessage<ChooseItemWrapper>
 {
-    public TimesheetCustomerChooseMessage(ChooseItemWrapper value) : base(value)
+    public ItemChooseMessage(ChooseItemWrapper value) : base(value)
     {
     }
 }

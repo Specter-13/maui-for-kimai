@@ -22,11 +22,48 @@
         <Label Text="Name" />
         <Entry Text="{Binding Favourite.Name}" />
 
-        <Label Text="Customer" />
-        <Entry Text="{Binding Favourite.CustomerName}" />
 
-        <Label Text="Project" />
-        <Entry Text="{Binding Favourite.ProjectName}" />
+
+        <Label Text="Customer" />
+        <Entry
+            IsReadOnly="True"
+            Placeholder="Select customer"
+            Text="{Binding ChosenCustomer.Name}">
+            <Entry.GestureRecognizers>
+
+                <TapGestureRecognizer Command="{Binding ShowCustomerChooseViewCommand}" />
+
+            </Entry.GestureRecognizers>
+        </Entry>
+        <Button
+            Command="{Binding ShowCustomerChooseViewCommand}"
+            IsVisible="{OnIdiom Phone=False,
+                                Desktop=True}"
+            Text="Choose customer" />
+
+        <Label Text="Project *" />
+        <Entry
+            IsReadOnly="True"
+            Placeholder="Select project"
+            Text="{Binding ChosenProject.Name}">
+            <Entry.GestureRecognizers>
+
+                <TapGestureRecognizer Command="{Binding ShowProjectChooseViewCommand}" />
+
+            </Entry.GestureRecognizers>
+        </Entry>
+
+        <Label Text="Activity *" />
+        <Entry
+            IsReadOnly="True"
+            Placeholder="Select Activity"
+            Text="{Binding ChosenProject.Name}">
+            <Entry.GestureRecognizers>
+
+                <TapGestureRecognizer Command="{Binding ShowActivityChooseViewCommand}" />
+
+            </Entry.GestureRecognizers>
+        </Entry>
 
         <Label Text="Activity" />
         <Entry Text="{Binding Favourite.ActivityName}" />

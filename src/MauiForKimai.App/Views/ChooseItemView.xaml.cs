@@ -1,18 +1,15 @@
-
-
-using MauiForKimai.ViewModels;
-
 namespace MauiForKimai.Views;
 
-public partial class CustomerChooseView
+public partial class ChooseItemView 
 {
-	private readonly CustomerChooseViewModel _vm;
-	public CustomerChooseView(CustomerChooseViewModel vm)
+	private readonly ChooseItemViewModel _vm;
+	public ChooseItemView(ChooseItemViewModel vm)
 	{
 		InitializeComponent();
 		_vm = vm;
 		BindingContext = _vm;
 	}
+
 	private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
 		_vm.FilterCommand.Execute(e.NewTextValue);
