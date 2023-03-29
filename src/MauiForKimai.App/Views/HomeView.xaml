@@ -10,23 +10,33 @@
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    x:DataType="viewmodel:HomeViewModel"
-    Shell.NavBarIsVisible="False">
+    x:DataType="viewmodel:HomeViewModel">
 
     <ContentPage.Behaviors>
-        <mct:StatusBarBehavior StatusBarColor="{StaticResource AccentColor}" StatusBarStyle="LightContent" />
+        <mct:StatusBarBehavior StatusBarColor="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}" StatusBarStyle="LightContent" />
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
         <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
     </ContentPage.Resources>
 
+    <Shell.TitleView>
+        <Grid>
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="Home"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height=".08*" />
-            <RowDefinition Height=".20*" />
-            <RowDefinition Height=".49*" />
-            <RowDefinition Height=".25*" />
+            <RowDefinition Height="0.15*" />
+            <RowDefinition Height="0.85*" />
+            <RowDefinition Height="0.2*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -34,7 +44,7 @@
 
 
 
-        <Grid Grid.Row="0" Style="{StaticResource InfoStatusBar}">
+        <!--<Grid Grid.Row="0" Style="{StaticResource InfoStatusBar}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -44,13 +54,14 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!--<Label
-                Style="{StaticResource LargeLabel}"
-                Text="Maui For Kimai"
-                VerticalOptions="Center" />-->
+            <Label
+                Style="{StaticResource TitleLabel}"
+                Text="Home"
+                VerticalOptions="Center" />
 
-            <Image Margin="5,0,0,0" Source="logo_long_white.png" />
-            <!--<Button
+        -->
+        <!--<Image Margin="5,0,0,0" Source="logo_long_white.png" />-->
+        <!--<Button
                 Grid.Column="2"
                 Command="{Binding GoToLoginCommand}"
                 HorizontalOptions="End"
@@ -58,38 +69,36 @@
                 Text="Login"
                 VerticalOptions="Fill" />-->
 
-            <!--<Button
+        <!--<Button
                 Grid.Column="1"
                 Command="{Binding GoToLoginCommand}"
                 Text="Profile" />-->
-        </Grid>
+        <!--
+        </Grid>-->
 
 
 
 
-
+        <!--  Widget  -->
         <Frame
-            Grid.Row="1"
+            Grid.Row="0"
             Margin="5"
-            Style="{StaticResource CardTimesheetView}">
-            <VerticalStackLayout>
-                <Label
-                    Grid.Column="0"
-                    Style="{StaticResource LargeLabel}"
-                    Text="Widget" />
-
+            Style="{StaticResource Widget}">
+            <Grid>
                 <Label
                     FontFamily="MaterialDesignIcons"
                     FontSize="50"
                     HorizontalOptions="Center"
-                    Text="{x:Static helpers:MaterialDesignIconsFonts.RocketLaunch}" />
-            </VerticalStackLayout>
+                    Text="{x:Static helpers:MaterialDesignIconsFonts.RocketLaunch}"
+                    VerticalOptions="Center" />
+            </Grid>
 
 
         </Frame>
 
+        <!--  Recents  -->
         <RefreshView
-            Grid.Row="2"
+            Grid.Row="1"
             Command="{Binding RefreshTimesheetsCommand}"
             IsRefreshing="{Binding IsRefreshing}">
             <ScrollView>
@@ -173,7 +182,9 @@
 
             </ScrollView>
         </RefreshView>
-        <Grid Grid.Row="3" VerticalOptions="Center">
+
+        <!--  Tracking  -->
+        <Grid Grid.Row="2" VerticalOptions="Center">
 
 
             <Border x:Name="SwipeMenu" Style="{StaticResource TimeTrackingCard}">
@@ -181,8 +192,16 @@
                     <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
                 </Frame.GestureRecognizers>-->
 
-                <VerticalStackLayout>
-
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
                     <!--<Picker x:Name="picker" Title="Select a mode">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
@@ -192,29 +211,49 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>-->
-                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                        <skia:SKLottieView
-                            HeightRequest="70"
-                            IsVisible="{Binding IsTimetrackingActive}"
-                            RepeatCount="-1"
-                            Source="active_animation.json"
-                            WidthRequest="70" />
-                        <Label
-                            Grid.Column="0"
-                            FontAttributes="Bold"
-                            FontSize="40"
-                            HorizontalTextAlignment="Center"
-                            Text="{Binding Time, StringFormat='{}{0:hh\\:mm}'}"
-                            VerticalOptions="Center" />
 
 
-                    </HorizontalStackLayout>
+
+
+
 
                     <!--  https://assets4.lottiefiles.com/packages/lf20_Ua4GCw5PJM.json  -->
 
 
+                    <skia:SKLottieView
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        HeightRequest="35"
+                        IsVisible="{Binding IsTimetrackingActive}"
+                        RepeatCount="-1"
+                        Source="active_animation.json"
+                        WidthRequest="70" />
+
+                    <HorizontalStackLayout
+                        Grid.RowSpan="2"
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="25"
+                            IsVisible="{Binding IsTimetrackingActive}"
+                            Text="{Binding Time, StringFormat='{}{0:hh\\:mm}'}"
+                            VerticalOptions="Center" />
+
+                        <Entry
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            IsReadOnly="True"
+                            Placeholder="Choose Favourite"
+                            Text="{Binding SelectedActivity}"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
                     <ImageButton
                         x:Name="start"
+                        Grid.RowSpan="2"
+                        Grid.Column="2"
                         ClassId="StartButton"
                         Command="{Binding StartTimeTrackingCommand}"
                         IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}"
@@ -228,6 +267,8 @@
 
                     <ImageButton
                         x:Name="stop"
+                        Grid.RowSpan="2"
+                        Grid.Column="2"
                         ClassId="StopButton"
                         Command="{Binding StopTimeTrackingCommand}"
                         IsVisible="{Binding IsTimetrackingActive}"
@@ -242,7 +283,7 @@
 
 
 
-                </VerticalStackLayout>
+                </Grid>
 
             </Border>
         </Grid>

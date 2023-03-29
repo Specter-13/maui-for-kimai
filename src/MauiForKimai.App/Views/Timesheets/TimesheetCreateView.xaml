@@ -7,7 +7,8 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels.Timesheets"
     Title="Create Timesheet"
-    x:DataType="viewmodel:TimesheetCreateViewModel">
+    x:DataType="viewmodel:TimesheetCreateViewModel"
+    Shell.TabBarIsVisible="True">
 
 
     <ContentPage.Resources>

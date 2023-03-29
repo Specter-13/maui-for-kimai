@@ -11,7 +11,19 @@
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     x:DataType="viewmodel:TimesheetFavouritesListViewModel"
-    Shell.NavBarIsVisible="False">
+    Shell.NavBarIsVisible="True">
+
+    <Shell.TitleView>
+        <Grid>
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="Timesheets"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
 
     <ContentPage.Resources>
         <ResourceDictionary>

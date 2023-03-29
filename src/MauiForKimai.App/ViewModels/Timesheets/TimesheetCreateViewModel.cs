@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
-using MauiForKimai.ViewModels.Activity;
 using MauiForKimai.Views.Timesheets;
 using MauiForKimai.Wrappers;
 using System;
@@ -68,14 +67,6 @@ public partial class TimesheetCreateViewModel : ViewModelBase
             //Favourite.ProjectName = ChosenProject.Name; ;
             //IsProjectNotValid = false;
         });
-    }
-
-    public override Task OnDisappearing()
-    {
-        //WeakReferenceMessenger.Default.Unregister<TimesheetProjectChooseMessage>(this);
-        //WeakReferenceMessenger.Default.Unregister<TimesheetActivityChooseMessage>(this);
-        //WeakReferenceMessenger.Default.Unregister<TimesheetCustomerChooseMessage>(this);
-        return base.OnDisappearing();
     }
 
 
@@ -179,7 +170,8 @@ public partial class TimesheetCreateViewModel : ViewModelBase
         //Timesheet.HourlyRate = 0;
         //Timesheet.P
 
-        WeakReferenceMessenger.Default.Send(new TimesheetStartMessage(Timesheet));
+        var wrapper = new TimesheetTimetrackingWrapper(Timesheet,ChosenActivity.Name,ChosenProject.Name);
+        WeakReferenceMessenger.Default.Send(new TimesheetStartMessage(wrapper));
         //WeakReferenceMessenger.Default.Send
         await Navigation.NavigateTo("..");
 

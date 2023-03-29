@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using MauiForKimai.Messenger;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,8 +14,20 @@ public partial class TimesheetFavouritesListViewModel : ViewModelBase
     public TimesheetFavouritesListViewModel(IRoutingService rs, ILoginService ls, IFavouritesTimesheetService fts) : base(rs, ls)
     {
         _favouritesTimesheetService = fts;
+        RegisterMessages();
     }
 
+
+
+    private void RegisterMessages()
+	{ 
+		 WeakReferenceMessenger.Default.Register<TimesheetFavouriteCreateMessage>(this, async (r, m) =>
+        {
+            Favourites.Insert(0,m.Value);
+            //Chosen = m.Value;
+            
+        });
+	}
 
     [ObservableProperty]
     public TimesheetFavouritesListModel chosen;
@@ -35,24 +49,8 @@ public partial class TimesheetFavouritesListViewModel : ViewModelBase
     [RelayCommand]
     async Task AddNew()
     { 
-
         var route = base.routingService.GetRouteByViewModel<TimesheetFavouritesCreateViewModel>();
 		await Navigation.NavigateTo(route);
-        //var entity = new TimesheetFavouriteEntity
-        //{
-        //    Name = "UiCreation",
-        //    ActivityId = 1,
-        //    ActivityName = "Activity",
-        //    ProjectId = 1,
-        //    ProjectName = "Project",
-        //    Exported=null,
-        //    Billable = null,
-        //    FixedRate= null,
-        //    HourlyRate= null,
-        //};
-        //var listModel = (TimesheetFavouritesListModel) await _favouritesTimesheetService.Create(entity);
-
-        //Favourites.Insert(0,listModel);
     }
 
     [RelayCommand]
@@ -62,17 +60,10 @@ public partial class TimesheetFavouritesListViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    async Task UnsetChosen(TimesheetFavouritesListModel model)
+    async Task UnsetChosen()
     { 
        Chosen = null;
     }
-
-    
-    //[RelayCommand]
-    //async Task UnsetChosen(TimesheetFavouritesListModel model)
-    //{ 
-    //   Chosen = null;
-    //}
 
 
 }

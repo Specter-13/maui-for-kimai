@@ -1,9 +1,7 @@
 ﻿
 using MauiForKimai.ViewModels;
-using MauiForKimai.ViewModels.Activity;
 using MauiForKimai.ViewModels.Timesheets;
 using MauiForKimai.Views;
-using MauiForKimai.Views.Activity;
 using MauiForKimai.Views.Timesheets;
 using System;
 using System.Collections.Generic;

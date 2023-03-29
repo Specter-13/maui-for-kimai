@@ -18,7 +18,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="8*" />
+            <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
         <ActivityIndicator
             Grid.Row="0"

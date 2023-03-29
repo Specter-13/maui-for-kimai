@@ -57,7 +57,7 @@
         <Entry
             IsReadOnly="True"
             Placeholder="Select Activity"
-            Text="{Binding ChosenProject.Name}">
+            Text="{Binding ChosenActivity.Name}">
             <Entry.GestureRecognizers>
 
                 <TapGestureRecognizer Command="{Binding ShowActivityChooseViewCommand}" />
@@ -65,13 +65,15 @@
             </Entry.GestureRecognizers>
         </Entry>
 
-        <Label Text="Activity" />
-        <Entry Text="{Binding Favourite.ActivityName}" />
+
 
         <Label Text="Description" />
         <Entry Text="{Binding Favourite.Description}" />
 
         <Label Text="Tags" />
         <Entry Text="{Binding Favourite.Tags}" />
+
+
+        <Button Command="{Binding CreateCommand}" Text="Create" />
     </VerticalStackLayout>
 </mvvm:TinyView>

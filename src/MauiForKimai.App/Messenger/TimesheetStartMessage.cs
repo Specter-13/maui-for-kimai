@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
+using MauiForKimai.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MauiForKimai.Messenger;
 
-public class TimesheetStartMessage : ValueChangedMessage<TimesheetEditForm>
+public class TimesheetStartMessage : ValueChangedMessage<TimesheetTimetrackingWrapper>
 {
-    public TimesheetStartMessage(TimesheetEditForm value) : base(value)
+    public TimesheetStartMessage(TimesheetTimetrackingWrapper value) : base(value)
     {
     }
 }

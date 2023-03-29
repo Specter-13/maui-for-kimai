@@ -60,7 +60,7 @@
                             Margin="10"
                             Padding="10"
                             HeightRequest="40"
-                            Style="{StaticResource CardTimesheetView}">
+                            Style="{StaticResource ChooseItemCard}">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ChooseItemViewModel}}, Path=ItemTappedCommand}" CommandParameter="{Binding .}" />
                             </Frame.GestureRecognizers>

@@ -40,11 +40,13 @@ public partial class HomeViewModel : ViewModelBase
 	{ 
 		 WeakReferenceMessenger.Default.Register<TimesheetStartMessage>(this, async (r, m) =>
         {
-            var timesheetEditForm = m.Value;
-			await StartTimesheet(timesheetEditForm);
+            SelectedActivity = m.Value.ActivityName;
+			await StartTimesheet(m.Value.EditForm);
         });
 	}
 
+	[ObservableProperty]
+	string selectedActivity;
 
 	private async Task StartTimesheet(TimesheetEditForm form)
     { 
@@ -122,6 +124,7 @@ public partial class HomeViewModel : ViewModelBase
 	[RelayCommand]
 	async Task StopTimeTracking()
 	{	
+		SelectedActivity = null;
 		await timesheetService.StopActive(ActiveTimesheet.Id);
 		_timer.Stop();
 		IsTimetrackingActive = false;
@@ -188,12 +191,14 @@ public partial class HomeViewModel : ViewModelBase
 		if(activeTimesheet != null)
 		{
 			ActiveTimesheet = activeTimesheet.ToTimesheetActiveModel();
+			SelectedActivity = activeTimesheet.Activity.Name;
 			IsTimetrackingActive = true;
 			_seconds = ActiveTimesheet.Duration;
 			_timer.Start();
 		}
 		else
 		{
+			SelectedActivity = null;
 			IsTimetrackingActive = false;
 			_timer.Stop();
 			_seconds = 0;

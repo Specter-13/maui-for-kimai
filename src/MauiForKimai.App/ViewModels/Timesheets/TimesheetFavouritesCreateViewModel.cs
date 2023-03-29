@@ -11,9 +11,10 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ViewModels;
 public partial class TimesheetFavouritesCreateViewModel : ViewModelBase
 {
-    public TimesheetFavouritesCreateViewModel(IRoutingService rs, ILoginService ls) : base(rs, ls)
+        private readonly IFavouritesTimesheetService _favouritesTimesheetService;
+    public TimesheetFavouritesCreateViewModel(IRoutingService rs, ILoginService ls, IFavouritesTimesheetService fts) : base(rs, ls)
     {
-       
+       _favouritesTimesheetService = fts;
         RegisterMessages();
     }
 
@@ -42,40 +43,13 @@ public partial class TimesheetFavouritesCreateViewModel : ViewModelBase
                 ChosenActivity = activity;
             }
 
-
-
-            //ChosenProject = m.Value;
-            //Favourite.ProjectId = ChosenProject.Id; ;
-            //Favourite.ProjectName = ChosenProject.Name; ;
-            //IsProjectNotValid = false;
         });
 
-        //WeakReferenceMessenger.Default.Register<TimesheetActivityChooseMessage>(this, (r, m) =>
-        //{
-        //    ChosenActivity = m.Value;
-        //    Timesheet.Activity = ChosenActivity.Id;
-        //    IsActivityNotValid = false;
-        //});
-
-        //WeakReferenceMessenger.Default.Register<ChooseItemWrapper>(this, (r, m) =>
-        //{
-        //    ChosenCustomer = (CustomerListModel)m.ChooseItem;
-        //    Favourite.CustomerName = ChosenCustomer.Name;
-        //    // validation, that user never pick project, which customer do not contain
-        //    if(ChosenProject != null) ChosenProject = null;
-        //});
     }
 
-    public override Task OnDisappearing()
-    {
-        //WeakReferenceMessenger.Default.Unregister<ItemChooseMessage>(this);
-        //WeakReferenceMessenger.Default.Unregister<TimesheetActivityChooseMessage>(this);
-        //WeakReferenceMessenger.Default.Unregister<TimesheetCustomerChooseMessage>(this);
-        return base.OnDisappearing();
-    }
 
     [ObservableProperty]
-    public TimesheetFavouriteEntity favourite;
+    public TimesheetFavouriteEntity favourite = new();
 
     [ObservableProperty]
     CustomerListModel chosenCustomer = new();
@@ -89,10 +63,6 @@ public partial class TimesheetFavouritesCreateViewModel : ViewModelBase
     [RelayCommand]
     async Task ShowProjectChooseView()
     {
-        //var route = routingService.GetRouteByViewModel<ProjecChooseFavouriteViewModel>();
-        //ChosenCustomer.Mode = ChooseTimesheetMode.Favourite;
-        //await Navigation.NavigateTo(route,ChosenCustomer);
-
         var route = routingService.GetRouteByViewModel<ProjectChooseFavouriteViewModel>();
         var wrapper = new ChooseItemWrapper(ChosenProject,ChooseItemMode.Favourite);
         wrapper.ChosenCustomerId = ChosenCustomer.Id;
@@ -102,7 +72,7 @@ public partial class TimesheetFavouritesCreateViewModel : ViewModelBase
     [RelayCommand]
     async Task ShowActivityChooseView()
     {
-        var route = routingService.GetRouteByViewModel<CustomerChooseTimesheetViewModel>();
+        var route = routingService.GetRouteByViewModel<CustomerChooseFavouriteViewModel>();
         var wrapper = new ChooseItemWrapper(ChosenActivity,ChooseItemMode.Favourite);
         wrapper.ChosenProjectId = ChosenProject.Id;
         await Navigation.NavigateTo(route, wrapper);
@@ -114,6 +84,19 @@ public partial class TimesheetFavouritesCreateViewModel : ViewModelBase
         var route = routingService.GetRouteByViewModel<CustomerChooseFavouriteViewModel>();
         var wrapper = new ChooseItemWrapper(ChosenCustomer,ChooseItemMode.Favourite);
         await Navigation.NavigateTo(route, wrapper);
+    }
+
+    [RelayCommand]
+    async Task Create()
+    {
+        Favourite.CustomerName = ChosenCustomer.Name;
+        Favourite.ActivityId = ChosenActivity.Id;
+        Favourite.ActivityName = ChosenActivity.Name;
+        Favourite.ProjectName = ChosenProject.Name;
+        Favourite.ProjectId = ChosenProject.Id;
+        var created = (TimesheetFavouritesListModel) await _favouritesTimesheetService.Create(Favourite);
+        WeakReferenceMessenger.Default.Send(new TimesheetFavouriteCreateMessage(created));
+        await Navigation.NavigateTo("..");
     }
 
 }

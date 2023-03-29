@@ -46,24 +46,20 @@ public partial class ChooseItemViewModel : ViewModelBase
             _mode = (int)wrapper.Mode;
             if(wrapper.ChooseItem is CustomerListModel)
             { 
-                //ChosenCustomer = customer;
                 PageLabel = "Select customer";
                 await GetCustomers();
             }
 
             if(wrapper.ChooseItem is ProjectListModel)
             { 
-                //ChosenCustomer = customer;
                 PageLabel = "Select Project";
                 await GetProjects(wrapper.ChosenCustomerId);
             }
 
             if(wrapper.ChooseItem is ActivityListModel)
             { 
-                //ChosenCustomer = customer;
                 PageLabel = "Select Activity";
                 await GetActivities(wrapper.ChosenProjectId);
-                //await GetCustomers();
             }
         }
 
@@ -94,8 +90,6 @@ public partial class ChooseItemViewModel : ViewModelBase
     [RelayCommand]
     async Task ItemTapped(IChooseItem item)
     {
-        //SelectedProject = model;
-
         var wrapper = new ChooseItemWrapper(item,ChooseItemMode.Favourite);
         WeakReferenceMessenger.Default.Send<ItemChooseMessage,int>(new ItemChooseMessage(wrapper), _mode);
         await Navigation.NavigateTo("..");
@@ -151,7 +145,7 @@ public partial class ChooseItemViewModel : ViewModelBase
 
         ICollection<ActivityCollection> activities;
 
-        if(chosenProjectId != null)
+        if(chosenProjectId != 0)
         { 
            activities = await _activityService.GetActivitiesByProject(chosenProjectId);  
         }
@@ -182,6 +176,34 @@ public partial class ActivityChooseFavouriteViewModel : ChooseItemViewModel
 public partial class ActivityChooseTimesheetViewModel : ChooseItemViewModel
 {
     public ActivityChooseTimesheetViewModel(IRoutingService rs, ILoginService ls, ICustomerService customerService, IActivityService activityService, IProjectService projectService) : base(rs, ls, customerService, activityService, projectService)
+    {
+    }
+}
+
+public partial class CustomerChooseFavouriteViewModel : ChooseItemViewModel
+{
+    public CustomerChooseFavouriteViewModel(IRoutingService rs, ILoginService ls, ICustomerService customerService, IActivityService activityService, IProjectService projectService) : base(rs, ls, customerService, activityService, projectService)
+    {
+    }
+}
+
+public partial class CustomerChooseTimesheetViewModel : ChooseItemViewModel
+{
+    public CustomerChooseTimesheetViewModel(IRoutingService rs, ILoginService ls, ICustomerService customerService, IActivityService activityService, IProjectService projectService) : base(rs, ls, customerService, activityService, projectService)
+    {
+    }
+}
+
+public partial class ProjectChooseFavouriteViewModel : ChooseItemViewModel
+{
+    public ProjectChooseFavouriteViewModel(IRoutingService rs, ILoginService ls, ICustomerService customerService, IActivityService activityService, IProjectService projectService) : base(rs, ls, customerService, activityService, projectService)
+    {
+    }
+}
+
+public partial class ProjectChooseTimesheetViewModel : ChooseItemViewModel
+{
+    public ProjectChooseTimesheetViewModel(IRoutingService rs, ILoginService ls, ICustomerService customerService, IActivityService activityService, IProjectService projectService) : base(rs, ls, customerService, activityService, projectService)
     {
     }
 }

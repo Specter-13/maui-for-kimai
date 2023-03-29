@@ -97,9 +97,6 @@
 	  <MauiXaml Update="Views\Servers\ServersListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Activity\ActivityChooseView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\Reports\ReportsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -151,6 +148,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="ViewModels\Activity\" />
+	  <Folder Include="ViewModels\Customer\" />
+	  <Folder Include="ViewModels\Projects\" />
+	  <Folder Include="Views\Activity\" />
 	  <Folder Include="Views\Customer\" />
 	  <Folder Include="Views\Projects\" />
 	</ItemGroup>

@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
-using MauiForKimai.Wrappers;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.Messenger;
-public class TimesheetCustomerChooseMessage : ValueChangedMessage<ChooseItemWrapper>
+
+public class TimesheetFavouriteCreateMessage : ValueChangedMessage<TimesheetFavouritesListModel>
 {
-    public TimesheetCustomerChooseMessage(ChooseItemWrapper value) : base(value)
+    public TimesheetFavouriteCreateMessage(TimesheetFavouritesListModel value) : base(value)
     {
     }
 }
