@@ -6,7 +6,8 @@
 
     <Color x:Key="AccentColor">#2069e0</Color>
 
-    <Color x:Key="AccentTextColorLight">#FFFFFF</Color>
+    <!--<Color x:Key="AccentTextColorLight">#FFFFFF</Color>-->
+    <Color x:Key="AccentTextColorLight">#E0E1DD</Color>
     <Color x:Key="AccentTextColorDark">#1A1A1B</Color>
 
     <Color x:Key="AccentColorDanger">#8F2E2F</Color>

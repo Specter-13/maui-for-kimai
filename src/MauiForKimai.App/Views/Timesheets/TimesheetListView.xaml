@@ -26,94 +26,36 @@
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
             VerticalOptions="Center" />
-        <!--<ScrollView Grid.Row="1">-->
+        <ScrollView Grid.Row="1">
 
 
-        <CollectionView
-            Grid.Row="1"
-            ItemsSource="{Binding Timesheets}"
-            RemainingItemsThreshold="2"
-            RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
-            VerticalScrollBarVisibility="Always">
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Timesheets}">
 
-            <CollectionView.Header>
-                <ContentView Padding="10">
-                    <Label Style="{StaticResource LargeLabel}">Timesheets</Label>
-                </ContentView>
-            </CollectionView.Header>
+                <CollectionView.Header>
+                    <ContentView Padding="10">
+                        <Label Style="{StaticResource LargeLabel}">Timesheets</Label>
+                    </ContentView>
+                </CollectionView.Header>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="modelapi:TimesheetCollectionExpanded">
-                    <Grid Padding="10,5">
-                        <Frame Style="{StaticResource RecentTimesheetCard}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:TimesheetListItemModel">
+                        <controls:TimesheetListItemControl Title="{Binding Date}" Timesheet="{Binding .}" />
+                    </DataTemplate>
 
-                            <!--<Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=TimesheetOnTapCommand}" CommandParameter="{Binding .}" />
-                            </Frame.GestureRecognizers>-->
+                </CollectionView.ItemTemplate>
 
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1.3*" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Style="{StaticResource MediumLabel}"
-                                    Text="{Binding Activity.Name}" />
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    Style="{StaticResource SmallLabel}"
-                                    Text="{Binding Project.Name}" />
-                                <Label
-                                    Grid.Row="2"
-                                    Grid.Column="0"
-                                    Style="{StaticResource SmallLabel}"
-                                    Text="{Binding Project.Customer.Name}" />
+                <CollectionView.Footer>
+                    <ContentView Padding="10">
+                        <Button Command="{Binding LoadMoreCommand}" Text="Load more..." />
+                        <!--<Label Style="{StaticResource LargeLabel}">Timesheets</Label>-->
+                    </ContentView>
+                </CollectionView.Footer>
 
-                                <!--<Label
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    Style="{StaticResource SmallLabel}"
-                                    Text="{Binding Date}" />-->
-                                <Label
-                                    Grid.Row="2"
-                                    Grid.Column="1"
-                                    Style="{StaticResource LargeLabel}"
-                                    Text="{Binding Duration}" />
-
-
-                                <Button
-                                    Grid.Row="0"
-                                    Grid.Column="2"
-                                    HorizontalOptions="End"
-                                    Style="{StaticResource Key=RecentRestartButton}">
-                                    <Button.ImageSource>
-                                        <FontImageSource
-                                            FontFamily="MaterialDesignIcons"
-                                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.PlayOutline}"
-                                            Size="25" />
-                                    </Button.ImageSource>
-                                </Button>
-                            </Grid>
-                        </Frame>
-                    </Grid>
-                    <!--<controls:TimesheetListItemControl ="{Binding .}" />-->
-                </DataTemplate>
-
-            </CollectionView.ItemTemplate>
-
-        </CollectionView>
+            </CollectionView>
 
 
 
-        <!--</ScrollView>-->
+        </ScrollView>
     </Grid>
 
 </mvvm:TinyView>

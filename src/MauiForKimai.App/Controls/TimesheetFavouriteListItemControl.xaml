@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MauiForKimai.Controls.TimesheetFavouriteListItemControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    x:Name="TimesheetItemControl"
+    x:DataType="model:TimesheetFavouritesListModel">
+
+    <Frame Style="{StaticResource FavouritesTimesheetCard}">
+
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TimesheetFavouritesListViewModel}}, Path=FavouriteTappedCommand}" CommandParameter="{Binding .}" />
+        </Frame.GestureRecognizers>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="7*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.RowSpan="3"
+                Grid.Column="0"
+                Margin="10"
+                BackgroundColor="Transparent"
+                HorizontalOptions="End"
+                Style="{StaticResource Key=RecentRestartButton}">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialDesignIcons"
+                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.Star}"
+                        Size="30" />
+                </Button.ImageSource>
+            </Button>
+
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                Style="{StaticResource MediumLabel}"
+                Text="{Binding Name}" />
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                Style="{StaticResource SmallLabel}"
+                Text="{Binding ActivityName}" />
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                Style="{StaticResource SmallLabel}"
+                Text="{Binding ProjectName}" />
+
+            <Button
+                Grid.RowSpan="3"
+                Grid.Column="2"
+                BackgroundColor="Transparent">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialDesignIcons"
+                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.DotsHorizontal}"
+                        Size="22" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button
+                Grid.RowSpan="3"
+                Grid.Column="3"
+                BackgroundColor="Transparent"
+                HorizontalOptions="End"
+                Style="{StaticResource Key=RecentRestartButton}">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialDesignIcons"
+                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
+                        Size="30" />
+                </Button.ImageSource>
+            </Button>
+
+
+
+        </Grid>
+
+    </Frame>
+</ContentView>

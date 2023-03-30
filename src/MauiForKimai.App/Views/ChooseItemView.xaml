@@ -57,7 +57,7 @@
                     <DataTemplate x:DataType="imodel:IChooseItem">
 
                         <Frame
-                            Margin="10"
+                            Margin="7"
                             Padding="10"
                             HeightRequest="40"
                             Style="{StaticResource ChooseItemCard}">

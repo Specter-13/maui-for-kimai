@@ -59,6 +59,45 @@ public static class ApiModelsExtensions
             Duration = TimeSpan.FromSeconds(timesheet.Duration.Value).ToString(@"hh\:mm")
         };
     }
+
+
+    public static TimesheetListItemModel ToTimesheetListItemModel(this TimesheetCollectionExpanded timesheet)
+    { 
+        return new TimesheetListItemModel
+        { 
+            Id = timesheet.Id.Value,
+           
+            ActivityName = timesheet.Activity.Name,
+            ProjectName = timesheet.Project.Name,
+            CustomerName = timesheet.Project.Customer.Name,
+            Date = timesheet.Begin.Date.ToShortDateString(),
+            Duration = TimeSpan.FromSeconds(timesheet.Duration.Value).ToString(@"hh\:mm"),
+
+            ActivityId= timesheet.Activity.Id.Value,
+            ProjectId = timesheet.Project.Id.Value,
+            Tags =  timesheet.Tags.Any() ? string.Join(",", timesheet.Tags) : null,
+            Description = timesheet.Description,
+            FixedRate = timesheet.Rate,
+            Exported = timesheet.Exported,
+            Billable = timesheet.Billable,
+          
+        };
+    }
+
+    public static TimesheetEditForm ToTimesheetEditFormRegularUser(this TimesheetListItemModel timesheet)
+    { 
+        return new TimesheetEditForm
+        { 
+            //From must be set manually to actual time
+            
+            Activity = timesheet.ActivityId,
+            Project = timesheet.ProjectId,
+            Tags =  string.Join(",", timesheet.Tags),
+            Description = timesheet.Description,
+
+        };
+    }
+
  
     private static double GetDuration(DateTimeOffset begin)
     {

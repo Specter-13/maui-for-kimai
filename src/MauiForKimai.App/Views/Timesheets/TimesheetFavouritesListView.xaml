@@ -169,7 +169,8 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:TimesheetFavouritesListModel">
 
-                        <Frame Style="{StaticResource FavouritesTimesheetCard}">
+                        <controls:TimesheetFavouriteListItemControl Timesheet="{Binding .}" />
+                        <!--<Frame Style="{StaticResource FavouritesTimesheetCard}">
 
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TimesheetFavouritesListViewModel}}, Path=FavouriteTappedCommand}" CommandParameter="{Binding .}" />
@@ -251,7 +252,7 @@
 
                             </Grid>
 
-                        </Frame>
+                        </Frame>-->
 
                     </DataTemplate>
 

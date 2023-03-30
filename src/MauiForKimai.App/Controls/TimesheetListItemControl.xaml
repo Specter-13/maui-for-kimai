@@ -3,28 +3,81 @@
     x:Class="MauiForKimai.Controls.TimesheetListItemControl"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:model="clr-namespace:MauiForKimai.ApiClient;assembly=MauiForKimai.ApiClient"
-    x:Name="TimesheetListItem">
-    <Grid Padding="10">
-        <!--<Frame BackgroundColor="SlateGrey" HeightRequest="125">
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    x:Name="TimesheetItemControl"
+    x:DataType="model:TimesheetListItemModel">
 
-        -->
-        <!--<Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=TimesheetOnTapCommand}" CommandParameter="{Binding .}" />
-            </Frame.GestureRecognizers>-->
-        <!--
-            <Grid RowDefinitions=".5*,.5*">
-                <Label
-                    Grid.Row="0"
-                    BindingContext="{x:Reference TimesheetListItem}"
-                    Style="{StaticResource LargeLabel}"
-                    Text="{Binding Timesheet.Activity.Name}" />
-                <Label
-                    Grid.Row="1"
-                    BindingContext="{x:Reference TimesheetListItem}"
-                    Style="{StaticResource MediumLabel}"
-                    Text="{Binding Timesheet.Duration}" />
-            </Grid>
-        </Frame>-->
-    </Grid>
+    <VerticalStackLayout Padding="5,1,5,1">
+        <Label
+            x:Name="Day"
+            Padding="5,0,0,0"
+            Style="{StaticResource MicroLabel}"
+            TextColor="Grey" />
+        <Grid>
+            <Frame Style="{StaticResource TimesheetListCard}">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=TimesheetOnTapCommand}" CommandParameter="{Binding .}" />
+                </Frame.GestureRecognizers>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource MediumLabel}"
+                        Text="{Binding ActivityName}"
+                        VerticalOptions="Start" />
+
+                    <Button
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=StartRecentTimesheetCommand}"
+                        CommandParameter="{Binding .}"
+                        HorizontalOptions="End"
+                        Style="{StaticResource Key=RecentRestartButton}"
+                        VerticalOptions="Start">
+                        <Button.ImageSource>
+                            <FontImageSource
+                                FontFamily="MaterialDesignIcons"
+                                Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
+                                Size="25" />
+                        </Button.ImageSource>
+                    </Button>
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Style="{StaticResource MicroLabel}"
+                        Text="{Binding ProjectName}" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{StaticResource MicroLabel}"
+                        Text="{Binding CustomerName}" />
+
+                    <Label
+                        Grid.RowSpan="3"
+                        Grid.Column="1"
+                        HorizontalOptions="EndAndExpand"
+                        Style="{StaticResource MediumLabel}"
+                        Text="{Binding Duration}"
+                        VerticalOptions="EndAndExpand" />
+
+
+
+                </Grid>
+            </Frame>
+        </Grid>
+    </VerticalStackLayout>
 </ContentView>

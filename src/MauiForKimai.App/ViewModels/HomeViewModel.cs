@@ -86,17 +86,18 @@ public partial class HomeViewModel : ViewModelBase
 
 	public override async Task OnAppearing()
 	{
-		IsBusy = true;
+		//IsBusy = true;
 		// Connection to internet is available
 		await Refresh();
-		IsBusy = false;
+		//IsBusy = false;
 	}
 
 
 	//Properties
 	[ObservableProperty]
 	private TimesheetActiveModel activeTimesheet;
-	public ObservableCollection<TimesheetRecentListModel> RecentTimesheets {get;set; } = new();
+	public ObservableCollection<TimesheetListItemModel> RecentTimesheets {get;set; } = new();
+	public ObservableCollection<TimesheetListItemGroupModel> RecentGroupedTimesheets { get; private set; } = new ObservableCollection<TimesheetListItemGroupModel>();
 
 	[ObservableProperty]
 	bool isTimetrackingActive;
@@ -140,6 +141,21 @@ public partial class HomeViewModel : ViewModelBase
 		await Navigation.NavigateTo(route);
 	}
 
+	[RelayCommand]
+	async Task StartRecentTimesheet(TimesheetListItemModel timesheet)
+	{	
+		if(IsTimetrackingActive)
+		{ 
+			await Toast.Make("There is already active timesheet!", ToastDuration.Short, 14).Show();
+			return;
+		}
+
+		var editForm = timesheet.ToTimesheetEditFormRegularUser();
+		SelectedActivity = timesheet.ActivityName;
+		editForm.Begin = new DateTimeOffset(DateTime.Now,_loginService.GetUserTimeOffset());
+		await StartTimesheet(editForm);
+	}
+
 	
 	[RelayCommand]
 	async Task RefreshTimesheets()
@@ -157,13 +173,31 @@ public partial class HomeViewModel : ViewModelBase
 		RecentTimesheets.Clear();
 		foreach(var timesheet in timeheets)
 		{ 
-			RecentTimesheets.Add(timesheet.ToTimesheetRecentListModel());
+			RecentTimesheets.Add(timesheet.ToTimesheetListItemModel());
 		}
 
     }
 
+  //  private Task GetTimesheestByDateGroup()
+  //  {
+		//var timeheets = (await timesheetService.GetTenRecentTimesheetsAsync()).ToObservableCollection();
+
+		//RecentGroupedTimesheets.Clear();
+		//var todayTimesheets = new List<TimesheetListItemModel>();
+		//var olderTimesheets = new List<TimesheetListItemModel>();
+		//foreach(var timesheet in timeheets)
+		//{ 
+		//	if(timesheet.Begin.Date == DateTime.Today)
+		//	{
+		//		todayGroup.Add(timesheet.ToTimesheetListItemModel());
+		//	}
+		//	RecentTimesheets.Add(timesheet.ToTimesheetListItemModel());
+		//}
+
+  //  }
+
 	[RelayCommand]
-    async Task TimesheetOnTap(TimesheetRecentListModel currentTimesheet)
+    async Task TimesheetOnTap(TimesheetListItemModel currentTimesheet)
     {
 		var x = 10;
 		var z = currentTimesheet;

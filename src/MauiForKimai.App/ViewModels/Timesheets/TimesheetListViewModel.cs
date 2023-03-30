@@ -18,24 +18,15 @@ public partial class TimesheetListViewModel : ViewModelBase
 
     }
 
-    //public override async Task OnAppearing()
-    //{
-    //    IsBusy = true;
-    //    var timesheets = await _timesheetService.GetTimesheetsIncrementalyAsync(page, 20);
+    public override async Task Initialize()
+    {
+        await LoadMore();
+        //return base.OnAppearing();
+    }
 
-    //    Timesheets.Clear();
-    //    foreach (var item in timesheets)
-    //    {
-    //        Timesheets.Add(item);
-    //    }
-    //    page = 1;
-    //    IsBusy = false;
-    //    //return base.OnAppearing();
-    //}
+    public ObservableCollection<TimesheetListItemModel> Timesheets { get; set;} = new();
 
-    public ObservableCollection<TimesheetCollectionExpanded> Timesheets { get; set;} = new();
-
-    private int page = 0;
+    private int page = 1;
     private bool isFullyLoaded;
     [RelayCommand]
     async Task LoadMore()
@@ -47,10 +38,10 @@ public partial class TimesheetListViewModel : ViewModelBase
         page += 1;
         try
         {
-            var timesheets = await _timesheetService.GetTimesheetsIncrementalyAsync(page,20);
+            var timesheets = await _timesheetService.GetTimesheetsIncrementalyAsync(page,10);
             foreach (var item in timesheets)
             {
-                Timesheets.Add(item);
+                Timesheets.Add(item.ToTimesheetListItemModel());
             }
         }
         catch (KiamiApiException)

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using MauiForKimai.Interfaces;
 using MauiForKimai.Messenger;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,16 @@ public partial class TimesheetFavouritesListViewModel : ViewModelBase
             //Chosen = m.Value;
             
         });
-	}
+
+        // Register the receiver in a module
+        //WeakReferenceMessenger.Default.Register<MyViewModel, LoggedInUserRequestMessage>(this, (r, m) =>
+        //{
+        //    // Assume that "CurrentUser" is a private member in our viewmodel.
+        //    // As before, we're accessing it through the recipient passed as
+        //    // input to the handler, to avoid capturing "this" in the delegate.
+        //    m.Reply(r.CurrentUser);
+        //});
+    }
 
     [ObservableProperty]
     public TimesheetFavouritesListModel chosen;

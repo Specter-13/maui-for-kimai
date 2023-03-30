@@ -38,44 +38,51 @@
 
     <Style x:Key="TimetrackingButton" TargetType="ImageButton">
         <Setter Property="Aspect" Value="AspectFill" />
-        <Setter Property="HeightRequest" Value="35" />
-        <Setter Property="WidthRequest" Value="35" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="WidthRequest" Value="50" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="CenterAndExpand" />
 
     </Style>
 
     <!--  Cards  -->
-    <Style x:Key="Widget" TargetType="Frame">
+
+    <Style x:Key="BaseCard" TargetType="Frame">
         <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
-        <Setter Property="Padding" Value="10" />
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
-        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="CornerRadius" Value="15" />
         <Setter Property="IsClippedToBounds" Value="True" />
     </Style>
 
-    <Style x:Key="ChooseItemCard" TargetType="Frame">
-        <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
+
+    <Style
+        x:Key="Widget"
+        BasedOn="{StaticResource BaseCard}"
+        TargetType="Frame" />
+
+    <Style
+        x:Key="ChooseItemCard"
+        BasedOn="{StaticResource BaseCard}"
+        TargetType="Frame">
         <Setter Property="Padding" Value="10" />
-        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
-        <Setter Property="CornerRadius" Value="10" />
-        <Setter Property="IsClippedToBounds" Value="True" />
     </Style>
 
-    <Style x:Key="RecentTimesheetCard" TargetType="Frame">
-        <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
+    <Style
+        x:Key="TimesheetListCard"
+        BasedOn="{StaticResource BaseCard}"
+        TargetType="Frame">
+
         <Setter Property="Padding" Value="10" />
-        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
-        <Setter Property="IsClippedToBounds" Value="True" />
-        <Setter Property="HeightRequest" Value="100" />
+        <Setter Property="HeightRequest" Value="80" />
+
     </Style>
 
-    <Style x:Key="FavouritesTimesheetCard" TargetType="Frame">
-        <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
+    <Style
+        x:Key="FavouritesTimesheetCard"
+        BasedOn="{StaticResource BaseCard}"
+        TargetType="Frame">
         <Setter Property="Padding" Value="10" />
         <Setter Property="Margin" Value="10" />
-        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
-        <Setter Property="IsClippedToBounds" Value="True" />
         <Setter Property="HeightRequest" Value="70" />
     </Style>
 
@@ -89,9 +96,15 @@
     </Style>
 
     <Style x:Key="TimeTrackingCard" TargetType="Border">
-        <Setter Property="Padding" Value="10" />
+        <Setter Property="Padding" Value="5" />
+
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
         <Setter Property="StrokeShape" Value="RoundRectangle 30,30,0,0" />
+    </Style>
+
+    <Style x:Key="TimeTrackingFavouriteCard" TargetType="Frame">
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
     </Style>
 
     <Style x:Key="InfoStatusBar" TargetType="Grid">

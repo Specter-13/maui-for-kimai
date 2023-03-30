@@ -76,6 +76,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Controls\TimesheetFavouriteListItemControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\TimesheetListItemControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
