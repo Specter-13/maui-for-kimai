@@ -197,28 +197,6 @@
 
         <!--  Tracking  -->
 
-
-        <!--<Frame
-            x:Name="SwipeMenu2"
-            Grid.Row="2"
-            Style="{StaticResource TimeTrackingFavouriteCard}">
-
-            <HorizontalStackLayout>
-                <Button
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    HorizontalOptions="End"
-                    Style="{StaticResource Key=RecentRestartButton}">
-                    <Button.ImageSource>
-                        <FontImageSource
-                            FontFamily="MaterialDesignIcons"
-                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.PlayOutline}"
-                            Size="25" />
-                    </Button.ImageSource>
-                </Button>
-            </HorizontalStackLayout>
-        </Frame>-->
-
         <Border
             x:Name="SwipeMenu"
             Grid.Row="3"

@@ -28,6 +28,7 @@ public class TimesheetListItemModel
     public string ActivityName { get; set; }
     public string ProjectName { get; set; }
     public string CustomerName { get; set; }
+    public int CustomerId { get; set; }
     public string Date { get; set; }
     public string Duration { get; set; }
 
@@ -37,6 +38,7 @@ public class TimesheetListItemModel
     public int ProjectId { get; set; }
     public DateTimeOffset Begin { get; set; }
 
+    public DateTimeOffset? End { get; set; }
     public string Tags { get; set; }
     public string Description { get; set; }
     public float? FixedRate { get; set; }

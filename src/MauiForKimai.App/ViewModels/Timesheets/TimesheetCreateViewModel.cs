@@ -6,34 +6,35 @@ using MauiForKimai.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 
 namespace MauiForKimai.ViewModels.Timesheets;
 
+
+
 public partial class TimesheetCreateViewModel : ViewModelBase
 {
     private readonly ICustomerService _customerService;
+    private readonly ITimesheetService _timesheetService;
 
-    public TimesheetCreateViewModel(IRoutingService rs,ILoginService ls, ICustomerService customerService) : base(rs, ls)
+    public TimesheetCreateViewModel(IRoutingService rs,ILoginService ls, ICustomerService customerService,ITimesheetService ts) : base(rs, ls)
     {
         _customerService = customerService;
+        _timesheetService = ts;
          RegisterMessages();
 
-         Timesheet = new TimesheetEditForm();
-        Timesheet.Begin = new DateTimeOffset(DateTime.Now);
-
-        BeginTime = Timesheet.Begin.TimeOfDay;
-        //EndTime = Timesheet.End.Value.TimeOfDay;
-
-        BeginDate = Timesheet.Begin.Date;
+         //Timesheet = new TimesheetEditForm();
+      
         //EndDate = Timesheet.End.Value.Date;
 
         Duration = (EndTime - BeginTime).ToString(@"hh\:mm\:ss");
         BeginDateString = BeginDate.ToString("dddd, dd MMMM yyyy");
 
         if(ApiStateProvider.IsTeamlead) SelectedBillableMode = "Automatic";
+        
     }
 
     private void RegisterMessages()
@@ -60,15 +61,54 @@ public partial class TimesheetCreateViewModel : ViewModelBase
                 ChosenActivity = activity;
             }
 
-
-
-            //ChosenProject = m.Value;
-            //Favourite.ProjectId = ChosenProject.Id; ;
-            //Favourite.ProjectName = ChosenProject.Name; ;
-            //IsProjectNotValid = false;
         });
     }
+    private int _id;
+    public override Task OnParameterSet()
+    {
 
+        if (NavigationParameter is TimesheetDetailWrapper wrapper)
+        {
+            _id = wrapper.Timesheet.Id;
+            PageLabel = "Edit";
+            Mode = wrapper.Mode;
+            //TODo other user!
+            var timesheetModel = wrapper.Timesheet;
+            Timesheet = timesheetModel.ToTimesheetEditFormRegularUser();
+            ChosenActivity = new ActivityListModel(timesheetModel.ActivityId,timesheetModel.ActivityName,timesheetModel.Billable.Value);
+            ChosenProject = new ProjectListModel(timesheetModel.ProjectId,timesheetModel.ProjectName,timesheetModel.CustomerId,timesheetModel.Billable.Value);
+            ChosenCustomer = new CustomerListModel(timesheetModel.CustomerId,timesheetModel.CustomerName, timesheetModel.Billable.Value );
+            EndDate = timesheetModel.End.Value.Date;
+            EndTime = timesheetModel.End.Value.TimeOfDay;
+            BeginTime = timesheetModel.Begin.TimeOfDay;
+            BeginDate = timesheetModel.Begin.Date;
+            Duration = (EndTime - BeginTime).ToString(@"hh\:mm\:ss");
+            BeginDateString = BeginDate.ToString("dddd, dd MMMM yyyy");
+
+        }
+        else if (NavigationParameter is TimesheetDetailMode mode)
+        {
+            Timesheet.Begin = new DateTimeOffset(DateTime.Now);
+            BeginTime = Timesheet.Begin.TimeOfDay;
+            BeginDate = Timesheet.Begin.Date;
+
+            PageLabel = "Start new";
+            Mode = mode;
+        }
+        else
+        { 
+            Timesheet.Begin = new DateTimeOffset(DateTime.Now);
+            BeginTime = Timesheet.Begin.TimeOfDay;
+            BeginDate = Timesheet.Begin.Date;
+            PageLabel = "Create";
+            Mode = TimesheetDetailMode.Create;
+        }
+
+        IsCreateOrEdit = Mode == TimesheetDetailMode.Edit || Mode == TimesheetDetailMode.Create;
+        return base.OnParameterSet();
+    }
+    [ObservableProperty]
+    string pageLabel;
 
     [ObservableProperty]
     string duration;
@@ -89,7 +129,7 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     TimeSpan endTime;
 
     [ObservableProperty]
-    TimesheetEditForm timesheet;
+    TimesheetEditForm timesheet = new();
 
     [ObservableProperty]
     CustomerListModel chosenCustomer = new();
@@ -112,6 +152,10 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     [ObservableProperty]
     bool isActivityNotValid;
 
+    [ObservableProperty]
+    TimesheetDetailMode mode;
+    [ObservableProperty]
+    bool isCreateOrEdit;
 
     [RelayCommand]
     async Task ShowProjectChooseView()
@@ -138,6 +182,8 @@ public partial class TimesheetCreateViewModel : ViewModelBase
         var wrapper = new ChooseItemWrapper(ChosenCustomer,ChooseItemMode.Timesheet);
         await Navigation.NavigateTo(route, wrapper);
     }
+
+  
 
     [RelayCommand]
     async Task StartTimesheet()
@@ -175,6 +221,26 @@ public partial class TimesheetCreateViewModel : ViewModelBase
         //WeakReferenceMessenger.Default.Send
         await Navigation.NavigateTo("..");
 
+    }
+
+
+    [RelayCommand]
+    async Task Cancel()
+    {
+        await Navigation.NavigateTo("..");
+    }
+
+      [RelayCommand]
+    async Task Save()
+    {
+        Timesheet.Begin = new DateTimeOffset(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds, loginService.GetUserTimeOffset());
+        Timesheet.End = new DateTimeOffset(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds, loginService.GetUserTimeOffset());
+        Timesheet.Project = ChosenProject.Id;
+        Timesheet.Activity = ChosenActivity.Id;
+
+        await _timesheetService.Update(_id,Timesheet);
+        //TODO = roles
+        await Navigation.NavigateTo("..");
     }
     //TODO - createa own validation object
     private bool Validate()

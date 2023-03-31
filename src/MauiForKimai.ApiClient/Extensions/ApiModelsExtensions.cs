@@ -70,8 +70,11 @@ public static class ApiModelsExtensions
             ActivityName = timesheet.Activity.Name,
             ProjectName = timesheet.Project.Name,
             CustomerName = timesheet.Project.Customer.Name,
+            CustomerId = timesheet.Project.Customer.Id.Value,
             Date = timesheet.Begin.Date.ToShortDateString(),
             Duration = TimeSpan.FromSeconds(timesheet.Duration.Value).ToString(@"hh\:mm"),
+            Begin = timesheet.Begin,
+            End = timesheet.End,
 
             ActivityId= timesheet.Activity.Id.Value,
             ProjectId = timesheet.Project.Id.Value,

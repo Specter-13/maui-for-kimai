@@ -76,6 +76,7 @@ public partial class HomeViewModel : ViewModelBase
 		if (isSuccessfull)
 		{
 			toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
+		    await Refresh();
 		}
 		else
 		{
@@ -84,13 +85,13 @@ public partial class HomeViewModel : ViewModelBase
 		await toast.Show();
 	}
 
-	public override async Task OnAppearing()
-	{
-		//IsBusy = true;
-		// Connection to internet is available
-		await Refresh();
-		//IsBusy = false;
-	}
+	//public override async Task OnAppearing()
+	//{
+	//	//IsBusy = true;
+	//	// Connection to internet is available
+	//	await Refresh();
+	//	//IsBusy = false;
+	//}
 
 
 	//Properties
@@ -117,8 +118,8 @@ public partial class HomeViewModel : ViewModelBase
 	[RelayCommand]
 	async Task StartTimeTracking()
 	{
-		var route = routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
-		await Navigation.NavigateTo(route);
+		var route = base.routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
+		await Navigation.NavigateTo(route,TimesheetDetailMode.Start);
 
 	}
 
@@ -199,8 +200,11 @@ public partial class HomeViewModel : ViewModelBase
 	[RelayCommand]
     async Task TimesheetOnTap(TimesheetListItemModel currentTimesheet)
     {
-		var x = 10;
-		var z = currentTimesheet;
+
+		var route = base.routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
+
+		var wrapper = new TimesheetDetailWrapper(currentTimesheet,TimesheetDetailMode.Edit);
+		await Navigation.NavigateTo(route,wrapper);
         
     }
 	// private methods

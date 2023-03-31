@@ -27,6 +27,12 @@ public partial class TimesheetListViewModel : ViewModelBase
     public ObservableCollection<TimesheetListItemModel> Timesheets { get; set;} = new();
 
     private int page = 1;
+
+    [ObservableProperty]
+    int numberOfEntries;
+
+    int numberOfFechted = 10;
+
     private bool isFullyLoaded;
     [RelayCommand]
     async Task LoadMore()
@@ -38,11 +44,13 @@ public partial class TimesheetListViewModel : ViewModelBase
         page += 1;
         try
         {
-            var timesheets = await _timesheetService.GetTimesheetsIncrementalyAsync(page,10);
+            var timesheets = await _timesheetService.GetTimesheetsIncrementalyAsync(page,numberOfFechted);
             foreach (var item in timesheets)
             {
                 Timesheets.Add(item.ToTimesheetListItemModel());
+                NumberOfEntries += 1;
             }
+            
         }
         catch (KiamiApiException)
         {

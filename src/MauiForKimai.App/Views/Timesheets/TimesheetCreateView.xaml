@@ -3,15 +3,37 @@
     x:Class="MauiForKimai.Views.Timesheets.TimesheetCreateView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:enums="clr-namespace:MauiForKimai.Core.Enums;assembly=MauiForKimai.Core"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels.Timesheets"
-    Title="Create Timesheet"
     x:DataType="viewmodel:TimesheetCreateViewModel"
     Shell.TabBarIsVisible="True">
 
 
+    <Shell.TitleView>
+        <Grid>
+
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="{Binding PageLabel}"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
     <ContentPage.Resources>
+
+        <ResourceDictionary>
+            <mct:EnumToBoolConverter x:Key="ModeConverter" />
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <mct:EnumToBoolConverter x:Key="UserRoleConverter" />
+        </ResourceDictionary>
+
+
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Red" />
         </Style>
@@ -20,65 +42,86 @@
         </Style>
     </ContentPage.Resources>
 
+
     <Grid Padding="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height=".20*" />
+            <RowDefinition Height=".05*" />
+            <RowDefinition Height=".05*" />
+            <RowDefinition Height=".05*" />
             <RowDefinition Height=".80*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height=".30*" />
-                <RowDefinition Height=".20*" />
-                <RowDefinition Height=".50*" />
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".50*" />
-                <ColumnDefinition Width=".50*" />
-            </Grid.ColumnDefinitions>
-
-            <Label
-                Grid.Row="0"
-                Grid.ColumnSpan="2"
-                HorizontalOptions="Center"
-                Style="{StaticResource LargeLabel}"
-                Text="{Binding Duration}"
-                VerticalOptions="Center" />
-
-            <Label
-                Grid.Row="1"
-                Grid.ColumnSpan="2"
-                HorizontalOptions="Center"
-                Style="{StaticResource MediumLabel}"
-                Text="{Binding BeginDateString}"
-                VerticalOptions="Center" />
-
-            <HorizontalStackLayout Grid.Row="2">
-
-                <Button
-                    Margin="10"
-                    Command="{Binding StartTimesheetCommand}"
-                    HeightRequest="40"
-                    Text="Start" />
-                <Button
-                    Margin="10"
-                    HeightRequest="40"
-                    Text="Choose template" />
-                <Button
-                    Margin="10"
-                    HeightRequest="40"
-                    Text="Cancel" />
 
 
-            </HorizontalStackLayout>
-        </Grid>
+        <!--  Header with buttons  -->
+        <Label
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="Center"
+            Style="{StaticResource LargeLabel}"
+            Text="{Binding Duration}"
+            VerticalOptions="Center" />
+
+        <Label
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="Center"
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding BeginDateString}"
+            VerticalOptions="Center" />
+
+        <HorizontalStackLayout
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Margin="10"
+            Padding="10"
+            HorizontalOptions="EndAndExpand"
+            VerticalOptions="Center">
 
 
-        <ScrollView Grid.Row="1">
+
+            <Button
+                Margin="10"
+                HeightRequest="40"
+                IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
+                Text="Delete" />
+
+            <Button
+                Margin="10"
+                Command="{Binding CancelCommand}"
+                HeightRequest="40"
+                Text="Cancel" />
+            <Button
+                Margin="10"
+                Command="{Binding StartTimesheetCommand}"
+                HeightRequest="40"
+                IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Start}}"
+                Text="Start" />
+            <Button
+                Margin="10"
+                HeightRequest="40"
+                IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Create}}"
+                Text="Create" />
+            <Button
+                Margin="10"
+                Command="{Binding SaveCommand}"
+                HeightRequest="40"
+                IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
+                Text="Save" />
+
+
+
+
+        </HorizontalStackLayout>
+
+        <ScrollView
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            Padding="10">
             <VerticalStackLayout>
 
                 <Grid>
@@ -91,14 +134,11 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
-
                     <!--  From Time  -->
                     <VerticalStackLayout Grid.Row="0">
                         <Label Text="Begin Time" />
                         <TimePicker Format="HH:mm:ss" Time="{Binding BeginTime}" />
                     </VerticalStackLayout>
-
                     <!--  From Date  -->
                     <VerticalStackLayout Grid.Row="0" Grid.Column="1">
                         <Label Text="Begin Date" />
@@ -106,22 +146,24 @@
 
                     </VerticalStackLayout>
 
-                    <!--<VerticalStackLayout Grid.Column="2" IsVisible="False">
+
+                    <VerticalStackLayout Grid.Row="1" IsVisible="{Binding IsCreateOrEdit}">
                         <Label Text="End Time" />
                         <TimePicker Format="HH:mm:ss" Time="{Binding EndTime}" />
                     </VerticalStackLayout>
 
-                    <VerticalStackLayout Grid.Column="3" IsVisible="False">
+                    <VerticalStackLayout
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        IsVisible="{Binding IsCreateOrEdit}">
                         <Label Text="End Date" />
                         <DatePicker Date="{Binding EndDate}" />
 
-                    </VerticalStackLayout>-->
+                    </VerticalStackLayout>
+
 
 
                 </Grid>
-
-
-
                 <!--  Customer  -->
                 <Label Text="Customer" />
                 <Entry
@@ -139,8 +181,6 @@
                     IsVisible="{OnIdiom Phone=False,
                                         Desktop=True}"
                     Text="Choose customer" />
-
-
                 <!--  Project  -->
                 <Label Text="Project *" />
                 <Entry
@@ -162,7 +202,6 @@
                     IsVisible="{OnIdiom Phone=False,
                                         Desktop=True}"
                     Text="Choose project" />
-
                 <!--  Activity  -->
                 <Label Text="Activity *" />
 
@@ -185,11 +224,9 @@
                     IsVisible="{OnIdiom Phone=False,
                                         Desktop=True}"
                     Text="Choose Activity" />
-
                 <!--  Description  -->
                 <Label Text="Description" />
                 <Entry Text="{Binding Timesheet.Description}" />
-
                 <!--  Tags  -->
                 <Label Text="Tags" />
                 <Entry Text="{Binding Timesheet.Tags}" />
@@ -197,6 +234,9 @@
                     IsVisible="{Binding IsTagNotValid}"
                     Style="{StaticResource NotValidLabel}"
                     Text="Tag must have at least 2 characters or be empty" />
+
+
+                <!--  ROLE DEPENDAND!  -->
                 <!--  Billable  -->
                 <Label IsVisible="{Binding ApiStateProvider.IsTeamlead}" Text="Billable" />
                 <Picker
@@ -212,7 +252,6 @@
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
-
                 <!--  Rates  -->
                 <Grid Padding="10" IsVisible="{Binding ApiStateProvider.IsAdmin}">
                     <Grid.RowDefinitions>
@@ -227,7 +266,7 @@
                         <Label Text="Fixed rate" />
                         <Entry Keyboard="Numeric" Text="{Binding Timesheet.FixedRate}">
                             <Entry.Behaviors>
-                                <toolkit:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
+                                <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
                             </Entry.Behaviors>
                         </Entry>
                     </VerticalStackLayout>
@@ -236,7 +275,7 @@
                         <Label Text="Hourly rate" />
                         <Entry Keyboard="Numeric" Text="{Binding Timesheet.HourlyRate}">
                             <Entry.Behaviors>
-                                <toolkit:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
+                                <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
                             </Entry.Behaviors>
                         </Entry>
                     </VerticalStackLayout>
@@ -251,8 +290,6 @@
                         <ColumnDefinition Width=".50*" />
                         <ColumnDefinition Width=".50*" />
                     </Grid.ColumnDefinitions>
-
-
                     <!--  Exported  -->
                     <VerticalStackLayout Grid.Column="0" IsVisible="{Binding ApiStateProvider.IsTeamlead}">
                         <Label Text="Exported" />
@@ -260,7 +297,7 @@
                     </VerticalStackLayout>
 
                 </Grid>
-
+                <!--  ROLE DEPENDAND!  -->
 
             </VerticalStackLayout>
 

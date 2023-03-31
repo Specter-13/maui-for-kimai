@@ -32,10 +32,10 @@ public class RoutingService : IRoutingService
     new("//serverlistview", typeof(ServerListView), typeof(ServerListViewModel)),
     new("//serverlistview/detail", typeof(ServerDetailView), typeof(ServerDetailViewModel)),
 
-    new("//home/createtimesheet", typeof(TimesheetCreateView), typeof(TimesheetCreateViewModel)),
-    new("//home/createtimesheet/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseTimesheetViewModel)),
-    new("//home/createtimesheet/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseTimesheetViewModel)),
-    new("//home/createtimesheet/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseTimesheetViewModel)),
+    new("//home/timesheet", typeof(TimesheetCreateView), typeof(TimesheetCreateViewModel)),
+    new("//home/timesheet/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseTimesheetViewModel)),
+    new("//home/timesheet/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseTimesheetViewModel)),
+    new("//home/timesheet/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseTimesheetViewModel)),
     
     new("//timesheets", typeof(TimesheetListView), typeof(TimesheetListViewModel)),
 };

@@ -19,6 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="10*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ActivityIndicator
             Grid.Row="0"
@@ -26,6 +27,8 @@
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
             VerticalOptions="Center" />
+
+
         <ScrollView Grid.Row="1">
 
 
@@ -33,7 +36,7 @@
 
                 <CollectionView.Header>
                     <ContentView Padding="10">
-                        <Label Style="{StaticResource LargeLabel}">Timesheets</Label>
+                        <Label Style="{StaticResource LargeLabel}">All</Label>
                     </ContentView>
                 </CollectionView.Header>
 
@@ -44,18 +47,26 @@
 
                 </CollectionView.ItemTemplate>
 
-                <CollectionView.Footer>
-                    <ContentView Padding="10">
-                        <Button Command="{Binding LoadMoreCommand}" Text="Load more..." />
-                        <!--<Label Style="{StaticResource LargeLabel}">Timesheets</Label>-->
-                    </ContentView>
-                </CollectionView.Footer>
 
             </CollectionView>
 
 
 
         </ScrollView>
+
+
+        <Grid Grid.Row="2" Padding="10,0,10,0">
+            <Button
+                BackgroundColor="Transparent"
+                Command="{Binding LoadMoreCommand}"
+                HorizontalOptions="Center"
+                Text="Load more..."
+                VerticalOptions="Center" />
+            <Label
+                HorizontalOptions="End"
+                Text="{Binding NumberOfEntries}"
+                VerticalOptions="Center" />
+        </Grid>
     </Grid>
 
 </mvvm:TinyView>
