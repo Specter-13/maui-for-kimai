@@ -248,6 +248,19 @@ public partial class TimesheetCreateViewModel : ViewModelBase
         //TODO = roles
         await Navigation.NavigateTo("..");
     }
+
+    [RelayCommand]
+    async Task Create()
+    {
+        Timesheet.Begin = TimeWrapper.BeginFull;
+        Timesheet.End = TimeWrapper.EndFull;
+        Timesheet.Project = ChosenProject.Id;
+        Timesheet.Activity = ChosenActivity.Id;
+
+        await _timesheetService.Create(Timesheet);
+        //TODO = roles
+        await Navigation.NavigateTo("..");
+    }
     //TODO - createa own validation object
     private bool Validate()
     {

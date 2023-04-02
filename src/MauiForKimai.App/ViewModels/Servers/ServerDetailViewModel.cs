@@ -33,6 +33,7 @@ public partial class ServerDetailViewModel : ViewModelBase
 
 
     private readonly IServerService _serverService;
+    private readonly IFavouritesTimesheetService _favouritesTimesheetService;
     private readonly ISecureStorageService  _secureStorageService;
     private readonly PopupSizeConstants _popupSizeConstants;
 
@@ -42,14 +43,23 @@ public partial class ServerDetailViewModel : ViewModelBase
     [ObservableProperty]
     private ServerModel server = new();
 
-    public ServerDetailViewModel(IRoutingService rs, ILoginService ls, IServerService ss, ISecureStorageService sc,PopupSizeConstants psc) : base(rs, ls)
+    public ServerDetailViewModel(IRoutingService rs, 
+        ILoginService ls, 
+        IServerService ss, 
+        ISecureStorageService sc,
+        PopupSizeConstants psc,
+        IFavouritesTimesheetService fts) : base(rs, ls)
     {
         _serverService = ss;
+        _favouritesTimesheetService = fts;
         _secureStorageService = sc;
         _popupSizeConstants = psc;
     }
 
-
+    private async Task ReinitializeDatabases()
+    {
+        await _favouritesTimesheetService.ReInit();
+    }
     public override async Task OnParameterSet()
     {
         IsBusy = true;
@@ -119,6 +129,7 @@ public partial class ServerDetailViewModel : ViewModelBase
         toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
         IsCreation = false;
         IsLoggedToThisServer = true;
+        await ReinitializeDatabases();
         WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
         await toast.Show();
         IsConnecting = false;
@@ -151,6 +162,7 @@ public partial class ServerDetailViewModel : ViewModelBase
         var isSuccess = await loginService.Login(Server);
         if(isSuccess) 
         {
+            await ReinitializeDatabases();
             await Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14).Show();
             return true;
         }

@@ -34,6 +34,7 @@
 
     <VerticalStackLayout>
 
+        <Button Command="{Binding RefreshCommand}" Text="Refresh" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />

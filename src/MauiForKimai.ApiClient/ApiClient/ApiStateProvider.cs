@@ -14,6 +14,8 @@ public partial class ApiStateProvider : ObservableObject
     public string ApiPassword {get; private set; } = string.Empty;
     public string BaseUrl {get; private set; } = string.Empty;
 
+
+    public int ServerId {get; private set; }
     public UserEntity? ActualUser {get; private set;}
 
 
@@ -29,11 +31,12 @@ public partial class ApiStateProvider : ObservableObject
     [ObservableProperty]
     public bool isAuthenticated;
 
-    public void SetAuthInfo(string token, string apiPassword, string baseUrl)
+    public void SetAuthInfo(string token, string apiPassword, string baseUrl, int serverId)
     {
         UserName = token;
         ApiPassword = apiPassword;
         BaseUrl = baseUrl;
+        ServerId = serverId;
     }
 
     public void SetLoggedUser(UserEntity user)

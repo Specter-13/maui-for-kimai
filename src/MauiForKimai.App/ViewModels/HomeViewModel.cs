@@ -124,6 +124,15 @@ public partial class HomeViewModel : ViewModelBase
 	}
 
 	[RelayCommand]
+	async Task CreateNewTimesheet()
+	{
+		var route = base.routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
+		await Navigation.NavigateTo(route,TimesheetDetailMode.Create);
+
+	}
+
+
+	[RelayCommand]
 	async Task StopTimeTracking()
 	{	
 		SelectedActivity = null;

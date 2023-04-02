@@ -145,7 +145,7 @@ public class LoginService : ILoginService
         try
         {
             _asp.Disconnect();
-            _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
+            _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url,server.Id);  
             InitializeClients(server.Url);
             var user = await _userService.GetMe();
             _asp.SetLoggedUser(user);

@@ -8,6 +8,7 @@ namespace MauiForKimai.Persistence;
 public static class Constants
 {
     
-    public const string SERVERS_DB_NAME = "servers_mauiforkimai.db";
+    public const string SERVERS_DB_NAME = "mauiforkimai_main.db";
+    //public const string SERVERS_DB_NAME = "servers_mauiforkimai.db";
     public const string FAVOURITES_DB_NAME = "favourites_mauiforkimai.db";
 }

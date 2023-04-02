@@ -57,6 +57,19 @@ public partial class TimesheetFavouritesListViewModel : ViewModelBase
     }
 
     [RelayCommand]
+    async Task Refresh()
+    { 
+       IsBusy = true;
+        var favourites = await _favouritesTimesheetService.GetAll();
+        Favourites.Clear();
+        foreach (var favourite in favourites)
+        {
+            Favourites.Add((TimesheetFavouritesListModel)favourite);
+        }
+        IsBusy = false;
+    }
+
+    [RelayCommand]
     async Task AddNew()
     { 
         var route = base.routingService.GetRouteByViewModel<TimesheetFavouritesCreateViewModel>();

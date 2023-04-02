@@ -11,15 +11,21 @@ using System.Threading.Tasks;
 namespace MauiForKimai.Persistence;
 public class ServerService : IServerService
 {
+    private ApiStateProvider _asp;
+    public ServerService(ApiStateProvider asp)
+    {
+        _asp = asp;
+    }
 
     private SQLiteAsyncConnection _db;
 
-    async Task Init()
+    public async Task Init()
     {
         if (_db is not null)
             return;
 
-         var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Constants.SERVERS_DB_NAME);
+        var name = $"maui_for_kimai_db_{_asp.ServerId}";
+        var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), name);
         _db = new SQLiteAsyncConnection(dbPath);
         var result = await _db.CreateTableAsync<ServerEntity>();
     }

@@ -24,8 +24,11 @@ public partial class TimeBeginEndWrapper : ObservableObject
         var currentTime = DateTime.Now;
         BeginTime = currentTime.TimeOfDay;
         BeginDate = currentTime.Date;
+        EndTime = currentTime.TimeOfDay;
+        EndDate = currentTime.Date;
         BeginFull = new DateTimeOffset(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds, offset);
-        //SetDuration();
+        EndFull = BeginFull;
+        BeginFullString = BeginFull.ToString("dddd, dd MMMM yyyy");
         //Duration = "00:00";
     }
 

@@ -29,31 +29,35 @@
             VerticalOptions="Center" />
 
 
-        <ScrollView Grid.Row="1">
+        <RefreshView
+            Grid.Row="1"
+            Command="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsRefreshing}">
+            <ScrollView>
 
 
-            <CollectionView Grid.Row="1" ItemsSource="{Binding Timesheets}">
+                <CollectionView Grid.Row="1" ItemsSource="{Binding Timesheets}">
 
-                <CollectionView.Header>
-                    <ContentView Padding="10">
-                        <Label Style="{StaticResource LargeLabel}">All</Label>
-                    </ContentView>
-                </CollectionView.Header>
+                    <CollectionView.Header>
+                        <ContentView Padding="10">
+                            <Label Style="{StaticResource LargeLabel}">All</Label>
+                        </ContentView>
+                    </CollectionView.Header>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:TimesheetListItemModel">
-                        <controls:TimesheetListItemControl Title="{Binding Date}" Timesheet="{Binding .}" />
-                    </DataTemplate>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:TimesheetListItemModel">
+                            <controls:TimesheetListItemControl Title="{Binding Date}" Timesheet="{Binding .}" />
+                        </DataTemplate>
 
-                </CollectionView.ItemTemplate>
-
-
-            </CollectionView>
+                    </CollectionView.ItemTemplate>
 
 
+                </CollectionView>
 
-        </ScrollView>
 
+
+            </ScrollView>
+        </RefreshView>
 
         <Grid Grid.Row="2" Padding="10,0,10,0">
             <Button
