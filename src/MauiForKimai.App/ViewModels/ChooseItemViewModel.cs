@@ -92,7 +92,7 @@ public partial class ChooseItemViewModel : ViewModelBase
     {
         var wrapper = new ChooseItemWrapper(item,ChooseItemMode.Favourite);
         WeakReferenceMessenger.Default.Send<ItemChooseMessage,int>(new ItemChooseMessage(wrapper), _mode);
-        await Navigation.NavigateTo("..");
+        await Navigation.NavigateTo("..",null);
     }
     
 

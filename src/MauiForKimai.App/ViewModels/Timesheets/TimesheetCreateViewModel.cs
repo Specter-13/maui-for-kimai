@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
+using MauiForKimai.Popups;
 using MauiForKimai.Views.Timesheets;
 using MauiForKimai.Wrappers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -19,20 +21,13 @@ public partial class TimesheetCreateViewModel : ViewModelBase
 {
     private readonly ICustomerService _customerService;
     private readonly ITimesheetService _timesheetService;
-
-    public TimesheetCreateViewModel(IRoutingService rs,ILoginService ls, ICustomerService customerService,ITimesheetService ts) : base(rs, ls)
+    private readonly PopupSizeConstants _popupSizeConstants;
+    public TimesheetCreateViewModel(IRoutingService rs,ILoginService ls, ICustomerService customerService,ITimesheetService ts, PopupSizeConstants sc) : base(rs, ls)
     {
         _customerService = customerService;
         _timesheetService = ts;
          RegisterMessages();
-
-         //Timesheet = new TimesheetEditForm();
-      
-        //EndDate = Timesheet.End.Value.Date;
-
-        Duration = (EndTime - BeginTime).ToString(@"hh\:mm\:ss");
-        BeginDateString = BeginDate.ToString("dddd, dd MMMM yyyy");
-
+        _popupSizeConstants = sc;
         if(ApiStateProvider.IsTeamlead) SelectedBillableMode = "Automatic";
         
     }
@@ -64,69 +59,66 @@ public partial class TimesheetCreateViewModel : ViewModelBase
         });
     }
     private int _id;
+
+   
     public override Task OnParameterSet()
     {
 
         if (NavigationParameter is TimesheetDetailWrapper wrapper)
         {
-            _id = wrapper.Timesheet.Id;
             PageLabel = "Edit";
+            _id = wrapper.Timesheet.Id;
+            
             Mode = wrapper.Mode;
+
             //TODo other user!
             var timesheetModel = wrapper.Timesheet;
             Timesheet = timesheetModel.ToTimesheetEditFormRegularUser();
+
             ChosenActivity = new ActivityListModel(timesheetModel.ActivityId,timesheetModel.ActivityName,timesheetModel.Billable.Value);
             ChosenProject = new ProjectListModel(timesheetModel.ProjectId,timesheetModel.ProjectName,timesheetModel.CustomerId,timesheetModel.Billable.Value);
             ChosenCustomer = new CustomerListModel(timesheetModel.CustomerId,timesheetModel.CustomerName, timesheetModel.Billable.Value );
-            EndDate = timesheetModel.End.Value.Date;
-            EndTime = timesheetModel.End.Value.TimeOfDay;
-            BeginTime = timesheetModel.Begin.TimeOfDay;
-            BeginDate = timesheetModel.Begin.Date;
-            Duration = (EndTime - BeginTime).ToString(@"hh\:mm\:ss");
-            BeginDateString = BeginDate.ToString("dddd, dd MMMM yyyy");
+
+
+            TimeWrapper = new TimeBeginEndWrapper(timesheetModel,loginService.GetUserTimeOffset());
 
         }
         else if (NavigationParameter is TimesheetDetailMode mode)
         {
-            Timesheet.Begin = new DateTimeOffset(DateTime.Now);
-            BeginTime = Timesheet.Begin.TimeOfDay;
-            BeginDate = Timesheet.Begin.Date;
-
-            PageLabel = "Start new";
+            
+            if(mode == TimesheetDetailMode.Start)
+            { 
+                PageLabel = "Start new";
+                TimeWrapper = new TimeBeginEndWrapper(loginService.GetUserTimeOffset());
+                Timesheet.Begin = TimeWrapper.BeginFull;
+            }
+            else
+            {
+                TimeWrapper = new TimeBeginEndWrapper(loginService.GetUserTimeOffset());
+                Timesheet.Begin = TimeWrapper.BeginFull;
+                PageLabel = "Create";
+                Mode = TimesheetDetailMode.Create;
+            }
             Mode = mode;
+           
+            
         }
-        else
-        { 
-            Timesheet.Begin = new DateTimeOffset(DateTime.Now);
-            BeginTime = Timesheet.Begin.TimeOfDay;
-            BeginDate = Timesheet.Begin.Date;
-            PageLabel = "Create";
-            Mode = TimesheetDetailMode.Create;
-        }
+     
 
         IsCreateOrEdit = Mode == TimesheetDetailMode.Edit || Mode == TimesheetDetailMode.Create;
         return base.OnParameterSet();
     }
+
+
+ 
+
     [ObservableProperty]
     string pageLabel;
 
-    [ObservableProperty]
-    string duration;
 
     [ObservableProperty]
-    string beginDateString;
+    TimeBeginEndWrapper timeWrapper;
 
-    [ObservableProperty]
-    DateTime beginDate;
-
-    [ObservableProperty]
-    DateTime endDate;
-
-    [ObservableProperty]
-    TimeSpan beginTime;
-
-    [ObservableProperty]
-    TimeSpan endTime;
 
     [ObservableProperty]
     TimesheetEditForm timesheet = new();
@@ -154,6 +146,7 @@ public partial class TimesheetCreateViewModel : ViewModelBase
 
     [ObservableProperty]
     TimesheetDetailMode mode;
+
     [ObservableProperty]
     bool isCreateOrEdit;
 
@@ -188,9 +181,7 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     [RelayCommand]
     async Task StartTimesheet()
     {
-        var startTime = new DateTimeOffset(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds, loginService.GetUserTimeOffset());
-        //var end = new DateTimeOffset(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds, new TimeSpan(0,0,0));
-        Timesheet.Begin = startTime;
+        Timesheet.Begin = TimeWrapper.BeginFull;
         Timesheet.Project = ChosenProject.Id;
         Timesheet.Activity = ChosenActivity.Id;
 
@@ -223,6 +214,21 @@ public partial class TimesheetCreateViewModel : ViewModelBase
 
     }
 
+    [RelayCommand]
+    async Task DurationTapped()
+    { 
+        var duration = await DisplayDurationPopup();
+        if(duration == null) return;
+        TimeWrapper.UpdateEnd(duration.Value);
+
+
+    }
+    private async Task<TimeSpan?> DisplayDurationPopup()
+    {
+        var popup = new DurationPopup(_popupSizeConstants, new DurationPopupViewModel(TimeWrapper.Duration));
+
+        return (TimeSpan?) await Page.ShowPopupAsync(popup);
+    }
 
     [RelayCommand]
     async Task Cancel()
@@ -233,8 +239,8 @@ public partial class TimesheetCreateViewModel : ViewModelBase
       [RelayCommand]
     async Task Save()
     {
-        Timesheet.Begin = new DateTimeOffset(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds, loginService.GetUserTimeOffset());
-        Timesheet.End = new DateTimeOffset(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds, loginService.GetUserTimeOffset());
+        Timesheet.Begin = TimeWrapper.BeginFull;
+        Timesheet.End = TimeWrapper.EndFull;
         Timesheet.Project = ChosenProject.Id;
         Timesheet.Activity = ChosenActivity.Id;
 

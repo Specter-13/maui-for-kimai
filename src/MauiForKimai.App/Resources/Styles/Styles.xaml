@@ -36,6 +36,11 @@
         <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
     </Style>
 
+    <Style x:Key="CancelButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentTextColorLight}" />
+        <Setter Property="TextColor" Value="{StaticResource AccentTextColorDark}" />
+    </Style>
+
     <Style x:Key="TimetrackingButton" TargetType="ImageButton">
         <Setter Property="Aspect" Value="AspectFill" />
         <Setter Property="HeightRequest" Value="50" />

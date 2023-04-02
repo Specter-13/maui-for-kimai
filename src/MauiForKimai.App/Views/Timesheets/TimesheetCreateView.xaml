@@ -58,20 +58,20 @@
 
 
         <!--  Header with buttons  -->
-        <Label
+        <!--<Label
             Grid.Row="0"
             Grid.ColumnSpan="2"
             HorizontalOptions="Center"
             Style="{StaticResource LargeLabel}"
-            Text="{Binding Duration}"
-            VerticalOptions="Center" />
+            Text="{Binding TimeWrapper.Duration}"
+            VerticalOptions="Center" />-->
 
         <Label
             Grid.Row="1"
             Grid.ColumnSpan="2"
             HorizontalOptions="Center"
             Style="{StaticResource MediumLabel}"
-            Text="{Binding BeginDateString}"
+            Text="{Binding TimeWrapper.BeginFullString}"
             VerticalOptions="Center" />
 
         <HorizontalStackLayout
@@ -128,6 +128,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -136,34 +137,158 @@
                     </Grid.ColumnDefinitions>
                     <!--  From Time  -->
                     <VerticalStackLayout Grid.Row="0">
-                        <Label Text="Begin Time" />
-                        <TimePicker Format="HH:mm:ss" Time="{Binding BeginTime}" />
+                        <Label Text="Begin" />
+                        <TimePicker Format="HH:mm" Time="{Binding TimeWrapper.BeginTime}">
+
+                            <!--<TimePicker.Behaviors>
+                                <mct:EventToCommandBehavior
+                                    Command="{Binding TimeWrapper.BeginChangedCommand}"
+                                    CommandParameter="{Binding TimeWrapper.BeginTime}"
+                                    EventName="PropertyChanged" />
+                            </TimePicker.Behaviors>-->
+                        </TimePicker>
                     </VerticalStackLayout>
                     <!--  From Date  -->
-                    <VerticalStackLayout Grid.Row="0" Grid.Column="1">
-                        <Label Text="Begin Date" />
-                        <DatePicker Date="{Binding BeginDate}" />
 
-                    </VerticalStackLayout>
+                    <DatePicker
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Date="{Binding TimeWrapper.BeginDate}"
+                        VerticalOptions="End">
+
+                        <!--<DatePicker.Behaviors>
+                            <mct:EventToCommandBehavior
+                                Command="{Binding TimeWrapper.BeginChangedCommand}"
+                                CommandParameter="{Binding TimeWrapper.BeginDate}"
+                                EventName="PropertyChanged" />
+                        </DatePicker.Behaviors>-->
+                    </DatePicker>
+
+
 
 
                     <VerticalStackLayout Grid.Row="1" IsVisible="{Binding IsCreateOrEdit}">
-                        <Label Text="End Time" />
-                        <TimePicker Format="HH:mm:ss" Time="{Binding EndTime}" />
+                        <Label Text="End" />
+                        <TimePicker
+                            x:Name="BeginTimePicker"
+                            Format="HH:mm"
+                            Time="{Binding TimeWrapper.EndTime}">
+
+
+
+                            <!--<TimePicker.Behaviors>
+                                <mct:EventToCommandBehavior
+                                    Command="{Binding TimeWrapper.EndChangedCommand}"
+                                    CommandParameter="{Binding Source={x:Reference BeginTimePicker}, Path=Time}"
+                                    EventName="PropertyChanged" />
+                            </TimePicker.Behaviors>-->
+                        </TimePicker>
                     </VerticalStackLayout>
 
-                    <VerticalStackLayout
+
+                    <DatePicker
                         Grid.Row="1"
                         Grid.Column="1"
-                        IsVisible="{Binding IsCreateOrEdit}">
-                        <Label Text="End Date" />
-                        <DatePicker Date="{Binding EndDate}" />
+                        Date="{Binding TimeWrapper.EndDate}"
+                        IsVisible="{Binding IsCreateOrEdit}"
+                        VerticalOptions="End">
+
+
+                        <!--<DatePicker.Behaviors>
+                            <mct:EventToCommandBehavior
+                                Command="{Binding TimeWrapper.EndChangedCommand}"
+                                CommandParameter="{Binding TimeWrapper.EndDate}"
+                                EventName="PropertyChanged" />
+                        </DatePicker.Behaviors>-->
+                    </DatePicker>
+
+                    <!--  Duration  -->
+                    <VerticalStackLayout Grid.Row="2" Grid.ColumnSpan="2">
+                        <Label Text="Duration" />
+
+                        <Entry
+                            x:Name="HoursEntry"
+                            HorizontalTextAlignment="Center"
+                            IsReadOnly="True"
+                            Keyboard="Numeric"
+                            Placeholder="00"
+                            Text="{Binding TimeWrapper.Duration}"
+                            VerticalTextAlignment="Center">
+
+                            <Entry.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding DurationTappedCommand}" />
+                            </Entry.GestureRecognizers>
+                            <!--<Entry.Behaviors>
+                                <mct:EventToCommandBehavior
+                                    Command="{Binding TimeWrapper.UpdateDurationCommand}"
+                                    CommandParameter="{Binding Source={x:Reference HoursEntry}, Path=Text}"
+                                    EventName="Unfocused" />
+                            </Entry.Behaviors>-->
+                        </Entry>
+
+                        <!--<Entry
+                            x:Name="HoursEntry"
+                            HorizontalTextAlignment="Center"
+                            Keyboard="Numeric"
+                            Placeholder="00"
+                            Text="{Binding TimeWrapper.DurationHours}"
+                            VerticalTextAlignment="Center">
+
+                        -->
+                        <!--<Entry.Behaviors>
+                                <mct:EventToCommandBehavior
+                                    Command="{Binding TimeWrapper.UpdateDurationCommand}"
+                                    CommandParameter="{Binding Source={x:Reference HoursEntry}, Path=Text}"
+                                    EventName="Unfocused" />
+                            </Entry.Behaviors>-->
+                        <!--
+                        </Entry>-->
+                        <!--<Label
+                            HorizontalOptions="End"
+                            Text="h"
+                            VerticalOptions="Center" />-->
+
+
+
+
+                        <!--<Label
+                            HorizontalOptions="End"
+                            Text="m"
+                            VerticalOptions="Center" />-->
+
 
                     </VerticalStackLayout>
+
+                    <!--<Entry
+                        x:Name="MinutesEntry"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalTextAlignment="Center"
+                        Keyboard="Numeric"
+                        MaxLength="2"
+                        Placeholder="00"
+                        Text="{Binding TimeWrapper.DurationMinutes}"
+                        VerticalOptions="End"
+                        VerticalTextAlignment="Center">
+                    -->
+                    <!--<Entry.Behaviors>
+                            <mct:EventToCommandBehavior Command="{Binding TimeWrapper.UpdateDurationCommand}" EventName="Unfocused" />
+                        </Entry.Behaviors>-->
+                    <!--
+                    </Entry>-->
+
 
 
 
                 </Grid>
+
+                <!--<Label Text="{Binding TimeWrapper.DurationHours}" />
+                <Label Text="{Binding TimeWrapper.DurationMinutes}" />
+                <Label
+                    IsVisible="{Binding TimeWrapper.IsNotDurationFormatValid}"
+                    Style="{StaticResource NotValidLabel}"
+                    Text="Wrong format of minutes! Minutes must be within interval 0-59" />-->
+
                 <!--  Customer  -->
                 <Label Text="Customer" />
                 <Entry

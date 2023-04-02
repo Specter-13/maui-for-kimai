@@ -82,6 +82,9 @@
 	  <MauiXaml Update="Controls\TimesheetListItemControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Popups\DurationPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Popups\ServerDefaultPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

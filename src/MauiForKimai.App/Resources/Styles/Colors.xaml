@@ -21,4 +21,6 @@
     <Color x:Key="CardBackgroundLight">#F7F7F7</Color>
     <Color x:Key="CardBackgroundDark">#2d2d30</Color>
 
+
+
 </ResourceDictionary>
