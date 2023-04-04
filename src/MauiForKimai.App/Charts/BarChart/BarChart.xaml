@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout
+    x:Class="MauiForKiami.App.Charts.BarChart"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:charts="clr-namespace:MauiForKiami.App.Charts"
+    x:Name="MyBarChart"
+    x:DataType="charts:BarChart">
+
+
+    <!--<Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">-->
+    <charts:BarChartGraphicsView
+        x:Name="Chart"
+        HeightRequest="{Binding .}"
+        HorizontalOptions="FillAndExpand"
+        IsVisible="{OnIdiom Desktop=false,
+                            Phone=true}"
+        Points="{Binding .}"
+        WidthRequest="{Binding .}" />
+    <!--</Grid>-->
+
+    <Grid IsVisible="{OnIdiom Desktop=true, Phone=false}">
+        <charts:BarChartGraphicsView
+            x:Name="ChartDesktop"
+            HeightRequest="400"
+            HorizontalOptions="FillAndExpand"
+            Points="{Binding .}"
+            WidthRequest="700" />
+    </Grid>
+
+    <Slider
+        Margin="30,40,30,0"
+        HorizontalOptions="FillAndExpand"
+        IsVisible="{OnIdiom Desktop=false,
+                            Phone=true}"
+        Maximum="1"
+        MaximumTrackColor="#7F2CF6"
+        Minimum="0"
+        MinimumTrackColor="Violet"
+        ThumbColor="Purple"
+        WidthRequest="200"
+        Value="{Binding Source={x:Reference Chart}, Path=XAxisScale}" />
+</StackLayout>

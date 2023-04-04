@@ -42,6 +42,7 @@ public partial class HomeViewModel : ViewModelBase
         {
             SelectedActivity = m.Value.ActivityName;
 			await StartTimesheet(m.Value.EditForm);
+			//await TryToGetActiveTimesheet();
         });
 	}
 
@@ -136,11 +137,26 @@ public partial class HomeViewModel : ViewModelBase
 	async Task StopTimeTracking()
 	{	
 		SelectedActivity = null;
-		await timesheetService.StopActive(ActiveTimesheet.Id);
+
+		try
+		{
+			await timesheetService.StopActive(ActiveTimesheet.Id);
+			await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
+		}
+		catch (Exception)
+		{
+			await Toast.Make("There was a problem to stop a timesheet! It may be already stopped.", ToastDuration.Short, 14).Show();
+		}
+		
+		await RefreshTimesheets();
 		_timer.Stop();
 		IsTimetrackingActive = false;
 		_seconds = 0;
 		Time = new TimeSpan();
+		
+	
+
+
 	}
 
 

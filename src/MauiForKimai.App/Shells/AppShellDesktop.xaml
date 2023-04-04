@@ -72,12 +72,22 @@
             Route="timesheets" />
     </FlyoutItem>
 
+
+    <FlyoutItem Title="Reports">
+        <ShellContent
+            Title="Reports"
+            ContentTemplate="{DataTemplate local:ReportsView}"
+            Icon="chart_line.png"
+            Route="reports" />
+    </FlyoutItem>
+
+
     <FlyoutItem Title="Management">
         <ShellContent
             Title="Login"
             ContentTemplate="{DataTemplate local:ServerListView}"
             Icon="login.png"
-            Route="login" />
+            Route="serverlistview" />
     </FlyoutItem>
 
     <Shell.FlyoutFooter>

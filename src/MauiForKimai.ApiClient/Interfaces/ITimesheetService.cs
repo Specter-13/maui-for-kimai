@@ -10,7 +10,7 @@ public interface ITimesheetService : IBaseService, ICrudOperations<TimesheetEnti
 {
      Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsIncrementalyAsync(int page, int sizePerPage);
      Task<ICollection<TimesheetCollectionExpanded>> GetTenRecentTimesheetsAsync();
-
+    Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsForReportsAsync(string begin, string end);
      Task<ICollection<TimesheetCollectionExpanded>> GetActive();
      Task<TimesheetEntity> StopActive(int id);
 }

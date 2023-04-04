@@ -34,9 +34,16 @@ public class TimesheetService : BaseService, ITimesheetService
 
     public Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsIncrementalyAsync(int page, int sizePerPage)
 	{ 
+        
         return ApiClient.TimesheetsAllExpandedAsync(ApiStateProvider.ActualUser.Id.ToString(),null,null,null,null,null,null,page.ToString(),sizePerPage.ToString(),null,null,null,null,null,null,null,null,"true",null,null);
 	}
 
+
+    public Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsForReportsAsync(string begin, string end)
+	{ 
+        //dd-mm-yyyy
+        return ApiClient.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin,end,null,null,null,"true",null,null);;
+	}
     public Task<ICollection<TimesheetCollectionExpanded>> GetTenRecentTimesheetsAsync()
     {
         return ApiClient.RecentAsync(base.ApiStateProvider.ActualUser.Id.ToString(),null,null);
