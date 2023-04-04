@@ -8,11 +8,11 @@ namespace MauiForKimai.Wrappers;
 
 public class TimesheetDetailWrapper
 {
-public TimesheetDetailWrapper(TimesheetListItemModel model, TimesheetDetailMode mode)
+public TimesheetDetailWrapper(TimesheetModel model, TimesheetDetailMode mode)
 {
     Timesheet = model;
     Mode = mode;
 }
-public TimesheetListItemModel Timesheet { get; set; }
+public TimesheetModel Timesheet { get; set; }
 public TimesheetDetailMode Mode { get; set; }
 }

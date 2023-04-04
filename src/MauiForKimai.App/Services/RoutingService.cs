@@ -19,15 +19,15 @@ public class RoutingService : IRoutingService
 		//Routing.RegisterRoute("//homeview", typeof(HomeView));
     //new("//login", typeof(LoginView), typeof(LoginViewModel)),
     new("//home", typeof(HomeView), typeof(HomeViewModel)),
-    new("//templates", typeof(TemplateListView), typeof(TemplateListViewModel)),
 
-    new("//favourites", typeof(TimesheetFavouritesListView), typeof(TimesheetFavouritesListViewModel)),
-    new("//favourites/create", typeof(TimesheetFavouritesCreateView), typeof(TimesheetFavouritesCreateViewModel)),
+
+    new("//favourites", typeof(FavouritesListView), typeof(FavouritesListViewModel)),
+    new("//favourites/create", typeof(FavouritesDetailView), typeof(FavouritesDetailViewModel)),
     new("//favourites/create/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseFavouriteViewModel)),
     new("//favourites/create/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseFavouriteViewModel)),
     new("//favourites/create/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseFavouriteViewModel)),
 
-    new("//reports", typeof(TemplateListView), typeof(TemplateListViewModel)),
+    new("//reports", typeof(ReportsView), typeof(ReportsViewModel)),
 
     new("//serverlistview", typeof(ServerListView), typeof(ServerListViewModel)),
     new("//serverlistview/detail", typeof(ServerDetailView), typeof(ServerDetailViewModel)),

@@ -7680,7 +7680,7 @@ namespace MauiForKimai.ApiClient
         public string Description { get; set; }
 
         /// <summary>
-        /// Fixed rate
+        /// Fixed rate  
         /// </summary>
         [Newtonsoft.Json.JsonProperty("fixedRate", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double? FixedRate { get; set; }

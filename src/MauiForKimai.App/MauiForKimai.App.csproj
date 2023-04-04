@@ -76,7 +76,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Controls\TimesheetFavouriteListItemControl.xaml">
+	  <MauiXaml Update="Controls\FavouriteListControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\TimesheetListItemControl.xaml">
@@ -106,16 +106,13 @@
 	  <MauiXaml Update="Views\Reports\ReportsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Templates\TemplateListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\Timesheets\TimesheetCreateView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Timesheets\TimesheetFavouritesCreateView.xaml">
+	  <MauiXaml Update="Views\Favourites\FavouritesDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Timesheets\TimesheetFavouritesListView.xaml">
+	  <MauiXaml Update="Views\Favourites\FavouritesListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Timesheets\TimesheetListView.xaml">
@@ -124,6 +121,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Controls\FavouriteListControl.xaml.cs">
+	    <DependentUpon>FavouriteListControl.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Controls\TimesheetListItemControl.xaml.cs">
 	    <DependentUpon>TimesheetListItemControl.xaml</DependentUpon>
 	  </Compile>
@@ -142,11 +142,11 @@
 	  <Compile Update="Views\Servers\ServersListView.xaml.cs">
 	    <DependentUpon>ServersListView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Templates\TemplateListView.xaml.cs">
-	    <DependentUpon>TemplateListView.xaml</DependentUpon>
+	  <Compile Update="Views\Favourites\FavouritesListView.xaml.cs">
+	    <DependentUpon>FavouritesListView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Timesheets\TimesheetFavouritesListView.xaml.cs">
-	    <DependentUpon>TimesheetFavouritesListView.xaml</DependentUpon>
+	  <Compile Update="Views\Favourites\FavouritesDetailView.xaml.cs">
+	    <DependentUpon>FavouritesDetailView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Timesheets\TimesheetListView.xaml.cs">
 	    <DependentUpon>TimesheetListView.xaml</DependentUpon>
@@ -154,9 +154,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ViewModels\Activity\" />
-	  <Folder Include="ViewModels\Customer\" />
-	  <Folder Include="ViewModels\Projects\" />
 	  <Folder Include="Views\Activity\" />
 	  <Folder Include="Views\Customer\" />
 	  <Folder Include="Views\Projects\" />

@@ -9,6 +9,7 @@ using MauiForKimai.Messenger;
 using MauiForKimai.ApiClient.Services;
 using MauiForKimai.Wrappers;
 using MauiForKimai.ApiClient;
+using MauiForKimai.Core;
 
 namespace MauiForKimai.ViewModels;
 
@@ -43,7 +44,15 @@ public partial class HomeViewModel : ViewModelBase
         {
             SelectedActivity = m.Value.ActivityName;
 			await StartTimesheet(m.Value.EditForm);
-			//await TryToGetActiveTimesheet();
+
+        });
+
+		 WeakReferenceMessenger.Default.Register<FavouritesStartMessage>(this, async (r, m) =>
+        {
+			//TODO ROLES
+			var editForm = m.Value.ToTimesheetEditFormBase();
+            SelectedActivity = m.Value.ActivityName;
+			await StartTimesheet(editForm);
         });
 	}
 
@@ -61,45 +70,14 @@ public partial class HomeViewModel : ViewModelBase
 
 	public override async Task Initialize()
     {
-		var defaultServer = await _serverService.GetDefaultServer();
-		if (defaultServer == null) 
-		{
-			return;
-		}
-		var key = $"{defaultServer.Id}_{defaultServer.Username}";
-		//check whether this throw excpetion TODO
-		var apiPassword = await _secureStorageService.Get(key);
-		var defaultServerModel = (ServerModel) defaultServer;
-		defaultServerModel.ApiPasswordKey = apiPassword;
-
-		var isSuccessfull = await _loginService.LoginToDefaultOnStartUp(defaultServerModel);
-		IToast toast;
-
-		if (isSuccessfull)
-		{
-			toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
-		    await Refresh();
-		}
-		else
-		{
-			toast = Toast.Make("Connection to Kimai failed!", ToastDuration.Short, 14);
-		}
-		await toast.Show();
+		await TryToLoginToDefaultServer();
 	}
-
-	//public override async Task OnAppearing()
-	//{
-	//	//IsBusy = true;
-	//	// Connection to internet is available
-	//	await Refresh();
-	//	//IsBusy = false;
-	//}
 
 
 	//Properties
 	[ObservableProperty]
 	private TimesheetActiveModel activeTimesheet;
-	public ObservableCollection<TimesheetListItemModel> RecentTimesheets {get;set; } = new();
+	public ObservableCollection<TimesheetModel> RecentTimesheets {get;set; } = new();
 	public ObservableCollection<TimesheetListItemGroupModel> RecentGroupedTimesheets { get; private set; } = new ObservableCollection<TimesheetListItemGroupModel>();
 
 	[ObservableProperty]
@@ -108,7 +86,7 @@ public partial class HomeViewModel : ViewModelBase
 	
 
 	[ObservableProperty]
-    public TimeSpan time = new TimeSpan();
+    public TimeSpan time = new();
 
 	[ObservableProperty]
     bool isRefreshing;
@@ -171,7 +149,7 @@ public partial class HomeViewModel : ViewModelBase
 
 
 	[RelayCommand]
-	async Task StartRecentTimesheet(TimesheetListItemModel timesheet)
+	async Task StartRecentTimesheet(TimesheetModel timesheet)
 	{	
 		if(IsTimetrackingActive)
 		{ 
@@ -179,9 +157,12 @@ public partial class HomeViewModel : ViewModelBase
 			return;
 		}
 
-		var editForm = timesheet.ToTimesheetEditFormRegularUser();
+		//TODO check for roles, ToTimesheetEditFormFull
+
+		var editForm = timesheet.ToTimesheetEditFormBase();
 		SelectedActivity = timesheet.ActivityName;
 		editForm.Begin = new DateTimeOffset(DateTime.Now,_loginService.GetUserTimeOffset());
+		editForm.End = null;
 		await StartTimesheet(editForm);
 	}
 
@@ -202,7 +183,7 @@ public partial class HomeViewModel : ViewModelBase
 		RecentTimesheets.Clear();
 		foreach(var timesheet in timeheets)
 		{ 
-			RecentTimesheets.Add(timesheet.ToTimesheetListItemModel());
+			RecentTimesheets.Add(timesheet.ToTimesheetModel());
 		}
 
     }
@@ -226,7 +207,7 @@ public partial class HomeViewModel : ViewModelBase
   //  }
 
 	[RelayCommand]
-    async Task TimesheetOnTap(TimesheetListItemModel currentTimesheet)
+    async Task TimesheetOnTap(TimesheetModel currentTimesheet)
     {
 
 		var route = base.routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
@@ -275,6 +256,7 @@ public partial class HomeViewModel : ViewModelBase
 
 	private void CreateTimer()
 	{ 
+		//Application.Current.Dispatcher.C
 		_timer = _dispatcherWrapper.CreateTimer();
 		_timer.Interval = TimeSpan.FromMilliseconds(1000);
 		_timer.Tick += (s, e) =>
@@ -287,6 +269,32 @@ public partial class HomeViewModel : ViewModelBase
 	{
 		_seconds += 1;
 	}
-	
+	private async Task TryToLoginToDefaultServer()
+	{ 
+		var defaultServer = await _serverService.GetDefaultServer();
+		if (defaultServer == null) 
+		{
+			return;
+		}
+		var key = $"{defaultServer.Id}_{defaultServer.Username}";
+		//check whether this throw excpetion TODO
+		var apiPassword = await _secureStorageService.Get(key);
+		var defaultServerModel = defaultServer.ToServerModel();
+		defaultServerModel.ApiPasswordKey = apiPassword;
+
+		var isSuccessfull = await _loginService.LoginToDefaultOnStartUp(defaultServerModel);
+		IToast toast;
+
+		if (isSuccessfull)
+		{
+			toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
+		    await Refresh();
+		}
+		else
+		{
+			toast = Toast.Make("Connection to Kimai failed!", ToastDuration.Short, 14);
+		}
+		await toast.Show();
+	}
 
 }

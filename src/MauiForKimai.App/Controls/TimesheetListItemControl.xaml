@@ -7,7 +7,7 @@
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     x:Name="TimesheetItemControl"
-    x:DataType="model:TimesheetListItemModel">
+    x:DataType="model:TimesheetModel">
 
     <VerticalStackLayout Padding="5,1,5,1">
         <Label

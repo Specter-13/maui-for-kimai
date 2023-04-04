@@ -45,25 +45,11 @@ public static class ApiModelsExtensions
         };
     }
 
-    public static TimesheetRecentListModel ToTimesheetRecentListModel(this TimesheetCollectionExpanded timesheet)
-    { 
-        return new TimesheetRecentListModel
-        { 
-            Id = timesheet.Id.Value,
-            ActivityId = timesheet.Activity.Id.Value,
-            ActivityName = timesheet.Activity.Name,
-            ProjectId = timesheet.Project.Id.Value,
-            ProjectName = timesheet.Project.Name,
-            CustomerName = timesheet.Project.Customer.Name,
-            Date = timesheet.Begin.Date.ToShortDateString(),
-            Duration = TimeSpan.FromSeconds(timesheet.Duration.Value).ToString(@"hh\:mm")
-        };
-    }
+   
 
-
-    public static TimesheetListItemModel ToTimesheetListItemModel(this TimesheetCollectionExpanded timesheet)
+    public static TimesheetModel ToTimesheetModel(this TimesheetCollectionExpanded timesheet)
     { 
-        return new TimesheetListItemModel
+        return new TimesheetModel
         { 
             Id = timesheet.Id.Value,
            
@@ -87,16 +73,36 @@ public static class ApiModelsExtensions
         };
     }
 
-    public static TimesheetEditForm ToTimesheetEditFormRegularUser(this TimesheetListItemModel timesheet)
+    public static TimesheetEditForm ToTimesheetEditFormFull(this TimesheetModel timesheet)
     { 
         return new TimesheetEditForm
         { 
-            //From must be set manually to actual time
-            
-            Activity = timesheet.ActivityId,
+
+            Begin = timesheet.Begin,
+            End = timesheet.End,
             Project = timesheet.ProjectId,
-            Tags =  string.Join(",", timesheet.Tags),
+            Activity = timesheet.ActivityId,
             Description = timesheet.Description,
+            FixedRate = timesheet.FixedRate,
+            HourlyRate = timesheet.HourlyRate,
+            Exported = timesheet.Exported, 
+            Billable = timesheet.Billable,
+            Tags =  string.Join(",", timesheet.Tags),
+
+        };
+    }
+
+    public static TimesheetEditForm ToTimesheetEditFormBase(this TimesheetModel timesheet)
+    { 
+        return new TimesheetEditForm
+        { 
+
+            Begin = timesheet.Begin,
+            End = timesheet.End,
+            Project = timesheet.ProjectId,
+            Activity = timesheet.ActivityId,
+            Description = timesheet.Description,
+            Tags =  string.Join(",", timesheet.Tags),
 
         };
     }

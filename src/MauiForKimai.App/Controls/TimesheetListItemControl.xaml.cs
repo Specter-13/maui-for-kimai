@@ -23,9 +23,9 @@ public partial class TimesheetListItemControl : ContentView
 		InitializeComponent();
 	}
 
-	public TimesheetListItemModel Timesheet
+	public TimesheetModel Timesheet
 	{
-		get => GetValue(TimesheetProperty) as TimesheetListItemModel;
+		get => GetValue(TimesheetProperty) as TimesheetModel;
 		set => SetValue(TimesheetProperty, value);
 	}
 

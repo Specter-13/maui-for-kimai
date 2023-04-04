@@ -32,7 +32,7 @@ public partial class TimeBeginEndWrapper : ObservableObject
         //Duration = "00:00";
     }
 
-    public TimeBeginEndWrapper(TimesheetListItemModel timesheet,TimeSpan offset)
+    public TimeBeginEndWrapper(TimesheetModel timesheet,TimeSpan offset)
     {
         _offset = offset;
        

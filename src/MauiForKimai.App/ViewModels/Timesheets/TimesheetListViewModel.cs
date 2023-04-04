@@ -22,7 +22,9 @@ public partial class TimesheetListViewModel : ViewModelBase
     private bool isRefreshing;
     public override async Task Initialize()
     {
+        IsBusy = true;
         await LoadMore();
+        IsBusy = false;
         //return base.OnAppearing();
     }
 
@@ -36,7 +38,7 @@ public partial class TimesheetListViewModel : ViewModelBase
         IsRefreshing = false;
     }
 
-    public ObservableCollection<TimesheetListItemModel> Timesheets { get; set;} = new();
+    public ObservableCollection<TimesheetModel> Timesheets { get; set;} = new();
 
     private int page = 1;
 
@@ -45,18 +47,23 @@ public partial class TimesheetListViewModel : ViewModelBase
 
     int numberOfFechted = 10;
 
+    [ObservableProperty]
+    private bool isLoadingMore;
+
     private bool isFullyLoaded;
     [RelayCommand]
     async Task LoadMore()
     {
-         if (IsBusy || isFullyLoaded)
+         if (isFullyLoaded)
             return;
 
-        IsBusy = true;
+      
         page += 1;
         try
         {
+            IsLoadingMore = true;
             await GetTimesheetsIncrementaly();
+            IsLoadingMore = false;
             
         }
         catch (KiamiApiException)
@@ -64,7 +71,7 @@ public partial class TimesheetListViewModel : ViewModelBase
             isFullyLoaded = true;
         }
        
-        IsBusy = false;
+        
 
     }
 
@@ -73,7 +80,7 @@ public partial class TimesheetListViewModel : ViewModelBase
         var timesheets = await _timesheetService.GetTimesheetsIncrementalyAsync(page,numberOfFechted);
         foreach (var item in timesheets)
         {
-            Timesheets.Add(item.ToTimesheetListItemModel());
+            Timesheets.Add(item.ToTimesheetModel());
             NumberOfEntries += 1;
         }
      }

@@ -15,16 +15,5 @@ public class ServerModel
     public string ApiPasswordKey { get; set; }
     public bool IsDefault { get; set; }
 
-    public static explicit operator ServerModel(ServerEntity enitty)
-    {
-        return new ServerModel
-        {
-            Id = enitty.Id,
-            Url = enitty.Url,
-            Name = enitty.Name,
-            Username = enitty.Username,
-            IsDefault = enitty.IsDefault,
-
-        };
-    }
+  
 }

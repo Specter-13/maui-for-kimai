@@ -21,8 +21,13 @@
             <RowDefinition Height="10*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ActivityIndicator
+
+        <SearchBar
             Grid.Row="0"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+        <ActivityIndicator
+            Grid.Row="1"
             HorizontalOptions="Fill"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
@@ -38,18 +43,15 @@
 
                 <CollectionView Grid.Row="1" ItemsSource="{Binding Timesheets}">
 
-                    <CollectionView.Header>
-                        <ContentView Padding="10">
-                            <Label Style="{StaticResource LargeLabel}">All</Label>
-                        </ContentView>
-                    </CollectionView.Header>
+
 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:TimesheetListItemModel">
+                        <DataTemplate x:DataType="model:TimesheetModel">
                             <controls:TimesheetListItemControl Title="{Binding Date}" Timesheet="{Binding .}" />
                         </DataTemplate>
 
                     </CollectionView.ItemTemplate>
+
 
 
                 </CollectionView>
@@ -60,6 +62,13 @@
         </RefreshView>
 
         <Grid Grid.Row="2" Padding="10,0,10,0">
+            <ActivityIndicator
+                HeightRequest="20"
+                HorizontalOptions="Start"
+                IsRunning="{Binding IsLoadingMore}"
+                IsVisible="{Binding IsLoadingMore}"
+                VerticalOptions="Center"
+                WidthRequest="20" />
             <Button
                 BackgroundColor="Transparent"
                 Command="{Binding LoadMoreCommand}"

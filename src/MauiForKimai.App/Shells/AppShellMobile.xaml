@@ -47,11 +47,11 @@
 
             <ShellContent
                 Title="Favourites"
-                ContentTemplate="{DataTemplate local:TimesheetFavouritesListView}"
+                ContentTemplate="{DataTemplate local:FavouritesListView}"
                 Route="favourites" />
 
             <ShellContent
-                Title="Timesheets"
+                Title="All"
                 ContentTemplate="{DataTemplate local:TimesheetListView}"
                 Route="timesheets" />
 

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MauiForKimai.Core;
 
 namespace MauiForKimai.ViewModels;
 public partial class ServerDetailViewModel : ViewModelBase
@@ -66,7 +67,7 @@ public partial class ServerDetailViewModel : ViewModelBase
 
         if (NavigationParameter is ServerEntity myServer)
         {
-            Server = (ServerModel) myServer;
+            Server = myServer.ToServerModel();
             previousIsDefaultValue = myServer.IsDefault;
             previousUserName = myServer.Username;
             IsLoggedToThisServer = loginService.CheckIfConnected(Server);

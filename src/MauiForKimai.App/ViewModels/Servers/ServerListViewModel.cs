@@ -22,48 +22,13 @@ public partial class ServerListViewModel : ViewModelBase
  
 
     private readonly IServerService _serverService;
-    private readonly ISecureStorageService  _secureStorageService;
 
     public ServerListViewModel(IRoutingService rs, 
         ILoginService ls, 
-        IServerService serverService,
-        ISecureStorageService sc) : base(rs, ls)
+        IServerService serverService) : base(rs, ls)
     {
         _serverService = serverService;
-        _secureStorageService = sc;
-        //TODO use secure storage for api password token
-        //var local = new ServerModel()
-        //{
-        //    Id= 1,
-        //    Username = "admin@admin.com",
-        //    ApiPasswordKey = "internet",
-        //    IsDefault = true,
-        //    Name = "My local server",
-        //    Url = "http://localhost:8001/"
-            
-        //};
-
-        //var demo = new ServerModel()
-        //{
-        //    Id= 2,
-        //    Username = "john_user",
-        //    ApiPasswordKey = "kitten123",
-        //    IsDefault = false,
-        //    Name = "Demo server online",
-        //    Url = "https://demo-plugins.kimai.org/"
-            
-        //};
-
-        //var localJan = new ServerModel()
-        //{
-        //    Id= 2,
-        //    Username = "jan@jan.com",
-        //    ApiPasswordKey = "internet",
-        //    IsDefault = false,
-        //    Name = "My local server Jan",
-        //    Url = "http://localhost:8001/"
-            
-        //};
+       
         
         WeakReferenceMessenger.Default.Register<ServerAcquireMessage>(this, async (r, m) =>
         {

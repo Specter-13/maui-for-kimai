@@ -78,9 +78,9 @@ public partial class TimesheetCreateViewModel : ViewModelBase
             
             Mode = wrapper.Mode;
 
-            //TODo other user!
             var timesheetModel = wrapper.Timesheet;
-            Timesheet = timesheetModel.ToTimesheetEditFormRegularUser();
+            //TODO check for roles
+            Timesheet = timesheetModel.ToTimesheetEditFormBase();
 
             ChosenActivity = new ActivityListModel(timesheetModel.ActivityId,timesheetModel.ActivityName,timesheetModel.Billable.Value);
             ChosenProject = new ProjectListModel(timesheetModel.ProjectId,timesheetModel.ProjectName,timesheetModel.CustomerId,timesheetModel.Billable.Value);
@@ -195,16 +195,17 @@ public partial class TimesheetCreateViewModel : ViewModelBase
             ProjectName = ChosenProject.Name,
             CustomerName = ChosenCustomer.Name,
             Description = Timesheet.Description,
-            Tags = Timesheet.Tags,
-            Name = ChosenActivity.Name
+            Tags = Timesheet.Tags
 
         };
-        await _favouriteTimesheetService.Create(entity);
+        var timesheet = await _favouriteTimesheetService.Create(entity);
+        //WeakReference
     }
 
     [RelayCommand]
     async Task StartTimesheet()
     {
+        //TODO higher roles
         Timesheet.Begin = TimeWrapper.BeginFull;
         Timesheet.Project = ChosenProject.Id;
         Timesheet.Activity = ChosenActivity.Id;
@@ -233,7 +234,6 @@ public partial class TimesheetCreateViewModel : ViewModelBase
 
         var wrapper = new TimesheetTimetrackingWrapper(Timesheet,ChosenActivity.Name,ChosenProject.Name);
         WeakReferenceMessenger.Default.Send(new TimesheetStartMessage(wrapper));
-        //WeakReferenceMessenger.Default.Send
         await Navigation.NavigateTo("..");
 
     }
@@ -260,7 +260,7 @@ public partial class TimesheetCreateViewModel : ViewModelBase
         await Navigation.NavigateTo("..");
     }
 
-      [RelayCommand]
+    [RelayCommand]
     async Task Save()
     {
         Timesheet.Begin = TimeWrapper.BeginFull;

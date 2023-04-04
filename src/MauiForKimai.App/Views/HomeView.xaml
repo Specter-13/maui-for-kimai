@@ -45,40 +45,6 @@
 
 
 
-        <!--<Grid Grid.Row="0" Style="{StaticResource InfoStatusBar}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Label
-                Style="{StaticResource TitleLabel}"
-                Text="Home"
-                VerticalOptions="Center" />
-
-        -->
-        <!--<Image Margin="5,0,0,0" Source="logo_long_white.png" />-->
-        <!--<Button
-                Grid.Column="2"
-                Command="{Binding GoToLoginCommand}"
-                HorizontalOptions="End"
-                IsVisible="{Binding ApiStateProvider.IsAuthenticated}"
-                Text="Login"
-                VerticalOptions="Fill" />-->
-
-        <!--<Button
-                Grid.Column="1"
-                Command="{Binding GoToLoginCommand}"
-                Text="Profile" />-->
-        <!--
-        </Grid>-->
-
-
-
 
         <!--  Widget  -->
         <Frame
@@ -183,7 +149,7 @@
                     </CollectionView.Header>
 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:TimesheetListItemModel">
+                        <DataTemplate x:DataType="model:TimesheetModel">
 
                             <controls:TimesheetListItemControl Title="{Binding Date}" Timesheet="{Binding .}" />
 

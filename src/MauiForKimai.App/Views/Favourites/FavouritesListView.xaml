@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mvvm:TinyView
-    x:Class="MauiForKimai.Views.TimesheetFavouritesListView"
+    x:Class="MauiForKimai.Views.FavouritesListView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:MauiForKimai.Controls"
@@ -10,7 +10,7 @@
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    x:DataType="viewmodel:TimesheetFavouritesListViewModel"
+    x:DataType="viewmodel:FavouritesListViewModel"
     Shell.NavBarIsVisible="True">
 
     <Shell.TitleView>
@@ -34,42 +34,17 @@
 
     <VerticalStackLayout>
 
-        <Button Command="{Binding RefreshCommand}" Text="Refresh" />
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Style="{StaticResource LargeLabel}" Text="Chosen" />
 
 
-        </Grid>
 
-
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label
-                Grid.Column="0"
-                Style="{StaticResource LargeLabel}"
-                Text="All" />
-
-            <Button
-                Grid.Column="1"
-                Command="{Binding AddNewCommand}"
-                Text="Add new" />
-        </Grid>
-
-        <ScrollView>
+        <ScrollView Padding="10">
 
             <CollectionView ItemsSource="{Binding Favourites}">
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:TimesheetListItemModel">
+                    <DataTemplate x:DataType="model:TimesheetModel">
 
-                        <controls:TimesheetFavouriteListItemControl Timesheet="{Binding .}" />
+                        <controls:FavouriteListControl Margin="0,5,0,5" Timesheet="{Binding .}" />
 
                     </DataTemplate>
 

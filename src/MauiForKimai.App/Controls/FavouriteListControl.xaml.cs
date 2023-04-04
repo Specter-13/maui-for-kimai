@@ -1,15 +1,15 @@
 namespace MauiForKimai.Controls;
 
-public partial class TimesheetFavouriteListItemControl : ContentView
+public partial class FavouriteListControl : ContentView
 {
 	public static readonly BindableProperty TimesheetProperty = BindableProperty.Create(nameof(TimesheetProperty), typeof(string), typeof(TimesheetListItemControl), string.Empty);
-	public TimesheetFavouriteListItemControl()
+	public FavouriteListControl()
 	{
 		InitializeComponent();
 	}
-	public TimesheetListItemModel Timesheet
+	public TimesheetModel Timesheet
 	{
-		get => GetValue(TimesheetProperty) as TimesheetListItemModel;
+		get => GetValue(TimesheetProperty) as TimesheetModel;
 		set => SetValue(TimesheetProperty, value);
 	}
 
