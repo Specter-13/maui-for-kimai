@@ -61,17 +61,7 @@
                 Style="{StaticResource SmallLabel}"
                 Text="{Binding ProjectName}" />
 
-            <Button
-                Grid.RowSpan="3"
-                Grid.Column="2"
-                BackgroundColor="Transparent">
-                <Button.ImageSource>
-                    <FontImageSource
-                        FontFamily="MaterialDesignIcons"
-                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.DotsHorizontal}"
-                        Size="22" />
-                </Button.ImageSource>
-            </Button>
+
 
             <Button
                 Grid.RowSpan="3"

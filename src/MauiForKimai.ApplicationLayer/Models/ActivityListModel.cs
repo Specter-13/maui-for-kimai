@@ -15,7 +15,7 @@ public class ActivityListModel : IChooseItem
     {
         
     }
-    public ActivityListModel(int id, string name, bool billable)
+    public ActivityListModel(int id, string name, bool? billable)
     {
         Id = id; 
         Name = name;
@@ -25,7 +25,7 @@ public class ActivityListModel : IChooseItem
     public int Id { get; set; }
     public string Name { get; set; }
 
-    public bool Billable { get; set; }
+    public bool? Billable { get; set; }
 
     public int ProjectId { get; set; }
 

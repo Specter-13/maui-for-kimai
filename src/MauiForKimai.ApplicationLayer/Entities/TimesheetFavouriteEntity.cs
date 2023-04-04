@@ -19,8 +19,8 @@ public class TimesheetFavouriteEntity
     public string? Description { get; set; }
     public string? Tags { get; set; }
 
-    public string? Billable { get; set; } 
+    public bool? Billable { get; set; } 
     public bool? Exported { get; set; }
-    public double? FixedRate { get; set; }
-    public double? HourlyRate { get; set; }
+    public float? FixedRate { get; set; }
+    public float? HourlyRate { get; set; }
 }

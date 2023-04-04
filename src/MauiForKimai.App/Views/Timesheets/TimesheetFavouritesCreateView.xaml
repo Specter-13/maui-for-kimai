@@ -10,13 +10,36 @@
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    Title="TimesheetFavouritesCreateView"
     x:DataType="viewmodel:TimesheetFavouritesCreateViewModel">
+
+    <Shell.TitleView>
+        <Grid>
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="Favourite detail"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
     <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Command="{Binding SaveCommand}" Text="Save" />
+            <Button
+                Grid.Column="2"
+                Command="{Binding DeleteCommand}"
+                Text="Delete" />
+
+
+        </Grid>
 
 
         <Label Text="Name" />
@@ -74,6 +97,5 @@
         <Entry Text="{Binding Favourite.Tags}" />
 
 
-        <Button Command="{Binding CreateCommand}" Text="Create" />
     </VerticalStackLayout>
 </mvvm:TinyView>

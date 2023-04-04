@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MauiForKimai.Core.Entities;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +35,7 @@ public class TimesheetListItemModel
     public string Duration { get; set; }
 
 
+
     //needed for new timetracking
     public int ActivityId { get; set; }
     public int ProjectId { get; set; }
@@ -44,5 +47,24 @@ public class TimesheetListItemModel
     public float? FixedRate { get; set; }
     public bool? Exported { get; set; }
     public bool? Billable { get; set; }
+
+      public static explicit operator TimesheetListItemModel(TimesheetFavouriteEntity entity)
+    {
+        return new TimesheetListItemModel
+        {
+            Id = entity.Id,
+            ActivityId = entity.ActivityId,
+            ActivityName = entity.ActivityName,
+            ProjectId = entity.ProjectId,
+            ProjectName = entity.ProjectName,
+            CustomerName = entity.CustomerName,
+
+            Tags = entity.Tags,
+            Description = entity.Description,
+            FixedRate = entity.FixedRate,
+            Exported = entity.Exported,
+            Billable = entity.Billable
+        };
+    }
 
 }

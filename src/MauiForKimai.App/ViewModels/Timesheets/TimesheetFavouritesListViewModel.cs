@@ -25,25 +25,15 @@ public partial class TimesheetFavouritesListViewModel : ViewModelBase
 		 WeakReferenceMessenger.Default.Register<TimesheetFavouriteCreateMessage>(this, async (r, m) =>
         {
             Favourites.Insert(0,m.Value);
-            //Chosen = m.Value;
-            
         });
 
-        // Register the receiver in a module
-        //WeakReferenceMessenger.Default.Register<MyViewModel, LoggedInUserRequestMessage>(this, (r, m) =>
-        //{
-        //    // Assume that "CurrentUser" is a private member in our viewmodel.
-        //    // As before, we're accessing it through the recipient passed as
-        //    // input to the handler, to avoid capturing "this" in the delegate.
-        //    m.Reply(r.CurrentUser);
-        //});
+
     }
 
-    [ObservableProperty]
-    public TimesheetFavouritesListModel chosen;
 
 
-    public ObservableCollection<TimesheetFavouritesListModel> Favourites {get; set; } = new();
+
+    public ObservableCollection<TimesheetListItemModel> Favourites {get; set; } = new();
 
     public override async Task Initialize()
     {
@@ -51,7 +41,7 @@ public partial class TimesheetFavouritesListViewModel : ViewModelBase
         var favourites = await _favouritesTimesheetService.GetAll();
         foreach (var favourite in favourites)
         {
-            Favourites.Add((TimesheetFavouritesListModel)favourite);
+            Favourites.Add((TimesheetListItemModel)favourite);
         }
         IsBusy = false;
     }
@@ -64,7 +54,7 @@ public partial class TimesheetFavouritesListViewModel : ViewModelBase
         Favourites.Clear();
         foreach (var favourite in favourites)
         {
-            Favourites.Add((TimesheetFavouritesListModel)favourite);
+            Favourites.Add((TimesheetListItemModel)favourite);
         }
         IsBusy = false;
     }
@@ -77,16 +67,14 @@ public partial class TimesheetFavouritesListViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    async Task FavouriteTapped(TimesheetFavouritesListModel model)
+    async Task FavouriteTapped(TimesheetListItemModel model)
     { 
-       Chosen = model;
+       //Chosen = model;
+        var route = base.routingService.GetRouteByViewModel<TimesheetFavouritesCreateViewModel>();
+		await Navigation.NavigateTo(route, model);
     }
 
-    [RelayCommand]
-    async Task UnsetChosen()
-    { 
-       Chosen = null;
-    }
+    
 
 
 }

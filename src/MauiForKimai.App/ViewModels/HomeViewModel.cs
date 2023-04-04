@@ -19,6 +19,7 @@ public partial class HomeViewModel : ViewModelBase
 	private readonly IDispatcherWrapper _dispatcherWrapper;
 	private readonly IServerService _serverService;
     private readonly ISecureStorageService  _secureStorageService;
+	
 
 	public HomeViewModel(IRoutingService rs, 
 		ILoginService ls, 
@@ -166,6 +167,8 @@ public partial class HomeViewModel : ViewModelBase
 		var route = base.routingService.GetRouteByViewModel<ServerListViewModel>();
 		await Navigation.NavigateTo(route);
 	}
+
+
 
 	[RelayCommand]
 	async Task StartRecentTimesheet(TimesheetListItemModel timesheet)

@@ -22,12 +22,19 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     private readonly ICustomerService _customerService;
     private readonly ITimesheetService _timesheetService;
     private readonly PopupSizeConstants _popupSizeConstants;
-    public TimesheetCreateViewModel(IRoutingService rs,ILoginService ls, ICustomerService customerService,ITimesheetService ts, PopupSizeConstants sc) : base(rs, ls)
+    private readonly IFavouritesTimesheetService  _favouriteTimesheetService;
+    public TimesheetCreateViewModel(IRoutingService rs,
+        ILoginService ls, 
+        ICustomerService customerService,
+        ITimesheetService ts, PopupSizeConstants sc, IFavouritesTimesheetService fts) : base(rs, ls)
     {
         _customerService = customerService;
         _timesheetService = ts;
          RegisterMessages();
         _popupSizeConstants = sc;
+        _favouriteTimesheetService = fts;
+
+
         if(ApiStateProvider.IsTeamlead) SelectedBillableMode = "Automatic";
         
     }
@@ -179,6 +186,23 @@ public partial class TimesheetCreateViewModel : ViewModelBase
   
 
     [RelayCommand]
+    async Task AddToFavourites()
+    {
+        var entity = new TimesheetFavouriteEntity{
+            ActivityId = ChosenActivity.Id,
+            ActivityName = ChosenActivity.Name,
+            ProjectId = ChosenProject.Id,
+            ProjectName = ChosenProject.Name,
+            CustomerName = ChosenCustomer.Name,
+            Description = Timesheet.Description,
+            Tags = Timesheet.Tags,
+            Name = ChosenActivity.Name
+
+        };
+        await _favouriteTimesheetService.Create(entity);
+    }
+
+    [RelayCommand]
     async Task StartTimesheet()
     {
         Timesheet.Begin = TimeWrapper.BeginFull;
@@ -291,7 +315,7 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     { 
         if (SelectedBillableMode == "Automatic")
         {
-            bool isCustomerBillable;
+            bool? isCustomerBillable;
             if(ChosenCustomer == null)
             {
                 isCustomerBillable = (await _customerService.GetById(ChosenProject.CustomerId)).Billable; 
@@ -300,7 +324,7 @@ public partial class TimesheetCreateViewModel : ViewModelBase
             {
                 isCustomerBillable = ChosenCustomer.Billable;
             }
-            Timesheet.Billable = ChosenProject.Billable && ChosenActivity.Billable && isCustomerBillable;
+            Timesheet.Billable = ChosenProject.Billable.Value && ChosenActivity.Billable.Value && isCustomerBillable.Value;
         }
         else if (SelectedBillableMode == "Yes")
         { 

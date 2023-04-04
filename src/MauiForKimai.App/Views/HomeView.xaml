@@ -167,8 +167,8 @@
                                     Grid.RowSpan="3"
                                     Grid.Column="3"
                                     BackgroundColor="Transparent"
+                                    Command="{Binding CreateNewTimesheetCommand}"
                                     HorizontalOptions="End"
-                                    Command="{Binding CreateNewTimesheetCommand}}"
                                     Style="{StaticResource Key=RecentRestartButton}">
                                     <Button.ImageSource>
                                         <FontImageSource

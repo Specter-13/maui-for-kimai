@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MauiForKimai.Messenger;
 
-public class TimesheetFavouriteCreateMessage : ValueChangedMessage<TimesheetFavouritesListModel>
+public class TimesheetFavouriteCreateMessage : ValueChangedMessage<TimesheetListItemModel>
 {
-    public TimesheetFavouriteCreateMessage(TimesheetFavouritesListModel value) : base(value)
+    public TimesheetFavouriteCreateMessage(TimesheetListItemModel value) : base(value)
     {
     }
 }

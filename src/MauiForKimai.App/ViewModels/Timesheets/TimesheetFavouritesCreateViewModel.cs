@@ -44,9 +44,34 @@ public partial class TimesheetFavouritesCreateViewModel : ViewModelBase
             }
 
         });
-
     }
 
+    public override Task OnParameterSet()
+    {
+        if (NavigationParameter is TimesheetListItemModel model)
+        { 
+            ChosenCustomer = new CustomerListModel(model.CustomerId, model.CustomerName, model.Billable);
+            ChosenActivity =  new ActivityListModel(model.ActivityId, model.ActivityName, model.Billable);
+            ChosenProject = new ProjectListModel(model.ProjectId, model.ProjectName, model.CustomerId, model.Billable);
+            var entity = new TimesheetFavouriteEntity()
+            { 
+                Id = model.Id,
+                ActivityId = model.ActivityId,
+                ActivityName = model.ActivityName,
+                ProjectId = model.ProjectId,
+                ProjectName = model.ProjectName,
+                CustomerName = model.CustomerName,
+
+                Tags = model.Tags,
+                Description = model.Description,
+                FixedRate = model.FixedRate,
+                Exported = model.Exported,
+                Billable = model.Billable
+            };
+            Favourite = entity; 
+        }
+            return base.OnParameterSet();
+    }
 
     [ObservableProperty]
     public TimesheetFavouriteEntity favourite = new();
@@ -87,16 +112,37 @@ public partial class TimesheetFavouritesCreateViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    async Task Create()
+    async Task Save()
     {
         Favourite.CustomerName = ChosenCustomer.Name;
         Favourite.ActivityId = ChosenActivity.Id;
         Favourite.ActivityName = ChosenActivity.Name;
         Favourite.ProjectName = ChosenProject.Name;
         Favourite.ProjectId = ChosenProject.Id;
-        var created = (TimesheetFavouritesListModel) await _favouritesTimesheetService.Create(Favourite);
-        WeakReferenceMessenger.Default.Send(new TimesheetFavouriteCreateMessage(created));
+        var created = (TimesheetFavouritesListModel) await _favouritesTimesheetService.Update(Favourite);
+        //WeakReferenceMessenger.Default.Send(new TimesheetFavouriteCreateMessage(Favourite));
         await Navigation.NavigateTo("..");
     }
+    [RelayCommand]
+    async Task Delete()
+    {
+
+        await _favouritesTimesheetService.Delete(Favourite.Id);
+        //WeakReferenceMessenger.Default.Send(new TimesheetFavouriteCreateMessage(created));
+        await Navigation.NavigateTo("..");
+    }
+
+    // [RelayCommand]
+    //async Task Create()
+    //{
+    //    Favourite.CustomerName = ChosenCustomer.Name;
+    //    Favourite.ActivityId = ChosenActivity.Id;
+    //    Favourite.ActivityName = ChosenActivity.Name;
+    //    Favourite.ProjectName = ChosenProject.Name;
+    //    Favourite.ProjectId = ChosenProject.Id;
+    //    var created = (TimesheetFavouritesListModel) await _favouritesTimesheetService.Create(Favourite);
+    //    WeakReferenceMessenger.Default.Send(new TimesheetFavouriteCreateMessage(created));
+    //    await Navigation.NavigateTo("..");
+    //}
 
 }
