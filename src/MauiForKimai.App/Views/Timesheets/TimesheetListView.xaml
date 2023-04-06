@@ -47,7 +47,7 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:TimesheetModel">
-                            <controls:TimesheetListItemControl Title="{Binding Date}" Timesheet="{Binding .}" />
+                            <controls:TimesheetListControl Title="{Binding Date}" Timesheet="{Binding .}"  />
                         </DataTemplate>
 
                     </CollectionView.ItemTemplate>

@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
 using MauiForKimai.Popups;
-using MauiForKimai.Views.Timesheets;
 using MauiForKimai.Wrappers;
 using System;
 using System.Collections.Generic;
@@ -13,17 +12,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace MauiForKimai.ViewModels.Timesheets;
+namespace MauiForKimai.ViewModels;
 
 
 
-public partial class TimesheetCreateViewModel : ViewModelBase
+public partial class TimesheetDetailViewModel : ViewModelBase
 {
     private readonly ICustomerService _customerService;
     private readonly ITimesheetService _timesheetService;
     private readonly PopupSizeConstants _popupSizeConstants;
     private readonly IFavouritesTimesheetService  _favouriteTimesheetService;
-    public TimesheetCreateViewModel(IRoutingService rs,
+    public TimesheetDetailViewModel(IRoutingService rs,
         ILoginService ls, 
         ICustomerService customerService,
         ITimesheetService ts, PopupSizeConstants sc, IFavouritesTimesheetService fts) : base(rs, ls)
@@ -160,7 +159,7 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     [RelayCommand]
     async Task ShowProjectChooseView()
     {
-        var route = routingService.GetRouteByViewModel<ProjectChooseTimesheetViewModel>();
+        var route = routingService.GetRouteByViewModel<ProjectChooseRecentTimesheetViewModel>();
         var wrapper = new ChooseItemWrapper(ChosenProject,ChooseItemMode.Timesheet);
         wrapper.ChosenCustomerId = ChosenCustomer.Id;
         await Navigation.NavigateTo(route, wrapper);
@@ -169,7 +168,7 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     [RelayCommand]
     async Task ShowActivityChooseView()
     {
-        var route = routingService.GetRouteByViewModel<CustomerChooseTimesheetViewModel>();
+        var route = routingService.GetRouteByViewModel<CustomerChooseRecentTimesheetViewModel>();
         var wrapper = new ChooseItemWrapper(ChosenActivity,ChooseItemMode.Timesheet);
         wrapper.ChosenProjectId = ChosenProject.Id;
         await Navigation.NavigateTo(route, wrapper);
@@ -178,7 +177,7 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     [RelayCommand]
     async Task ShowCustomerChooseView()
     {
-        var route = routingService.GetRouteByViewModel<CustomerChooseTimesheetViewModel>();
+        var route = routingService.GetRouteByViewModel<CustomerChooseRecentTimesheetViewModel>();
         var wrapper = new ChooseItemWrapper(ChosenCustomer,ChooseItemMode.Timesheet);
         await Navigation.NavigateTo(route, wrapper);
     }
@@ -233,7 +232,7 @@ public partial class TimesheetCreateViewModel : ViewModelBase
         //Timesheet.P
 
         var wrapper = new TimesheetTimetrackingWrapper(Timesheet,ChosenActivity.Name,ChosenProject.Name);
-        WeakReferenceMessenger.Default.Send(new TimesheetStartMessage(wrapper));
+        WeakReferenceMessenger.Default.Send(new TimesheetStartNewMessage(wrapper));
         await Navigation.NavigateTo("..");
 
     }
@@ -269,6 +268,15 @@ public partial class TimesheetCreateViewModel : ViewModelBase
         Timesheet.Activity = ChosenActivity.Id;
 
         await _timesheetService.Update(_id,Timesheet);
+        //TODO = roles
+        await Navigation.NavigateTo("..");
+    }
+
+
+     [RelayCommand]
+    async Task Delete()
+    {
+        await _timesheetService.Delete(_id);
         //TODO = roles
         await Navigation.NavigateTo("..");
     }
@@ -338,4 +346,9 @@ public partial class TimesheetCreateViewModel : ViewModelBase
     }
 
 
+}
+
+
+public class TimesheetDetailAllViewModel : IViewModel
+{
 }

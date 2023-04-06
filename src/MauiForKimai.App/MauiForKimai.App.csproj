@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
     
-		<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
-    <!--<TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>-->
+		<!--<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>-->
+    <TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
@@ -79,7 +79,7 @@
 	  <MauiXaml Update="Controls\FavouriteListControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Controls\TimesheetListItemControl.xaml">
+	  <MauiXaml Update="Controls\TimesheetListControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\DurationPopup.xaml">
@@ -106,7 +106,7 @@
 	  <MauiXaml Update="Views\Reports\ReportsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Timesheets\TimesheetCreateView.xaml">
+	  <MauiXaml Update="Views\Timesheets\TimesheetDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Favourites\FavouritesDetailView.xaml">
@@ -124,8 +124,8 @@
 	  <Compile Update="Controls\FavouriteListControl.xaml.cs">
 	    <DependentUpon>FavouriteListControl.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Controls\TimesheetListItemControl.xaml.cs">
-	    <DependentUpon>TimesheetListItemControl.xaml</DependentUpon>
+	  <Compile Update="Controls\TimesheetListControl.xaml.cs">
+	    <DependentUpon>TimesheetListControl.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Shells\AppShellMobile.xaml.cs">
 	    <DependentUpon>AppShellMobile.xaml</DependentUpon>
@@ -147,6 +147,9 @@
 	  </Compile>
 	  <Compile Update="Views\Favourites\FavouritesDetailView.xaml.cs">
 	    <DependentUpon>FavouritesDetailView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Timesheets\TimesheetDetailView.xaml.cs">
+	    <DependentUpon>TimesheetDetailView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Timesheets\TimesheetListView.xaml.cs">
 	    <DependentUpon>TimesheetListView.xaml</DependentUpon>

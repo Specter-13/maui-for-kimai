@@ -27,6 +27,12 @@ internal class BarChartDrawable : View, IDrawable
 
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
+  
+        if(Points == null || Points.Count == 0)
+        { 
+            return;    
+        }
+
         const int BAR_WIDTH = 30;
 
         canvas.FontColor = Color.FromArgb("#7F2CF6");
@@ -84,7 +90,7 @@ internal class BarChartDrawable : View, IDrawable
 
     private float _chartWidth;
     private double _xAxisScale;
-    private float _firstBarXAxis = 40.0f;
+    private float _firstBarXAxis = 20.0f;
     private Dictionary<string, float> _points;
 
 

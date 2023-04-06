@@ -76,7 +76,7 @@ public partial class FavouritesListViewModel : ViewModelBase
     async Task QuickStart(TimesheetModel model)
     { 
         model.Begin =  new DateTimeOffset(DateTime.Now, loginService.GetUserTimeOffset());
-        WeakReferenceMessenger.Default.Send(new FavouritesStartMessage(model));
+        WeakReferenceMessenger.Default.Send(new TimesheetStartExistingMessage(model));
         var route = base.routingService.GetRouteByViewModel<HomeViewModel>();
 		await Navigation.NavigateTo(route, model);
     }

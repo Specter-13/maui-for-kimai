@@ -3,7 +3,6 @@ using CommunityToolkit.Maui.Core;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Core.Extensions;
 using System.Numerics;
-using MauiForKimai.ViewModels.Timesheets;
 using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
 using MauiForKimai.ApiClient.Services;
@@ -40,14 +39,15 @@ public partial class HomeViewModel : ViewModelBase
 	// Initialize methods
 	private void RegisterMessages()
 	{ 
-		 WeakReferenceMessenger.Default.Register<TimesheetStartMessage>(this, async (r, m) =>
+		 WeakReferenceMessenger.Default.Register<TimesheetStartNewMessage
+			 >(this, async (r, m) =>
         {
             SelectedActivity = m.Value.ActivityName;
 			await StartTimesheet(m.Value.EditForm);
 
         });
 
-		 WeakReferenceMessenger.Default.Register<FavouritesStartMessage>(this, async (r, m) =>
+		 WeakReferenceMessenger.Default.Register<TimesheetStartExistingMessage>(this, async (r, m) =>
         {
 			//TODO ROLES
 			var editForm = m.Value.ToTimesheetEditFormBase();
@@ -61,6 +61,12 @@ public partial class HomeViewModel : ViewModelBase
 
 	private async Task StartTimesheet(TimesheetEditForm form)
     { 
+		if(IsTimetrackingActive)
+		{ 
+			await Toast.Make("There is already active timesheet!", ToastDuration.Short, 14).Show();
+			return;
+		}
+
 		await timesheetService.Create(form);
 		_timer.Start();
 		IsTimetrackingActive = true;
@@ -82,7 +88,6 @@ public partial class HomeViewModel : ViewModelBase
 
 	[ObservableProperty]
 	bool isTimetrackingActive;
-
 	
 
 	[ObservableProperty]
@@ -98,19 +103,32 @@ public partial class HomeViewModel : ViewModelBase
 	[RelayCommand]
 	async Task StartTimeTracking()
 	{
-		var route = base.routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
+		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
 		await Navigation.NavigateTo(route,TimesheetDetailMode.Start);
 
 	}
 
 	[RelayCommand]
+	async Task StartRecentTimesheet(TimesheetModel timesheet)
+	{	
+		
+
+		//TODO check for roles, ToTimesheetEditFormFull
+
+		var editForm = timesheet.ToTimesheetEditFormBase();
+		SelectedActivity = timesheet.ActivityName;
+		editForm.Begin = new DateTimeOffset(DateTime.Now,_loginService.GetUserTimeOffset());
+		editForm.End = null;
+		await StartTimesheet(editForm);
+	}
+
+	[RelayCommand]
 	async Task CreateNewTimesheet()
 	{
-		var route = base.routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
+		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
 		await Navigation.NavigateTo(route,TimesheetDetailMode.Create);
 
 	}
-
 
 	[RelayCommand]
 	async Task StopTimeTracking()
@@ -146,26 +164,6 @@ public partial class HomeViewModel : ViewModelBase
 		await Navigation.NavigateTo(route);
 	}
 
-
-
-	[RelayCommand]
-	async Task StartRecentTimesheet(TimesheetModel timesheet)
-	{	
-		if(IsTimetrackingActive)
-		{ 
-			await Toast.Make("There is already active timesheet!", ToastDuration.Short, 14).Show();
-			return;
-		}
-
-		//TODO check for roles, ToTimesheetEditFormFull
-
-		var editForm = timesheet.ToTimesheetEditFormBase();
-		SelectedActivity = timesheet.ActivityName;
-		editForm.Begin = new DateTimeOffset(DateTime.Now,_loginService.GetUserTimeOffset());
-		editForm.End = null;
-		await StartTimesheet(editForm);
-	}
-
 	
 	[RelayCommand]
 	async Task RefreshTimesheets()
@@ -183,34 +181,19 @@ public partial class HomeViewModel : ViewModelBase
 		RecentTimesheets.Clear();
 		foreach(var timesheet in timeheets)
 		{ 
-			RecentTimesheets.Add(timesheet.ToTimesheetModel());
+			var model = timesheet.ToTimesheetModel();
+			model.IsRecent = true;
+			RecentTimesheets.Add(model);
 		}
 
     }
 
-  //  private Task GetTimesheestByDateGroup()
-  //  {
-		//var timeheets = (await timesheetService.GetTenRecentTimesheetsAsync()).ToObservableCollection();
-
-		//RecentGroupedTimesheets.Clear();
-		//var todayTimesheets = new List<TimesheetListItemModel>();
-		//var olderTimesheets = new List<TimesheetListItemModel>();
-		//foreach(var timesheet in timeheets)
-		//{ 
-		//	if(timesheet.Begin.Date == DateTime.Today)
-		//	{
-		//		todayGroup.Add(timesheet.ToTimesheetListItemModel());
-		//	}
-		//	RecentTimesheets.Add(timesheet.ToTimesheetListItemModel());
-		//}
-
-  //  }
 
 	[RelayCommand]
-    async Task TimesheetOnTap(TimesheetModel currentTimesheet)
+    async Task ShowDetail(TimesheetModel currentTimesheet)
     {
 
-		var route = base.routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
+		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
 
 		var wrapper = new TimesheetDetailWrapper(currentTimesheet,TimesheetDetailMode.Edit);
 		await Navigation.NavigateTo(route,wrapper);

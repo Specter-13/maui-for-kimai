@@ -166,44 +166,40 @@ public partial class ChooseItemViewModel : ViewModelBase
 
 
 
-public partial class ActivityChooseFavouriteViewModel : ChooseItemViewModel
+public partial class ActivityChooseFavouriteViewModel : IViewModel
 {
-    public ActivityChooseFavouriteViewModel(IRoutingService rs, ILoginService ls, ICustomerService customerService, IActivityService activityService, IProjectService projectService) : base(rs, ls, customerService, activityService, projectService)
-    {
-    }
 }
 
-public partial class ActivityChooseTimesheetViewModel : ChooseItemViewModel
+public partial class ActivityChooseRecentTimesheetViewModel : IViewModel
 {
-    public ActivityChooseTimesheetViewModel(IRoutingService rs, ILoginService ls, ICustomerService customerService, IActivityService activityService, IProjectService projectService) : base(rs, ls, customerService, activityService, projectService)
-    {
-    }
 }
 
-public partial class CustomerChooseFavouriteViewModel : ChooseItemViewModel
+public partial class ActivityChooseDetailAllViewModel : IViewModel
 {
-    public CustomerChooseFavouriteViewModel(IRoutingService rs, ILoginService ls, ICustomerService customerService, IActivityService activityService, IProjectService projectService) : base(rs, ls, customerService, activityService, projectService)
-    {
-    }
 }
 
-public partial class CustomerChooseTimesheetViewModel : ChooseItemViewModel
+
+public partial class CustomerChooseFavouriteViewModel : IViewModel
 {
-    public CustomerChooseTimesheetViewModel(IRoutingService rs, ILoginService ls, ICustomerService customerService, IActivityService activityService, IProjectService projectService) : base(rs, ls, customerService, activityService, projectService)
-    {
-    }
 }
 
-public partial class ProjectChooseFavouriteViewModel : ChooseItemViewModel
+public partial class CustomerChooseRecentTimesheetViewModel: IViewModel
 {
-    public ProjectChooseFavouriteViewModel(IRoutingService rs, ILoginService ls, ICustomerService customerService, IActivityService activityService, IProjectService projectService) : base(rs, ls, customerService, activityService, projectService)
-    {
-    }
 }
 
-public partial class ProjectChooseTimesheetViewModel : ChooseItemViewModel
+public partial class CustomerChooseDetailAllViewModel : IViewModel
 {
-    public ProjectChooseTimesheetViewModel(IRoutingService rs, ILoginService ls, ICustomerService customerService, IActivityService activityService, IProjectService projectService) : base(rs, ls, customerService, activityService, projectService)
-    {
-    }
 }
+
+public partial class ProjectChooseFavouriteViewModel: IViewModel
+{
+}
+
+public partial class ProjectChooseRecentTimesheetViewModel : IViewModel
+{
+}
+
+public partial class ProjectChooseDetailAllViewModel : IViewModel
+{
+}
+

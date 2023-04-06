@@ -24,6 +24,13 @@ internal class BarChartGraphicsView : GraphicsView
         new Dictionary<string, float>(),
         propertyChanged: (bindable, oldValue, newValue) =>
         {
+            var points = (Dictionary<string, float>)newValue;
+            if(points == null || points.Count == 0)
+            { 
+                return;    
+            }
+
+
             var chartView = (BarChartGraphicsView)bindable;
 
             chartView.BarChartDrawable.Max = chartView.Points?.Select(x => x.Value).Max() * 1.1f ?? 0.0f;
@@ -40,6 +47,8 @@ internal class BarChartGraphicsView : GraphicsView
 
     public BarChartGraphicsView()
     {
+       
+        
         Drawable = BarChartDrawable;
 
         //This is not working...

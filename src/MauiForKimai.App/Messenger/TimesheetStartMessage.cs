@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MauiForKimai.Messenger;
 
-public class TimesheetStartMessage : ValueChangedMessage<TimesheetTimetrackingWrapper>
+public class TimesheetStartNewMessage : ValueChangedMessage<TimesheetTimetrackingWrapper>
 {
-    public TimesheetStartMessage(TimesheetTimetrackingWrapper value) : base(value)
+    public TimesheetStartNewMessage(TimesheetTimetrackingWrapper value) : base(value)
     {
     }
 }

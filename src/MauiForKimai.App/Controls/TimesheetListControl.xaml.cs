@@ -1,12 +1,12 @@
 namespace MauiForKimai.Controls;
 
-public partial class TimesheetListItemControl : ContentView
+public partial class TimesheetListControl : ContentView
 {
-	public static readonly BindableProperty TimesheetProperty = BindableProperty.Create(nameof(TimesheetProperty), typeof(string), typeof(TimesheetListItemControl), string.Empty);
+	public static readonly BindableProperty TimesheetProperty = BindableProperty.Create(nameof(TimesheetProperty), typeof(string), typeof(TimesheetListControl), string.Empty);
 
-	public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(TitleProperty), typeof(string), typeof(TimesheetListItemControl), propertyChanged: (bindable, oldValue, newValue) =>
+	public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(TitleProperty), typeof(string), typeof(TimesheetListControl), propertyChanged: (bindable, oldValue, newValue) =>
 	{ 
-		var control = (TimesheetListItemControl)bindable;
+		var control = (TimesheetListControl)bindable;
 		var day = newValue as string;
 		if(_today == day)
 		{
@@ -17,8 +17,9 @@ public partial class TimesheetListItemControl : ContentView
 			control.Day.Text =day;
 		}
 	});
-   
-	public TimesheetListItemControl()
+
+
+	public TimesheetListControl()
 	{
 		InitializeComponent();
 	}
@@ -36,4 +37,5 @@ public partial class TimesheetListItemControl : ContentView
 	}
 
     public static string _today => DateTime.Today.ToShortDateString();
+
 }

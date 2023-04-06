@@ -24,26 +24,63 @@
         </Grid>
     </Shell.TitleView>
 
-    <VerticalStackLayout x:Name="MyVerticalStack" Padding="20">
+    <ScrollView x:Name="MyScrollView" Padding="20">
 
-        <Label Style="{StaticResource LargeLabel}" Text="Projects" />
-        <Label
-            Margin="0,0,0,10"
-            Style="{StaticResource MediumLabel}"
-            Text="This week" />
+        <VerticalStackLayout x:Name="MyVerticalStack">
 
-
-        <ActivityIndicator
-            Grid.RowSpan="3"
-            Grid.ColumnSpan="1"
-            HorizontalOptions="Fill"
-            IsRunning="{Binding IsBusy}"
-            IsVisible="{Binding IsBusy}"
-            VerticalOptions="Center" />
+            <Button Command="{Binding RefreshCommand}" Text="Refresh" />
+            <Label Style="{StaticResource LargeLabel}" Text="Projects" />
+            <Label
+                Margin="0,0,0,10"
+                Style="{StaticResource MediumLabel}"
+                Text="Today" />
 
 
-        <!--<charts:BarChart IsVisible="{Binding IsNotBusy}" Points="{Binding Data}" />-->
+            <ActivityIndicator
+                Grid.RowSpan="3"
+                Grid.ColumnSpan="1"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center" />
 
-    </VerticalStackLayout>
+            <charts:BarChart
+                x:Name="BarChartToday"
+                BindingContext="{Binding TodayData}"
+                CustomHeight="300"
+                CustomWidth="{Binding TodayDataWidth}"
+                IsVisible="{Binding IsDataLoaded}"
+                MaxValue="{Binding TodayMaxValue}"
+                Points="{Binding TodayData}" />
+
+            <Label Text="This Week" />
+
+            <charts:BarChart
+                x:Name="BarChartWeek"
+                BindingContext="{Binding WeekData}"
+                CustomHeight="300"
+                CustomWidth="{Binding WeekDataWidth}"
+                IsVisible="{Binding IsDataLoaded}"
+                MaxValue="{Binding WeekMaxValue}"
+                Points="{Binding WeekData}" />
+
+
+            <Label Text="This month" />
+            <charts:BarChart
+                x:Name="BarChartMonth"
+                BindingContext="{Binding WeekData}"
+                CustomHeight="300"
+                CustomWidth="{Binding WeekDataWidth}"
+                IsVisible="{Binding IsDataLoaded}"
+                MaxValue="{Binding MonthMaxValue}"
+                Points="{Binding WeekData}" />
+
+        </VerticalStackLayout>
+
+
+
+
+
+    </ScrollView>
 
 </mvvm:TinyView>

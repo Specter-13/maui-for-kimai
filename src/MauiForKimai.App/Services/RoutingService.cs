@@ -1,8 +1,6 @@
 ﻿
 using MauiForKimai.ViewModels;
-using MauiForKimai.ViewModels.Timesheets;
 using MauiForKimai.Views;
-using MauiForKimai.Views.Timesheets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,22 +20,29 @@ public class RoutingService : IRoutingService
 
 
     new("//favourites", typeof(FavouritesListView), typeof(FavouritesListViewModel)),
-    new("//favourites/create", typeof(FavouritesDetailView), typeof(FavouritesDetailViewModel)),
-    new("//favourites/create/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseFavouriteViewModel)),
-    new("//favourites/create/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseFavouriteViewModel)),
-    new("//favourites/create/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseFavouriteViewModel)),
+    new("//favourites/detail", typeof(FavouritesDetailView), typeof(FavouritesDetailViewModel)),
+    new("//favourites/detail/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseFavouriteViewModel)),
+    new("//favourites/detail/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseFavouriteViewModel)),
+    new("//favourites/detail/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseFavouriteViewModel)),
+
+
+    new("//timesheets", typeof(TimesheetListView), typeof(TimesheetListViewModel)),
+    new("//timesheets/detail", typeof(TimesheetDetailView), typeof(TimesheetDetailAllViewModel)),
+    new("//timesheets/detail/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseDetailAllViewModel)),
+    new("//timesheets/detail/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseDetailAllViewModel)),
+    new("//timesheets/detail/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseDetailAllViewModel)),
 
     new("//reports", typeof(ReportsView), typeof(ReportsViewModel)),
 
     new("//serverlistview", typeof(ServerListView), typeof(ServerListViewModel)),
     new("//serverlistview/detail", typeof(ServerDetailView), typeof(ServerDetailViewModel)),
 
-    new("//home/timesheet", typeof(TimesheetCreateView), typeof(TimesheetCreateViewModel)),
-    new("//home/timesheet/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseTimesheetViewModel)),
-    new("//home/timesheet/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseTimesheetViewModel)),
-    new("//home/timesheet/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseTimesheetViewModel)),
+    new("//home/timesheet", typeof(TimesheetDetailView), typeof(TimesheetDetailViewModel)),
+    new("//home/timesheet/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseRecentTimesheetViewModel)),
+    new("//home/timesheet/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseRecentTimesheetViewModel)),
+    new("//home/timesheet/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseRecentTimesheetViewModel)),
     
-    new("//timesheets", typeof(TimesheetListView), typeof(TimesheetListViewModel)),
+
 };
 
 private static IEnumerable<RouteModel> routesPhone = new List<RouteModel>

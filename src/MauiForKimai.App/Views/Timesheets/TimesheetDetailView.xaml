@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mvvm:TinyView
-    x:Class="MauiForKimai.Views.Timesheets.TimesheetCreateView"
+    x:Class="MauiForKimai.Views.TimesheetDetailView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:enums="clr-namespace:MauiForKimai.Core.Enums;assembly=MauiForKimai.Core"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
-    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels.Timesheets"
-    x:DataType="viewmodel:TimesheetCreateViewModel"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    x:DataType="viewmodel:TimesheetDetailViewModel"
     Shell.TabBarIsVisible="True">
 
 
@@ -107,8 +107,10 @@
 
             <Button
                 Margin="10"
+                Command="{Binding DeleteCommand}"
                 HeightRequest="40"
                 IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
+                Style="{StaticResource DeleteButton}"
                 Text="Delete" />
 
             <Button

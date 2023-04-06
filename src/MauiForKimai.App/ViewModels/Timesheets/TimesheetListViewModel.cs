@@ -1,6 +1,9 @@
-﻿using MauiForKimai.ApiClient;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using MauiForKimai.ApiClient;
 using MauiForKimai.ApiClient.Authentication;
+using MauiForKimai.Messenger;
 using MauiForKimai.ViewModels.Base;
+using MauiForKimai.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -74,6 +77,25 @@ public partial class TimesheetListViewModel : ViewModelBase
         
 
     }
+    [RelayCommand]
+    async Task ShowDetail(TimesheetModel model)
+    {
+        var wrapper = new TimesheetDetailWrapper(model,TimesheetDetailMode.Edit);
+        var route = base.routingService.GetRouteByViewModel<TimesheetDetailAllViewModel>();
+		await Navigation.NavigateTo(route,wrapper);
+    }
+
+    [RelayCommand]
+    async Task QuickStart(TimesheetModel model)
+    {
+        model.Begin =  new DateTimeOffset(DateTime.Now, loginService.GetUserTimeOffset());
+        model.End =  null;
+        WeakReferenceMessenger.Default.Send(new TimesheetStartExistingMessage(model));
+        var route = base.routingService.GetRouteByViewModel<HomeViewModel>();
+		await Navigation.NavigateTo(route, model);
+    }
+
+
 
     private async Task GetTimesheetsIncrementaly()
     { 

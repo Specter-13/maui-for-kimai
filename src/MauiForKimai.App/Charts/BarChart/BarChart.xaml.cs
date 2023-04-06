@@ -1,3 +1,6 @@
+using CommunityToolkit.Mvvm.Messaging;
+using MauiForKimai.Messenger;
+
 namespace MauiForKiami.App.Charts;
 
 public partial class BarChart : StackLayout
@@ -10,19 +13,36 @@ public partial class BarChart : StackLayout
             {
                 var chartView = ((BarChart)bindable);
 
-                //Give the heighest bar a little head room for aesthetics
-                chartView.Chart.BarChartDrawable.Max = chartView.Points?.Select(x => x.Value).Max() * 1.1f ?? 0.0f;
+                ////Give the heighest bar a little head room for aesthetics
+                //chartView.Chart.BarChartDrawable.Max = chartView.Points?.Select(x => x.Value).Max() * 1.1f ?? 0.0f;
 
                 //Set the points from XAML to component
                 chartView.Chart.BarChartDrawable.Points = (Dictionary<string, float>)newValue;
 
-                //Give the heighest bar a little head room for aesthetics
-                chartView.ChartDesktop.BarChartDrawable.Max = chartView.Points?.Select(x => x.Value).Max() * 1.1f ?? 0.0f;
+                ////Give the heighest bar a little head room for aesthetics
+                //chartView.ChartDesktop.BarChartDrawable.Max = chartView.Points?.Select(x => x.Value).Max() * 1.1f ?? 0.0f;
 
                 //Set the points from XAML to component
                 chartView.ChartDesktop.BarChartDrawable.Points = (Dictionary<string, float>)newValue;
             });
 
+
+
+
+     public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(CustomWidth),
+            typeof(float),
+            typeof(BarChart),    
+            propertyChanged: async (bindable, oldValue, newValue) =>
+            {
+                var chartView = ((BarChart)bindable);
+                var max = (float)newValue;
+
+                //Give the heighest bar a little head room for aesthetics
+                chartView.ChartDesktop.BarChartDrawable.Max = max * 1.1f;
+                //Give the heighest bar a little head room for aesthetics
+                chartView.Chart.BarChartDrawable.Max = max * 1.1f;
+              
+            });
 
 
      public static readonly BindableProperty CustomWidthProperty = BindableProperty.Create(nameof(CustomWidth),
@@ -65,9 +85,19 @@ public partial class BarChart : StackLayout
         set => SetValue(CustomHeightProperty, value);
     }
 
+    public float MaxValue
+    {
+        get => (float)GetValue(MaxValueProperty);
+        set => SetValue(MaxValueProperty, value);
+    }
     public BarChart()
     { 
+        
         InitializeComponent();
+
         BindingContext = this;
+        //RegisterMessages();
     }
+
+   
 }

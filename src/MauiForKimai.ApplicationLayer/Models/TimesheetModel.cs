@@ -33,7 +33,7 @@ public class TimesheetModel
     public int CustomerId { get; set; }
     public string Date { get; set; }
     public string Duration { get; set; }
-
+    public bool IsRecent {get; set; }
 
 
     //needed for new timetracking
