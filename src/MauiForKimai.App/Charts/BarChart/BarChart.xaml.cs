@@ -74,7 +74,7 @@ public partial class BarChart : StackLayout
     }
     private void RegisterMessages()
 	{ 
-		 WeakReferenceMessenger.Default.Register<TodayWeekMonthWrapper>(this, (r, m) =>
+		 WeakReferenceMessenger.Default.Register<ChartLoadMessage>(this, (r, m) =>
         {
 			this.Chart.Invalidate();
         });

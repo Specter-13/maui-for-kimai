@@ -97,6 +97,12 @@
 	  <MauiXaml Update="Views\HomeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Reports\ActivityReportsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Reports\CustomerReportsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Servers\ServerDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -135,6 +141,9 @@
 	  </Compile>
 	  <Compile Update="Views\HomeView.xaml.cs">
 	    <DependentUpon>HomeView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Reports\CustomerReportsView.xaml.cs">
+	    <DependentUpon>CustomerReportsView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Servers\ServerDetailView.xaml.cs">
 	    <DependentUpon>ServerDetailView.xaml</DependentUpon>

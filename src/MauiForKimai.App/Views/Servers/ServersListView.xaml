@@ -22,7 +22,16 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-
+    <Shell.TitleView>
+        <Grid>
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="Servers"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
 
 
     <Grid Padding="10">

@@ -87,7 +87,6 @@ public partial class HomeViewModel : ViewModelBase
 	[ObservableProperty]
 	private TimesheetActiveModel activeTimesheet;
 	public ObservableCollection<TimesheetModel> RecentTimesheets {get; set; } = new ObservableCollection<TimesheetModel>();
-	public ObservableCollection<TimesheetListItemGroupModel> RecentGroupedTimesheets { get; private set; } = new ObservableCollection<TimesheetListItemGroupModel>();
 
 	[ObservableProperty]
 	bool isTimetrackingActive;
@@ -171,7 +170,6 @@ public partial class HomeViewModel : ViewModelBase
 	[RelayCommand]
 	async Task RefreshTimesheets()
 	{	
-		IsRefreshing = true;
 		await Refresh();
 		IsRefreshing = false;
 	}

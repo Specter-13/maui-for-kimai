@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MauiForKimai.Messenger;
 
- public class ChartLoadMessage : ValueChangedMessage<TodayWeekMonthWrapper>
+ public class ChartLoadMessage : ValueChangedMessage<string>
 {
-    public ChartLoadMessage(TodayWeekMonthWrapper value) : base(value)
+    public ChartLoadMessage(string value) : base(value)
     {
     }
 }

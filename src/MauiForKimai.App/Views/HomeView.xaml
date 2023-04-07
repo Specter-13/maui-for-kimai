@@ -116,59 +116,53 @@
         </Frame>
 
         <!--  Recents  -->
-        <!--<RefreshView
+        <RefreshView
             Grid.Row="2"
             Command="{Binding RefreshTimesheetsCommand}"
-            IsRefreshing="{Binding IsRefreshing}">-->
-        <!--<ScrollView Grid.Row="2" Padding="10">-->
+            IsRefreshing="{Binding IsRefreshing}">
 
-        <CollectionView
-            Grid.Row="2"
-            ItemsSource="{Binding RecentTimesheets}"
-            SelectionMode="Single">
+            <CollectionView ItemsSource="{Binding RecentTimesheets}" SelectionMode="Single">
 
-            <CollectionView.Header>
-                <ContentView>
-                    <Grid Padding="7">
-                        <Label Style="{StaticResource LargeLabel}">Recent Timesheets</Label>
+                <CollectionView.Header>
+                    <ContentView>
+                        <Grid Padding="7">
+                            <Label Style="{StaticResource LargeLabel}">Recent Timesheets</Label>
 
-                        <Button
-                            Grid.RowSpan="3"
-                            Grid.Column="3"
-                            BackgroundColor="Transparent"
-                            Command="{Binding CreateNewTimesheetCommand}"
-                            HorizontalOptions="End"
-                            Style="{StaticResource Key=RecentRestartButton}">
-                            <Button.ImageSource>
-                                <FontImageSource
-                                    FontFamily="MaterialDesignIcons"
-                                    Glyph="{x:Static helpers:MaterialDesignIconsFonts.Plus}"
-                                    Size="30" />
-                            </Button.ImageSource>
+                            <Button
+                                Grid.RowSpan="3"
+                                Grid.Column="3"
+                                BackgroundColor="Transparent"
+                                Command="{Binding CreateNewTimesheetCommand}"
+                                HorizontalOptions="End"
+                                Style="{StaticResource Key=RecentRestartButton}">
+                                <Button.ImageSource>
+                                    <FontImageSource
+                                        FontFamily="MaterialDesignIcons"
+                                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.Plus}"
+                                        Size="30" />
+                                </Button.ImageSource>
 
-                        </Button>
-                    </Grid>
-                </ContentView>
-            </CollectionView.Header>
+                            </Button>
+                        </Grid>
+                    </ContentView>
+                </CollectionView.Header>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:TimesheetModel">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:TimesheetModel">
 
-                    <!--<controls:TimesheetListDesktopControl IsVisible="{OnIdiom Desktop=False,Phone=True}" Title="{Binding Date}" Timesheet="{Binding .}" />-->
-                    <controls:TimesheetListControl
-                        Title="{Binding Date}"
-                        Margin="5"
-                        Timesheet="{Binding .}" />
+                        <!--<controls:TimesheetListDesktopControl IsVisible="{OnIdiom Desktop=False,Phone=True}" Title="{Binding Date}" Timesheet="{Binding .}" />-->
+                        <controls:TimesheetListControl
+                            Title="{Binding Date}"
+                            Margin="5"
+                            Timesheet="{Binding .}" />
 
 
-                </DataTemplate>
+                    </DataTemplate>
 
-            </CollectionView.ItemTemplate>
+                </CollectionView.ItemTemplate>
 
-        </CollectionView>
-
-        <!--</ScrollView>-->
-        <!--</RefreshView>-->
+            </CollectionView>
+        </RefreshView>
 
         <!--  Tracking  -->
 

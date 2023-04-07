@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mvvm:TinyView
-    x:Class="MauiForKimai.Views.ReportsView"
+    x:Class="MauiForKimai.Views.CustomerReportsView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:charts="clr-namespace:MauiForKiami.App.Charts"
@@ -10,7 +10,6 @@
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    Title="ReportsView"
     x:DataType="viewmodel:ReportsViewModel">
 
     <Shell.TitleView>
@@ -48,31 +47,31 @@
 
                     <charts:BarChart
                         x:Name="BarChartToday"
-                        BindingContext="{Binding TodayData}"
+                        BindingContext="{Binding TodayCustomerData}"
                         CustomHeight="330"
                         CustomWidth="{Binding TodayDataWidth}"
                         IsVisible="{Binding IsDataLoaded}"
-                        Points="{Binding TodayData}" />
+                        Points="{Binding TodayCustomerData}" />
 
                     <Label Style="{StaticResource MediumLabel}" Text="This Week" />
 
                     <charts:BarChart
                         x:Name="BarChartWeek"
-                        BindingContext="{Binding WeekData}"
+                        BindingContext="{Binding WeekCustomerData}"
                         CustomHeight="330"
                         CustomWidth="{Binding WeekDataWidth}"
                         IsVisible="{Binding IsDataLoaded}"
-                        Points="{Binding WeekData}" />
+                        Points="{Binding WeekCustomerData}" />
 
 
                     <Label Style="{StaticResource MediumLabel}" Text="This month" />
                     <charts:BarChart
                         x:Name="BarChartMonth"
-                        BindingContext="{Binding MonthData}"
+                        BindingContext="{Binding MonthCustomerData}"
                         CustomHeight="330"
                         CustomWidth="{Binding WeekDataWidth}"
                         IsVisible="{Binding IsDataLoaded}"
-                        Points="{Binding MonthData}" />
+                        Points="{Binding MonthCustomerData}" />
 
                 </StackLayout>
 

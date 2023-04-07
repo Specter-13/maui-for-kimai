@@ -35,6 +35,9 @@ public static class ServicesConfiguration
             .AddClasses(filter => filter.AssignableTo<IViewModel>())
             .AsSelfWithInterfaces()
             .WithTransientLifetime());
+
+        //i need reports view model as singleton as i share it between mulitple views
+        services.AddSingleton<ReportsViewModel>();
     }
 
     public static void ConfigureViews(this IServiceCollection services)

@@ -3,6 +3,7 @@
     x:Class="MauiForKimai.Shells.AppShellMobile"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MauiForKimai.Controls"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:local="clr-namespace:MauiForKimai.Views"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
@@ -57,12 +58,29 @@
 
         </Tab>
 
-        <ShellContent
-            Title="Reports"
-            ContentTemplate="{DataTemplate local:ReportsView}"
-            Icon="chart_line.png"
-            Route="reports" />
 
+        <Tab Title="Reports" Icon="chart_line.png">
+
+            <!--<ShellContent Title="Projects" ContentTemplate="{DataTemplate controls:ReportsControl}" />
+            <ShellContent Title="Customers" ContentTemplate="{DataTemplate controls:ReportsControl}" />
+            <ShellContent Title="Activities" ContentTemplate="{DataTemplate controls:ReportsControl}" />-->
+
+
+            <ShellContent
+                Title="Projects"
+                ContentTemplate="{DataTemplate local:ReportsView}"
+                Route="projectreports" />
+
+            <ShellContent
+                Title="Customers"
+                ContentTemplate="{DataTemplate local:CustomerReportsView}"
+                Route="customerreports" />
+
+            <ShellContent
+                Title="Activities"
+                ContentTemplate="{DataTemplate local:ActivityReportsView}"
+                Route="activityreports" />
+        </Tab>
         <Tab Title="Management" Icon="database.png">
 
 
