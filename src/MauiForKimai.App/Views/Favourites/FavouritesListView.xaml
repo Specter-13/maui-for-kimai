@@ -32,27 +32,30 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <VerticalStackLayout>
 
 
 
 
-        <ScrollView Padding="10">
-
-            <CollectionView ItemsSource="{Binding Favourites}">
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:TimesheetModel">
-
-                        <controls:FavouriteListControl Margin="0,5,0,5" Timesheet="{Binding .}" />
-
-                    </DataTemplate>
-
-                </CollectionView.ItemTemplate>
-
-            </CollectionView>
-        </ScrollView>
 
 
-    </VerticalStackLayout>
+
+    <CollectionView ItemsSource="{Binding Favourites}">
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="model:TimesheetModel">
+
+                <controls:FavouriteListControl Margin="0,5,0,5" Timesheet="{Binding .}" />
+
+            </DataTemplate>
+
+
+
+        </CollectionView.ItemTemplate>
+
+
+    </CollectionView>
+
+
+
+
 </mvvm:TinyView>

@@ -35,6 +35,7 @@ public partial class HomeViewModel : ViewModelBase
 		_dispatcherWrapper = dispatcherWrapper ?? new DispatcherWrapper(Application.Current.Dispatcher);
 		CreateTimer();
 		RegisterMessages();
+		
 	}
 	// Initialize methods
 	private void RegisterMessages()
@@ -75,15 +76,17 @@ public partial class HomeViewModel : ViewModelBase
 	}
 
 	public override async Task Initialize()
-    {
+	{
 		await TryToLoginToDefaultServer();
+		//return base.Initialize();
 	}
+
 
 
 	//Properties
 	[ObservableProperty]
 	private TimesheetActiveModel activeTimesheet;
-	public ObservableCollection<TimesheetModel> RecentTimesheets {get;set; } = new();
+	public ObservableCollection<TimesheetModel> RecentTimesheets {get; set; } = new ObservableCollection<TimesheetModel>();
 	public ObservableCollection<TimesheetListItemGroupModel> RecentGroupedTimesheets { get; private set; } = new ObservableCollection<TimesheetListItemGroupModel>();
 
 	[ObservableProperty]
@@ -176,17 +179,18 @@ public partial class HomeViewModel : ViewModelBase
     [RelayCommand]
     async Task GetTimeSheets()
     {
-		var timeheets = (await timesheetService.GetTenRecentTimesheetsAsync()).ToObservableCollection();
+		var timesheets = await timesheetService.GetTenRecentTimesheetsAsync();
+
 
 		RecentTimesheets.Clear();
-		foreach(var timesheet in timeheets)
-		{ 
+		foreach (var timesheet in timesheets)
+		{
 			var model = timesheet.ToTimesheetModel();
 			model.IsRecent = true;
 			RecentTimesheets.Add(model);
 		}
 
-    }
+	}
 
 
 	[RelayCommand]
@@ -252,7 +256,7 @@ public partial class HomeViewModel : ViewModelBase
 	{
 		_seconds += 1;
 	}
-	private async Task TryToLoginToDefaultServer()
+	public async Task TryToLoginToDefaultServer()
 	{ 
 		var defaultServer = await _serverService.GetDefaultServer();
 		if (defaultServer == null) 

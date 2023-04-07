@@ -11,15 +11,24 @@
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     Title="TimeSheetView"
-    x:DataType="viewmodel:TimesheetListViewModel"
-    Shell.NavBarIsVisible="False">
+    x:DataType="viewmodel:TimesheetListViewModel">
 
+
+    <Shell.TitleView>
+        <Grid>
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="Timesheets"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="10*" />
-            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <SearchBar
@@ -34,52 +43,54 @@
             VerticalOptions="Center" />
 
 
-        <RefreshView
+        <!--<RefreshView
             Grid.Row="1"
             Command="{Binding RefreshCommand}"
-            IsRefreshing="{Binding IsRefreshing}">
-            <ScrollView>
+            IsRefreshing="{Binding IsRefreshing}">-->
 
-
-                <CollectionView Grid.Row="1" ItemsSource="{Binding Timesheets}">
-
-
-
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:TimesheetModel">
-                            <controls:TimesheetListControl Title="{Binding Date}" Timesheet="{Binding .}"  />
-                        </DataTemplate>
-
-                    </CollectionView.ItemTemplate>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Timesheets}">
 
 
 
-                </CollectionView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:TimesheetModel">
+                    <controls:TimesheetListControl
+                        Title="{Binding Date}"
+                        Margin="5"
+                        Timesheet="{Binding .}" />
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
 
 
+            <CollectionView.Footer>
+                <Grid Grid.Row="2" Padding="10,0,10,0">
+                    <ActivityIndicator
+                        HeightRequest="20"
+                        HorizontalOptions="Start"
+                        IsRunning="{Binding IsLoadingMore}"
+                        IsVisible="{Binding IsLoadingMore}"
+                        VerticalOptions="Center"
+                        WidthRequest="20" />
+                    <Button
+                        BackgroundColor="Transparent"
+                        Command="{Binding LoadMoreCommand}"
+                        HorizontalOptions="Center"
+                        Text="Load more..."
+                        VerticalOptions="Center" />
+                    <Label
+                        HorizontalOptions="End"
+                        Text="{Binding NumberOfEntries}"
+                        VerticalOptions="Center" />
+                </Grid>
+            </CollectionView.Footer>
 
-            </ScrollView>
-        </RefreshView>
+        </CollectionView>
 
-        <Grid Grid.Row="2" Padding="10,0,10,0">
-            <ActivityIndicator
-                HeightRequest="20"
-                HorizontalOptions="Start"
-                IsRunning="{Binding IsLoadingMore}"
-                IsVisible="{Binding IsLoadingMore}"
-                VerticalOptions="Center"
-                WidthRequest="20" />
-            <Button
-                BackgroundColor="Transparent"
-                Command="{Binding LoadMoreCommand}"
-                HorizontalOptions="Center"
-                Text="Load more..."
-                VerticalOptions="Center" />
-            <Label
-                HorizontalOptions="End"
-                Text="{Binding NumberOfEntries}"
-                VerticalOptions="Center" />
-        </Grid>
+
+        <!--</RefreshView>-->
+
+
     </Grid>
 
 </mvvm:TinyView>

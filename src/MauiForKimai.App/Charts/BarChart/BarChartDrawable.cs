@@ -27,13 +27,18 @@ internal class BarChartDrawable : View, IDrawable
 
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
-  
-        if(Points == null || Points.Count == 0)
-        { 
-            return;    
+        
+        if(Points.Count == 0) 
+        {
+            Max = 0.0f;
         }
-
-        const int BAR_WIDTH = 30;
+        else
+        { 
+            Max = Points.Select(x => x.Value).Max() * 1.3f;
+        }
+       
+        
+        const int BAR_WIDTH = 35;
 
         canvas.FontColor = Color.FromArgb("#7F2CF6");
 
@@ -53,7 +58,7 @@ internal class BarChartDrawable : View, IDrawable
             StartColor = mauiPurpleColor,
             EndColor = transparentMauiPurpleColor,
             StartPoint = new Point(0.5, 0),
-            EndPoint = new Point(0.5, 1)
+            EndPoint = new Point(0.5, 0.9)
         };
 
         canvas.SetFillPaint(linearGradientPaint, dirtyRect);
@@ -61,6 +66,7 @@ internal class BarChartDrawable : View, IDrawable
         for (var i = 0; i < Points.Count; i++)
         {
             var point = Points.ElementAt(i);
+            if(point.Key == "") continue;
             var barHeight = dirtyRect.Height - (dirtyRect.Height * (point.Value / Max) * BarScale);
 
             //Draw bars
@@ -69,14 +75,18 @@ internal class BarChartDrawable : View, IDrawable
             //Draw text
             var name = SplitLongStrings(point.Key);
 
-            canvas.DrawString(name, barXAxis + 11, barHeight - 20, HorizontalAlignment.Center);
-            //Draw text
-           
+
             var duration = TimeSpan.FromSeconds(point.Value);
             var durationString = $"{((int)duration.TotalHours).ToString("00")}:{duration.Minutes.ToString("00")}";
             canvas.FontSize = 15;
-            canvas.DrawString(durationString, barXAxis -2, dirtyRect.Height + 13, HorizontalAlignment.Left);
-      
+            //canvas.DrawString(durationString, barXAxis -2, dirtyRect.Height + 13, HorizontalAlignment.Left);
+            canvas.DrawString(durationString, barXAxis + 12,  dirtyRect.Height - 1, HorizontalAlignment.Center);
+
+            canvas.FontSize = 12;
+            canvas.DrawString(name, barXAxis + 12, barHeight - 30, HorizontalAlignment.Center);
+            //Draw text
+           
+          
             barXAxis += BAR_WIDTH + 55;
         }
 
@@ -90,8 +100,8 @@ internal class BarChartDrawable : View, IDrawable
 
     private float _chartWidth;
     private double _xAxisScale;
-    private float _firstBarXAxis = 20.0f;
-    private Dictionary<string, float> _points;
+    private float _firstBarXAxis = 40.0f;
+    private Dictionary<string, float> _points = new Dictionary<string, float> {{"",0}};
 
 
     private string SplitLongStrings(string name)
@@ -101,7 +111,7 @@ internal class BarChartDrawable : View, IDrawable
         int currLength = 0;
         foreach(string word in words)
         {
-            if(currLength + word.Length + 1 < 20) // +1 accounts for adding a space
+            if(currLength + word.Length + 1 < 15) // +1 accounts for adding a space
             {
               sb.AppendFormat(" {0}", word);
               currLength = (sb.Length % 20);

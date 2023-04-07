@@ -4,27 +4,21 @@ namespace MauiForKimai.Views;
 
 public partial class HomeView
 {
+    private readonly HomeViewModel _vm;
 	public HomeView(HomeViewModel vm)
 	{
 		InitializeComponent();
-		BindingContext = vm;
+        _vm = vm;
+		BindingContext = _vm;
 	}
 
-    protected override void OnAppearing()
-    {
-		//_vm.
-        base.OnAppearing();	
-    }
+  //  protected override async void OnAppearing()
+  //  {
+		//await _vm.TryToLoginToDefaultServer();
+  //      base.OnAppearing();	
+  //  }
 
-    private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
-    {
-        //if(e.StatusType == GestureStatus.Running)
-        //{ 
-            SwipeMenu.TranslationY = e.TotalY;
-        //}
-        //SwipeMenu.ScaleYTo(SwipeMenu.Scale ,250,Easing.Linear);
-
-    }
+   
         
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {

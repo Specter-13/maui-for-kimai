@@ -13,20 +13,18 @@
         x:Name="Chart"
         HeightRequest="{Binding .}"
         HorizontalOptions="FillAndExpand"
-        IsVisible="{OnIdiom Desktop=false,
-                            Phone=true}"
         Points="{Binding .}"
         WidthRequest="{Binding .}" />
     <!--</Grid>-->
 
-    <Grid IsVisible="{OnIdiom Desktop=true, Phone=false}">
+    <!--<Grid IsVisible="{OnIdiom Desktop=true, Phone=false}">
         <charts:BarChartGraphicsView
             x:Name="ChartDesktop"
             HeightRequest="400"
             HorizontalOptions="FillAndExpand"
             Points="{Binding .}"
             WidthRequest="700" />
-    </Grid>
+    </Grid>-->
 
     <Slider
         Margin="30,40,30,0"

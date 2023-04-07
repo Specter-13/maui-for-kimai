@@ -15,107 +15,103 @@
     </ContentView.Resources>
 
 
-    <VerticalStackLayout Padding="5,1,5,1">
-        <Label
-            x:Name="Day"
-            Padding="5,0,0,0"
-            Style="{StaticResource MicroLabel}"
-            TextColor="Grey" />
+
+    <Frame Style="{StaticResource TimesheetListCard}">
+
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=ShowDetailCommand}" CommandParameter="{Binding .}" />
+            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TimesheetListViewModel}}, Path=ShowDetailCommand}" CommandParameter="{Binding .}" />
+        </Frame.GestureRecognizers>
+
+
+        <!--<VerticalStackLayout Style="{StaticResource TimesheetListCard}">-->
         <Grid>
-            <Frame Style="{StaticResource TimesheetListCard}">
-
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=ShowDetailCommand}" CommandParameter="{Binding .}" />
-                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TimesheetListViewModel}}, Path=ShowDetailCommand}" CommandParameter="{Binding .}" />
-                </Frame.GestureRecognizers>
-
-
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1.5*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Style="{StaticResource MediumLabel}"
-                        Text="{Binding ActivityName}"
-                        VerticalOptions="Start" />
-
-                    <!--
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=StartRecentTimesheetCommand}"
-                        CommandParameter="{Binding .}"
-                    -->
-                    <Button
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=StartRecentTimesheetCommand}"
-                        CommandParameter="{Binding .}"
-                        HorizontalOptions="End"
-                        IsVisible="{Binding IsRecent}"
-                        Style="{StaticResource Key=RecentRestartButton}"
-                        VerticalOptions="Start">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
 
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="MaterialDesignIcons"
-                                Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
-                                Size="25" />
-                        </Button.ImageSource>
-                    </Button>
+            <Label
+                x:Name="Day"
+                Grid.Row="0"
+                Style="{StaticResource MicroLabel}"
+                TextColor="Grey" />
 
-                    <Button
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TimesheetListViewModel}}, Path=QuickStartCommand}"
-                        CommandParameter="{Binding .}"
-                        HorizontalOptions="End"
-                        IsVisible="{Binding IsRecent, Converter={StaticResource InvertedBoolConverter}}"
-                        Style="{StaticResource Key=RecentRestartButton}"
-                        VerticalOptions="Start">
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource MediumLabel}"
+                Text="{Binding ActivityName}"
+                VerticalOptions="Start" />
 
 
-                        <Button.ImageSource>
-                            <FontImageSource
-                                FontFamily="MaterialDesignIcons"
-                                Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
-                                Size="25" />
-                        </Button.ImageSource>
-                    </Button>
+            <Button
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=StartRecentTimesheetCommand}"
+                CommandParameter="{Binding .}"
+                HorizontalOptions="End"
+                IsVisible="{Binding IsRecent}"
+                Style="{StaticResource Key=RecentRestartButton}"
+                VerticalOptions="Start">
+
+
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialDesignIcons"
+                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
+                        Size="25" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TimesheetListViewModel}}, Path=QuickStartCommand}"
+                CommandParameter="{Binding .}"
+                HorizontalOptions="End"
+                IsVisible="{Binding IsRecent, Converter={StaticResource InvertedBoolConverter}}"
+                Style="{StaticResource Key=RecentRestartButton}"
+                VerticalOptions="Start">
+
+
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialDesignIcons"
+                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
+                        Size="25" />
+                </Button.ImageSource>
+            </Button>
 
 
 
 
-                    <Label
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Style="{StaticResource MicroLabel}"
-                        Text="{Binding ProjectName}" />
-                    <Label
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Style="{StaticResource MicroLabel}"
-                        Text="{Binding CustomerName}" />
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Style="{StaticResource MicroLabel}"
+                Text="{Binding ProjectName}" />
+            <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                Style="{StaticResource MicroLabel}"
+                Text="{Binding CustomerName}" />
 
-                    <Label
-                        Grid.RowSpan="3"
-                        Grid.Column="1"
-                        HorizontalOptions="EndAndExpand"
-                        Style="{StaticResource MediumLabel}"
-                        Text="{Binding Duration}"
-                        VerticalOptions="EndAndExpand" />
+            <Label
+                Grid.RowSpan="4"
+                Grid.Column="1"
+                HorizontalOptions="EndAndExpand"
+                Style="{StaticResource MediumLabel}"
+                Text="{Binding Duration}"
+                VerticalOptions="EndAndExpand" />
 
-
-
-                </Grid>
-            </Frame>
         </Grid>
-    </VerticalStackLayout>
+    </Frame>
 </ContentView>

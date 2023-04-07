@@ -30,10 +30,7 @@
 
             <Button Command="{Binding RefreshCommand}" Text="Refresh" />
             <Label Style="{StaticResource LargeLabel}" Text="Projects" />
-            <Label
-                Margin="0,0,0,10"
-                Style="{StaticResource MediumLabel}"
-                Text="Today" />
+
 
 
             <ActivityIndicator
@@ -44,35 +41,37 @@
                 IsVisible="{Binding IsBusy}"
                 VerticalOptions="Center" />
 
+
+            <Label
+                Margin="0,0,0,10"
+                Style="{StaticResource MediumLabel}"
+                Text="Today" />
             <charts:BarChart
                 x:Name="BarChartToday"
                 BindingContext="{Binding TodayData}"
-                CustomHeight="300"
+                CustomHeight="330"
                 CustomWidth="{Binding TodayDataWidth}"
                 IsVisible="{Binding IsDataLoaded}"
-                MaxValue="{Binding TodayMaxValue}"
                 Points="{Binding TodayData}" />
 
-            <Label Text="This Week" />
+            <Label Style="{StaticResource MediumLabel}" Text="This Week" />
 
             <charts:BarChart
                 x:Name="BarChartWeek"
                 BindingContext="{Binding WeekData}"
-                CustomHeight="300"
+                CustomHeight="330"
                 CustomWidth="{Binding WeekDataWidth}"
                 IsVisible="{Binding IsDataLoaded}"
-                MaxValue="{Binding WeekMaxValue}"
                 Points="{Binding WeekData}" />
 
 
-            <Label Text="This month" />
+            <Label Style="{StaticResource MediumLabel}" Text="This month" />
             <charts:BarChart
                 x:Name="BarChartMonth"
                 BindingContext="{Binding WeekData}"
-                CustomHeight="300"
+                CustomHeight="330"
                 CustomWidth="{Binding WeekDataWidth}"
                 IsVisible="{Binding IsDataLoaded}"
-                MaxValue="{Binding MonthMaxValue}"
                 Points="{Binding WeekData}" />
 
         </VerticalStackLayout>

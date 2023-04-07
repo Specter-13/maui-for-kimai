@@ -27,9 +27,9 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         ICustomerService customerService,
         ITimesheetService ts, PopupSizeConstants sc, IFavouritesTimesheetService fts) : base(rs, ls)
     {
+        RegisterMessages();
         _customerService = customerService;
         _timesheetService = ts;
-         RegisterMessages();
         _popupSizeConstants = sc;
         _favouriteTimesheetService = fts;
 

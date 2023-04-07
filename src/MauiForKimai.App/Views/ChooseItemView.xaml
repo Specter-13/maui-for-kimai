@@ -46,32 +46,33 @@
 
         </VerticalStackLayout>
 
-        <ScrollView Grid.Row="1">
-            <CollectionView
-                x:Name="searchResults"
-                ItemsSource="{Binding SearchResults}"
-                SelectedItem="{Binding SelectedItem}"
-                SelectionMode="Single">
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="imodel:IChooseItem">
+        <CollectionView
+            x:Name="searchResults"
+            Grid.Row="1"
+            ItemsSource="{Binding SearchResults}"
+            SelectedItem="{Binding SelectedItem}"
+            SelectionMode="Single">
 
-                        <Frame
-                            Margin="7"
-                            Padding="10"
-                            HeightRequest="40"
-                            Style="{StaticResource ChooseItemCard}">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ChooseItemViewModel}}, Path=ItemTappedCommand}" CommandParameter="{Binding .}" />
-                            </Frame.GestureRecognizers>
-                            <Label Style="{StaticResource MediumLabel}" Text="{Binding Name}" />
-                        </Frame>
-                    </DataTemplate>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="imodel:IChooseItem">
 
-                </CollectionView.ItemTemplate>
+                    <Frame
+                        Margin="7"
+                        Padding="10"
+                        HeightRequest="40"
+                        Style="{StaticResource ChooseItemCard}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ChooseItemViewModel}}, Path=ItemTappedCommand}" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <Label Style="{StaticResource MediumLabel}" Text="{Binding Name}" />
+                    </Frame>
+                </DataTemplate>
 
-            </CollectionView>
-        </ScrollView>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
 
 
 

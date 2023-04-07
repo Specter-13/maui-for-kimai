@@ -43,6 +43,7 @@ public partial class ReportsViewModel : ViewModelBase
         MonthData.Clear();
         WeekData.Clear();
         TodayData.Clear();
+        IsDataLoaded = false;
         await GetData();
     }
 
@@ -83,17 +84,17 @@ public partial class ReportsViewModel : ViewModelBase
 
 
         var todayWrapper = FillGraphData(todayTimesheets,TodayData);
-        TodayMaxValue = todayWrapper.Max;
-        var weekWrapper  = FillGraphData(thisWeekTimesheets,WeekData);
-        WeekMaxValue = weekWrapper.Max;
-        var monthWrapper  = FillGraphData(timesheets,MonthData);
-        MonthMaxValue = monthWrapper.Max;
+
+        var weekWrapper = FillGraphData(thisWeekTimesheets, WeekData);
+        //WeekMaxValue = weekWrapper.Max;
+        var monthWrapper = FillGraphData(timesheets, MonthData);
+        //MonthMaxValue = monthWrapper.Max;
 
 
         IsBusy = false;
         
         
-        WeakReferenceMessenger.Default.Send(new TodayWeekMonthWrapper(todayWrapper,weekWrapper,monthWrapper));
+        WeakReferenceMessenger.Default.Send(new TodayWeekMonthWrapper(todayWrapper,null,null));
         IsDataLoaded = true;
        //var barChartWrapper = new BarChartDataWrapper(TodayData, TodayDataWidth);
         //WeakReferenceMessenger.Default.Send(new ChartLoadMessage(barChartWrapper));
@@ -102,6 +103,7 @@ public partial class ReportsViewModel : ViewModelBase
     private BarChartDataWrapper FillGraphData(IEnumerable<TimesheetCollectionExpanded> timesheets, Dictionary<string,float> data)
     { 
         var barChartWidth = 10;
+        
         foreach (var timesheet in timesheets) 
         {
             var projectName = timesheet.Project.Name;
@@ -119,18 +121,17 @@ public partial class ReportsViewModel : ViewModelBase
                 //if project is in dictionary, update duration
                 data[projectName] +=  (float)timesheet.Duration;
             }
-            
+           
         }
-
         return new BarChartDataWrapper(data, barChartWidth, data.Values.Max());
 
     }
     [ObservableProperty]
-    public Dictionary<string,float> monthData  = new Dictionary<string, float>();
+    public Dictionary<string,float> monthData  = new Dictionary<string, float>{{"",0}};
     [ObservableProperty]
-    public Dictionary<string,float> weekData = new Dictionary<string, float>();
+    public Dictionary<string,float> weekData = new Dictionary<string, float>{{"",0}};
     [ObservableProperty]
-    public Dictionary<string,float> todayData = new Dictionary<string, float>();
+    public Dictionary<string,float> todayData = new Dictionary<string, float>{{"",0}};
 
     [ObservableProperty]
     public int monthDataWidth;
@@ -139,12 +140,7 @@ public partial class ReportsViewModel : ViewModelBase
     [ObservableProperty]
     public int todayDataWidth;
 
-    [ObservableProperty]
-    public float monthMaxValue;
-    [ObservableProperty]
-    public float weekMaxValue;
-    [ObservableProperty]
-    public float todayMaxValue;
+
 }
 
 

@@ -8,13 +8,13 @@ public partial class TimesheetListControl : ContentView
 	{ 
 		var control = (TimesheetListControl)bindable;
 		var day = newValue as string;
-		if(_today == day)
+		if (_today == day)
 		{
 			control.Day.Text = "Today";
 		}
 		else
-		{ 
-			control.Day.Text =day;
+		{
+			control.Day.Text = day;
 		}
 	});
 

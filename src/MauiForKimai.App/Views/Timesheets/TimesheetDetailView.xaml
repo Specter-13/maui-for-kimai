@@ -66,10 +66,10 @@
 
     <Grid Padding="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height=".05*" />
-            <RowDefinition Height=".05*" />
-            <RowDefinition Height=".05*" />
-            <RowDefinition Height=".80*" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="90" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -97,7 +97,7 @@
 
         <HorizontalStackLayout
             Grid.Row="2"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="1"
             Margin="10"
             Padding="10"
             HorizontalOptions="EndAndExpand"
@@ -155,11 +155,9 @@
 
         </HorizontalStackLayout>
 
-        <ScrollView
-            Grid.Row="3"
-            Grid.ColumnSpan="2"
-            Padding="10">
+        <ScrollView Grid.Row="3" Grid.ColumnSpan="2">
             <VerticalStackLayout>
+
 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -243,180 +241,158 @@
 
                         </Entry>
 
-
-
-
                     </VerticalStackLayout>
-
-                    <!--<Entry
-                        x:Name="MinutesEntry"
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalTextAlignment="Center"
-                        Keyboard="Numeric"
-                        MaxLength="2"
-                        Placeholder="00"
-                        Text="{Binding TimeWrapper.DurationMinutes}"
-                        VerticalOptions="End"
-                        VerticalTextAlignment="Center">
-                    -->
-                    <!--<Entry.Behaviors>
-                            <mct:EventToCommandBehavior Command="{Binding TimeWrapper.UpdateDurationCommand}" EventName="Unfocused" />
-                        </Entry.Behaviors>-->
-                    <!--
-                    </Entry>-->
-
-
-
 
                 </Grid>
 
-                <!--<Label Text="{Binding TimeWrapper.DurationHours}" />
+                <VerticalStackLayout>
+                    <!--<Label Text="{Binding TimeWrapper.DurationHours}" />
                 <Label Text="{Binding TimeWrapper.DurationMinutes}" />
                 <Label
                     IsVisible="{Binding TimeWrapper.IsNotDurationFormatValid}"
                     Style="{StaticResource NotValidLabel}"
                     Text="Wrong format of minutes! Minutes must be within interval 0-59" />-->
 
-                <!--  Customer  -->
-                <Label Text="Customer" />
-                <Entry
-                    IsReadOnly="True"
-                    Placeholder="Select customer"
-                    Text="{Binding ChosenCustomer.Name}">
-                    <Entry.GestureRecognizers>
+                    <!--  Customer  -->
+                    <Label Text="Customer" />
+                    <Entry
+                        IsReadOnly="True"
+                        Placeholder="Select customer"
+                        Text="{Binding ChosenCustomer.Name}">
+                        <Entry.GestureRecognizers>
 
-                        <TapGestureRecognizer Command="{Binding ShowCustomerChooseViewCommand}" />
+                            <TapGestureRecognizer Command="{Binding ShowCustomerChooseViewCommand}" />
 
-                    </Entry.GestureRecognizers>
-                </Entry>
-                <Button
-                    Command="{Binding ShowCustomerChooseViewCommand}"
-                    IsVisible="{OnIdiom Phone=False,
-                                        Desktop=True}"
-                    Text="Choose customer" />
-                <!--  Project  -->
-                <Label Text="Project *" />
-                <Entry
-                    IsReadOnly="True"
-                    Placeholder="Select project"
-                    Text="{Binding ChosenProject.Name}">
-                    <Entry.GestureRecognizers>
+                        </Entry.GestureRecognizers>
+                    </Entry>
+                    <Button
+                        Command="{Binding ShowCustomerChooseViewCommand}"
+                        IsVisible="{OnIdiom Phone=False,
+                                            Desktop=True}"
+                        Text="Choose customer" />
+                    <!--  Project  -->
+                    <Label Text="Project *" />
+                    <Entry
+                        IsReadOnly="True"
+                        Placeholder="Select project"
+                        Text="{Binding ChosenProject.Name}">
+                        <Entry.GestureRecognizers>
 
-                        <TapGestureRecognizer Command="{Binding ShowProjectChooseViewCommand}" />
+                            <TapGestureRecognizer Command="{Binding ShowProjectChooseViewCommand}" />
 
-                    </Entry.GestureRecognizers>
-                </Entry>
-                <Label
-                    IsVisible="{Binding IsProjectNotValid}"
-                    Style="{StaticResource NotValidLabel}"
-                    Text="Project is required" />
-                <Button
-                    Command="{Binding ShowProjectChooseViewCommand}"
-                    IsVisible="{OnIdiom Phone=False,
-                                        Desktop=True}"
-                    Text="Choose project" />
-                <!--  Activity  -->
-                <Label Text="Activity *" />
+                        </Entry.GestureRecognizers>
+                    </Entry>
+                    <Label
+                        IsVisible="{Binding IsProjectNotValid}"
+                        Style="{StaticResource NotValidLabel}"
+                        Text="Project is required" />
+                    <Button
+                        Command="{Binding ShowProjectChooseViewCommand}"
+                        IsVisible="{OnIdiom Phone=False,
+                                            Desktop=True}"
+                        Text="Choose project" />
+                    <!--  Activity  -->
+                    <Label Text="Activity *" />
 
-                <Entry
-                    IsReadOnly="True"
-                    Placeholder="Select Activity"
-                    Text="{Binding ChosenActivity.Name}">
-                    <Entry.GestureRecognizers>
+                    <Entry
+                        IsReadOnly="True"
+                        Placeholder="Select Activity"
+                        Text="{Binding ChosenActivity.Name}">
+                        <Entry.GestureRecognizers>
 
-                        <TapGestureRecognizer Command="{Binding ShowActivityChooseViewCommand}" />
+                            <TapGestureRecognizer Command="{Binding ShowActivityChooseViewCommand}" />
 
-                    </Entry.GestureRecognizers>
-                </Entry>
-                <Label
-                    IsVisible="{Binding IsActivityNotValid}"
-                    Style="{StaticResource NotValidLabel}"
-                    Text="Activity is required" />
-                <Button
-                    Command="{Binding ShowActivityChooseViewCommand}"
-                    IsVisible="{OnIdiom Phone=False,
-                                        Desktop=True}"
-                    Text="Choose Activity" />
-                <!--  Description  -->
-                <Label Text="Description" />
-                <Entry Text="{Binding Timesheet.Description}" />
-                <!--  Tags  -->
-                <Label Text="Tags" />
-                <Entry Text="{Binding Timesheet.Tags}" />
-                <Label
-                    IsVisible="{Binding IsTagNotValid}"
-                    Style="{StaticResource NotValidLabel}"
-                    Text="Tag must have at least 2 characters or be empty" />
+                        </Entry.GestureRecognizers>
+                    </Entry>
+                    <Label
+                        IsVisible="{Binding IsActivityNotValid}"
+                        Style="{StaticResource NotValidLabel}"
+                        Text="Activity is required" />
+                    <Button
+                        Command="{Binding ShowActivityChooseViewCommand}"
+                        IsVisible="{OnIdiom Phone=False,
+                                            Desktop=True}"
+                        Text="Choose Activity" />
+                    <!--  Description  -->
+                    <Label Text="Description" />
+                    <Entry Text="{Binding Timesheet.Description}" />
+                    <!--  Tags  -->
+                    <Label Text="Tags" />
+                    <Entry Text="{Binding Timesheet.Tags}" />
+                    <Label
+                        IsVisible="{Binding IsTagNotValid}"
+                        Style="{StaticResource NotValidLabel}"
+                        Text="Tag must have at least 2 characters or be empty" />
 
 
-                <!--  ROLE DEPENDAND!  -->
-                <!--  Billable  -->
-                <Label IsVisible="{Binding ApiStateProvider.IsTeamlead}" Text="Billable" />
-                <Picker
-                    x:Name="picker"
-                    Title="Select a mode"
-                    IsVisible="{Binding ApiStateProvider.IsTeamlead}"
-                    SelectedItem="{Binding SelectedBillableMode}">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Automatic</x:String>
-                            <x:String>Yes</x:String>
-                            <x:String>No</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
-                <!--  Rates  -->
-                <Grid Padding="10" IsVisible="{Binding ApiStateProvider.IsAdmin}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".50*" />
-                        <ColumnDefinition Width=".50*" />
-                    </Grid.ColumnDefinitions>
+                    <!--  ROLE DEPENDAND!  -->
+                    <!--  Billable  -->
+                    <Label IsVisible="{Binding ApiStateProvider.IsTeamlead}" Text="Billable" />
+                    <Picker
+                        x:Name="picker"
+                        Title="Select a mode"
+                        IsVisible="{Binding ApiStateProvider.IsTeamlead}"
+                        SelectedItem="{Binding SelectedBillableMode}">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Automatic</x:String>
+                                <x:String>Yes</x:String>
+                                <x:String>No</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                    <!--  Rates  -->
+                    <Grid Padding="10" IsVisible="{Binding ApiStateProvider.IsAdmin}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".50*" />
+                            <ColumnDefinition Width=".50*" />
+                        </Grid.ColumnDefinitions>
 
-                    <VerticalStackLayout Grid.Column="0">
-                        <Label Text="Fixed rate" />
-                        <Entry Keyboard="Numeric" Text="{Binding Timesheet.FixedRate}">
-                            <Entry.Behaviors>
-                                <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
-                            </Entry.Behaviors>
-                        </Entry>
-                    </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Fixed rate" />
+                            <Entry Keyboard="Numeric" Text="{Binding Timesheet.FixedRate}">
+                                <Entry.Behaviors>
+                                    <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
+                        </VerticalStackLayout>
 
-                    <VerticalStackLayout Grid.Column="1">
-                        <Label Text="Hourly rate" />
-                        <Entry Keyboard="Numeric" Text="{Binding Timesheet.HourlyRate}">
-                            <Entry.Behaviors>
-                                <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
-                            </Entry.Behaviors>
-                        </Entry>
-                    </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Hourly rate" />
+                            <Entry Keyboard="Numeric" Text="{Binding Timesheet.HourlyRate}">
+                                <Entry.Behaviors>
+                                    <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
+                        </VerticalStackLayout>
 
-                </Grid>
+                    </Grid>
 
-                <Grid Padding="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".50*" />
-                        <ColumnDefinition Width=".50*" />
-                    </Grid.ColumnDefinitions>
-                    <!--  Exported  -->
-                    <VerticalStackLayout Grid.Column="0" IsVisible="{Binding ApiStateProvider.IsTeamlead}">
-                        <Label Text="Exported" />
-                        <CheckBox IsChecked="{Binding Timesheet.Exported}" />
-                    </VerticalStackLayout>
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".50*" />
+                            <ColumnDefinition Width=".50*" />
+                        </Grid.ColumnDefinitions>
+                        <!--  Exported  -->
+                        <VerticalStackLayout Grid.Column="0" IsVisible="{Binding ApiStateProvider.IsTeamlead}">
+                            <Label Text="Exported" />
+                            <CheckBox IsChecked="{Binding Timesheet.Exported}" />
+                        </VerticalStackLayout>
 
-                </Grid>
-                <!--  ROLE DEPENDAND!  -->
+                    </Grid>
+                    <!--  ROLE DEPENDAND!  -->
+                </VerticalStackLayout>
 
             </VerticalStackLayout>
-
-
         </ScrollView>
+
+
     </Grid>
 
 

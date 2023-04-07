@@ -1,4 +1,6 @@
-﻿namespace MauiForKiami.App.Charts;
+﻿using Microsoft.Maui.Controls;
+
+namespace MauiForKiami.App.Charts;
 
 internal class BarChartGraphicsView : GraphicsView
 {
@@ -33,10 +35,9 @@ internal class BarChartGraphicsView : GraphicsView
 
             var chartView = (BarChartGraphicsView)bindable;
 
-            chartView.BarChartDrawable.Max = chartView.Points?.Select(x => x.Value).Max() * 1.1f ?? 0.0f;
-
             //You can add/remove new data points which will redraw bar chart
             chartView.BarChartDrawable.Points = (Dictionary<string, float>)newValue;
+            chartView.Invalidate();
         });
 
     public Dictionary<string, float> Points
