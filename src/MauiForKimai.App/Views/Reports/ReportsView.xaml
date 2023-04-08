@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:charts="clr-namespace:MauiForKiami.App.Charts"
     xmlns:controls="clr-namespace:MauiForKimai.Controls"
+    xmlns:enums="clr-namespace:MauiForKimai.Core.Enums;assembly=MauiForKimai.Core"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
@@ -24,7 +26,7 @@
         </Grid>
     </Shell.TitleView>
 
-    <Grid>
+    <!--<Grid>
 
         <ActivityIndicator
             Grid.RowSpan="3"
@@ -32,55 +34,101 @@
             HorizontalOptions="Fill"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
-            VerticalOptions="Center" />
+            VerticalOptions="Center" />-->
 
-        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
-            <ScrollView
-                x:Name="MyScrollView"
-                Padding="20"
-                IsVisible="{Binding IsDataLoaded}">
+    <!--<lvc:CartesianChart Series="{Binding Series}" />-->
+    <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">-->
 
-                <StackLayout>
+    <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
 
 
-                    <Label Style="{StaticResource MediumLabel}" Text="Today" />
+        <ScrollView>
+            <StackLayout Padding="10">
 
-
-                    <charts:BarChart
-                        x:Name="BarChartToday"
-                        BindingContext="{Binding TodayData}"
-                        CustomHeight="330"
-                        CustomWidth="{Binding TodayDataWidth}"
-                        IsVisible="{Binding IsDataLoaded}"
-                        Points="{Binding TodayData}" />
-
-                    <Label Style="{StaticResource MediumLabel}" Text="This Week" />
-
-                    <charts:BarChart
-                        x:Name="BarChartWeek"
-                        BindingContext="{Binding WeekData}"
-                        CustomHeight="330"
-                        CustomWidth="{Binding WeekDataWidth}"
-                        IsVisible="{Binding IsDataLoaded}"
-                        Points="{Binding WeekData}" />
-
-
-                    <Label Style="{StaticResource MediumLabel}" Text="This month" />
-                    <charts:BarChart
-                        x:Name="BarChartMonth"
-                        BindingContext="{Binding MonthData}"
-                        CustomHeight="330"
-                        CustomWidth="{Binding WeekDataWidth}"
-                        IsVisible="{Binding IsDataLoaded}"
-                        Points="{Binding MonthData}" />
-
-                </StackLayout>
+                <Picker
+                    x:Name="picker"
+                    Title="Select report type"
+                    FontSize="20"
+                    SelectedIndex="{Binding SelectedReportType}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Projects</x:String>
+                            <x:String>Customers</x:String>
+                            <x:String>Activities</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
 
 
+                <Label Style="{StaticResource MediumLabel}" Text="Today" />
 
 
-            </ScrollView>
-        </RefreshView>
-    </Grid>
+                <ScrollView
+                    Padding="20"
+                    HeightRequest="400"
+                    Orientation="Horizontal"
+                    VerticalScrollBarVisibility="Never">
+
+                    <StackLayout HeightRequest="370">
+
+                        <lvc:CartesianChart
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HeightRequest="350"
+                            Series="{Binding TodaySeries}"
+                            TooltipTextSize="25"
+                            WidthRequest="{Binding TodayChartWidth}"
+                            XAxes="{Binding TodayXAxes}"
+                            YAxes="{Binding CommonYAxes}" />
+                    </StackLayout>
+                </ScrollView>
+
+                <Label Style="{StaticResource MediumLabel}" Text="This week" />
+                <ScrollView
+                    Padding="20"
+                    HeightRequest="400"
+                    Orientation="Horizontal"
+                    VerticalScrollBarVisibility="Never">
+
+                    <StackLayout HeightRequest="370">
+
+                        <lvc:CartesianChart
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HeightRequest="350"
+                            Series="{Binding WeekSeries}"
+                            TooltipTextSize="25"
+                            WidthRequest="{Binding WeekChartWidth}"
+                            XAxes="{Binding WeekXAxes}"
+                            YAxes="{Binding CommonYAxes}" />
+                    </StackLayout>
+                </ScrollView>
+
+                <Label Style="{StaticResource MediumLabel}" Text="This month" />
+                <ScrollView
+                    Padding="20"
+                    HeightRequest="400"
+                    Orientation="Horizontal"
+                    VerticalScrollBarVisibility="Never">
+
+                    <StackLayout HeightRequest="370">
+
+                        <lvc:CartesianChart
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HeightRequest="350"
+                            Series="{Binding MonthSeries}"
+                            TooltipTextSize="25"
+                            WidthRequest="{Binding MonthChartWidth}"
+                            XAxes="{Binding MonthXAxes}"
+                            YAxes="{Binding CommonYAxes}" />
+                    </StackLayout>
+                </ScrollView>
+
+            </StackLayout>
+        </ScrollView>
+    </RefreshView>
+    <!--</RefreshView>-->
+    <!--</Grid>-->
 </mvvm:TinyView>

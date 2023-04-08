@@ -24,7 +24,7 @@
 
     <Grid>
 
-        <ActivityIndicator
+        <!--<ActivityIndicator
             Grid.RowSpan="3"
             Grid.ColumnSpan="1"
             HorizontalOptions="Fill"
@@ -74,6 +74,6 @@
 
                 </StackLayout>
             </ScrollView>
-        </RefreshView>
+        </RefreshView>-->
     </Grid>
 </mvvm:TinyView>

@@ -46,8 +46,8 @@ public class TimesheetService : BaseService, ITimesheetService
 	}
     public Task<ICollection<TimesheetCollectionExpanded>> GetTenRecentTimesheetsAsync()
     {
-
-        return ApiClient.RecentAsync(base.ApiStateProvider.ActualUser.Id.ToString(),null,null);
+        //if(ApiClient == null) return null;
+            return ApiClient.RecentAsync(base.ApiStateProvider.ActualUser.Id.ToString(),null,null);
     }
 
     public Task<TimesheetEntity> Read(int id)

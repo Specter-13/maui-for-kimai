@@ -37,7 +37,7 @@ public static class ServicesConfiguration
             .WithTransientLifetime());
 
         //i need reports view model as singleton as i share it between mulitple views
-        services.AddSingleton<ReportsViewModel>();
+        //services.AddSingleton<ReportsViewModel>();
     }
 
     public static void ConfigureViews(this IServiceCollection services)

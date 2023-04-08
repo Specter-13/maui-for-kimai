@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MauiForKimai.Core.Enums;
 public enum ReportsType
 {
-    Project,
-    Customer,
-    Activity
+    Project = 0,
+    Customer = 1,
+    Activity = 2
 }

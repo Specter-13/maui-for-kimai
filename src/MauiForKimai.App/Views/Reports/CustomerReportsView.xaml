@@ -25,7 +25,7 @@
 
     <Grid>
 
-        <ActivityIndicator
+        <!--<ActivityIndicator
             Grid.RowSpan="3"
             Grid.ColumnSpan="1"
             HorizontalOptions="Fill"
@@ -47,7 +47,6 @@
 
                     <charts:BarChart
                         x:Name="BarChartToday"
-                        BindingContext="{Binding TodayCustomerData}"
                         CustomHeight="330"
                         CustomWidth="{Binding TodayDataWidth}"
                         IsVisible="{Binding IsDataLoaded}"
@@ -57,7 +56,6 @@
 
                     <charts:BarChart
                         x:Name="BarChartWeek"
-                        BindingContext="{Binding WeekCustomerData}"
                         CustomHeight="330"
                         CustomWidth="{Binding WeekDataWidth}"
                         IsVisible="{Binding IsDataLoaded}"
@@ -67,7 +65,6 @@
                     <Label Style="{StaticResource MediumLabel}" Text="This month" />
                     <charts:BarChart
                         x:Name="BarChartMonth"
-                        BindingContext="{Binding MonthCustomerData}"
                         CustomHeight="330"
                         CustomWidth="{Binding WeekDataWidth}"
                         IsVisible="{Binding IsDataLoaded}"
@@ -80,6 +77,6 @@
 
 
             </ScrollView>
-        </RefreshView>
+        </RefreshView>-->
     </Grid>
 </mvvm:TinyView>

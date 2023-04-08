@@ -26,7 +26,8 @@ public partial class TimesheetListViewModel : ViewModelBase
     public override async Task Initialize()
     {
         IsBusy = true;
-        await LoadMore();
+        page = 1;
+        await GetTimesheetsIncrementaly();
         IsBusy = false;
         //return base.OnAppearing();
     }
@@ -34,8 +35,7 @@ public partial class TimesheetListViewModel : ViewModelBase
     [RelayCommand]
     async Task Refresh()
     { 
-       IsRefreshing = true;
-       page = 1;
+        page = 1;
        Timesheets.Clear();
        await GetTimesheetsIncrementaly();
         IsRefreshing = false;

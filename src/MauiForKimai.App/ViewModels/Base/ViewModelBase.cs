@@ -25,7 +25,7 @@ public abstract partial class ViewModelBase : TinyViewModel, IViewModel
 	}
 
     [ObservableProperty]
-	ApiStateProvider apiStateProvider;
+	protected ApiStateProvider apiStateProvider;
 
 	//virtual for testing purposes
     public virtual NetworkAccess GetConnectivity()

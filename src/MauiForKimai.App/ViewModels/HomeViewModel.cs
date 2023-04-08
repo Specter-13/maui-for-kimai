@@ -77,6 +77,7 @@ public partial class HomeViewModel : ViewModelBase
 
 	public override async Task Initialize()
 	{
+
 		await TryToLoginToDefaultServer();
 		//return base.Initialize();
 	}

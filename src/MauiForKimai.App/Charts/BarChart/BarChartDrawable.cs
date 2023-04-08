@@ -75,11 +75,12 @@ internal class BarChartDrawable : View, IDrawable
             //Draw text
             var name = SplitLongStrings(point.Key);
 
-
-            var duration = TimeSpan.FromSeconds(point.Value);
+            var denormalizeValue = point.Value * 1000;
+            var duration = TimeSpan.FromSeconds(denormalizeValue);
             var durationString = $"{((int)duration.TotalHours).ToString("00")}:{duration.Minutes.ToString("00")}";
             canvas.FontSize = 15;
-            //canvas.DrawString(durationString, barXAxis -2, dirtyRect.Height + 13, HorizontalAlignment.Left);
+     
+            
             canvas.DrawString(durationString, barXAxis + 12,  dirtyRect.Height - 1, HorizontalAlignment.Center);
 
             canvas.FontSize = 12;

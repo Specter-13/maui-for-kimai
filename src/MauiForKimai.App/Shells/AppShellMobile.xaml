@@ -66,20 +66,11 @@
             <ShellContent Title="Activities" ContentTemplate="{DataTemplate controls:ReportsControl}" />-->
 
 
-            <ShellContent
-                Title="Projects"
-                ContentTemplate="{DataTemplate local:ReportsView}"
-                Route="projectreports" />
+            <ShellContent Title="Projects" ContentTemplate="{DataTemplate local:ReportsView}" />
 
-            <ShellContent
-                Title="Customers"
-                ContentTemplate="{DataTemplate local:CustomerReportsView}"
-                Route="customerreports" />
+            <!--<ShellContent Title="Customers" ContentTemplate="{DataTemplate local:CustomerReportsView}" />
+            <ShellContent Title="Activities" ContentTemplate="{DataTemplate local:ActivityReportsView}" />-->
 
-            <ShellContent
-                Title="Activities"
-                ContentTemplate="{DataTemplate local:ActivityReportsView}"
-                Route="activityreports" />
         </Tab>
         <Tab Title="Management" Icon="database.png">
 

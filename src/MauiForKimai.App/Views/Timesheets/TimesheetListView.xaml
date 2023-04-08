@@ -50,7 +50,9 @@
 
         <CollectionView Grid.Row="1" ItemsSource="{Binding Timesheets}">
 
-
+            <CollectionView.Header>
+                <Label Text="" />
+            </CollectionView.Header>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:TimesheetModel">
