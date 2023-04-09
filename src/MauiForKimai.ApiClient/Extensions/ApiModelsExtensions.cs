@@ -14,6 +14,20 @@ public static class TimeExtensions
     }
 }
 
+public static class DateTimeExtensions
+{
+     public static string ToRFC3339(this DateTime date)
+     {
+         return date.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss");
+     }
+
+    public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+    {
+        int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
+        return dt.AddDays(-1 * diff).Date;
+    }
+}
+
 public static class ApiModelsExtensions
 {
 

@@ -1,4 +1,5 @@
-﻿using MauiForKimai.Core.Entities;
+﻿using MauiForKimai.Core;
+using MauiForKimai.Core.Entities;
 using MauiForKimai.Interfaces;
 using Microsoft.VisualBasic;
 using SQLite;
@@ -33,7 +34,7 @@ public class ServerService : IServerService
     public async Task<ServerEntity> Create(ServerModel model)
     {
         await Init();
-        var entity = (ServerEntity) model;
+        var entity = model.ToServerEntity();
         var numberOfaddedRows = await _db.InsertAsync(entity);
         if (numberOfaddedRows > 0)
         {
@@ -64,7 +65,7 @@ public class ServerService : IServerService
     public async Task<ServerEntity> Update(ServerModel model)
     {
         await Init();
-        var entity = (ServerEntity) model;
+        var entity = model.ToServerEntity();
         var numOfUpdatedTRows = await _db.UpdateAsync(entity);
         if (numOfUpdatedTRows > 0)
         {

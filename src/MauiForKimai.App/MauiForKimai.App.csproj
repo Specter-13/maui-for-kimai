@@ -80,6 +80,9 @@
 	  <MauiXaml Update="Controls\FavouriteListControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Controls\ServerListControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\TimesheetListControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -96,12 +99,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\HomeView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Reports\ActivityReportsView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Reports\CustomerReportsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Servers\ServerDetailView.xaml">
@@ -143,9 +140,6 @@
 	  <Compile Update="Views\HomeView.xaml.cs">
 	    <DependentUpon>HomeView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Reports\CustomerReportsView.xaml.cs">
-	    <DependentUpon>CustomerReportsView.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\Servers\ServerDetailView.xaml.cs">
 	    <DependentUpon>ServerDetailView.xaml</DependentUpon>
 	  </Compile>
@@ -164,12 +158,6 @@
 	  <Compile Update="Views\Timesheets\TimesheetListView.xaml.cs">
 	    <DependentUpon>TimesheetListView.xaml</DependentUpon>
 	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Views\Activity\" />
-	  <Folder Include="Views\Customer\" />
-	  <Folder Include="Views\Projects\" />
 	</ItemGroup>
   
 

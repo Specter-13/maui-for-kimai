@@ -21,40 +21,6 @@ public class LoginService : ILoginService
         ApiStateProvider asp) 
     {
 
-       //  var local = new ServerModel()
-       // {
-       //     Id= 1,
-       //     Username = "admin@admin.com",
-       //     ApiPasswordKey = "internet",
-       //     IsDefault = true,
-       //     Name = "My local server",
-       //     Url = "http://localhost:8001/"
-            
-       // };
-
-       //var demo = new ServerModel()
-       // {
-       //     Id= 2,
-       //     Username = "john_user",
-       //     ApiPasswordKey = "kitten",
-       //     IsDefault = false,
-       //     Name = "Demo server online",
-       //     Url = "https://demo-plugins.kimai.org/"
-            
-       // };
-
-       //  var localJan = new ServerModel()
-       // {
-       //     Id= 2,
-       //     Username = "jan@jan.com",
-       //     ApiPasswordKey = "internet",
-       //     IsDefault = false,
-       //     Name = "My local server Jan",
-       //     Url = "http://localhost:8001/"
-            
-       // };
-        
-
         _asp = asp;
         _baseServices = baseServices;
         _userService = userService;
@@ -65,41 +31,9 @@ public class LoginService : ILoginService
         return _asp;
     }
 
-    //public async Task<bool> TestConnection(ServerModel server)
-    //{
-    //    bool isSuccess;
-    //    try
-    //    {
-    //        var oldUserName = _asp.UserName;
-    //        var oldApiPsw = _asp.ApiPassword;
-    //        var oldUrl = _asp.BaseUrl;
 
-    //         DeInitializeClients();
-    //        _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
-    //        InitializeClients(server.Url);
-    //        await _userService.PingServerAsync();
 
-    //        //is success
-    //        //TODO - fix unlogin when testing connection!
-
-    //        isSuccess = true;
-    //    }
-    //    catch (Exception)
-    //    {
-    //        isSuccess = false;
-    //    }
-
-    //    _asp.Disconnect();
-    //    DeInitializeClients();
-    //    return isSuccess;
-    //}
-
-    public bool IsLogged()
-    {
-        return _asp.IsAuthenticated;
-    }
-
-    public async Task<bool> LoginToDefaultOnStartUp(ServerModel defaultServer)
+    public async Task<bool> LoginOnStartUp(ServerModel defaultServer)
     {
         if (defaultServer == null)
              return false;
@@ -149,7 +83,7 @@ public class LoginService : ILoginService
             InitializeClients(server.Url);
             var user = await _userService.GetMe();
             _asp.SetLoggedUser(user);
-            _asp.SetRoles(user);
+            _asp.SetRoles(user.Roles);
             //set timezone offset by server
             var config = await _userService.GetI18nConfig();
             _userTimeOffset = config.Now.Value.Offset;

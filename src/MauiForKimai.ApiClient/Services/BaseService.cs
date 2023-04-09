@@ -53,7 +53,7 @@ public class BaseService : IBaseService
 	{
 		try
 		{
-			await ApiClient.PingAsync();
+			await ApiClient?.PingAsync();
 			return true;
 		}
 		catch 
@@ -66,7 +66,7 @@ public class BaseService : IBaseService
 
 	public async Task<I18nConfig> GetI18nConfig()
 	{
-		return await ApiClient.I18nAsync();
+		return await ApiClient?.I18nAsync();
 	}
 
 

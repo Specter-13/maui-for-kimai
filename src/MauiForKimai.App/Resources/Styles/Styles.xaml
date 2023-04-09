@@ -122,7 +122,7 @@
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
         <Setter Property="IsClippedToBounds" Value="True" />
         <Setter Property="Margin" Value="5" />
-        <Setter Property="HeightRequest" Value="100" />
+        <Setter Property="HeightRequest" Value="80" />
     </Style>
 
     <Style x:Key="TimeTrackingCard" TargetType="Border">
@@ -141,6 +141,10 @@
         <Setter Property="Padding" Value="2" />
         <Setter Property="HeightRequest" Value="55" />
     </Style>
+
+
+    <!--  Popups  -->
+
 
     <!--  Labels  -->
     <Style x:Key="BaseLabel" TargetType="Label">

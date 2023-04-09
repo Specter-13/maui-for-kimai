@@ -69,7 +69,7 @@ public partial class TimesheetListViewModel : ViewModelBase
             IsLoadingMore = false;
             
         }
-        catch (KiamiApiException)
+        catch (KimaiApiException)
         {
             isFullyLoaded = true;
             IsLoadingMore = false;

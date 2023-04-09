@@ -1,5 +1,4 @@
 using CommunityToolkit.Mvvm.Messaging;
-using MauiForKiami.App.Charts;
 using MauiForKimai.Messenger;
 using MauiForKimai.ViewModels;
 using MauiForKimai.Wrappers;

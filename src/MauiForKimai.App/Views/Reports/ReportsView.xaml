@@ -3,7 +3,6 @@
     x:Class="MauiForKimai.Views.ReportsView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:charts="clr-namespace:MauiForKiami.App.Charts"
     xmlns:controls="clr-namespace:MauiForKimai.Controls"
     xmlns:enums="clr-namespace:MauiForKimai.Core.Enums;assembly=MauiForKimai.Core"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
@@ -62,7 +61,7 @@
 
 
                 <Label Style="{StaticResource MediumLabel}" Text="Today" />
-
+                <Label Style="{StaticResource MediumLabel}" Text="{Binding TodayDate}" />
 
                 <ScrollView
                     Padding="20"
@@ -85,6 +84,7 @@
                 </ScrollView>
 
                 <Label Style="{StaticResource MediumLabel}" Text="This week" />
+                <Label Style="{StaticResource MediumLabel}" Text="{Binding WeekInterval}" />
                 <ScrollView
                     Padding="20"
                     HeightRequest="400"
@@ -106,6 +106,7 @@
                 </ScrollView>
 
                 <Label Style="{StaticResource MediumLabel}" Text="This month" />
+                <Label Style="{StaticResource MediumLabel}" Text="{Binding MonthName}" />
                 <ScrollView
                     Padding="20"
                     HeightRequest="400"

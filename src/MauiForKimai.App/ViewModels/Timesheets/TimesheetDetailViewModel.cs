@@ -198,7 +198,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
 
         };
         var timesheet = await _favouriteTimesheetService.Create(entity);
-        //WeakReference
+        WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(""));
     }
 
     [RelayCommand]

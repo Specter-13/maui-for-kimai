@@ -268,7 +268,7 @@ public partial class HomeViewModel : ViewModelBase
 		var defaultServerModel = defaultServer.ToServerModel();
 		defaultServerModel.ApiPasswordKey = apiPassword;
 
-		var isSuccessfull = await _loginService.LoginToDefaultOnStartUp(defaultServerModel);
+		var isSuccessfull = await _loginService.LoginOnStartUp(defaultServerModel);
 		IToast toast;
 
 		if (isSuccessfull)

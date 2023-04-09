@@ -21,50 +21,57 @@ public class TimesheetService : BaseService, ITimesheetService
         if(entity == null)
             return null;
 
-        var timesheet = ApiClient.TimesheetsPOSTAsync(entity,null);
+        try
+        {
+            return ApiClient?.TimesheetsPOSTAsync(entity,null);
+        }
+        catch (KimaiApiException)
+        {
 
-        return timesheet;
+            throw;
+        }
+        
     }
 
     public Task Delete(int id)
     {
-        return ApiClient.TimesheetsDELETEAsync(id);
+        return  ApiClient?.TimesheetsDELETEAsync(id);
     }
 
 
     public Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsIncrementalyAsync(int page, int sizePerPage)
 	{ 
         
-        return ApiClient.TimesheetsAllExpandedAsync(ApiStateProvider.ActualUser.Id.ToString(),null,null,null,null,null,null,page.ToString(),sizePerPage.ToString(),null,null,null,null,null,null,null,null,"true",null,null);
+        return  ApiClient?.TimesheetsAllExpandedAsync(ApiStateProvider.ActualUser.Id.ToString(),null,null,null,null,null,null,page.ToString(),sizePerPage.ToString(),null,null,null,null,null,null,null,null,"true",null,null);
 	}
 
 
     public Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsForReportsAsync(string begin, string end)
 	{ 
         //dd-mm-yyyy
-        return ApiClient.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin,end,null,null,null,"true",null,null);;
+        return  ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin,end,null,null,null,"true",null,null);;
 	}
     public Task<ICollection<TimesheetCollectionExpanded>> GetTenRecentTimesheetsAsync()
     {
         //if(ApiClient == null) return null;
-            return ApiClient.RecentAsync(base.ApiStateProvider.ActualUser.Id.ToString(),null,null);
+            return  ApiClient?.RecentAsync(base.ApiStateProvider.ActualUser.Id.ToString(),null,null);
     }
 
     public Task<TimesheetEntity> Read(int id)
     {
-        return ApiClient.TimesheetsGETAsync(id);
+        return  ApiClient?.TimesheetsGETAsync(id);
     }
 
     public Task<TimesheetEntity> Update(int id, TimesheetEditForm body)
     {
-        return ApiClient.TimesheetsPATCHAsync(id, body);
+        return  ApiClient?.TimesheetsPATCHAsync(id, body);
     }
     public Task<ICollection<TimesheetCollectionExpanded>> GetActive()
     {
-        return ApiClient.ActiveAsync();
+        return  ApiClient?.ActiveAsync();
     }
     public Task<TimesheetEntity> StopActive(int id)
     {
-        return ApiClient.StopAsync(id);
+        return  ApiClient?.StopAsync(id);
     }
 }

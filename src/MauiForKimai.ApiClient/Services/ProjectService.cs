@@ -15,31 +15,31 @@ public class ProjectService : BaseService, IProjectService
 
     public Task<ICollection<ProjectCollection>> GetProjects()
     {
-        return ApiClient.ProjectsAllAsync(null,null,null,null,null,null,null,null,null,null);
+        return ApiClient?.ProjectsAllAsync(null,null,null,null,null,null,null,null,null,null);
     }
 
 
     public Task<ICollection<ProjectCollection>> GetProjectsByCustomer(int customerId)
     {
-        return ApiClient.ProjectsAllAsync(customerId.ToString(),null,null,null,null,null,null,null,null,null);
+        return ApiClient?.ProjectsAllAsync(customerId.ToString(),null,null,null,null,null,null,null,null,null);
     }
     public Task<ProjectEntity> Create(ProjectEditForm entity)
     {
-        return ApiClient.ProjectsPOSTAsync(entity);
+        return ApiClient?.ProjectsPOSTAsync(entity);
     }
 
     public Task DeleteProjectFromTeam(int teamId, int projectId)
     {
-         return ApiClient.ProjectsDELETEAsync(teamId, projectId);
+         return ApiClient?.ProjectsDELETEAsync(teamId, projectId);
     }
 
     public Task<ProjectEntity> Read(int id)
     {
-        return ApiClient.ProjectsGETAsync(id.ToString());
+        return ApiClient?.ProjectsGETAsync(id.ToString());
     }
 
     public Task<ProjectEntity> Update(int id, ProjectEditForm body)
     {
-        return ApiClient.ProjectsPATCHAsync(body, id);
+        return ApiClient?.ProjectsPATCHAsync(body, id);
     }
 }

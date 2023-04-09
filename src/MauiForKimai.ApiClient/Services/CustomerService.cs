@@ -14,11 +14,11 @@ public class CustomerService : BaseService, ICustomerService
 
     public Task<ICollection<CustomerCollection>> GetCustomers()
     {
-        return ApiClient.CustomersAllAsync(null,null,null,null);
+        return ApiClient?.CustomersAllAsync(null,null,null,null);
     }
 
     public Task<CustomerEntity> GetById(int id)
     { 
-        return ApiClient.CustomersGETAsync(id.ToString());
+        return ApiClient?.CustomersGETAsync(id.ToString());
     }
 }

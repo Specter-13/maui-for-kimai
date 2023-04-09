@@ -47,10 +47,10 @@ public partial class ApiStateProvider : ObservableObject
     private const string ROLE_SUPER_ADMIN = "ROLE_SUPER_ADMIN";
     private const string ROLE_TEAMLEAD = "ROLE_TEAMLEAD";
 
-    public void SetRoles(UserEntity user)
+    public void SetRoles(ICollection<string> roles)
     {
 
-        foreach (var role in user.Roles)
+        foreach (var role in roles)
         {
             if(role == ROLE_SUPER_ADMIN )
             { 

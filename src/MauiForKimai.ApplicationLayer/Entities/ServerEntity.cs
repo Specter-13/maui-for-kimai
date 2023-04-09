@@ -15,16 +15,8 @@ public class ServerEntity
     public string Username { get; set; }
     public bool IsDefault { get; set; }
 
-    public static explicit operator ServerEntity(ServerModel entity)
-    {
-        return new ServerEntity
-        {
-            Id = entity.Id,
-            Url = entity.Url,
-            Name = entity.Name,
-            Username = entity.Username,
-            IsDefault = entity.IsDefault,
+    //public bool CanSetBillable { get; set; }
+    //public bool CanSetExport { get; set; }
+    //public bool CanSetRate { get; set; }
 
-        };
-    }
-}
+  }

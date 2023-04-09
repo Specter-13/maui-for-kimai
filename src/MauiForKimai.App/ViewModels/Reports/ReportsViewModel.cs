@@ -36,6 +36,25 @@ public partial class ReportsViewModel : ViewModelBase
 
     }
 
+    [ObservableProperty]
+  
+    string todayDate;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(WeekInterval))]
+    string beginWeekDate;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(WeekInterval))]
+    string endWeekDate;
+
+    public string WeekInterval => $"{BeginWeekDate} - {EndWeekDate}";
+
+
+
+    [ObservableProperty]
+    string monthName;
+
     private StatisticsWrapper statisticsWrapper = new StatisticsWrapper("ahoj");
     private static double _textSize =  DeviceInfo.Current.Idiom == DeviceIdiom.Desktop ? 15 : 40;
 
@@ -137,7 +156,8 @@ public partial class ReportsViewModel : ViewModelBase
     [RelayCommand]
     async Task GetDataByReportsType(ReportsType reportsType)
     {
-
+        
+        
         var wrapper = await CreateGraphAsync(_todayTimesheets, reportsType);
         TodaySeries = wrapper.Series;
         TodayChartWidth = _chartWidth;
@@ -166,6 +186,9 @@ public partial class ReportsViewModel : ViewModelBase
     {
         IsDataLoaded = false;
         var now = DateTime.Now;
+        MonthName = now.ToString("MMMM"); 
+        TodayDate = now.Date.ToShortDateString();
+     
         var lastDayOfMonth = DateTime.DaysInMonth(now.Year, now.Month);
 
         // first day of a month
@@ -184,6 +207,9 @@ public partial class ReportsViewModel : ViewModelBase
 
         var firstDayOfCurrentWeek = now.StartOfWeek(DayOfWeek.Monday);
         var lastDayOfWeek = firstDayOfCurrentWeek.AddDays(7);
+
+        BeginWeekDate = firstDayOfCurrentWeek.Date.ToShortDateString();
+        EndWeekDate = lastDayOfWeek.AddDays(-1).Date.ToShortDateString();
 
         _weekTimesheets = _monthTimesheets.Where(p => firstDayOfCurrentWeek.Date <= p.Begin.Date && p.Begin.Date <= lastDayOfWeek);
         _todayTimesheets = _monthTimesheets.Where(p => p.Begin.Date == now.Date);
@@ -311,46 +337,6 @@ public partial class ReportsViewModel : ViewModelBase
 }
 
 
-public static class DateTimeExtensions
-{
-     public static string ToRFC3339(this DateTime date)
-     {
-         return date.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss");
-     }
-
-    public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
-    {
-        int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
-        return dt.AddDays(-1 * diff).Date;
-    }
-}
 
 
-   //private Task CalculateProjectData(DateTime now)
-    //{
-    //    return Task.Run(() =>
-    //    { 
-    //        var firstDayOfCurrentWeek = now.StartOfWeek(DayOfWeek.Monday);
-    //        var lastDayOfWeek = firstDayOfCurrentWeek.AddDays(7);
-    //        //get only timesheets of current week;
-    //        var thisWeekTimesheets = _timesheets.Where(p =>  firstDayOfCurrentWeek.Date <= p.Begin.Date &&  p.Begin.Date <= lastDayOfWeek);
-        
-    //        //get only today timesheets;
-    //        var todayTimesheets = _timesheets.Where(p => p.Begin.Date == now.Date);
 
-
-    //        FillGraphDataAsync(todayTimesheets,TodayData,ReportsType.Project);
-    //        FillGraphDataAsync(thisWeekTimesheets, WeekData,ReportsType.Project);
-    //        FillGraphDataAsync(_timesheets, MonthData,ReportsType.Project);
-
-
-    //        FillGraphDataAsync(todayTimesheets,TodayCustomerData,ReportsType.Customer);
-    //        FillGraphDataAsync(thisWeekTimesheets, WeekCustomerData,ReportsType.Customer);
-    //        FillGraphDataAsync(_timesheets, MonthCustomerData,ReportsType.Customer);
-
-    //        FillGraphDataAsync(todayTimesheets,TodayActivityData,ReportsType.Activity);
-    //        FillGraphDataAsync(thisWeekTimesheets, WeekActivityData,ReportsType.Activity);
-    //        FillGraphDataAsync(_timesheets, MonthActivityData,ReportsType.Activity);
-
-    //    });
-    //}

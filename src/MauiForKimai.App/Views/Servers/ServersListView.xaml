@@ -3,6 +3,7 @@
     x:Class="MauiForKimai.Views.ServerListView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MauiForKimai.Controls"
     xmlns:entity="clr-namespace:MauiForKimai.Core.Entities;assembly=MauiForKimai.Core"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -17,8 +18,8 @@
         <ResourceDictionary>
             <mct:BoolToObjectConverter
                 x:Key="BoolToBorderColorConverter"
-                FalseObject="blue"
-                TrueObject="red" />
+                FalseObject="#FFFFFF"
+                TrueObject="#2069e0" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -40,56 +41,39 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--<Label
-            Grid.Row="0"
-            HorizontalOptions="Center"
-            Style="{StaticResource LargeLabel}"
-            Text="You are connected to:"
-            VerticalOptions="Center" />-->
-        <Label
-            Grid.Row="0"
-            HorizontalOptions="Center"
-            Style="{StaticResource MediumLabel}"
-            Text="{Binding ApiStateProvider.IsAuthenticated}"
-            VerticalOptions="Center" />
 
-        <ScrollView Grid.Row="1">
-            <CollectionView ItemsSource="{Binding Servers}">
+        <StackLayout>
+            <Label
+                Style="{StaticResource MediumLabel}"
+                Text="Connected to:"
+                VerticalOptions="Center" />
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="entity:ServerEntity">
-                        <Frame BorderColor="{Binding IsDefault, Converter={StaticResource BoolToBorderColorConverter}}" Style="{StaticResource ServerListCard}">
+            <!--<Label
+                Style="{StaticResource MediumLabel}"
+                Text="{Binding ApiStateProvider.Username}"
+                VerticalOptions="Center" />-->
+        </StackLayout>
 
 
+        <!--  BorderColor="{Binding IsDefault, Converter={StaticResource BoolToBorderColorConverter}}"  -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Servers}">
 
-                            <Grid ColumnDefinitions="0.90*,0.10*">
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ServerTappedCommand}" CommandParameter="{Binding .}" />
-                                    <!--<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  ></TapGestureRecognizer>-->
-                                </Grid.GestureRecognizers>
-                                <VerticalStackLayout Grid.Column="0">
 
-                                    <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
-                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding Username}" />
-                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding IsDefault}" />
+            <CollectionView.EmptyView>
+                <Grid>
+                    <Label Text="Empty" />
+                </Grid>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="entity:ServerEntity">
 
-                                </VerticalStackLayout>
+                    <controls:ServerListControl Server="{Binding .}" />
 
-                                <!--<Button
-                                    Grid.Column="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ConnectCommand}"
-                                    CommandParameter="{Binding .}"
-                                    HeightRequest="40"
-                                    Text="Connect" />-->
-                            </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-                        </Frame>
 
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-        </ScrollView>
 
 
 
