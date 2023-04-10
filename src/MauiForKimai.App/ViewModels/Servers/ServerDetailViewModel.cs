@@ -104,6 +104,9 @@ public partial class ServerDetailViewModel : ViewModelBase
             !string.IsNullOrEmpty(Server.Username) && !string.IsNullOrEmpty(Server.ApiPasswordKey);
     }
 
+    [ObservableProperty]
+    public bool overrideTimetrackingPermissions;
+
     [RelayCommand]
     async Task ConnectandCreate() 
     {
@@ -120,6 +123,14 @@ public partial class ServerDetailViewModel : ViewModelBase
 
         await UnsetDefaultServerIfChanged();
 
+
+        //set timesheet permissions automatically if ovverride is off
+        if(!OverrideTimetrackingPermissions)
+            SetPermissionsByRoles(base.ApiStateProvider.ActualUser.Roles);
+   
+
+        //server.PermissionsTimetracking.CanSetBillable
+
         //create server
         var newServer = await _serverService.Create(Server);
 
@@ -134,6 +145,30 @@ public partial class ServerDetailViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
         await toast.Show();
         IsConnecting = false;
+    }
+
+    private void SetPermissionsByRoles(ICollection<string> roles)
+    {
+
+        foreach (var role in roles)
+        {
+            if (role == UserRole.ROLE_SUPER_ADMIN || role == UserRole.ROLE_ADMIN)
+            {
+                Server.CanEditBillable = true;
+                Server.CanEditExport = true;
+                Server.CanEditRate = true;
+                break;
+            }
+
+            if (role == UserRole.ROLE_TEAMLEAD)
+            {
+                Server.CanEditBillable = true;
+                Server.CanEditExport = true;
+            }
+
+        }
+
+        OnPropertyChanged(nameof(Server));
     }
 
 
@@ -216,7 +251,7 @@ public partial class ServerDetailViewModel : ViewModelBase
         await _serverService.Update(Server);
 
         await Toast.Make("Connection and save successfull!", ToastDuration.Short, 14).Show();
-
+        WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
         IsBusy = false;
 
     }

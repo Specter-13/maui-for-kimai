@@ -15,5 +15,10 @@ public class ServerModel
     public string ApiPasswordKey { get; set; }
     public bool IsDefault { get; set; }
 
+    public string[] UserRoles { get; set; }
+    public bool CanEditBillable { get; set; }
+    public bool CanEditExport { get; set; }
+    public bool CanEditRate { get; set; }
+
   
 }

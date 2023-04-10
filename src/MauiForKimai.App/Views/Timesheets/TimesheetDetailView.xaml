@@ -5,11 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:enums="clr-namespace:MauiForKimai.Core.Enums;assembly=MauiForKimai.Core"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
+    xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     x:DataType="viewmodel:TimesheetDetailViewModel"
+    Shell.DisabledColor="White"
     Shell.TabBarIsVisible="True">
+
+
 
 
     <Shell.TitleView>
@@ -32,6 +37,7 @@
                 Margin="10"
                 Command="{Binding AddToFavouritesCommand}"
                 HorizontalOptions="End"
+                IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
                 Style="{StaticResource Key=RecentRestartButton}"
                 VerticalOptions="End">
                 <Button.ImageSource>
@@ -54,13 +60,6 @@
             <mct:EnumToBoolConverter x:Key="UserRoleConverter" />
         </ResourceDictionary>
 
-
-        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Red" />
-        </Style>
-        <Style x:Key="ValidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Green" />
-        </Style>
     </ContentPage.Resources>
 
 
@@ -95,68 +94,57 @@
             Text="{Binding TimeWrapper.BeginFullString}"
             VerticalOptions="Center" />
 
-        <HorizontalStackLayout
+
+
+
+
+        <Button
             Grid.Row="2"
-            Grid.ColumnSpan="1"
+            Grid.Column="0"
             Margin="10"
-            Padding="10"
-            HorizontalOptions="EndAndExpand"
-            VerticalOptions="Center">
+            Command="{Binding DeleteCommand}"
+            HeightRequest="40"
+            HorizontalOptions="Center"
+            IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
+            Style="{StaticResource DeleteButton}"
+            Text="Delete"
+            WidthRequest="100" />
 
 
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="10"
+            Command="{Binding StartTimesheetCommand}"
+            HeightRequest="40"
+            HorizontalOptions="Center"
+            IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Start}}"
+            Text="Start"
+            WidthRequest="100" />
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="10"
+            Command="{Binding CreateCommand}"
+            HeightRequest="40"
+            HorizontalOptions="Center"
+            IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Create}}"
+            Text="Create"
+            WidthRequest="100" />
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="10"
+            Command="{Binding SaveCommand}"
+            HeightRequest="40"
+            HorizontalOptions="Center"
+            IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
+            Text="Save"
+            WidthRequest="100" />
 
-            <Button
-                Margin="10"
-                Command="{Binding DeleteCommand}"
-                HeightRequest="40"
-                IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
-                Style="{StaticResource DeleteButton}"
-                Text="Delete" />
-
-            <Button
-                Margin="10"
-                Command="{Binding CancelCommand}"
-                HeightRequest="40"
-                Text="Cancel" />
-            <Button
-                Margin="10"
-                Command="{Binding StartTimesheetCommand}"
-                HeightRequest="40"
-                IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Start}}"
-                Text="Start" />
-            <Button
-                Margin="10"
-                Command="{Binding CreateCommand}"
-                HeightRequest="40"
-                IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Create}}"
-                Text="Create" />
-            <Button
-                Margin="10"
-                Command="{Binding SaveCommand}"
-                HeightRequest="40"
-                IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
-                Text="Save" />
-
-            <!--<Button
-                Margin="10"
-                CommandParameter="{Binding .}"
-                HorizontalOptions="End"
-                Style="{StaticResource Key=RecentRestartButton}"
-                VerticalOptions="Start">
-                <Button.ImageSource>
-                    <FontImageSource
-                        FontFamily="MaterialDesignIcons"
-                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.}"
-                        Size="25" />
-                </Button.ImageSource>
-            </Button>-->
-
-
-
-        </HorizontalStackLayout>
 
         <ScrollView Grid.Row="3" Grid.ColumnSpan="2">
-            <VerticalStackLayout>
+            <StackLayout>
 
 
                 <Grid>
@@ -171,39 +159,29 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <!--  From Time  -->
-                    <VerticalStackLayout Grid.Row="0">
+                    <StackLayout Grid.Row="0">
                         <Label Text="Begin" />
                         <TimePicker Format="HH:mm" Time="{Binding TimeWrapper.BeginTime}" />
-                    </VerticalStackLayout>
+                    </StackLayout>
                     <!--  From Date  -->
 
-                    <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+                    <StackLayout Grid.Row="0" Grid.Column="1">
                         <Label />
                         <DatePicker Date="{Binding TimeWrapper.BeginDate}" />
-                    </VerticalStackLayout>
+                    </StackLayout>
 
 
 
-                    <VerticalStackLayout Grid.Row="1" IsVisible="{Binding IsCreateOrEdit}">
+                    <StackLayout Grid.Row="1" IsVisible="{Binding IsCreateOrEdit}">
                         <Label Text="End" />
                         <TimePicker
                             x:Name="BeginTimePicker"
                             Format="HH:mm"
-                            Time="{Binding TimeWrapper.EndTime}">
+                            Time="{Binding TimeWrapper.EndTime}" />
+                    </StackLayout>
 
 
-
-                            <!--<TimePicker.Behaviors>
-                                <mct:EventToCommandBehavior
-                                    Command="{Binding TimeWrapper.EndChangedCommand}"
-                                    CommandParameter="{Binding Source={x:Reference BeginTimePicker}, Path=Time}"
-                                    EventName="PropertyChanged" />
-                            </TimePicker.Behaviors>-->
-                        </TimePicker>
-                    </VerticalStackLayout>
-
-
-                    <VerticalStackLayout
+                    <StackLayout
                         Grid.Row="1"
                         Grid.Column="1"
                         IsVisible="{Binding IsCreateOrEdit}">
@@ -212,15 +190,13 @@
                             Date="{Binding TimeWrapper.EndDate}"
                             IsVisible="{Binding IsCreateOrEdit}"
                             VerticalOptions="End" />
-                    </VerticalStackLayout>
-
-
+                    </StackLayout>
 
 
 
 
                     <!--  Duration  -->
-                    <VerticalStackLayout
+                    <StackLayout
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
                         IsVisible="{Binding IsCreateOrEdit}">
@@ -241,19 +217,53 @@
 
                         </Entry>
 
-                    </VerticalStackLayout>
+                    </StackLayout>
 
                 </Grid>
 
                 <VerticalStackLayout>
-                    <!--<Label Text="{Binding TimeWrapper.DurationHours}" />
-                <Label Text="{Binding TimeWrapper.DurationMinutes}" />
-                <Label
-                    IsVisible="{Binding TimeWrapper.IsNotDurationFormatValid}"
-                    Style="{StaticResource NotValidLabel}"
-                    Text="Wrong format of minutes! Minutes must be within interval 0-59" />-->
+                    <!--<input:FormView Grid.Row="3" Grid.ColumnSpan="2">
+
+
+
+
+
+
+                        <Grid ColumnDefinitions="6*,100">
+                            <input:AdvancedEntry
+                                Title="Customer"
+                                BackgroundColor="Transparent"
+                                BorderColor="Transparent"
+                                IconImage="{FontImageSource FontFamily=MaterialDesignIcons,
+                                                            Glyph={x:Static helpers:MaterialDesignIconsFonts.Check},
+                                                            Color={StaticResource AccentColor}}"
+                                Text="{Binding ChosenCustomer.Name}"
+                                TextColor="White">
+                                <input:AdvancedEntry.Validations>
+                                    <validation:RequiredValidation />
+                                </input:AdvancedEntry.Validations>
+
+                                <input:AdvancedEntry.GestureRecognizers>
+
+                                    <TapGestureRecognizer Command="{Binding ShowCustomerChooseViewCommand}" />
+
+                                </input:AdvancedEntry.GestureRecognizers>
+
+                            </input:AdvancedEntry>
+                            <Button
+                                Grid.Column="1"
+                                Command="{Binding ShowCustomerChooseViewCommand}"
+                                HeightRequest="42"
+                                Text="Select"
+                                VerticalOptions="Center"
+                                WidthRequest="80" />
+                        </Grid>
+                        <Button input:FormView.IsSubmitButton="True" Text="Submit" />
+                    </input:FormView>-->
+
 
                     <!--  Customer  -->
+
                     <Label Text="Customer" />
                     <Entry
                         IsReadOnly="True"
@@ -327,11 +337,11 @@
 
                     <!--  ROLE DEPENDAND!  -->
                     <!--  Billable  -->
-                    <Label IsVisible="{Binding ApiStateProvider.IsTeamlead}" Text="Billable" />
+                    <Label IsVisible="{Binding ApiStateProvider.TimetrackingPermissions.CanEditBillable}" Text="Billable" />
                     <Picker
                         x:Name="picker"
                         Title="Select a mode"
-                        IsVisible="{Binding ApiStateProvider.IsTeamlead}"
+                        IsVisible="{Binding ApiStateProvider.TimetrackingPermissions.CanEditBillable}"
                         SelectedItem="{Binding SelectedBillableMode}">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
@@ -342,7 +352,7 @@
                         </Picker.ItemsSource>
                     </Picker>
                     <!--  Rates  -->
-                    <Grid Padding="10" IsVisible="{Binding ApiStateProvider.IsAdmin}">
+                    <Grid Padding="10" IsVisible="{Binding ApiStateProvider.TimetrackingPermissions.CanEditRate}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
@@ -380,7 +390,7 @@
                             <ColumnDefinition Width=".50*" />
                         </Grid.ColumnDefinitions>
                         <!--  Exported  -->
-                        <VerticalStackLayout Grid.Column="0" IsVisible="{Binding ApiStateProvider.IsTeamlead}">
+                        <VerticalStackLayout Grid.Column="0" IsVisible="{Binding ApiStateProvider.TimetrackingPermissions.CanEditExport}">
                             <Label Text="Exported" />
                             <CheckBox IsChecked="{Binding Timesheet.Exported}" />
                         </VerticalStackLayout>
@@ -389,7 +399,7 @@
                     <!--  ROLE DEPENDAND!  -->
                 </VerticalStackLayout>
 
-            </VerticalStackLayout>
+            </StackLayout>
         </ScrollView>
 
 

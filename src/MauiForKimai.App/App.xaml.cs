@@ -21,9 +21,9 @@ public partial class App : TinyApplication
 		_loginService = loginService;
 
 
+		
 
-
-		#if ANDROID
+		#if ANDROID || IOS
             MainPage = new AppShellMobile(menuViewModel);
 		#else
             MainPage = new AppShellDesktop(menuViewModel);

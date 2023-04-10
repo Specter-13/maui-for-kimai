@@ -15,8 +15,9 @@ public class ServerEntity
     public string Username { get; set; }
     public bool IsDefault { get; set; }
 
-    //public bool CanSetBillable { get; set; }
-    //public bool CanSetExport { get; set; }
-    //public bool CanSetRate { get; set; }
+    public bool CanEditBillable { get; set; }
+    public bool CanEditExport { get; set; }
+    public bool CanEditRate { get; set; }
+   
 
-  }
+}

@@ -48,29 +48,39 @@ public partial class FavouritesDetailViewModel : ViewModelBase
        
     }
 
+    [ObservableProperty]
+    bool isEdit;
+
     public override Task OnParameterSet()
     {
-        if (NavigationParameter is TimesheetModel model)
+        if (NavigationParameter is TimesheetDetailWrapper wrapper)
         { 
-            ChosenCustomer = new CustomerListModel(model.CustomerId, model.CustomerName, model.Billable);
-            ChosenActivity =  new ActivityListModel(model.ActivityId, model.ActivityName, model.Billable);
-            ChosenProject = new ProjectListModel(model.ProjectId, model.ProjectName, model.CustomerId, model.Billable);
-            var entity = new TimesheetFavouriteEntity()
+            if(wrapper.Mode == TimesheetDetailMode.Edit)
             { 
-                Id = model.Id,
-                ActivityId = model.ActivityId,
-                ActivityName = model.ActivityName,
-                ProjectId = model.ProjectId,
-                ProjectName = model.ProjectName,
-                CustomerName = model.CustomerName,
+                IsEdit = true;
 
-                Tags = model.Tags,
-                Description = model.Description,
-                FixedRate = model.FixedRate,
-                Exported = model.Exported,
-                Billable = model.Billable
-            };
-            Favourite = entity; 
+                var model = wrapper.Timesheet;
+                ChosenCustomer = new CustomerListModel(model.CustomerId, model.CustomerName, model.Billable);
+                ChosenActivity =  new ActivityListModel(model.ActivityId, model.ActivityName, model.Billable);
+                ChosenProject = new ProjectListModel(model.ProjectId, model.ProjectName, model.CustomerId, model.Billable);
+                var entity = new TimesheetFavouriteEntity()
+                { 
+                    Id = model.Id,
+                    ActivityId = model.ActivityId,
+                    ActivityName = model.ActivityName,
+                    ProjectId = model.ProjectId,
+                    ProjectName = model.ProjectName,
+                    CustomerName = model.CustomerName,
+
+                    Tags = model.Tags,
+                    Description = model.Description,
+                    FixedRate = model.FixedRate,
+                    Exported = model.Exported,
+                    Billable = model.Billable
+                };
+                    Favourite = entity;
+            }
+
         }
             return base.OnParameterSet();
     }
@@ -123,6 +133,20 @@ public partial class FavouritesDetailViewModel : ViewModelBase
         Favourite.ProjectId = ChosenProject.Id;
        
         await _favouritesTimesheetService.Update(Favourite);
+        WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
+        await Navigation.NavigateTo("..");
+    }
+
+    [RelayCommand]
+    async Task Create()
+    {
+        Favourite.CustomerName = ChosenCustomer.Name;
+        Favourite.ActivityId = ChosenActivity.Id;
+        Favourite.ActivityName = ChosenActivity.Name;
+        Favourite.ProjectName = ChosenProject.Name;
+        Favourite.ProjectId = ChosenProject.Id;
+       
+        await _favouritesTimesheetService.Create(Favourite);
         WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
         await Navigation.NavigateTo("..");
     }

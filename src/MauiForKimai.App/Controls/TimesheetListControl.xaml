@@ -38,12 +38,18 @@
             </Grid.ColumnDefinitions>
 
 
-            <Label
-                x:Name="Day"
-                Grid.Row="0"
-                Style="{StaticResource MicroLabel}"
-                TextColor="Grey" />
+            <HorizontalStackLayout Grid.Row="0">
+                <Label
+                    x:Name="Day"
+                    Style="{StaticResource MicroLabel}"
+                    TextColor="Grey" />
+                <Label
+                    Style="{StaticResource MicroLabel}"
+                    Text="{Binding Source={RelativeSource Self}, Path=BeginEnd}"
+                    TextColor="Grey" />
 
+
+            </HorizontalStackLayout>
             <Label
                 Grid.Row="1"
                 Grid.Column="0"

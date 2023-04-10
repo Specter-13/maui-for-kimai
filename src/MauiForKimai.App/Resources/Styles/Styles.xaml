@@ -2,6 +2,16 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+
+    <!--  Pages  -->
+    <Style x:Key="MyShell" TargetType="Element">
+        <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+        <Setter Property="Shell.ForegroundColor" Value="{StaticResource AccentColor}" />
+        <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource AccentTextColorDark}, Dark={StaticResource AccentTextColorLight}}" />
+        <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+        <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+    </Style>
+
     <!--  Pages  -->
     <Style ApplyToDerivedTypes="True" TargetType="Page">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
@@ -15,9 +25,23 @@
     </Style>
 
     <!--  Entry  -->
-    <Style ApplyToDerivedTypes="True" TargetType="Entry">
-        <Setter Property="FontSize" Value="18" />
-    </Style>
+    <!--<Style TargetType="Entry">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+        <Setter Property="MinimumWidthRequest" Value="44" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PlaceholderColor}, Dark={StaticResource PlaceholderColor}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>-->
 
     <!--  Buttons  -->
     <Style TargetType="Button">
@@ -143,7 +167,9 @@
     </Style>
 
 
-    <!--  Popups  -->
+    <!--  entry  -->
+
+
 
 
     <!--  Labels  -->

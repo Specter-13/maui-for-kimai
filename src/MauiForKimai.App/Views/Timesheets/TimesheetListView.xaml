@@ -54,6 +54,17 @@
                 <Label Text="" />
             </CollectionView.Header>
 
+
+            <CollectionView.EmptyView>
+                <ContentView>
+                    <Label
+                        Padding="10"
+                        HorizontalTextAlignment="Center"
+                        Text="Empty timesheets list" />
+                </ContentView>
+
+            </CollectionView.EmptyView>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:TimesheetModel">
                     <controls:TimesheetListControl

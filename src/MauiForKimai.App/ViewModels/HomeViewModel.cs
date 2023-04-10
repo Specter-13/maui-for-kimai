@@ -68,7 +68,20 @@ public partial class HomeViewModel : ViewModelBase
 			return;
 		}
 
-		await timesheetService.Create(form);
+		try
+		{
+			var timesheet = await timesheetService.Create(form);
+			if(timesheet == null) 
+			{
+				await Toast.Make("Error starting timesheet! Check your connection.", ToastDuration.Long, 14).Show();
+			}
+		}
+		catch (KimaiApiException e)
+		{
+			await Toast.Make("Error starting timesheet! There are insufficient time-tracking permissions.", ToastDuration.Long, 14).Show();
+			return;
+		}
+		
 		_timer.Start();
 		IsTimetrackingActive = true;
 		var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
@@ -120,7 +133,8 @@ public partial class HomeViewModel : ViewModelBase
 
 		var editForm = timesheet.ToTimesheetEditFormBase();
 		SelectedActivity = timesheet.ActivityName;
-		editForm.Begin = new DateTimeOffset(DateTime.Now,_loginService.GetUserTimeOffset());
+		var offset = _loginService.GetUserTimeOffset();
+		editForm.Begin = new DateTimeOffset(DateTime.Now,offset);
 		editForm.End = null;
 		await StartTimesheet(editForm);
 	}
@@ -143,7 +157,7 @@ public partial class HomeViewModel : ViewModelBase
 			await timesheetService.StopActive(ActiveTimesheet.Id);
 			await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
 		}
-		catch (Exception)
+		catch (KimaiApiException e)
 		{
 			await Toast.Make("There was a problem to stop a timesheet! It may be already stopped.", ToastDuration.Short, 14).Show();
 		}

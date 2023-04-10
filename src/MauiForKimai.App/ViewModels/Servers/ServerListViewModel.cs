@@ -18,8 +18,6 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ViewModels;
 public partial class ServerListViewModel : ViewModelBase
 {
-    
- 
 
     private readonly IServerService _serverService;
 

@@ -147,6 +147,18 @@
                     </ContentView>
                 </CollectionView.Header>
 
+
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <Label
+                            Padding="10"
+                            HorizontalTextAlignment="Center"
+                            Text="Empty recents timesheet" />
+                    </ContentView>
+
+                </CollectionView.EmptyView>
+
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:TimesheetModel">
 

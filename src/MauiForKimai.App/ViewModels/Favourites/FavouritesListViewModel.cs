@@ -2,11 +2,13 @@
 using MauiForKimai.Core;
 using MauiForKimai.Interfaces;
 using MauiForKimai.Messenger;
+using MauiForKimai.Wrappers;
 using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,14 +64,16 @@ public partial class FavouritesListViewModel : ViewModelBase
     async Task AddNew()
     { 
         var route = base.routingService.GetRouteByViewModel<FavouritesDetailViewModel>();
-		await Navigation.NavigateTo(route);
+        var wrapper = new TimesheetDetailWrapper(null,TimesheetDetailMode.Create);
+		await Navigation.NavigateTo(route,wrapper);
     }
 
     [RelayCommand]
     async Task FavouriteTapped(TimesheetModel model)
     { 
         var route = base.routingService.GetRouteByViewModel<FavouritesDetailViewModel>();
-		await Navigation.NavigateTo(route, model);
+        var wrapper = new TimesheetDetailWrapper(model,TimesheetDetailMode.Edit);
+		await Navigation.NavigateTo(route, wrapper);
     }
 
     [RelayCommand]

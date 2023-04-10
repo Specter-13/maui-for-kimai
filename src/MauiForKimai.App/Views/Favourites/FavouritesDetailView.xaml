@@ -12,6 +12,11 @@
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     x:DataType="viewmodel:FavouritesDetailViewModel">
 
+
+    <ContentPage.Resources>
+        <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ContentPage.Resources>
+
     <Shell.TitleView>
         <Grid>
             <Label
@@ -36,13 +41,22 @@
                 Grid.Column="2"
                 Margin="10"
                 Command="{Binding SaveCommand}"
+                IsVisible="{Binding IsEdit}"
                 Text="Save" />
             <Button
                 Grid.Column="1"
                 Margin="10"
                 Command="{Binding DeleteCommand}"
+                IsVisible="{Binding IsEdit}"
                 Style="{StaticResource DeleteButton}"
                 Text="Delete" />
+
+            <Button
+                Grid.Column="2"
+                Margin="10"
+                Command="{Binding CreateCommand}"
+                IsVisible="{Binding IsEdit, Converter={StaticResource InvertedBoolConverter}}"
+                Text="Create" />
 
 
 

@@ -21,15 +21,9 @@ public class TimesheetService : BaseService, ITimesheetService
         if(entity == null)
             return null;
 
-        try
-        {
-            return ApiClient?.TimesheetsPOSTAsync(entity,null);
-        }
-        catch (KimaiApiException)
-        {
-
-            throw;
-        }
+        
+         return ApiClient?.TimesheetsPOSTAsync(entity,null);
+       
         
     }
 

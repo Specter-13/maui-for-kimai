@@ -12,6 +12,11 @@ public static class TimeExtensions
     {
         return new TimeSpan(time.Days, time.Hours, time.Minutes, time.Seconds);
     }
+
+     public static TimeSpan StripSeconds(this TimeSpan time)
+    {
+        return new TimeSpan(time.Days, time.Hours, time.Minutes);
+    }
 }
 
 public static class DateTimeExtensions

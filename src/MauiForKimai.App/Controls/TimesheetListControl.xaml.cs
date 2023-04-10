@@ -1,9 +1,13 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace MauiForKimai.Controls;
 
 public partial class TimesheetListControl : ContentView
 {
 	public static readonly BindableProperty TimesheetProperty = BindableProperty.Create(nameof(TimesheetProperty), typeof(string), typeof(TimesheetListControl), string.Empty);
 
+
+	
 	public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(TitleProperty), typeof(string), typeof(TimesheetListControl), propertyChanged: (bindable, oldValue, newValue) =>
 	{ 
 		var control = (TimesheetListControl)bindable;
@@ -18,8 +22,9 @@ public partial class TimesheetListControl : ContentView
 		}
 	});
 
+    public string BeginEnd { get; set; }
 
-	public TimesheetListControl()
+    public TimesheetListControl()
 	{
 		InitializeComponent();
 	}
@@ -35,6 +40,8 @@ public partial class TimesheetListControl : ContentView
 		get => GetValue(TitleProperty) as string;
 		set => SetValue(TitleProperty, value);
 	}
+
+
 
     public static string _today => DateTime.Today.ToShortDateString();
 

@@ -1,5 +1,5 @@
 ﻿using MauiForKimai.ApiClient;
-
+using MauiForKimai.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,17 +14,18 @@ public class LoginService : ILoginService
 
     private readonly IEnumerable<IBaseService> _baseServices;
     private readonly IUserService _userService;
+    private readonly IServerService _serverService;
     private readonly ApiStateProvider _asp;
 
     public LoginService(IEnumerable<IBaseService> baseServices, 
         IUserService userService,
-        ApiStateProvider asp) 
+        ApiStateProvider asp, IServerService serverService) 
     {
 
         _asp = asp;
         _baseServices = baseServices;
         _userService = userService;
-        
+        _serverService = serverService;
     }
     public ApiStateProvider GetApiStateProvider()
     {
@@ -59,12 +60,15 @@ public class LoginService : ILoginService
 
     }
 
+
+
     public Task Logout()
     {
         return Task.Run(() =>
         {
             _asp.Disconnect();
             DeInitializeClients();
+            //TODO send message to refresh data
         });
        
     }
@@ -79,11 +83,11 @@ public class LoginService : ILoginService
         try
         {
             _asp.Disconnect();
-            _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url,server.Id);  
+
+            _asp.SetAuthInfo(server);  
             InitializeClients(server.Url);
             var user = await _userService.GetMe();
-            _asp.SetLoggedUser(user);
-            _asp.SetRoles(user.Roles);
+            _asp.SetUser(user);
             //set timezone offset by server
             var config = await _userService.GetI18nConfig();
             _userTimeOffset = config.Now.Value.Offset;

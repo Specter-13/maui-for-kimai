@@ -63,6 +63,9 @@ public static class CoreModelExtensions
             Name = entity.Name,
             Username = entity.Username,
             IsDefault = entity.IsDefault,
+            CanEditBillable = entity.CanEditBillable,
+            CanEditExport = entity.CanEditExport,
+            CanEditRate = entity.CanEditRate,
 
         };
     }
@@ -76,7 +79,9 @@ public static class CoreModelExtensions
             Name = entity.Name,
             Username = entity.Username,
             IsDefault = entity.IsDefault,
-
+            CanEditBillable = entity.CanEditBillable,
+            CanEditExport = entity.CanEditExport,
+            CanEditRate = entity.CanEditRate,
         };
     }
 

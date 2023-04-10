@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using MauiForKimai.Core.Entities;
+using MauiForKimai.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,68 +13,44 @@ namespace MauiForKimai.ApiClient;
 public partial class ApiStateProvider : ObservableObject
 {
     public string UserName {get; private set; } = string.Empty;
-    public string ApiPassword {get; private set; } = string.Empty;
+    internal string ApiPassword {get; private set; } = string.Empty;
     public string BaseUrl {get; private set; } = string.Empty;
 
 
     public int ServerId {get; private set; }
+
+
     public UserEntity? ActualUser {get; private set;}
 
+  
 
-    [ObservableProperty]
-    public bool isTeamlead;
-
-    [ObservableProperty]
-    public bool isAdmin;
-
-    [ObservableProperty]
-    public bool isSuperAdmin;
 
     [ObservableProperty]
     public bool isAuthenticated;
 
-    public void SetAuthInfo(string token, string apiPassword, string baseUrl, int serverId)
+    [ObservableProperty]
+    public string? serverName;
+
+    [ObservableProperty]
+    public PermissionsTimetrackingModel? timetrackingPermissions;
+
+    public void SetAuthInfo(ServerModel server)
     {
-        UserName = token;
-        ApiPassword = apiPassword;
-        BaseUrl = baseUrl;
-        ServerId = serverId;
+        UserName = server.Username;
+        ApiPassword = server.ApiPasswordKey;
+        BaseUrl = server.Url;
+        ServerId = server.Id;
+        ServerName = server.Name;
+        TimetrackingPermissions = new(server.CanEditBillable,server.CanEditExport,server.CanEditRate);
     }
 
-    public void SetLoggedUser(UserEntity user)
+    public void SetUser(UserEntity user)
     {
         ActualUser = user;
     }
-    private const string ROLE_ADMIN = "ROLE_ADMIN";
-    private const string ROLE_SUPER_ADMIN = "ROLE_SUPER_ADMIN";
-    private const string ROLE_TEAMLEAD = "ROLE_TEAMLEAD";
+  
 
-    public void SetRoles(ICollection<string> roles)
-    {
 
-        foreach (var role in roles)
-        {
-            if(role == ROLE_SUPER_ADMIN )
-            { 
-                IsTeamlead = true;
-                IsAdmin = true;
-                IsSuperAdmin = true;
-                break;
-            }
-
-            if(role == ROLE_ADMIN)
-            { 
-                IsTeamlead = true;
-                IsAdmin = true;
-            }
-
-            if(role == ROLE_TEAMLEAD  )
-            { 
-                IsTeamlead = true;
-            }
-        }
-        
-    }
     public void SetIsAuthenticated()
     {
         IsAuthenticated = true;
@@ -84,9 +62,8 @@ public partial class ApiStateProvider : ObservableObject
         ApiPassword= string.Empty;
         BaseUrl= string.Empty;
         ActualUser = null;
-        IsAdmin = false;
-        IsSuperAdmin = false;
-        IsTeamlead = false;
+        TimetrackingPermissions = null;
+        ServerName = null;
     }
 
 }

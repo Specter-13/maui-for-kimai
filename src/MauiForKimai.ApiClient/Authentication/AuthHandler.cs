@@ -18,7 +18,6 @@ public partial class AuthHandler : DelegatingHandler
     public AuthHandler(ApiStateProvider apiStateProvider)
     {
         _apiStateProvider = apiStateProvider;
-
     }
 
     //ovveride send async to add authorization

@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Maui.Views;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
 using MauiForKimai.Popups;
@@ -33,8 +35,6 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         _popupSizeConstants = sc;
         _favouriteTimesheetService = fts;
 
-
-        if(ApiStateProvider.IsTeamlead) SelectedBillableMode = "Automatic";
         
     }
 
@@ -139,7 +139,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     ActivityListModel chosenActivity = new();
     
     [ObservableProperty]
-    string selectedBillableMode;
+    string selectedBillableMode = "Automatic";
 
     [ObservableProperty]
     bool isTagNotValid;
@@ -197,9 +197,13 @@ public partial class TimesheetDetailViewModel : ViewModelBase
             Tags = Timesheet.Tags
 
         };
-        var timesheet = await _favouriteTimesheetService.Create(entity);
+
+        await _favouriteTimesheetService.Create(entity);
+        await Toast.Make("Timesheet added to favourites!", ToastDuration.Short, 14).Show();
         WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(""));
     }
+
+
 
     [RelayCommand]
     async Task StartTimesheet()
@@ -215,21 +219,11 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         IsProjectNotValid = false;
         IsActivityNotValid = false;
 
-        //if roles is higher than teamlead, set billable value
-        if(ApiStateProvider.IsTeamlead)
+        if (ApiStateProvider.TimetrackingPermissions.CanEditBillable)
         {
-           await SetBillable();
+            await SetBillable();
         }
 
-
-
-        //Timesheet.User = base.ApiStateProvider.ActualUser.Id;
-
-        //Timesheet.Billable = false;
-        //Timesheet.Exported = false;
-        //Timesheet.FixedRate = 0;
-        //Timesheet.HourlyRate = 0;
-        //Timesheet.P
 
         var wrapper = new TimesheetTimetrackingWrapper(Timesheet,ChosenActivity.Name,ChosenProject.Name);
         WeakReferenceMessenger.Default.Send(new TimesheetStartNewMessage(wrapper));
