@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Messaging;
+using MauiForKimai.ApiClient.Validators;
 using MauiForKimai.Messenger;
 using MauiForKimai.Popups;
 using MauiForKimai.Wrappers;
@@ -129,6 +130,8 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     [ObservableProperty]
     TimesheetEditForm timesheet = new();
 
+    private TimesheetEditFormValidator _validator = new ();
+
     [ObservableProperty]
     CustomerListModel chosenCustomer = new();
 
@@ -141,14 +144,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     [ObservableProperty]
     string selectedBillableMode = "Automatic";
 
-    [ObservableProperty]
-    bool isTagNotValid;
-
-    [ObservableProperty]
-    bool isProjectNotValid;
-
-    [ObservableProperty]
-    bool isActivityNotValid;
+   
 
     [ObservableProperty]
     TimesheetDetailMode mode;
@@ -203,8 +199,12 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(""));
     }
 
+    [ObservableProperty]
+    List<string> validationErrors;
 
-
+    [ObservableProperty]
+    bool showValidationErrors;
+    
     [RelayCommand]
     async Task StartTimesheet()
     {
@@ -213,21 +213,31 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         Timesheet.Project = ChosenProject.Id;
         Timesheet.Activity = ChosenActivity.Id;
 
-        //if(!Validate()) return;
+     
+        var result = _validator.Validate(Timesheet);
 
-        IsTagNotValid = false;
-        IsProjectNotValid = false;
-        IsActivityNotValid = false;
-
-        if (base.LoginContext.TimetrackingPermissions.CanEditBillable)
+        if (result.IsValid)
         {
-            await SetBillable();
+            // Save the data...
+            if (base.LoginContext.TimetrackingPermissions.CanEditBillable)
+            {
+                await SetBillable();
+            }
+
+
+            var wrapper = new TimesheetTimetrackingWrapper(Timesheet,ChosenActivity.Name,ChosenProject.Name);
+            WeakReferenceMessenger.Default.Send(new TimesheetStartNewMessage(wrapper));
+            await Navigation.NavigateTo("..");
+        }
+        else
+        {
+           ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+            
+            // Display the validation errors...
         }
 
 
-        var wrapper = new TimesheetTimetrackingWrapper(Timesheet,ChosenActivity.Name,ChosenProject.Name);
-        WeakReferenceMessenger.Default.Send(new TimesheetStartNewMessage(wrapper));
-        await Navigation.NavigateTo("..");
+       
 
     }
 
@@ -288,29 +298,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         await Navigation.NavigateTo("..");
     }
     //TODO - createa own validation object
-    private bool Validate()
-    {
-        if(Timesheet.Tags != null && Timesheet.Tags.Length == 1) 
-        { 
-            IsTagNotValid = true;
-        }
-
-        if(Timesheet.Project == 0)
-        {
-            IsProjectNotValid = true;
-        }
-
-        if(Timesheet.Activity == 0)
-        {
-            IsActivityNotValid = true;
-        }
-
-        if(IsTagNotValid || IsProjectNotValid || IsActivityNotValid)
-        {
-            return false;
-        }
-        return true;
-    }
+  
 
 
     private async Task SetBillable()

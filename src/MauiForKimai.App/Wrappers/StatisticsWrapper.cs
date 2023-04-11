@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace MauiForKimai.Wrappers;
 
-[ObservableObject]
 public partial class StatisticsWrapper
 {
 

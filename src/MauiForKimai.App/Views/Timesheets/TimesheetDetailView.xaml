@@ -9,12 +9,30 @@
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+    xmlns:validators="clr-namespace:FluentValidation;assembly=FluentValidation"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     x:DataType="viewmodel:TimesheetDetailViewModel"
     Shell.DisabledColor="White"
     Shell.TabBarIsVisible="True">
 
+    <ContentPage.Resources>
 
+        <ResourceDictionary>
+            <mct:EnumToBoolConverter x:Key="ModeConverter" />
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <mct:EnumToBoolConverter x:Key="UserRoleConverter" />
+        </ResourceDictionary>
+
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
+
+    </ContentPage.Resources>
 
 
     <Shell.TitleView>
@@ -50,17 +68,7 @@
         </Grid>
     </Shell.TitleView>
 
-    <ContentPage.Resources>
 
-        <ResourceDictionary>
-            <mct:EnumToBoolConverter x:Key="ModeConverter" />
-        </ResourceDictionary>
-
-        <ResourceDictionary>
-            <mct:EnumToBoolConverter x:Key="UserRoleConverter" />
-        </ResourceDictionary>
-
-    </ContentPage.Resources>
 
 
     <Grid Padding="10">
@@ -222,44 +230,6 @@
                 </Grid>
 
                 <VerticalStackLayout>
-                    <!--<input:FormView Grid.Row="3" Grid.ColumnSpan="2">
-
-
-
-
-
-
-                        <Grid ColumnDefinitions="6*,100">
-                            <input:AdvancedEntry
-                                Title="Customer"
-                                BackgroundColor="Transparent"
-                                BorderColor="Transparent"
-                                IconImage="{FontImageSource FontFamily=MaterialDesignIcons,
-                                                            Glyph={x:Static helpers:MaterialDesignIconsFonts.Check},
-                                                            Color={StaticResource AccentColor}}"
-                                Text="{Binding ChosenCustomer.Name}"
-                                TextColor="White">
-                                <input:AdvancedEntry.Validations>
-                                    <validation:RequiredValidation />
-                                </input:AdvancedEntry.Validations>
-
-                                <input:AdvancedEntry.GestureRecognizers>
-
-                                    <TapGestureRecognizer Command="{Binding ShowCustomerChooseViewCommand}" />
-
-                                </input:AdvancedEntry.GestureRecognizers>
-
-                            </input:AdvancedEntry>
-                            <Button
-                                Grid.Column="1"
-                                Command="{Binding ShowCustomerChooseViewCommand}"
-                                HeightRequest="42"
-                                Text="Select"
-                                VerticalOptions="Center"
-                                WidthRequest="80" />
-                        </Grid>
-                        <Button input:FormView.IsSubmitButton="True" Text="Submit" />
-                    </input:FormView>-->
 
 
                     <!--  Customer  -->
@@ -292,10 +262,11 @@
 
                         </Entry.GestureRecognizers>
                     </Entry>
-                    <Label
+
+                    <!--<Label
                         IsVisible="{Binding IsProjectNotValid}"
                         Style="{StaticResource NotValidLabel}"
-                        Text="Project is required" />
+                        Text="Project is required" />-->
                     <Button
                         Command="{Binding ShowProjectChooseViewCommand}"
                         IsVisible="{OnIdiom Phone=False,
@@ -314,10 +285,10 @@
 
                         </Entry.GestureRecognizers>
                     </Entry>
-                    <Label
+                    <!--<Label
                         IsVisible="{Binding IsActivityNotValid}"
                         Style="{StaticResource NotValidLabel}"
-                        Text="Activity is required" />
+                        Text="Activity is required" />-->
                     <Button
                         Command="{Binding ShowActivityChooseViewCommand}"
                         IsVisible="{OnIdiom Phone=False,
@@ -329,10 +300,10 @@
                     <!--  Tags  -->
                     <Label Text="Tags" />
                     <Entry Text="{Binding Timesheet.Tags}" />
-                    <Label
+                    <!--<Label
                         IsVisible="{Binding IsTagNotValid}"
                         Style="{StaticResource NotValidLabel}"
-                        Text="Tag must have at least 2 characters or be empty" />
+                        Text="Tag must have at least 2 characters or be empty" />-->
 
 
                     <!--  ROLE DEPENDAND!  -->
@@ -351,7 +322,9 @@
                             </x:Array>
                         </Picker.ItemsSource>
                     </Picker>
+
                     <!--  Rates  -->
+
                     <Grid Padding="10" IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditRate}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
@@ -389,13 +362,25 @@
                             <ColumnDefinition Width=".50*" />
                             <ColumnDefinition Width=".50*" />
                         </Grid.ColumnDefinitions>
+
                         <!--  Exported  -->
+
                         <VerticalStackLayout Grid.Column="0" IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditExport}">
                             <Label Text="Exported" />
                             <CheckBox IsChecked="{Binding Timesheet.Exported}" />
                         </VerticalStackLayout>
 
                     </Grid>
+
+
+                    <ListView ItemsSource="{Binding ValidationErrors}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding .}" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
                     <!--  ROLE DEPENDAND!  -->
                 </VerticalStackLayout>
 

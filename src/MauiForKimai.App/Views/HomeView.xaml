@@ -34,9 +34,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="9*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -50,7 +50,7 @@
             Grid.Row="0"
             Margin="10"
             Padding="10"
-            HeightRequest="100"
+            HeightRequest="110"
             Style="{StaticResource Widget}">
             <Grid ColumnDefinitions="*,2*" RowDefinitions="27,*">
 

@@ -9,19 +9,6 @@ using System.Threading.Tasks;
 namespace MauiForKimai.Core.Models;
 
 
-public class TimesheetListItemGroupModel : List<TimesheetModel>
-{
-    public string Name { get; private set; }
-
-
-
-
-    public TimesheetListItemGroupModel(string name, List<TimesheetModel> timesheets) : base(timesheets)
-    {
-        Name = name;
-    }
-}
-
 public class TimesheetModel
 {
     public int Id { get; set; }
