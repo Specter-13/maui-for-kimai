@@ -26,7 +26,7 @@ public partial class TimeBeginEndWrapper : ObservableObject
         BeginDate = currentTime.Date;
         EndTime = currentTime.TimeOfDay;
         EndDate = currentTime.Date;
-        BeginFull = new DateTimeOffset(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds, offset);
+        BeginFull = new DateTime(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds);
         EndFull = BeginFull;
         BeginFullString = BeginFull.ToString("dddd, dd MMMM yyyy");
         //Duration = "00:00";
@@ -43,8 +43,8 @@ public partial class TimeBeginEndWrapper : ObservableObject
         var endDate = timesheet.End.Value.Date;
         
 
-        BeginFull = new DateTimeOffset(beginDate.Year, beginDate.Month, beginDate.Day, beginTime.Hours, beginTime.Minutes, beginTime.Seconds, offset);
-        EndFull = new DateTimeOffset(endDate.Year, endDate.Month, endDate.Day, endTime.Hours, endTime.Minutes, endTime.Seconds, offset);
+        BeginFull = new DateTime(beginDate.Year, beginDate.Month, beginDate.Day, beginTime.Hours, beginTime.Minutes, beginTime.Seconds);
+        EndFull = new DateTime(endDate.Year, endDate.Month, endDate.Day, endTime.Hours, endTime.Minutes, endTime.Seconds);
 
         BeginDate = BeginFull.Date;
         BeginTime = BeginFull.TimeOfDay;
@@ -87,8 +87,8 @@ public partial class TimeBeginEndWrapper : ObservableObject
 
     private string GetDuration()
     {
-        EndFull = new DateTimeOffset(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds, _offset);
-        BeginFull = new DateTimeOffset(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds, _offset);
+        EndFull = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds);
+        BeginFull = new DateTime(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds);
         var difference = (EndFull - BeginFull);
         var hours = ((int)difference.TotalHours).ToString("00");
         var minutes = difference.Minutes.ToString("00");
@@ -98,6 +98,6 @@ public partial class TimeBeginEndWrapper : ObservableObject
     }
 
 
-    public DateTimeOffset BeginFull { get; set; }
-    public DateTimeOffset EndFull { get; set; }
+    public DateTime BeginFull { get; set; }
+    public DateTime EndFull { get; set; }
 }

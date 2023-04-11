@@ -16,12 +16,11 @@ public class BaseService : IBaseService
 {
 	protected IHttpClientFactory _httpClientFactory;
 	protected HttpClient? _httpClient;
-	protected ApiStateProvider ApiStateProvider;
-
-    public BaseService(IHttpClientFactory httpClientFactory, ApiStateProvider asp) 
+	protected ApiLoginContext loginContext;
+    public BaseService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) 
 	{
 		_httpClientFactory = httpClientFactory;
-		ApiStateProvider = asp;
+		loginContext = asp;
 	}
 
 	public IApiClient? ApiClient {get; set;}

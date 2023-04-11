@@ -9,6 +9,7 @@ using MauiForKimai.ApiClient.Services;
 using MauiForKimai.Wrappers;
 using MauiForKimai.ApiClient;
 using MauiForKimai.Core;
+using MauiForKimai.ApiClient.Extensions;
 
 namespace MauiForKimai.ViewModels;
 
@@ -20,6 +21,12 @@ public partial class HomeViewModel : ViewModelBase
 	private readonly IServerService _serverService;
     private readonly ISecureStorageService  _secureStorageService;
 	
+
+	[ObservableProperty]
+	TimerWrapper  myTimer;
+
+	[ObservableProperty]
+	StatisticsWrapper  statistics;
 
 	public HomeViewModel(IRoutingService rs, 
 		ILoginService ls, 
@@ -33,7 +40,10 @@ public partial class HomeViewModel : ViewModelBase
 		_serverService = ss;
         _secureStorageService = sc;
 		_dispatcherWrapper = dispatcherWrapper ?? new DispatcherWrapper(Application.Current.Dispatcher);
-		CreateTimer();
+
+		MyTimer = new TimerWrapper(_dispatcherWrapper);
+		Statistics = new StatisticsWrapper();
+
 		RegisterMessages();
 		
 	}
@@ -51,7 +61,7 @@ public partial class HomeViewModel : ViewModelBase
 		 WeakReferenceMessenger.Default.Register<TimesheetStartExistingMessage>(this, async (r, m) =>
         {
 			//TODO ROLES
-			var editForm = m.Value.ToTimesheetEditFormBase();
+			var editForm = m.Value.ToTimesheetEditForm(LoginContext.TimetrackingPermissions);
             SelectedActivity = m.Value.ActivityName;
 			await StartTimesheet(editForm);
         });
@@ -75,24 +85,27 @@ public partial class HomeViewModel : ViewModelBase
 			{
 				await Toast.Make("Error starting timesheet! Check your connection.", ToastDuration.Long, 14).Show();
 			}
+			else
+			{
+				MyTimer.TimerStart();
+				IsTimetrackingActive = true;
+				var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
+				ActiveTimesheet =  activeTimesheet.ToTimesheetActiveModel();
+				SelectedActivity = ActiveTimesheet.ActivityName;
+			}
 		}
-		catch (KimaiApiException e)
+		catch (KimaiApiException)
 		{
 			await Toast.Make("Error starting timesheet! There are insufficient time-tracking permissions.", ToastDuration.Long, 14).Show();
 			return;
 		}
 		
-		_timer.Start();
-		IsTimetrackingActive = true;
-		var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
-		ActiveTimesheet =  activeTimesheet.ToTimesheetActiveModel();
 	}
 
 	public override async Task Initialize()
 	{
-
-		await TryToLoginToDefaultServer();
-		//return base.Initialize();
+		await LoginToDefault();
+	
 	}
 
 
@@ -104,20 +117,15 @@ public partial class HomeViewModel : ViewModelBase
 
 	[ObservableProperty]
 	bool isTimetrackingActive;
-	
 
-	[ObservableProperty]
-    public TimeSpan time = new();
 
 	[ObservableProperty]
     bool isRefreshing;
 
-	private double _seconds;
-	private IDispatcherTimer _timer;
 
 	// Commands
 	[RelayCommand]
-	async Task StartTimeTracking()
+	async Task StartNewTimesheet()
 	{
 		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
 		await Navigation.NavigateTo(route,TimesheetDetailMode.Start);
@@ -127,14 +135,8 @@ public partial class HomeViewModel : ViewModelBase
 	[RelayCommand]
 	async Task StartRecentTimesheet(TimesheetModel timesheet)
 	{	
-		
-
-		//TODO check for roles, ToTimesheetEditFormFull
-
-		var editForm = timesheet.ToTimesheetEditFormBase();
-		SelectedActivity = timesheet.ActivityName;
-		var offset = _loginService.GetUserTimeOffset();
-		editForm.Begin = new DateTimeOffset(DateTime.Now,offset);
+		var editForm = timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions);
+		editForm.Begin = DateTime.Now.ToDateTimeOffset(base.LoginContext.TimeOffset);
 		editForm.End = null;
 		await StartTimesheet(editForm);
 	}
@@ -150,27 +152,24 @@ public partial class HomeViewModel : ViewModelBase
 	[RelayCommand]
 	async Task StopTimeTracking()
 	{	
-		SelectedActivity = null;
+		
 
 		try
 		{
 			await timesheetService.StopActive(ActiveTimesheet.Id);
+			IsTimetrackingActive = false;
+			SelectedActivity = null;
+			MyTimer.TimerStop();
+			await RefreshTimesheets();
+			
 			await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
 		}
 		catch (KimaiApiException e)
 		{
-			await Toast.Make("There was a problem to stop a timesheet! It may be already stopped.", ToastDuration.Short, 14).Show();
+			await Toast.Make("There was a problem to stop a timesheet! It may be already stopped or time offset is wrong!", ToastDuration.Long, 14).Show();
 		}
 		
-		await RefreshTimesheets();
-		_timer.Stop();
-		IsTimetrackingActive = false;
-		_seconds = 0;
-		Time = new TimeSpan();
-		
 	
-
-
 	}
 
 
@@ -190,11 +189,9 @@ public partial class HomeViewModel : ViewModelBase
 	}
 
     [RelayCommand]
-    async Task GetTimeSheets()
+    async Task GetRecentTimesheets()
     {
 		var timesheets = await timesheetService.GetTenRecentTimesheetsAsync();
-
-
 		RecentTimesheets.Clear();
 		foreach (var timesheet in timesheets)
 		{
@@ -216,13 +213,16 @@ public partial class HomeViewModel : ViewModelBase
 		await Navigation.NavigateTo(route,wrapper);
         
     }
+
 	// private methods
 	private async Task Refresh()
 	{ 
-		if (base.ApiStateProvider.IsAuthenticated && base.GetConnectivity() == NetworkAccess.Internet)
+		if (base.LoginContext.IsAuthenticated && base.GetConnectivity() == NetworkAccess.Internet)
 		{
-			await GetTimeSheets();
+			await GetRecentTimesheets();
 			await TryToGetActiveTimesheet();
+			await CalculateTodayStatistics();
+			
 		}
 		else
 		{ 
@@ -240,36 +240,29 @@ public partial class HomeViewModel : ViewModelBase
 			ActiveTimesheet = activeTimesheet.ToTimesheetActiveModel();
 			SelectedActivity = activeTimesheet.Activity.Name;
 			IsTimetrackingActive = true;
-			_seconds = ActiveTimesheet.Duration;
-			_timer.Start();
+			MyTimer.TimerStartExisting(ActiveTimesheet.Duration);
 		}
 		else
 		{
 			SelectedActivity = null;
 			IsTimetrackingActive = false;
-			_timer.Stop();
-			_seconds = 0;
-			Time = TimeSpan.FromSeconds(_seconds);
+			MyTimer.TimerStop();
 			
 		}
 	}
 
-	private void CreateTimer()
+
+
+	private async Task CalculateTodayStatistics()
 	{ 
-		//Application.Current.Dispatcher.C
-		_timer = _dispatcherWrapper.CreateTimer();
-		_timer.Interval = TimeSpan.FromMilliseconds(1000);
-		_timer.Tick += (s, e) =>
-		{
-			_seconds += 1;
-			Time = TimeSpan.FromSeconds(_seconds);
-		};
+		var todayTimesheet = await timesheetService.GetTodayTimesheetsAsync();
+		
+		await Statistics.CalculateTodayStatistics(todayTimesheet);
+		OnPropertyChanged(nameof(Statistics));
 	}
-	private void timer_Tick(object sender, EventArgs e)
-	{
-		_seconds += 1;
-	}
-	public async Task TryToLoginToDefaultServer()
+
+
+	public async Task LoginToDefault()
 	{ 
 		var defaultServer = await _serverService.GetDefaultServer();
 		if (defaultServer == null) 

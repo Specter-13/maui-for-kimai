@@ -50,7 +50,7 @@
 
             <!--<Label
                 Style="{StaticResource MediumLabel}"
-                Text="{Binding ApiStateProvider.Username}"
+                Text="{Binding LoginContext.Username}"
                 VerticalOptions="Center" />-->
         </StackLayout>
 

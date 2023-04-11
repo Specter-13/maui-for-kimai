@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ApiClient.Services;
 public class CustomerService : BaseService, ICustomerService
 {
-    public CustomerService(IHttpClientFactory httpClientFactory, ApiStateProvider asp) : base(httpClientFactory, asp)
+    public CustomerService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) : base(httpClientFactory, asp)
     {
     }
 

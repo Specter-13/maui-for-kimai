@@ -24,7 +24,7 @@ public partial class MenuViewModel : ViewModelBase
     [RelayCommand]
     async Task GoToHomeAsync()
     {
-        if(base.ApiStateProvider.IsAuthenticated)
+        if(base.LoginContext.IsAuthenticated)
         { 
             var route = base.routingService.GetRouteByViewModel<HomeViewModel>();
             await Navigation.NavigateTo(route);
@@ -42,7 +42,7 @@ public partial class MenuViewModel : ViewModelBase
     async Task LogOutAsync()
     { 
         await GoToLoginAsync();
-		    base.ApiStateProvider.Disconnect();
+		    base.LoginContext.Disconnect();
         
 		    //await Shell.Current.GoToAsync(nameof(LoginView));
 	    }

@@ -13,7 +13,7 @@ namespace MauiForKimai.ApiClient.Services;
 public class UserService : BaseService, IUserService
 {
 
-	public UserService(IHttpClientFactory httpClientFactory, ApiStateProvider asp) : base(httpClientFactory,asp)
+	public UserService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) : base(httpClientFactory,asp)
 	{
 
 	}

@@ -151,9 +151,8 @@
 
     <Style x:Key="TimeTrackingCard" TargetType="Border">
         <Setter Property="Padding" Value="5" />
-
-        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
-        <Setter Property="StrokeShape" Value="RoundRectangle 30,30,0,0" />
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 5,5,0,0" />
     </Style>
 
     <Style x:Key="TimeTrackingFavouriteCard" TargetType="Frame">

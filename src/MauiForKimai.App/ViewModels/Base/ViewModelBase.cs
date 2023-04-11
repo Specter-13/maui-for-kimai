@@ -21,12 +21,11 @@ public abstract partial class ViewModelBase : TinyViewModel, IViewModel
 	{
 		routingService = rs;
 		loginService = ls;
-		ApiStateProvider = loginService.GetApiStateProvider();
+		LoginContext = loginService.GetLoginContext();
 	}
 
     [ObservableProperty]
-	public ApiStateProvider apiStateProvider;
-
+	public ApiLoginContext loginContext;
 
 	//virtual for testing purposes
     public virtual NetworkAccess GetConnectivity()

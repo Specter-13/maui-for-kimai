@@ -79,14 +79,14 @@ public partial class TimesheetDetailViewModel : ViewModelBase
 
             var timesheetModel = wrapper.Timesheet;
             //TODO check for roles
-            Timesheet = timesheetModel.ToTimesheetEditFormBase();
+            Timesheet = timesheetModel.ToTimesheetEditForm(LoginContext.TimetrackingPermissions);
 
             ChosenActivity = new ActivityListModel(timesheetModel.ActivityId,timesheetModel.ActivityName,timesheetModel.Billable.Value);
             ChosenProject = new ProjectListModel(timesheetModel.ProjectId,timesheetModel.ProjectName,timesheetModel.CustomerId,timesheetModel.Billable.Value);
             ChosenCustomer = new CustomerListModel(timesheetModel.CustomerId,timesheetModel.CustomerName, timesheetModel.Billable.Value );
 
 
-            TimeWrapper = new TimeBeginEndWrapper(timesheetModel,loginService.GetUserTimeOffset());
+            TimeWrapper = new TimeBeginEndWrapper(timesheetModel,LoginContext.TimeOffset);
 
         }
         else if (NavigationParameter is TimesheetDetailMode mode)
@@ -95,12 +95,12 @@ public partial class TimesheetDetailViewModel : ViewModelBase
             if(mode == TimesheetDetailMode.Start)
             { 
                 PageLabel = "Start new";
-                TimeWrapper = new TimeBeginEndWrapper(loginService.GetUserTimeOffset());
+                TimeWrapper = new TimeBeginEndWrapper(LoginContext.TimeOffset);
                 Timesheet.Begin = TimeWrapper.BeginFull;
             }
             else
             {
-                TimeWrapper = new TimeBeginEndWrapper(loginService.GetUserTimeOffset());
+                TimeWrapper = new TimeBeginEndWrapper(LoginContext.TimeOffset);
                 Timesheet.Begin = TimeWrapper.BeginFull;
                 PageLabel = "Create";
                 Mode = TimesheetDetailMode.Create;
@@ -209,7 +209,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     async Task StartTimesheet()
     {
         //TODO higher roles
-        Timesheet.Begin = TimeWrapper.BeginFull;
+        Timesheet.Begin = TimeWrapper.BeginFull.ToDateTimeOffset(LoginContext.TimeOffset);
         Timesheet.Project = ChosenProject.Id;
         Timesheet.Activity = ChosenActivity.Id;
 
@@ -219,7 +219,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         IsProjectNotValid = false;
         IsActivityNotValid = false;
 
-        if (ApiStateProvider.TimetrackingPermissions.CanEditBillable)
+        if (base.LoginContext.TimetrackingPermissions.CanEditBillable)
         {
             await SetBillable();
         }
@@ -256,8 +256,8 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task Save()
     {
-        Timesheet.Begin = TimeWrapper.BeginFull;
-        Timesheet.End = TimeWrapper.EndFull;
+        Timesheet.Begin = TimeWrapper.BeginFull.ToDateTimeOffset(LoginContext.TimeOffset);
+        Timesheet.End = TimeWrapper.EndFull.ToDateTimeOffset(LoginContext.TimeOffset);
         Timesheet.Project = ChosenProject.Id;
         Timesheet.Activity = ChosenActivity.Id;
 

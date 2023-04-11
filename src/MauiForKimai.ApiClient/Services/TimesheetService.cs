@@ -7,12 +7,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using MauiForKimai.ApiClient.Extensions;
 
 namespace MauiForKimai.ApiClient.Services;
 public class TimesheetService : BaseService, ITimesheetService
 {
     //private ITimesheetClient _timesheetClient;
-    public TimesheetService(IHttpClientFactory httpClientFactory, ApiStateProvider asp) : base(httpClientFactory,asp)
+    public TimesheetService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) : base(httpClientFactory,asp)
     {
     }
 
@@ -36,7 +37,7 @@ public class TimesheetService : BaseService, ITimesheetService
     public Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsIncrementalyAsync(int page, int sizePerPage)
 	{ 
         
-        return  ApiClient?.TimesheetsAllExpandedAsync(ApiStateProvider.ActualUser.Id.ToString(),null,null,null,null,null,null,page.ToString(),sizePerPage.ToString(),null,null,null,null,null,null,null,null,"true",null,null);
+        return  ApiClient?.TimesheetsAllExpandedAsync(base.loginContext.ActualUser.Id.ToString(),null,null,null,null,null,null,page.ToString(),sizePerPage.ToString(),null,null,null,null,null,null,null,null,"true",null,null);
 	}
 
 
@@ -45,10 +46,19 @@ public class TimesheetService : BaseService, ITimesheetService
         //dd-mm-yyyy
         return  ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin,end,null,null,null,"true",null,null);;
 	}
+
+     public Task<ICollection<TimesheetCollectionExpanded>> GetTodayTimesheetsAsync()
+	{ 
+        //dd-mm-yyyy
+        var today = DateTime.Now;
+        var begin = new DateTime(today.Year,today.Month,today.Day);
+        var end = begin.AddDays(1);
+        return  ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin.ToRFC3339(),end.ToRFC3339(),null,null,null,"true",null,null);;
+	}
     public Task<ICollection<TimesheetCollectionExpanded>> GetTenRecentTimesheetsAsync()
     {
         //if(ApiClient == null) return null;
-            return  ApiClient?.RecentAsync(base.ApiStateProvider.ActualUser.Id.ToString(),null,null);
+            return  ApiClient?.RecentAsync(base.loginContext.ActualUser.Id.ToString(),null,null);
     }
 
     public Task<TimesheetEntity> Read(int id)

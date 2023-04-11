@@ -10,8 +10,8 @@ namespace MauiForKimai.Persistence;
 public class FavouriteTimesheetService : IFavouritesTimesheetService
 {
      private SQLiteAsyncConnection _db;
-    private ApiStateProvider _asp;
-    public FavouriteTimesheetService(ApiStateProvider asp)
+    private ApiLoginContext _asp;
+    public FavouriteTimesheetService(ApiLoginContext asp)
     {
         _asp = asp;
     }

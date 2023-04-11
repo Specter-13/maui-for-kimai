@@ -39,9 +39,9 @@ public class TimesheetModel
     //needed for new timetracking
     public int ActivityId { get; set; }
     public int ProjectId { get; set; }
-    public DateTimeOffset Begin { get; set; }
+    public DateTime Begin { get; set; }
 
-    public DateTimeOffset? End { get; set; } = null;
+    public DateTime? End { get; set; } = null;
     public string? Tags { get; set; }= null;
     public string? Description { get; set; }= null;
 

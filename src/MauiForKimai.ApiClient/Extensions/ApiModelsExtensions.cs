@@ -31,6 +31,16 @@ public static class DateTimeExtensions
         int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
         return dt.AddDays(-1 * diff).Date;
     }
+
+    public static DateTimeOffset ToDateTimeOffset(this DateTime dt, TimeSpan offset)
+    {
+        // adding negative offset to a min-datetime will throw, this is a 
+        // sufficient catch. Note however that a DateTime of just a few hours can still throw
+        if (dt == DateTime.MinValue)
+            return DateTimeOffset.MinValue;
+
+        return new DateTimeOffset(dt.Ticks, offset);
+    }
 }
 
 public static class ApiModelsExtensions
@@ -78,8 +88,8 @@ public static class ApiModelsExtensions
             CustomerId = timesheet.Project.Customer.Id.Value,
             Date = timesheet.Begin.Date.ToShortDateString(),
             Duration = TimeSpan.FromSeconds(timesheet.Duration.Value).ToString(@"hh\:mm"),
-            Begin = timesheet.Begin,
-            End = timesheet.End,
+            Begin = timesheet.Begin.DateTime,
+            End = timesheet.End?.DateTime,
 
             ActivityId= timesheet.Activity.Id.Value,
             ProjectId = timesheet.Project.Id.Value,
@@ -92,7 +102,7 @@ public static class ApiModelsExtensions
         };
     }
 
-    public static TimesheetEditForm ToTimesheetEditFormFull(this TimesheetModel timesheet)
+    public static TimesheetEditForm ToTimesheetEditForm(this TimesheetModel timesheet, PermissionsTimetrackingModel permissions)
     { 
         return new TimesheetEditForm
         { 
@@ -102,11 +112,14 @@ public static class ApiModelsExtensions
             Project = timesheet.ProjectId,
             Activity = timesheet.ActivityId,
             Description = timesheet.Description,
-            FixedRate = timesheet.FixedRate,
-            HourlyRate = timesheet.HourlyRate,
-            Exported = timesheet.Exported, 
-            Billable = timesheet.Billable,
             Tags =  string.Join(",", timesheet.Tags),
+
+
+            FixedRate = permissions.CanEditRate ? timesheet.FixedRate : null,
+            HourlyRate = permissions.CanEditRate ? timesheet.HourlyRate : null,
+            Exported = permissions.CanEditExport ? timesheet.Exported : null,
+            Billable = permissions.CanEditBillable? timesheet.Billable : null,
+            
 
         };
     }

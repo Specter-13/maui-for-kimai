@@ -14,7 +14,7 @@ public static class ServicesConfiguration
 {
     public static void RegisterClientServices(this IServiceCollection services)
     {
-        services.AddSingleton<ApiStateProvider>();
+        services.AddSingleton<ApiLoginContext>();
         services.AddTransient<AuthHandler>();
 
         services.AddHttpClient(AuthHandler.AUTHENTICATED_CLIENT)

@@ -126,7 +126,7 @@ public partial class ServerDetailViewModel : ViewModelBase
 
         //set timesheet permissions automatically if ovverride is off
         if(!OverrideTimetrackingPermissions)
-            SetPermissionsByRoles(base.ApiStateProvider.ActualUser.Roles);
+            SetPermissionsByRoles(base.LoginContext.ActualUser.Roles);
    
 
         //server.PermissionsTimetracking.CanSetBillable
@@ -231,7 +231,7 @@ public partial class ServerDetailViewModel : ViewModelBase
         if(IsLoggedToThisServer)
         {
             await loginService.Logout();
-            var isSuccess = await loginService.Login(Server);;
+            var isSuccess = await loginService.Login(Server);
             if(!isSuccess)
             { 
                 await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();

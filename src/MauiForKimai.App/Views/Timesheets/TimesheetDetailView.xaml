@@ -337,11 +337,11 @@
 
                     <!--  ROLE DEPENDAND!  -->
                     <!--  Billable  -->
-                    <Label IsVisible="{Binding ApiStateProvider.TimetrackingPermissions.CanEditBillable}" Text="Billable" />
+                    <Label IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditBillable}" Text="Billable" />
                     <Picker
                         x:Name="picker"
                         Title="Select a mode"
-                        IsVisible="{Binding ApiStateProvider.TimetrackingPermissions.CanEditBillable}"
+                        IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditBillable}"
                         SelectedItem="{Binding SelectedBillableMode}">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
@@ -352,7 +352,7 @@
                         </Picker.ItemsSource>
                     </Picker>
                     <!--  Rates  -->
-                    <Grid Padding="10" IsVisible="{Binding ApiStateProvider.TimetrackingPermissions.CanEditRate}">
+                    <Grid Padding="10" IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditRate}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
@@ -390,7 +390,7 @@
                             <ColumnDefinition Width=".50*" />
                         </Grid.ColumnDefinitions>
                         <!--  Exported  -->
-                        <VerticalStackLayout Grid.Column="0" IsVisible="{Binding ApiStateProvider.TimetrackingPermissions.CanEditExport}">
+                        <VerticalStackLayout Grid.Column="0" IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditExport}">
                             <Label Text="Exported" />
                             <CheckBox IsChecked="{Binding Timesheet.Exported}" />
                         </VerticalStackLayout>

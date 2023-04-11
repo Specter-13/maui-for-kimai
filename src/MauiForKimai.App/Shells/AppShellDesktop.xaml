@@ -95,7 +95,7 @@
             <Button
                 Margin="10,10"
                 Command="{Binding LogOutCommand}"
-                IsVisible="{Binding ApiStateProvider.IsAuthenticated}"
+                IsVisible="{Binding LoginContext.IsAuthenticated}"
                 Text="Log out" />
             <Label Text="Bc. David Spavor" />
         </StackLayout>

@@ -141,7 +141,7 @@
             Route="login" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Home" IsVisible="{Binding ApiStateProvider.IsAuthenticated}">
+    <FlyoutItem Title="Home" IsVisible="{Binding LoginContext.IsAuthenticated}">
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate local:HomeView}"
@@ -149,7 +149,7 @@
             Route="home" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Timesheets" IsVisible="{Binding ApiStateProvider.IsAuthenticated}">
+    <FlyoutItem Title="Timesheets" IsVisible="{Binding LoginContext.IsAuthenticated}">
         <ShellContent
             Title="Timesheets"
             ContentTemplate="{DataTemplate local:TimeSheetView}"
@@ -161,7 +161,7 @@
             <Button
                 Margin="10,10"
                 Command="{Binding LogOutCommand}"
-                IsVisible="{Binding ApiStateProvider.IsAuthenticated}"
+                IsVisible="{Binding LoginContext.IsAuthenticated}"
                 Text="Log out" />
             <Label Text="Bc. David Spavor" />
         </StackLayout>

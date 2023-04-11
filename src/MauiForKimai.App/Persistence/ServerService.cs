@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 namespace MauiForKimai.Persistence;
 public class ServerService : IServerService
 {
-    private ApiStateProvider _asp;
-    public ServerService(ApiStateProvider asp)
+    private ApiLoginContext _asp;
+    public ServerService(ApiLoginContext asp)
     {
         _asp = asp;
     }

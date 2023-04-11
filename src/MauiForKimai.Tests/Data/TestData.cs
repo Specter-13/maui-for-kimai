@@ -1,4 +1,5 @@
 ﻿using MauiForKimai.ApiClient;
+using MauiForKimai.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,31 @@ using Xunit;
 namespace MauiForKimai.Tests.Data;
 public static class TestData
 {
+
+    private static DateTime _begin = DateTime.Now;
+    private static DateTime _end = DateTime.Now.AddMinutes(60);
     //apistateprovider
-    public static readonly ApiStateProvider Asp = new ApiStateProvider
+    public static readonly ApiLoginContext Asp = new ApiLoginContext
       {
           IsAuthenticated = true,
+          TimetrackingPermissions = new PermissionsTimetrackingModel(false,false,false),
+           
+
       };
+
+    public static readonly ServerModel Server = new ServerModel
+    {
+        Id = 1,
+        Url = "http://localhost:8001",
+        Name = "test",
+        ApiPasswordKey = "password",
+        Username = "username",
+        IsDefault = false,
+        CanEditBillable = false,
+        CanEditExport = false,
+        CanEditRate = false,
+        
+    };
 
     //normal
       public static readonly Customer TestCustomer = new Customer
@@ -55,7 +76,7 @@ public static class TestData
           Id = 1,
           Activity = TestActivity.Id,
           Project = TestProject.Id,
-          Duration = 1000
+          Duration = 3600
       };
 
     public static readonly TimesheetEntity TestTimesheetEntity = new TimesheetEntity
@@ -63,11 +84,11 @@ public static class TestData
         Id = 1,
         Activity = TestActivity.Id,
         Project = TestProject.Id,
-        Duration = 3000,
+        Duration = 3600,
         User = 1,
         Tags = new[] {"ahoj", "cau"},
-        Begin = DateTimeOffset.Now,
-        End = DateTimeOffset.Now.AddSeconds(3000),
+        Begin = _begin,
+        End = _end,
         Description = "Test description",
         Exported = true,
         Billable = true
@@ -78,8 +99,8 @@ public static class TestData
         Activity = TestActivity.Id.Value,
         Project = TestProject.Id.Value,
         Tags = "ahoj, cau",
-        Begin = DateTimeOffset.Now,
-        End = DateTimeOffset.Now.AddSeconds(3000),
+        Begin = _begin,
+        End = _end,
         Description = "Test description",
     };
 
@@ -88,8 +109,8 @@ public static class TestData
         Activity = TestActivity.Id.Value,
         Project = TestProject.Id.Value,
         Tags = "ahoj, cau",
-        Begin = DateTimeOffset.Now,
-        End = DateTimeOffset.Now.AddSeconds(3000),
+        Begin = _begin,
+        End = _end,
         Description = "Test description",
         Exported= true,
         Billable= true
@@ -125,10 +146,32 @@ public static class TestData
         Id = 1,
         Activity = TestActivityExpanded,
         Project = TestProjectExpanded,
-        Duration = 3000,
+        Duration = 3600,
         Tags = new[] {"tag1", "tag2", "tag3"},
-        Begin = DateTimeOffset.Now,
-        End = DateTimeOffset.Now.AddSeconds(3000),
+        Begin = _begin,
+        End = _end,
+        Description = "Test description",
+        Exported = true,
+        Billable = true
+    };
+
+
+    public static readonly TimesheetModel TestTimsheetModelRecent = new TimesheetModel
+    {
+        Id = 1,
+        ActivityName = TestActivityExpanded.Name,
+        ProjectName = TestProjectExpanded.Name,
+        CustomerName= TestProjectExpanded.Customer.Name,
+        CustomerId = TestProjectExpanded.Customer.Id.Value,
+
+        Duration = 3600.ToString(),
+        IsRecent = true,
+        ActivityId = TestActivityExpanded.Id.Value,
+        ProjectId = TestProjectExpanded.Id.Value,
+        Begin = _begin,
+        End = _end,
+        Tags = "tag1, tag2, tag3",
+
         Description = "Test description",
         Exported = true,
         Billable = true

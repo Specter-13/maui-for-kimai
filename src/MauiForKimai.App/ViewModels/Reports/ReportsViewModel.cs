@@ -55,12 +55,12 @@ public partial class ReportsViewModel : ViewModelBase
     [ObservableProperty]
     string monthName;
 
-    private StatisticsWrapper statisticsWrapper = new StatisticsWrapper("ahoj");
+
     private static double _textSize =  DeviceInfo.Current.Idiom == DeviceIdiom.Desktop ? 15 : 40;
 
     public override async Task Initialize()
     {
-        if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.ApiStateProvider.IsAuthenticated )
+        if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.LoginContext.IsAuthenticated )
         { 
             IsBusy = true;
             await GetData();
@@ -71,7 +71,7 @@ public partial class ReportsViewModel : ViewModelBase
     [RelayCommand]
     public async Task Refresh()
     {
-        if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.ApiStateProvider.IsAuthenticated )
+        if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.LoginContext.IsAuthenticated )
         { 
             
 

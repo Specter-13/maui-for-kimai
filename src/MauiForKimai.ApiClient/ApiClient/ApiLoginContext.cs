@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MauiForKimai.ApiClient;
 
-public partial class ApiStateProvider : ObservableObject
+public partial class ApiLoginContext : ObservableObject
 {
     public string UserName {get; private set; } = string.Empty;
     internal string ApiPassword {get; private set; } = string.Empty;
@@ -23,7 +23,7 @@ public partial class ApiStateProvider : ObservableObject
     public UserEntity? ActualUser {get; private set;}
 
   
-
+    public TimeSpan TimeOffset {get; set;}
 
     [ObservableProperty]
     public bool isAuthenticated;
@@ -42,11 +42,13 @@ public partial class ApiStateProvider : ObservableObject
         ServerId = server.Id;
         ServerName = server.Name;
         TimetrackingPermissions = new(server.CanEditBillable,server.CanEditExport,server.CanEditRate);
+        
     }
 
-    public void SetUser(UserEntity user)
+    public void SetUserAndOffset(UserEntity user,TimeSpan offset)
     {
         ActualUser = user;
+        TimeOffset = offset;
     }
   
 

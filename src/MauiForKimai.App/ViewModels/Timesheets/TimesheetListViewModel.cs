@@ -89,7 +89,7 @@ public partial class TimesheetListViewModel : ViewModelBase
     [RelayCommand]
     async Task QuickStart(TimesheetModel model)
     {
-        model.Begin =  new DateTimeOffset(DateTime.Now, loginService.GetUserTimeOffset());
+        model.Begin =  DateTime.Now;
         model.End =  null;
         WeakReferenceMessenger.Default.Send(new TimesheetStartExistingMessage(model));
         var route = base.routingService.GetRouteByViewModel<HomeViewModel>();

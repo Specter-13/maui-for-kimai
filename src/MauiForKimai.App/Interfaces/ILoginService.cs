@@ -9,9 +9,8 @@ namespace MauiForKimai.Interfaces;
 
 public interface ILoginService
 {
-    ApiStateProvider GetApiStateProvider();
+    ApiLoginContext GetLoginContext();
     bool CheckIfConnected(ServerModel server);
-    TimeSpan GetUserTimeOffset();
   
     Task<bool> LoginOnStartUp(ServerModel defaultServer);
 

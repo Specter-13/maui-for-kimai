@@ -19,6 +19,9 @@ public class DispatcherWrapper : IDispatcherWrapper
         }
         _dispatcher = dispatcher;
       }
+
+
+
     public IDispatcherTimer CreateTimer()
     {
         return _dispatcher.CreateTimer();
