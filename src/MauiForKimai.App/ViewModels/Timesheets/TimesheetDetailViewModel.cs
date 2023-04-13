@@ -2,10 +2,13 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Messaging;
-using MauiForKimai.ApiClient.Validators;
+using FluentValidation.Results;
+using MauiForKimai.ApiClient;
+using MauiForKimai.Core.Validators;
 using MauiForKimai.Messenger;
 using MauiForKimai.Popups;
 using MauiForKimai.Wrappers;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -80,11 +83,11 @@ public partial class TimesheetDetailViewModel : ViewModelBase
 
             var timesheetModel = wrapper.Timesheet;
             //TODO check for roles
-            Timesheet = timesheetModel.ToTimesheetEditForm(LoginContext.TimetrackingPermissions);
+            Timesheet = timesheetModel;
 
             ChosenActivity = new ActivityListModel(timesheetModel.ActivityId,timesheetModel.ActivityName,timesheetModel.Billable.Value);
-            ChosenProject = new ProjectListModel(timesheetModel.ProjectId,timesheetModel.ProjectName,timesheetModel.CustomerId,timesheetModel.Billable.Value);
-            ChosenCustomer = new CustomerListModel(timesheetModel.CustomerId,timesheetModel.CustomerName, timesheetModel.Billable.Value );
+            ChosenProject = new ProjectListModel(timesheetModel.ProjectId,timesheetModel.ProjectName,timesheetModel.CustomerId.GetValueOrDefault(),timesheetModel.Billable.Value);
+            ChosenCustomer = new CustomerListModel(timesheetModel.CustomerId.GetValueOrDefault(),timesheetModel.CustomerName, timesheetModel.Billable.Value );
 
 
             TimeWrapper = new TimeBeginEndWrapper(timesheetModel,LoginContext.TimeOffset);
@@ -128,10 +131,10 @@ public partial class TimesheetDetailViewModel : ViewModelBase
 
 
     [ObservableProperty]
-    TimesheetEditForm timesheet = new();
+    TimesheetModel timesheet = new();
 
-    private TimesheetEditFormValidator _validator = new ();
-
+    private TimesheetModelStartValidator _startValidator = new ();
+    private TimesheetModelCreateValidator _createValidator = new ();
     [ObservableProperty]
     CustomerListModel chosenCustomer = new();
 
@@ -144,6 +147,8 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     [ObservableProperty]
     string selectedBillableMode = "Automatic";
 
+    [ObservableProperty]
+    int gitlabIssueId;
    
 
     [ObservableProperty]
@@ -183,18 +188,8 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task AddToFavourites()
     {
-        var entity = new TimesheetFavouriteEntity{
-            ActivityId = ChosenActivity.Id,
-            ActivityName = ChosenActivity.Name,
-            ProjectId = ChosenProject.Id,
-            ProjectName = ChosenProject.Name,
-            CustomerName = ChosenCustomer.Name,
-            Description = Timesheet.Description,
-            Tags = Timesheet.Tags
 
-        };
-
-        await _favouriteTimesheetService.Create(entity);
+        await _favouriteTimesheetService.Create(Timesheet.ToTimesheetFavouriteEntity());
         await Toast.Make("Timesheet added to favourites!", ToastDuration.Short, 14).Show();
         WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(""));
     }
@@ -202,42 +197,50 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     [ObservableProperty]
     List<string> validationErrors;
 
-    [ObservableProperty]
-    bool showValidationErrors;
-    
+ 
     [RelayCommand]
     async Task StartTimesheet()
     {
         //TODO higher roles
-        Timesheet.Begin = TimeWrapper.BeginFull.ToDateTimeOffset(LoginContext.TimeOffset);
-        Timesheet.Project = ChosenProject.Id;
-        Timesheet.Activity = ChosenActivity.Id;
+        Timesheet.Begin = TimeWrapper.BeginFull;
+        Timesheet.ProjectId = ChosenProject.Id;
+        Timesheet.ProjectName = ChosenProject.Name;
+        Timesheet.ActivityId = ChosenActivity.Id;
+        Timesheet.CustomerName = ChosenCustomer.Name;
 
-     
-        var result = _validator.Validate(Timesheet);
+
+        ValidationResult result;
+        if(Mode == TimesheetDetailMode.Create || Mode == TimesheetDetailMode.Edit)
+        {
+            result = _createValidator.Validate(Timesheet);
+        }
+        else
+        { 
+            result = _startValidator.Validate(Timesheet);
+        }
 
         if (result.IsValid)
         {
-            // Save the data...
+            //Save the data...
             if (base.LoginContext.TimetrackingPermissions.CanEditBillable)
             {
                 await SetBillable();
             }
 
 
-            var wrapper = new TimesheetTimetrackingWrapper(Timesheet,ChosenActivity.Name,ChosenProject.Name);
+            var wrapper = new TimesheetTimetrackingWrapper(Timesheet, ChosenActivity.Name, ChosenProject.Name, GitlabIssueId);
             WeakReferenceMessenger.Default.Send(new TimesheetStartNewMessage(wrapper));
             await Navigation.NavigateTo("..");
         }
         else
         {
-           ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+            ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
             
             // Display the validation errors...
         }
 
 
-       
+
 
     }
 
@@ -266,12 +269,14 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task Save()
     {
-        Timesheet.Begin = TimeWrapper.BeginFull.ToDateTimeOffset(LoginContext.TimeOffset);
-        Timesheet.End = TimeWrapper.EndFull.ToDateTimeOffset(LoginContext.TimeOffset);
-        Timesheet.Project = ChosenProject.Id;
-        Timesheet.Activity = ChosenActivity.Id;
+        Timesheet.Begin = TimeWrapper.BeginFull;
+        Timesheet.End = TimeWrapper.EndFull;
+        Timesheet.ProjectId = ChosenProject.Id;
+        Timesheet.ActivityId = ChosenActivity.Id;
+        Timesheet.ProjectName = ChosenProject.Name;
+        Timesheet.ActivityName = ChosenActivity.Name;
 
-        await _timesheetService.Update(_id,Timesheet);
+        await _timesheetService.Update(_id,Timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions, LoginContext.TimeOffset));
         //TODO = roles
         await Navigation.NavigateTo("..");
     }
@@ -290,10 +295,12 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     {
         Timesheet.Begin = TimeWrapper.BeginFull;
         Timesheet.End = TimeWrapper.EndFull;
-        Timesheet.Project = ChosenProject.Id;
-        Timesheet.Activity = ChosenActivity.Id;
+        Timesheet.ProjectId = ChosenProject.Id;
+        Timesheet.ActivityId = ChosenActivity.Id;
+        Timesheet.ProjectName = ChosenProject.Name;
+        Timesheet.ActivityName = ChosenActivity.Name;
 
-        await _timesheetService.Create(Timesheet);
+        await _timesheetService.Create(Timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions, LoginContext.TimeOffset));
         //TODO = roles
         await Navigation.NavigateTo("..");
     }
@@ -305,16 +312,21 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     { 
         if (SelectedBillableMode == "Automatic")
         {
-            bool? isCustomerBillable;
+            bool isCustomerBillable = false;
             if(ChosenCustomer == null)
             {
-                isCustomerBillable = (await _customerService.GetById(ChosenProject.CustomerId)).Billable; 
+                var customer = await _customerService.GetById(ChosenProject.CustomerId); 
+                if(customer != null) 
+                {
+                    isCustomerBillable = customer.Billable;
+                }
+            
             }
             else
             {
                 isCustomerBillable = ChosenCustomer.Billable;
             }
-            Timesheet.Billable = ChosenProject.Billable.Value && ChosenActivity.Billable.Value && isCustomerBillable.Value;
+            Timesheet.Billable = ChosenProject.Billable.Value && ChosenActivity.Billable.Value && isCustomerBillable;
         }
         else if (SelectedBillableMode == "Yes")
         { 

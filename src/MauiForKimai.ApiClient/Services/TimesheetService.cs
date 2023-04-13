@@ -78,4 +78,11 @@ public class TimesheetService : BaseService, ITimesheetService
     {
         return  ApiClient?.StopAsync(id);
     }
+
+    public Task<TimesheetEntity> SetMetaField(int id, Body5 body)
+    {
+        var meta = new Body5();
+        
+        return  ApiClient?.Meta4Async(id,body);
+    }
 }

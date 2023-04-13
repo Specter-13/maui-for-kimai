@@ -82,6 +82,7 @@ public class LoginService : ILoginService
             var config = await _userService.GetI18nConfig();
             var user = await _userService.GetMe();
             _loginContext.SetUserAndOffset(user,config.Now.Value.Offset);
+            _loginContext.SetIsAuthenticated();
 
         }
         catch (Exception)
@@ -90,7 +91,7 @@ public class LoginService : ILoginService
             DeInitializeClients();
             return false;
         }
-        _loginContext.SetIsAuthenticated();
+        
         return true;
     }
 

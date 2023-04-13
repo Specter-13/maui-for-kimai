@@ -13,7 +13,7 @@
 
     <Frame Style="{StaticResource ServerListCard}">
 
-        <Grid ColumnDefinitions="0.90*,0.10*" RowDefinitions="20,20,20">
+        <Grid ColumnDefinitions="0.90*,0.10*" RowDefinitions="23,20,20">
             <Grid.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ServerTappedCommand}" CommandParameter="{Binding .}" />
             </Grid.GestureRecognizers>
@@ -37,7 +37,7 @@
                 Grid.RowSpan="3"
                 Grid.Column="1"
                 BackgroundColor="Transparent"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ConnectCommand}"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=QuickConnectCommand}"
                 CommandParameter="{Binding .}"
                 HorizontalOptions="End"
                 Style="{StaticResource Key=RecentRestartButton}">

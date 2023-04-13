@@ -7,7 +7,7 @@ public partial class ServerDefaultPopup
 		InitializeComponent();
           
           
-		Size = popupSizeConstants.Medium;
+		Size = popupSizeConstants.Small;
 	}
 
 	void OnYesButtonClicked(object? sender, EventArgs e) => Close(true);

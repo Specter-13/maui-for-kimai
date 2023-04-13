@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.ApiClient;
 using MauiForKimai.ApiClient.Authentication;
 using MauiForKimai.Messenger;
@@ -25,6 +27,7 @@ public partial class TimesheetListViewModel : ViewModelBase
     private bool isRefreshing;
     public override async Task Initialize()
     {
+
         IsBusy = true;
         page = 1;
         await GetTimesheetsIncrementaly();
@@ -35,10 +38,11 @@ public partial class TimesheetListViewModel : ViewModelBase
     [RelayCommand]
     async Task Refresh()
     { 
+        IsBusy = true;
         page = 1;
        Timesheets.Clear();
        await GetTimesheetsIncrementaly();
-        IsRefreshing = false;
+        IsBusy = false;
     }
 
     public ObservableCollection<TimesheetModel> Timesheets { get; set;} = new();
@@ -100,11 +104,20 @@ public partial class TimesheetListViewModel : ViewModelBase
 
     private async Task GetTimesheetsIncrementaly()
     { 
-        var timesheets = await _timesheetService.GetTimesheetsIncrementalyAsync(page,numberOfFechted);
-        foreach (var item in timesheets)
-        {
-            Timesheets.Add(item.ToTimesheetModel());
-            NumberOfEntries += 1;
+
+        if(HasInternetAndIsLogged())
+        { 
+            var timesheets = await _timesheetService.GetTimesheetsIncrementalyAsync(page,numberOfFechted);
+            foreach (var item in timesheets)
+            {
+                Timesheets.Add(item.ToTimesheetModel());
+                NumberOfEntries += 1;
+            }
         }
+        else
+		{ 
+			var toast = Toast.Make("Cannot acquire data!", ToastDuration.Short, 14);
+			await toast.Show();
+		}
      }
 }

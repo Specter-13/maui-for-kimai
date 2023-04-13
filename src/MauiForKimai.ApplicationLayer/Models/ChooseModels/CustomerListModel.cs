@@ -13,7 +13,7 @@ public class CustomerListModel : IChooseItem
     {
         
     }
-    public CustomerListModel(int id, string name, bool? billable)
+    public CustomerListModel(int id, string name, bool billable)
     {
         Id = id; 
         Name = name;
@@ -21,6 +21,6 @@ public class CustomerListModel : IChooseItem
     }
     public int Id { get; set; }
     public string Name { get; set; }
-    public bool? Billable { get; set; }
+    public bool Billable { get; set; }
 
 }

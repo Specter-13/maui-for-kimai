@@ -19,5 +19,5 @@ public class ServerEntity
     public bool CanEditExport { get; set; }
     public bool CanEditRate { get; set; }
    
-
+    public bool HasGitlabPlugin { get; set; }
 }

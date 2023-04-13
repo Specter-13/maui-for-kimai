@@ -8,13 +8,16 @@ namespace MauiForKimai.Wrappers;
 
 public class TimesheetTimetrackingWrapper
 {
-    public TimesheetTimetrackingWrapper(TimesheetEditForm form, string activityName, string projectName)
+    public TimesheetTimetrackingWrapper(TimesheetModel model, string activityName, string projectName, int gitlabIssueId)
     {
-        EditForm = form;
+        Timesheet = model;
         ActivityName = activityName;
         ProjectName = projectName;
+        GitlabIssueId = gitlabIssueId;
     }
-    public TimesheetEditForm EditForm { get; set; }
+    public TimesheetModel Timesheet { get; set; }
     public string ActivityName { get; set; }
     public string ProjectName{ get; set; }
+
+    public int GitlabIssueId{ get; set; }
 }

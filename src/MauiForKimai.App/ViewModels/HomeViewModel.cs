@@ -50,27 +50,26 @@ public partial class HomeViewModel : ViewModelBase
 	// Initialize methods
 	private void RegisterMessages()
 	{ 
-		 WeakReferenceMessenger.Default.Register<TimesheetStartNewMessage
-			 >(this, async (r, m) =>
+		 WeakReferenceMessenger.Default.Register<TimesheetStartNewMessage>(this, async (r, m) =>
         {
             SelectedActivity = m.Value.ActivityName;
-			await StartTimesheet(m.Value.EditForm);
+			await StartTimesheet(m.Value.Timesheet);
 
         });
 
 		 WeakReferenceMessenger.Default.Register<TimesheetStartExistingMessage>(this, async (r, m) =>
         {
 			//TODO ROLES
-			var editForm = m.Value.ToTimesheetEditForm(LoginContext.TimetrackingPermissions);
+			//var editForm = m.Value.ToTimesheetEditForm(LoginContext.TimetrackingPermissions);
             SelectedActivity = m.Value.ActivityName;
-			await StartTimesheet(editForm);
+			await StartTimesheet(m.Value);
         });
 	}
 
 	[ObservableProperty]
 	string selectedActivity;
 
-	private async Task StartTimesheet(TimesheetEditForm form)
+	private async Task StartTimesheet(TimesheetModel model)
     { 
 		if(IsTimetrackingActive)
 		{ 
@@ -80,7 +79,16 @@ public partial class HomeViewModel : ViewModelBase
 
 		try
 		{
+			var form = model.ToTimesheetEditForm(LoginContext.TimetrackingPermissions, LoginContext.TimeOffset);
 			var timesheet = await timesheetService.Create(form);
+
+			if(model.GitlabIssueId != null) 
+			{
+				var meta = new Body5();
+				meta.Name ="gitlab_issue_id";
+				meta.Value = model.GitlabIssueId.Value.ToString();
+				await timesheetService.SetMetaField(timesheet.Id.Value, meta);
+			}
 			if(timesheet == null) 
 			{
 				await Toast.Make("Error starting timesheet! Check your connection.", ToastDuration.Long, 14).Show();
@@ -104,8 +112,9 @@ public partial class HomeViewModel : ViewModelBase
 
 	public override async Task Initialize()
 	{
+		IsBusy = true;
 		await LoginToDefault();
-	
+		IsBusy = false;
 	}
 
 
@@ -122,7 +131,6 @@ public partial class HomeViewModel : ViewModelBase
 	[ObservableProperty]
     bool isRefreshing;
 
-
 	// Commands
 	[RelayCommand]
 	async Task StartNewTimesheet()
@@ -135,10 +143,9 @@ public partial class HomeViewModel : ViewModelBase
 	[RelayCommand]
 	async Task StartRecentTimesheet(TimesheetModel timesheet)
 	{	
-		var editForm = timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions);
-		editForm.Begin = DateTime.Now.ToDateTimeOffset(base.LoginContext.TimeOffset);
-		editForm.End = null;
-		await StartTimesheet(editForm);
+		timesheet.Begin = DateTime.Now;
+		timesheet.End = null;
+		await StartTimesheet(timesheet);
 	}
 
 	[RelayCommand]
@@ -184,6 +191,7 @@ public partial class HomeViewModel : ViewModelBase
 	[RelayCommand]
 	async Task RefreshTimesheets()
 	{	
+		IsRefreshing = true;
 		await Refresh();
 		IsRefreshing = false;
 	}
@@ -217,7 +225,7 @@ public partial class HomeViewModel : ViewModelBase
 	// private methods
 	private async Task Refresh()
 	{ 
-		if (base.LoginContext.IsAuthenticated && base.GetConnectivity() == NetworkAccess.Internet)
+		if (HasInternetAndIsLogged())
 		{
 			await GetRecentTimesheets();
 			await TryToGetActiveTimesheet();

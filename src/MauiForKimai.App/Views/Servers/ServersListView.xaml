@@ -42,16 +42,45 @@
         </Grid.RowDefinitions>
 
 
-        <StackLayout>
-            <Label
-                Style="{StaticResource MediumLabel}"
-                Text="Connected to:"
-                VerticalOptions="Center" />
+        <StackLayout Padding="10">
+            <HorizontalStackLayout Padding="5">
+                <Label
+                    FontAttributes="Bold"
+                    Style="{StaticResource SmallLabel}"
+                    Text="Connected to: "
+                    VerticalOptions="Center" />
+                <Label
+                    Style="{StaticResource SmallLabel}"
+                    Text="{Binding LoginContext.ServerName}"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
 
-            <!--<Label
-                Style="{StaticResource MediumLabel}"
-                Text="{Binding LoginContext.Username}"
-                VerticalOptions="Center" />-->
+            <HorizontalStackLayout Padding="5">
+                <Label
+                    FontAttributes="Bold"
+                    Style="{StaticResource SmallLabel}"
+                    Text="Url: "
+                    VerticalOptions="Center" />
+                <Label
+                    Style="{StaticResource SmallLabel}"
+                    Text="{Binding LoginContext.BaseUrl}"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Padding="5">
+                <Label
+                    FontAttributes="Bold"
+                    Style="{StaticResource SmallLabel}"
+                    Text="User: "
+                    VerticalOptions="Center" />
+                <Label
+                    Style="{StaticResource SmallLabel}"
+                    Text="{Binding LoginContext.UserName}"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+
+
         </StackLayout>
 
 

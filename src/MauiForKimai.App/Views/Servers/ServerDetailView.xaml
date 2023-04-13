@@ -9,7 +9,6 @@
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    Title="ServerDetailViewModel"
     x:DataType="viewmodel:ServerDetailViewModel">
 
     <ContentPage.Resources>
@@ -23,119 +22,173 @@
     </ContentPage.Resources>
 
 
-    <ScrollView>
-        <StackLayout>
-
-            <ActivityIndicator
-                Grid.RowSpan="3"
-                Grid.ColumnSpan="1"
-                HorizontalOptions="Fill"
-                IsRunning="{Binding IsBusy}"
-                IsVisible="{Binding IsBusy}"
+    <Shell.TitleView>
+        <Grid>
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="Detail"
+                TextColor="White"
                 VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
 
-            <ActivityIndicator
-                Grid.RowSpan="3"
-                Grid.ColumnSpan="1"
-                HorizontalOptions="Fill"
-                IsRunning="{Binding IsConnecting}"
-                IsVisible="{Binding IsConnecting}"
-                VerticalOptions="Center" />
-
+    <Grid
+        Padding="10"
+        ColumnDefinitions="*,*"
+        RowDefinitions="30,*">
 
 
-            <VerticalStackLayout Padding="10" IsVisible="{Binding IsNotBusy}">
+
+
+        <Button
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="10"
+            Command="{Binding DeleteCommand}"
+            HeightRequest="40"
+            IsVisible="{Binding IsCreation, Converter={StaticResource InvertedBoolConverter}}"
+            Style="{StaticResource DeleteButton}"
+            Text="Delete"
+            WidthRequest="100" />
+
+        <Button
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="10"
+            Command="{Binding SaveCommand}"
+            HeightRequest="40"
+            IsVisible="{Binding IsCreation, Converter={StaticResource InvertedBoolConverter}}"
+            Text="Save"
+            WidthRequest="100" />
+
+
+        <ScrollView
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Margin="0,10,0,0">
+            <StackLayout>
+
+                <StackLayout BindableLayout.ItemsSource="{Binding ValidationErrors}" HorizontalOptions="Center">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Margin="0,0,0,5">
+                                <Label Style="{StaticResource NotValidLabel}" Text="{Binding .}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
                 <Label
                     HorizontalOptions="Center"
                     IsVisible="{Binding IsLoggedToThisServer}"
+                    Style="{StaticResource MediumLabel}"
                     Text="You are connected to this server."
+                    TextColor="Green"
+                    VerticalOptions="Center" />
+
+                <ActivityIndicator
+                    Grid.RowSpan="3"
+                    Grid.ColumnSpan="1"
+                    HorizontalOptions="Fill"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    VerticalOptions="Center" />
+
+                <ActivityIndicator
+                    Grid.RowSpan="3"
+                    Grid.ColumnSpan="1"
+                    HorizontalOptions="Fill"
+                    IsRunning="{Binding IsConnecting}"
+                    IsVisible="{Binding IsConnecting}"
                     VerticalOptions="Center" />
 
 
-                <Label Text="Server name *" />
-                <Entry Text="{Binding Server.Name}">
 
-                    <Entry.Behaviors>
-                        <mct:TextValidationBehavior
-                            x:Name="ServerNameValidator"
-                            Flags="ValidateOnUnfocusing"
-                            MinimumLength="1" />
-                    </Entry.Behaviors>
-
-                </Entry>
-                <Label
-                    IsVisible="{Binding IsNotValid, Source={x:Reference ServerNameValidator}}"
-                    Style="{StaticResource NotValidLabel}"
-                    Text="Server name is required" />
-
-                <Label Text="Url *" />
-                <Entry Text="{Binding Server.Url}" />
-
-                <Label Text="Username *" />
-                <Entry Text="{Binding Server.Username}" />
+                <VerticalStackLayout Padding="10" IsVisible="{Binding IsNotBusy}">
 
 
-                <Label Text="API password *" />
-                <Entry IsPassword="true" Text="{Binding Server.ApiPasswordKey, Mode=TwoWay}" />
 
-                <Label Text="Set as default server" />
-                <Switch HorizontalOptions="Start" IsToggled="{Binding Server.IsDefault}" />
+                    <Label Text="Server name *" />
+                    <Entry Text="{Binding Server.Name}">
 
-                <Label Text="Override time-tracking permissions" />
-                <Switch HorizontalOptions="Start" IsToggled="{Binding OverrideTimetrackingPermissions}" />
+                        <Entry.Behaviors>
+                            <mct:TextValidationBehavior
+                                x:Name="ServerNameValidator"
+                                Flags="ValidateOnUnfocusing"
+                                MinimumLength="1" />
+                        </Entry.Behaviors>
 
+                    </Entry>
+                    <Label
+                        IsVisible="{Binding IsNotValid, Source={x:Reference ServerNameValidator}}"
+                        Style="{StaticResource NotValidLabel}"
+                        Text="Server name is required" />
 
-                <Label Text="can-edit-billable" />
-                <CheckBox
-                    HorizontalOptions="Start"
-                    IsChecked="{Binding Server.CanEditBillable}"
-                    IsEnabled="{Binding OverrideTimetrackingPermissions}" />
-                <Label Text="can-edit-export" />
-                <CheckBox
-                    HorizontalOptions="Start"
-                    IsChecked="{Binding Server.CanEditExport}"
-                    IsEnabled="{Binding OverrideTimetrackingPermissions}" />
-                <Label Text="can-edit-rate" />
-                <CheckBox
-                    HorizontalOptions="Start"
-                    IsChecked="{Binding Server.CanEditRate}"
-                    IsEnabled="{Binding OverrideTimetrackingPermissions}" />
+                    <Label Text="Url *" />
+                    <Entry Text="{Binding Server.Url}" />
 
-                <Button
-                    Margin="10"
-                    Command="{Binding ConnectCommand}"
-                    IsEnabled="{Binding IsLoggedToThisServer, Converter={StaticResource InvertedBoolConverter}}"
-                    IsVisible="{Binding IsCreation, Converter={StaticResource InvertedBoolConverter}}"
-                    Text="Connect" />
-
-                <Button
-                    Margin="10"
-                    Command="{Binding ConnectandCreateCommand}"
-                    IsVisible="{Binding IsCreation}"
-                    Text="Create and connect" />
-
-                <Button
-                    Margin="10"
-                    Command="{Binding DisconnectCommand}"
-                    IsVisible="{Binding IsLoggedToThisServer}"
-                    Text="Disconnect" />
+                    <Label Text="Username *" />
+                    <Entry Text="{Binding Server.Username}" />
 
 
-                <Button
-                    Margin="10"
-                    Command="{Binding DeleteCommand}"
-                    IsVisible="{Binding IsCreation, Converter={StaticResource InvertedBoolConverter}}"
-                    Style="{StaticResource DeleteButton}"
-                    Text="Delete" />
+                    <Label Text="API password *" />
+                    <Entry IsPassword="true" Text="{Binding Server.ApiPasswordKey, Mode=TwoWay}" />
 
-                <Button
-                    Margin="10"
-                    Command="{Binding SaveCommand}"
-                    IsVisible="{Binding IsCreation, Converter={StaticResource InvertedBoolConverter}}"
-                    Text="Save" />
+                    <Label Text="Set as default server" />
+                    <Switch HorizontalOptions="Start" IsToggled="{Binding Server.IsDefault}" />
+
+                    <Label Text="Gitlab plugin" />
+                    <Switch HorizontalOptions="Start" IsToggled="{Binding Server.HasGitlabPlugin}" />
+
+                    <Label Text="Override time-tracking permissions" />
+                    <Switch HorizontalOptions="Start" IsToggled="{Binding OverrideTimetrackingPermissions}" />
 
 
-            </VerticalStackLayout>
-        </StackLayout>
-    </ScrollView>
+                    <Label Text="can-edit-billable" />
+                    <CheckBox
+                        HorizontalOptions="Start"
+                        IsChecked="{Binding Server.CanEditBillable}"
+                        IsEnabled="{Binding OverrideTimetrackingPermissions}" />
+                    <Label Text="can-edit-export" />
+                    <CheckBox
+                        HorizontalOptions="Start"
+                        IsChecked="{Binding Server.CanEditExport}"
+                        IsEnabled="{Binding OverrideTimetrackingPermissions}" />
+                    <Label Text="can-edit-rate" />
+                    <CheckBox
+                        HorizontalOptions="Start"
+                        IsChecked="{Binding Server.CanEditRate}"
+                        IsEnabled="{Binding OverrideTimetrackingPermissions}" />
+
+                    <Button
+                        Margin="10"
+                        Command="{Binding ConnectCommand}"
+                        IsVisible="{Binding HasConnectionButton}"
+                        Text="Connect"
+                        WidthRequest="100" />
+
+                    <Button
+                        Margin="10"
+                        Command="{Binding ConnectandCreateCommand}"
+                        IsVisible="{Binding IsCreation}"
+                        Text="Create and connect"
+                        WidthRequest="200" />
+
+                    <Button
+                        Margin="10"
+                        Command="{Binding DisconnectCommand}"
+                        IsVisible="{Binding IsLoggedToThisServer}"
+                        Text="Disconnect"
+                        WidthRequest="120" />
+
+
+
+
+
+
+                </VerticalStackLayout>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
 </mvvm:TinyView>

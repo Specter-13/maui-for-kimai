@@ -22,4 +22,6 @@ public class TimesheetFavouriteEntity
     public bool? Exported { get; set; }
     public float? FixedRate { get; set; }
     public float? HourlyRate { get; set; }
+
+     public int? GitlabIssueId { get; set; }
 }

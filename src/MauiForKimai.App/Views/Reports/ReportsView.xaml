@@ -38,30 +38,32 @@
     <!--<lvc:CartesianChart Series="{Binding Series}" />-->
     <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">-->
 
-    <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+    <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">-->
+
+    <Grid Padding="10" RowDefinitions="50,*">
+
+        <Picker
+            x:Name="picker"
+            Title="Select report type"
+            FontSize="20"
+            SelectedIndex="{Binding SelectedReportType}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Projects</x:String>
+                    <x:String>Customers</x:String>
+                    <x:String>Activities</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <ScrollView Grid.Row="1" Padding="5">
+            <StackLayout>
 
 
-        <ScrollView>
-            <StackLayout Padding="10">
-
-                <Picker
-                    x:Name="picker"
-                    Title="Select report type"
-                    FontSize="20"
-                    SelectedIndex="{Binding SelectedReportType}">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Projects</x:String>
-                            <x:String>Customers</x:String>
-                            <x:String>Activities</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
 
 
 
                 <Label Style="{StaticResource MediumLabel}" Text="Today" />
-                <Label Style="{StaticResource MediumLabel}" Text="{Binding TodayDate}" />
+                <Label Style="{StaticResource SmallLabel}" Text="{Binding TodayDate}" />
 
                 <ScrollView
                     Padding="20"
@@ -84,7 +86,7 @@
                 </ScrollView>
 
                 <Label Style="{StaticResource MediumLabel}" Text="This week" />
-                <Label Style="{StaticResource MediumLabel}" Text="{Binding WeekInterval}" />
+                <Label Style="{StaticResource SmallLabel}" Text="{Binding WeekInterval}" />
                 <ScrollView
                     Padding="20"
                     HeightRequest="400"
@@ -106,7 +108,7 @@
                 </ScrollView>
 
                 <Label Style="{StaticResource MediumLabel}" Text="This month" />
-                <Label Style="{StaticResource MediumLabel}" Text="{Binding MonthName}" />
+                <Label Style="{StaticResource SmallLabel}" Text="{Binding MonthName}" />
                 <ScrollView
                     Padding="20"
                     HeightRequest="400"
@@ -129,7 +131,8 @@
 
             </StackLayout>
         </ScrollView>
-    </RefreshView>
+    </Grid>
+    <!--</RefreshView>-->
     <!--</RefreshView>-->
     <!--</Grid>-->
 </mvvm:TinyView>

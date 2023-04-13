@@ -39,18 +39,20 @@ public partial class TimeBeginEndWrapper : ObservableObject
         var beginTime = timesheet.Begin.TimeOfDay;
         var beginDate = timesheet.Begin.Date;
 
-        var endTime = timesheet.End.Value.TimeOfDay;
-        var endDate = timesheet.End.Value.Date;
-        
-
         BeginFull = new DateTime(beginDate.Year, beginDate.Month, beginDate.Day, beginTime.Hours, beginTime.Minutes, beginTime.Seconds);
-        EndFull = new DateTime(endDate.Year, endDate.Month, endDate.Day, endTime.Hours, endTime.Minutes, endTime.Seconds);
-
         BeginDate = BeginFull.Date;
         BeginTime = BeginFull.TimeOfDay;
 
-        EndDate = EndFull.Date;
-        EndTime = EndFull.TimeOfDay;
+        if(timesheet.End.HasValue)
+        { 
+            var endTime = timesheet.End.Value.TimeOfDay;
+            var endDate = timesheet.End.Value.Date;
+            EndFull = new DateTime(endDate.Year, endDate.Month, endDate.Day, endTime.Hours, endTime.Minutes, endTime.Seconds);
+            EndDate = EndFull.Value.Date;
+            EndTime = EndFull.Value.TimeOfDay;
+        }
+
+      
          //SetDuration();
         BeginFullString = BeginFull.ToString("dddd, dd MMMM yyyy");
     }
@@ -87,9 +89,13 @@ public partial class TimeBeginEndWrapper : ObservableObject
 
     private string GetDuration()
     {
+
+        if(EndFull == null)
+            return $"00:00";
+
         EndFull = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds);
         BeginFull = new DateTime(BeginDate.Year, BeginDate.Month, BeginDate.Day, BeginTime.Hours, BeginTime.Minutes, BeginTime.Seconds);
-        var difference = (EndFull - BeginFull);
+        var difference = (EndFull.Value - BeginFull);
         var hours = ((int)difference.TotalHours).ToString("00");
         var minutes = difference.Minutes.ToString("00");
         return $"{hours}:{minutes}";
@@ -99,5 +105,5 @@ public partial class TimeBeginEndWrapper : ObservableObject
 
 
     public DateTime BeginFull { get; set; }
-    public DateTime EndFull { get; set; }
+    public DateTime? EndFull { get; set; }
 }

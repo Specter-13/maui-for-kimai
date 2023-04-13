@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,7 +28,9 @@ public static class CoreModelExtensions
             Billable = entity.Billable,
             FixedRate = entity.FixedRate,
             Exported = entity.Exported,
-            HourlyRate = entity.HourlyRate
+            HourlyRate = entity.HourlyRate,
+
+            GitlabIssueId = entity.GitlabIssueId
         };
     }
 
@@ -49,7 +52,9 @@ public static class CoreModelExtensions
             Billable = model.Billable,
             FixedRate = model.FixedRate,
             Exported = model.Exported,
-            HourlyRate = model.HourlyRate
+            HourlyRate = model.HourlyRate,
+
+            GitlabIssueId = model.GitlabIssueId
         };
     }
 
@@ -66,6 +71,7 @@ public static class CoreModelExtensions
             CanEditBillable = entity.CanEditBillable,
             CanEditExport = entity.CanEditExport,
             CanEditRate = entity.CanEditRate,
+            HasGitlabPlugin = entity.HasGitlabPlugin
 
         };
     }
@@ -82,6 +88,7 @@ public static class CoreModelExtensions
             CanEditBillable = entity.CanEditBillable,
             CanEditExport = entity.CanEditExport,
             CanEditRate = entity.CanEditRate,
+            HasGitlabPlugin = entity.HasGitlabPlugin
         };
     }
 

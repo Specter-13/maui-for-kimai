@@ -31,7 +31,8 @@ public abstract partial class ViewModelBase : TinyViewModel, IViewModel
     public virtual NetworkAccess GetConnectivity()
 		=> Connectivity.Current.NetworkAccess;
 
-
+	public bool HasInternetAndIsLogged() =>  LoginContext.IsAuthenticated && GetConnectivity() == NetworkAccess.Internet;
+	
 
 
 }

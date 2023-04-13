@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.ApiClient;
 using MauiForKimai.Core.Models;
 using MauiForKimai.Messenger;
@@ -43,23 +44,32 @@ public partial class ChooseItemViewModel : ViewModelBase
 
         if (NavigationParameter is ChooseItemWrapper wrapper)
         {
+            
             _mode = (int)wrapper.Mode;
-            if(wrapper.ChooseItem is CustomerListModel)
-            { 
-                PageLabel = "Select customer";
-                await GetCustomers();
-            }
 
-            if(wrapper.ChooseItem is ProjectListModel)
+            if(base.HasInternetAndIsLogged())
             { 
-                PageLabel = "Select Project";
-                await GetProjects(wrapper.ChosenCustomerId);
-            }
+                if(wrapper.ChooseItem is CustomerListModel)
+                { 
+                    PageLabel = "Select customer";
+                    await GetCustomers();
+                }
 
-            if(wrapper.ChooseItem is ActivityListModel)
+                if(wrapper.ChooseItem is ProjectListModel)
+                { 
+                    PageLabel = "Select Project";
+                    await GetProjects(wrapper.ChosenCustomerId);
+                }
+
+                if(wrapper.ChooseItem is ActivityListModel)
+                { 
+                    PageLabel = "Select Activity";
+                    await GetActivities(wrapper.ChosenProjectId);
+                }
+            }
+            else
             { 
-                PageLabel = "Select Activity";
-                await GetActivities(wrapper.ChosenProjectId);
+                await Toast.Make("cannot acquire data1", ToastDuration.Short, 14).Show();
             }
         }
 
@@ -74,13 +84,20 @@ public partial class ChooseItemViewModel : ViewModelBase
 
 
     [RelayCommand]
-    void Filter(string filterText)
+    async Task Filter(string filterText)
     {
-        var filtered = _allItems.Where(p => p.Name.Contains(filterText,StringComparison.InvariantCultureIgnoreCase));
-        SearchResults.Clear();
-        foreach(var item in filtered)
+        if(base.HasInternetAndIsLogged())
         { 
-            SearchResults.Add(item);
+            var filtered = _allItems.Where(p => p.Name.Contains(filterText,StringComparison.InvariantCultureIgnoreCase));
+            SearchResults.Clear();
+            foreach(var item in filtered)
+            { 
+                SearchResults.Add(item);
+            }
+        }
+        else
+        {
+            await Toast.Make("Cannot acquire data!", ToastDuration.Short, 14).Show();
         }
         
     }

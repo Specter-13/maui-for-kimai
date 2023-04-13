@@ -41,7 +41,8 @@ public partial class ApiLoginContext : ObservableObject
         BaseUrl = server.Url;
         ServerId = server.Id;
         ServerName = server.Name;
-        TimetrackingPermissions = new(server.CanEditBillable,server.CanEditExport,server.CanEditRate);
+        TimetrackingPermissions = new PermissionsTimetrackingModel(server.CanEditBillable,server.CanEditExport,server.CanEditRate,server.HasGitlabPlugin);
+        OnPropertyChanged(nameof(TimetrackingPermissions));
         
     }
 
@@ -66,6 +67,11 @@ public partial class ApiLoginContext : ObservableObject
         ActualUser = null;
         TimetrackingPermissions = null;
         ServerName = null;
+        OnPropertyChanged(nameof(UserName));
+        OnPropertyChanged(nameof(BaseUrl));
+        OnPropertyChanged(nameof(ActualUser));
+        OnPropertyChanged(nameof(IsAuthenticated));
+        OnPropertyChanged(nameof(ServerName));
     }
 
 }

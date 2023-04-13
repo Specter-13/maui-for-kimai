@@ -16,8 +16,8 @@ public class TimesheetModel
     //needed for list item
     public string ActivityName { get; set; }
     public string ProjectName { get; set; }
-    public string CustomerName { get; set; }
-    public int CustomerId { get; set; }
+    public string? CustomerName { get; set; }
+    public int? CustomerId { get; set; }
     public string Date { get; set; }
     public string Duration { get; set; }
     public bool IsRecent {get; set; }
@@ -39,5 +39,6 @@ public class TimesheetModel
     public bool? Exported { get; set; } = null;
     public bool? Billable { get; set; } = null;
 
+    public int? GitlabIssueId { get; set; }
 
 }

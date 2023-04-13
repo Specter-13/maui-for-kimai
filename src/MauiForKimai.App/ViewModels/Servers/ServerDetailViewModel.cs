@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MauiForKimai.Core;
+using MauiForKimai.Core.Validators;
 
 namespace MauiForKimai.ViewModels;
 public partial class ServerDetailViewModel : ViewModelBase
@@ -27,11 +28,14 @@ public partial class ServerDetailViewModel : ViewModelBase
 
 
     [ObservableProperty]
-	private bool isLoggedToThisServer;
+	private bool isLoggedToThisServer = false;
     
     [ObservableProperty]
 	private bool isConnecting;
 
+
+    [ObservableProperty]
+	private bool hasConnectionButton;
 
     private readonly IServerService _serverService;
     private readonly IFavouritesTimesheetService _favouritesTimesheetService;
@@ -56,6 +60,11 @@ public partial class ServerDetailViewModel : ViewModelBase
         _secureStorageService = sc;
         _popupSizeConstants = psc;
     }
+
+
+    [ObservableProperty]
+    List<string> validationErrors;
+    private ServerModelValidator _validator = new ();
 
     private async Task ReinitializeDatabases()
     {
@@ -95,6 +104,7 @@ public partial class ServerDetailViewModel : ViewModelBase
 
         }
 
+        HasConnectionButton = IsCreation && !IsLoggedToThisServer;
         IsBusy = false;
     }
 
@@ -110,41 +120,54 @@ public partial class ServerDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task ConnectandCreate() 
     {
-       IsConnecting = true;
 
-       var isSuccess = await loginService.Login(Server);
+        var result = _validator.Validate(Server);
+        if (result.IsValid)
+        {
+           IsConnecting = true;
+
+           var isSuccess = await loginService.Login(Server);
         
-       IToast toast;
-       if(!isSuccess) 
-       {
-            await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
-            return;
-       }
 
-        await UnsetDefaultServerIfChanged();
+           if(!isSuccess) 
+           {
+                await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
+                IsLoggedToThisServer = false;
+                return;
+           }
+
+            await UnsetDefaultServerIfChanged();
 
 
-        //set timesheet permissions automatically if ovverride is off
-        if(!OverrideTimetrackingPermissions)
-            SetPermissionsByRoles(base.LoginContext.ActualUser.Roles);
+            //set timesheet permissions automatically if ovverride is off
+            if(!OverrideTimetrackingPermissions)
+                SetPermissionsByRoles(base.LoginContext.ActualUser.Roles);
    
 
-        //server.PermissionsTimetracking.CanSetBillable
+            //server.PermissionsTimetracking.CanSetBillable
 
-        //create server
-        var newServer = await _serverService.Create(Server);
+            //create server
+            var newServer = await _serverService.Create(Server);
 
-        //create api key in secure storage
-        var key = $"{newServer.Id}_{newServer.Username}";
-        await _secureStorageService.Save(key, Server.ApiPasswordKey);
+            //create api key in secure storage
+            var key = $"{newServer.Id}_{newServer.Username}";
+            await _secureStorageService.Save(key, Server.ApiPasswordKey);
         
-        toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
-        IsCreation = false;
-        IsLoggedToThisServer = true;
-        await ReinitializeDatabases();
-        WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
-        await toast.Show();
-        IsConnecting = false;
+
+            IsCreation = false;
+            IsLoggedToThisServer = true;
+            await ReinitializeDatabases();
+
+            WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
+            await Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14).Show();
+            OnPropertyChanged(nameof(LoginContext));
+            IsConnecting = false;
+        }
+        else
+        { 
+            ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+        }
+        HasConnectionButton = IsCreation && !IsLoggedToThisServer;
     }
 
     private void SetPermissionsByRoles(ICollection<string> roles)
@@ -175,30 +198,35 @@ public partial class ServerDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task Connect() 
     {
-        IsConnecting = true;
-        if (loginService.CheckIfConnected(Server))
+        var result = _validator.Validate(Server);
+        if (result.IsValid)
         {
-            var toast = Toast.Make($"Already connected to {Server.Name}!", ToastDuration.Short, 14);
-            await toast.Show();
-            return;
-        }
+            IsConnecting = true;
+            if (loginService.CheckIfConnected(Server))
+            {
+                var toast = Toast.Make($"Already connected to {Server.Name}!", ToastDuration.Short, 14);
+                await toast.Show();
+                return;
+            }
 
-        await ConnectToServer();
-        IsConnecting = false;
+            await ConnectToServer();
+
+            IsConnecting = false;
+        }
+        else
+        {
+            IsLoggedToThisServer = false;
+            ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+        }
     }
 
     private async Task<bool> ConnectToServer()
     { 
-        var isValid = Validate();
-        if (!isValid) 
-        {
-            await Toast.Make("Form validation failed!", ToastDuration.Short, 14).Show();
-            return false;
-        }
         var isSuccess = await loginService.Login(Server);
         if(isSuccess) 
         {
             await ReinitializeDatabases();
+            OnPropertyChanged(nameof(LoginContext));
             await Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14).Show();
             return true;
         }
@@ -207,6 +235,7 @@ public partial class ServerDetailViewModel : ViewModelBase
 			await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
             return false;
 		}
+       
     }
 
 
@@ -215,45 +244,55 @@ public partial class ServerDetailViewModel : ViewModelBase
     {
 
 		await loginService.Logout();
+        OnPropertyChanged(nameof(LoginContext));
+        IsLoggedToThisServer = false;
         await Toast.Make("Disconected successfully!", ToastDuration.Short, 14).Show();
-
+        HasConnectionButton = IsCreation && IsLoggedToThisServer;
     }
 
 
     [RelayCommand]
     async Task Save() 
     {
-        IsBusy = true;
-
-        await UnsetDefaultServerIfChanged();
-        
-        //if i'm logged to this server, logout and try to login again with new credentialss
-        if(IsLoggedToThisServer)
+        var result = _validator.Validate(Server);
+        if (result.IsValid)
         {
-            await loginService.Logout();
-            var isSuccess = await loginService.Login(Server);
-            if(!isSuccess)
-            { 
-                await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
-                return;
+            IsBusy = true;
+
+            await UnsetDefaultServerIfChanged();
+        
+            //if i'm logged to this server, logout and try to login again with new credentialss
+            if(IsLoggedToThisServer)
+            {
+                await loginService.Logout();
+                var isSuccess = await loginService.Login(Server);
+                if(!isSuccess)
+                { 
+                    await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
+                    return;
+                }
             }
+
+            //delete previous key from secure storage
+            var key = $"{Server.Id}_{previousUserName}";
+            _secureStorageService.Remove(key);
+
+            //create new key
+            key = $"{Server.Id}_{Server.Username}";
+            await _secureStorageService.Save(key, Server.ApiPasswordKey);
+
+            //update changes in db
+            await _serverService.Update(Server);
+
+            await Toast.Make("Connection and save successfull!", ToastDuration.Short, 14).Show();
+            WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
+            IsBusy = false;
         }
-
-        //delete previous key from secure storage
-        var key = $"{Server.Id}_{previousUserName}";
-        _secureStorageService.Remove(key);
-
-        //create new key
-        key = $"{Server.Id}_{Server.Username}";
-        await _secureStorageService.Save(key, Server.ApiPasswordKey);
-
-        //update changes in db
-        await _serverService.Update(Server);
-
-        await Toast.Make("Connection and save successfull!", ToastDuration.Short, 14).Show();
-        WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
-        IsBusy = false;
-
+        else
+        { 
+            ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+            IsLoggedToThisServer = false;
+        }
     }
 
    
@@ -274,6 +313,7 @@ public partial class ServerDetailViewModel : ViewModelBase
         await _serverService.Delete(Server.Id);
 
         //notify and navigate back
+        IsLoggedToThisServer = false;
         WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
         await Navigation.NavigateTo("..");
 

@@ -27,10 +27,10 @@
         <!--<VerticalStackLayout Style="{StaticResource TimesheetListCard}">-->
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="1.5*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="13" />
+                <RowDefinition Height="23" />
+                <RowDefinition Height="13" />
+                <RowDefinition Height="13" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />

@@ -14,4 +14,6 @@ public interface ITimesheetService : IBaseService, ICrudOperations<TimesheetEnti
      Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsForReportsAsync(string begin, string end);
      Task<ICollection<TimesheetCollectionExpanded>> GetActive();
      Task<TimesheetEntity> StopActive(int id);
+
+     Task<TimesheetEntity> SetMetaField(int id, Body5 body);
 }

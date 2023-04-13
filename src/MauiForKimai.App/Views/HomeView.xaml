@@ -28,13 +28,25 @@
                 Text="Home"
                 TextColor="White"
                 VerticalOptions="Center" />
+
+            <!--<ActivityIndicator
+                HeightRequest="30"
+                HorizontalOptions="End"
+                IsRunning="{Binding IsRefreshing}"
+                IsVisible="{Binding IsRefreshing}"
+                VerticalOptions="Center"
+                WidthRequest="30" />-->
+
+
         </Grid>
     </Shell.TitleView>
 
 
-    <Grid>
+
+
+    <Grid Padding="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="100" />
             <RowDefinition Height="8*" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
@@ -42,28 +54,34 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <ActivityIndicator
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="1"
+            HorizontalOptions="Fill"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center" />
+
 
 
 
         <!--  Widget  -->
         <Frame
             Grid.Row="0"
-            Margin="10"
             Padding="10"
-            HeightRequest="110"
+            HeightRequest="100"
             Style="{StaticResource Widget}">
-            <Grid ColumnDefinitions="*,2*" RowDefinitions="27,*">
+            <Grid ColumnDefinitions="*,3*" RowDefinitions="22,*">
 
 
                 <Label
                     Grid.Row="0"
-                    Style="{StaticResource LargeLabel}"
+                    Style="{StaticResource SmallLabel}"
                     Text="Today" />
 
-                <StackLayout Grid.Row="1" Padding="5">
-                    <HorizontalStackLayout Margin="0,0,0,5">
-                        <Label Style="{StaticResource MediumLabel}" Text="Total: " />
 
+                <StackLayout Grid.Row="1">
+                    <HorizontalStackLayout Margin="0,0,0,5">
 
                         <Label
                             FontAttributes="Bold"
@@ -80,9 +98,9 @@
                 <StackLayout
                     Grid.Row="1"
                     Grid.Column="1"
-                    Padding="5">
+                    IsVisible="{Binding IsNotBusy}">
                     <HorizontalStackLayout Margin="0,0,0,5">
-                        <Label Style="{StaticResource MediumLabel}" Text="Longest activity: " />
+                        <Label Style="{StaticResource MediumLabel}" Text="Longest: " />
                         <Label
                             FontAttributes="Bold"
                             Style="{StaticResource MediumLabel}"
@@ -109,24 +127,37 @@
 
                 <CollectionView.Header>
                     <ContentView>
-                        <Grid Padding="7">
+                        <Grid Padding="10">
                             <Label Style="{StaticResource LargeLabel}">Recent Timesheets</Label>
 
-                            <Button
-                                Grid.RowSpan="3"
-                                Grid.Column="3"
-                                BackgroundColor="Transparent"
-                                Command="{Binding CreateNewTimesheetCommand}"
-                                HorizontalOptions="End"
-                                Style="{StaticResource Key=RecentRestartButton}">
-                                <Button.ImageSource>
-                                    <FontImageSource
-                                        FontFamily="MaterialDesignIcons"
-                                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.Plus}"
-                                        Size="30" />
-                                </Button.ImageSource>
+                            <HorizontalStackLayout HorizontalOptions="End">
+                                <Button
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding CreateNewTimesheetCommand}"
+                                    Style="{StaticResource Key=RecentRestartButton}">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                            FontFamily="MaterialDesignIcons"
+                                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Plus}"
+                                            Size="30" />
+                                    </Button.ImageSource>
 
-                            </Button>
+                                </Button>
+
+                                <Button
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding RefreshTimesheetsCommand}"
+                                    HorizontalOptions="End"
+                                    Style="{StaticResource Key=RecentRestartButton}">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                            FontFamily="MaterialDesignIcons"
+                                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Refresh}"
+                                            Size="30" />
+                                    </Button.ImageSource>
+
+                                </Button>
+                            </HorizontalStackLayout>
                         </Grid>
                     </ContentView>
                 </CollectionView.Header>
@@ -146,7 +177,6 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:TimesheetModel">
 
-                        <!--<controls:TimesheetListDesktopControl IsVisible="{OnIdiom Desktop=False,Phone=True}" Title="{Binding Date}" Timesheet="{Binding .}" />-->
                         <controls:TimesheetListControl
                             Title="{Binding Date}"
                             Margin="5"
@@ -171,6 +201,9 @@
                     <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
                 </Frame.GestureRecognizers>-->
 
+
+
+
             <Grid>
 
                 <!--  timetracking ooff  -->
@@ -184,7 +217,6 @@
                         <ColumnDefinition Width="3*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
 
 
 
@@ -287,13 +319,7 @@
                 </Grid>
             </Grid>
         </Border>
-        <ActivityIndicator
-            Grid.RowSpan="3"
-            Grid.ColumnSpan="1"
-            HorizontalOptions="Fill"
-            IsRunning="{Binding IsBusy}"
-            IsVisible="{Binding IsBusy}"
-            VerticalOptions="Center" />
+
 
     </Grid>
 

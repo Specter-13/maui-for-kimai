@@ -78,6 +78,8 @@ public static class ApiModelsExtensions
 
     public static TimesheetModel ToTimesheetModel(this TimesheetCollectionExpanded timesheet)
     { 
+        int gitlabIssueId = 0;
+        int.TryParse(timesheet.MetaFields?.FirstOrDefault(x => x.Name == "gitlab_issue_id")?.Value, out gitlabIssueId);
         return new TimesheetModel
         { 
             Id = timesheet.Id.Value,
@@ -98,17 +100,19 @@ public static class ApiModelsExtensions
             FixedRate = timesheet.Rate,
             Exported = timesheet.Exported,
             Billable = timesheet.Billable,
+
+            GitlabIssueId = gitlabIssueId == 0 ? null : gitlabIssueId,
           
         };
     }
 
-    public static TimesheetEditForm ToTimesheetEditForm(this TimesheetModel timesheet, PermissionsTimetrackingModel permissions)
+    public static TimesheetEditForm ToTimesheetEditForm(this TimesheetModel timesheet, PermissionsTimetrackingModel permissions, TimeSpan offset)
     { 
         return new TimesheetEditForm
         { 
 
-            Begin = timesheet.Begin,
-            End = timesheet.End,
+            Begin = timesheet.Begin.ToDateTimeOffset(offset),
+            End = timesheet.End?.ToDateTimeOffset(offset),
             Project = timesheet.ProjectId,
             Activity = timesheet.ActivityId,
             Description = timesheet.Description,

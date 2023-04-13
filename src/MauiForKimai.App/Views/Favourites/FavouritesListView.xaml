@@ -37,7 +37,7 @@
 
 
 
-    <Grid>
+    <Grid Padding="10">
 
         <CollectionView ItemsSource="{Binding Favourites}">
 
@@ -47,14 +47,14 @@
                     <Label
                         Padding="10"
                         HorizontalTextAlignment="Center"
-                        Text="Empty favourites" />
+                        Text="Favourites are empty, create new favourite timesheet or add it from existing timesheet" />
                 </ContentView>
 
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:TimesheetModel">
 
-                    <controls:FavouriteListControl Margin="0,5,0,5" Timesheet="{Binding .}" />
+                    <controls:FavouriteListControl Margin="5" Timesheet="{Binding .}" />
 
                 </DataTemplate>
 

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using MauiForKimai.Core;
 using MauiForKimai.Core.Entities;
 using MauiForKimai.Messenger;
 using MauiForKimai.Wrappers;
@@ -60,25 +61,11 @@ public partial class FavouritesDetailViewModel : ViewModelBase
                 IsEdit = true;
 
                 var model = wrapper.Timesheet;
-                ChosenCustomer = new CustomerListModel(model.CustomerId, model.CustomerName, model.Billable);
+                ChosenCustomer = new CustomerListModel(model.CustomerId.GetValueOrDefault(), model.CustomerName, model.Billable.GetValueOrDefault());
                 ChosenActivity =  new ActivityListModel(model.ActivityId, model.ActivityName, model.Billable);
-                ChosenProject = new ProjectListModel(model.ProjectId, model.ProjectName, model.CustomerId, model.Billable);
-                var entity = new TimesheetFavouriteEntity()
-                { 
-                    Id = model.Id,
-                    ActivityId = model.ActivityId,
-                    ActivityName = model.ActivityName,
-                    ProjectId = model.ProjectId,
-                    ProjectName = model.ProjectName,
-                    CustomerName = model.CustomerName,
+                ChosenProject = new ProjectListModel(model.ProjectId, model.ProjectName, model.CustomerId.GetValueOrDefault(), model.Billable);
 
-                    Tags = model.Tags,
-                    Description = model.Description,
-                    FixedRate = model.FixedRate,
-                    Exported = model.Exported,
-                    Billable = model.Billable
-                };
-                    Favourite = entity;
+                Favourite = model.ToTimesheetFavouriteEntity();
             }
 
         }
@@ -87,6 +74,9 @@ public partial class FavouritesDetailViewModel : ViewModelBase
 
     [ObservableProperty]
     public TimesheetFavouriteEntity favourite = new();
+
+    [ObservableProperty]
+    string selectedBillableMode = "Automatic";
 
     [ObservableProperty]
     CustomerListModel chosenCustomer = new();

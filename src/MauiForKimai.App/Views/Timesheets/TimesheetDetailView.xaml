@@ -155,6 +155,18 @@
             <StackLayout>
 
 
+                <StackLayout BindableLayout.ItemsSource="{Binding ValidationErrors}" HorizontalOptions="Center">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Margin="0,0,0,5">
+                                <Label Style="{StaticResource NotValidLabel}" Text="{Binding .}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
+
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -170,6 +182,7 @@
                     <StackLayout Grid.Row="0">
                         <Label Text="Begin" />
                         <TimePicker Format="HH:mm" Time="{Binding TimeWrapper.BeginTime}" />
+
                     </StackLayout>
                     <!--  From Date  -->
 
@@ -263,10 +276,7 @@
                         </Entry.GestureRecognizers>
                     </Entry>
 
-                    <!--<Label
-                        IsVisible="{Binding IsProjectNotValid}"
-                        Style="{StaticResource NotValidLabel}"
-                        Text="Project is required" />-->
+
                     <Button
                         Command="{Binding ShowProjectChooseViewCommand}"
                         IsVisible="{OnIdiom Phone=False,
@@ -285,10 +295,7 @@
 
                         </Entry.GestureRecognizers>
                     </Entry>
-                    <!--<Label
-                        IsVisible="{Binding IsActivityNotValid}"
-                        Style="{StaticResource NotValidLabel}"
-                        Text="Activity is required" />-->
+
                     <Button
                         Command="{Binding ShowActivityChooseViewCommand}"
                         IsVisible="{OnIdiom Phone=False,
@@ -300,11 +307,10 @@
                     <!--  Tags  -->
                     <Label Text="Tags" />
                     <Entry Text="{Binding Timesheet.Tags}" />
-                    <!--<Label
-                        IsVisible="{Binding IsTagNotValid}"
-                        Style="{StaticResource NotValidLabel}"
-                        Text="Tag must have at least 2 characters or be empty" />-->
 
+                    <!--  Gitlab issue id  -->
+                    <Label IsVisible="{Binding LoginContext.TimetrackingPermissions.HasGitlabPlugin}" Text="Gitlab issue Id" />
+                    <Entry IsVisible="{Binding LoginContext.TimetrackingPermissions.HasGitlabPlugin}" Text="{Binding Timesheet.GitlabIssueId}" />
 
                     <!--  ROLE DEPENDAND!  -->
                     <!--  Billable  -->
@@ -325,61 +331,33 @@
 
                     <!--  Rates  -->
 
-                    <Grid Padding="10" IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditRate}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width=".50*" />
-                            <ColumnDefinition Width=".50*" />
-                        </Grid.ColumnDefinitions>
+                    <StackLayout IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditRate}">
+                        <Label Text="Fixed rate" />
+                        <Entry Keyboard="Numeric" Text="{Binding Timesheet.FixedRate}">
+                            <Entry.Behaviors>
+                                <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
+                            </Entry.Behaviors>
+                        </Entry>
 
-                        <VerticalStackLayout Grid.Column="0">
-                            <Label Text="Fixed rate" />
-                            <Entry Keyboard="Numeric" Text="{Binding Timesheet.FixedRate}">
-                                <Entry.Behaviors>
-                                    <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
-                                </Entry.Behaviors>
-                            </Entry>
-                        </VerticalStackLayout>
-
-                        <VerticalStackLayout Grid.Column="1">
-                            <Label Text="Hourly rate" />
-                            <Entry Keyboard="Numeric" Text="{Binding Timesheet.HourlyRate}">
-                                <Entry.Behaviors>
-                                    <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
-                                </Entry.Behaviors>
-                            </Entry>
-                        </VerticalStackLayout>
-
-                    </Grid>
-
-                    <Grid Padding="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width=".50*" />
-                            <ColumnDefinition Width=".50*" />
-                        </Grid.ColumnDefinitions>
-
-                        <!--  Exported  -->
-
-                        <VerticalStackLayout Grid.Column="0" IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditExport}">
-                            <Label Text="Exported" />
-                            <CheckBox IsChecked="{Binding Timesheet.Exported}" />
-                        </VerticalStackLayout>
-
-                    </Grid>
+                        <Label Text="Hourly rate" />
+                        <Entry Keyboard="Numeric" Text="{Binding Timesheet.HourlyRate}">
+                            <Entry.Behaviors>
+                                <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </StackLayout>
 
 
-                    <ListView ItemsSource="{Binding ValidationErrors}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextCell Text="{Binding .}" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+
+
+                    <!--  Exported  -->
+
+                    <StackLayout IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditExport}">
+                        <Label Text="Exported" />
+                        <CheckBox HorizontalOptions="Start" IsChecked="{Binding Timesheet.Exported}" />
+                    </StackLayout>
+
+
 
                     <!--  ROLE DEPENDAND!  -->
                 </VerticalStackLayout>
