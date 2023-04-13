@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mvvm:TinyView
+    x:Class="MauiForKimai.Views.ChooseItemView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MauiForKimai.Controls"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:imodel="clr-namespace:MauiForKimai.Core.Interfaces;assembly=MauiForKimai.Core"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    Title="ChooseItemView"
+    x:DataType="viewmodel:ChooseItemViewModel">
+
+
+    <Shell.TitleView>
+        <Grid>
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="Select item"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0">
+            <SearchBar
+                x:Name="searchBar"
+                BackgroundColor="Transparent"
+                SearchCommand="{Binding FilterCommand}"
+                SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                TextChanged="searchBar_TextChanged" />
+
+
+            <ActivityIndicator
+                Grid.RowSpan="3"
+                Grid.ColumnSpan="1"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center" />
+
+        </StackLayout>
+
+
+        <CollectionView
+            x:Name="searchResults"
+            Grid.Row="1"
+            ItemsSource="{Binding SearchResults}"
+            SelectedItem="{Binding SelectedItem}"
+            SelectionMode="Single">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="imodel:IChooseItem">
+
+                    <Frame
+                        Margin="5,5,5,5"
+                        Padding="10"
+                        HeightRequest="45"
+                        Style="{StaticResource ChooseItemCard}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ChooseItemViewModel}}, Path=ItemTappedCommand}" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <Label
+                            Style="{StaticResource MediumLabel}"
+                            Text="{Binding Name}"
+                            VerticalOptions="Center" />
+                    </Frame>
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+
+
+
+
+
+
+    </Grid>
+</mvvm:TinyView>

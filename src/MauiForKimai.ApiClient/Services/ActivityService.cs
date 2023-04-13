@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ApiClient.Services;
 public class ActivityService : BaseService, IActivityService
 {
-    public ActivityService(IHttpClientFactory httpClientFactory, ApiStateProvider asp) : base(httpClientFactory, asp)
+    public ActivityService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) : base(httpClientFactory, asp)
     {
     }
 
     public Task<ICollection<ActivityCollection>> GetActivities()
     {
-       return base.ApiClient.ActivitiesAllAsync(null,null,null,null,null,null,null,null);
+       return base.ApiClient?.ActivitiesAllAsync(null,null,null,null,null,null,null,null);
     }
 
     public Task<ICollection<ActivityCollection>> GetActivitiesByProject(int projectId)
     {
-       return base.ApiClient.ActivitiesAllAsync(projectId.ToString(),null,null,null,null,"project","DESC",null);
+       return base.ApiClient?.ActivitiesAllAsync(projectId.ToString(),null,null,null,null,"project","DESC",null);
     }
 
       public Task<ICollection<ActivityCollection>> GetGlobalActivities()
     {
-       return base.ApiClient.ActivitiesAllAsync(null,null,null,"true",null,null,null,null);
+       return base.ApiClient?.ActivitiesAllAsync(null,null,null,"true",null,null,null,null);
     }
 }   

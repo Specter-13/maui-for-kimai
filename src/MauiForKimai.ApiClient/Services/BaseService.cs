@@ -16,12 +16,11 @@ public class BaseService : IBaseService
 {
 	protected IHttpClientFactory _httpClientFactory;
 	protected HttpClient? _httpClient;
-	protected ApiStateProvider ApiStateProvider;
-
-    public BaseService(IHttpClientFactory httpClientFactory, ApiStateProvider asp) 
+	protected ApiLoginContext loginContext;
+    public BaseService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) 
 	{
 		_httpClientFactory = httpClientFactory;
-		ApiStateProvider = asp;
+		loginContext = asp;
 	}
 
 	public IApiClient? ApiClient {get; set;}
@@ -53,7 +52,7 @@ public class BaseService : IBaseService
 	{
 		try
 		{
-			await ApiClient.PingAsync();
+			await ApiClient?.PingAsync();
 			return true;
 		}
 		catch 
@@ -66,7 +65,7 @@ public class BaseService : IBaseService
 
 	public async Task<I18nConfig> GetI18nConfig()
 	{
-		return await ApiClient.I18nAsync();
+		return await ApiClient?.I18nAsync();
 	}
 
 

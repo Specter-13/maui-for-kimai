@@ -2,6 +2,7 @@
 using MauiForKimai.ApiClient.Interfaces;
 using MauiForKimai.ApiClient.Services;
 using MauiForKimai.Interfaces;
+using MauiForKimai.Persistence;
 using MauiForKimai.Services;
 using MauiForKimai.Wrappers;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,10 +21,11 @@ public static class ServicesConfiguration
     {
         
         services.AddSingleton<IRoutingService,RoutingService>();
-		//services.AddSingleton<ServerService>();
-        //services.AddSingleton<ISecureStorageService,SecureStorageService>();
+        services.AddSingleton<ISecureStorageService,SecureStorageService>();
+        services.AddSingleton<IServerService,ServerService>();
         services.AddSingleton<ILoginService,LoginService>();
         services.AddSingleton<IDispatcherWrapper,DispatcherWrapper>();
+        services.AddSingleton<IFavouritesTimesheetService,FavouriteTimesheetService>();
     }
 
     public static void ConfigureViewModels(this IServiceCollection services)
@@ -33,6 +35,9 @@ public static class ServicesConfiguration
             .AddClasses(filter => filter.AssignableTo<IViewModel>())
             .AsSelfWithInterfaces()
             .WithTransientLifetime());
+
+        //i need reports view model as singleton as i share it between mulitple views
+        //services.AddSingleton<ReportsViewModel>();
     }
 
     public static void ConfigureViews(this IServiceCollection services)

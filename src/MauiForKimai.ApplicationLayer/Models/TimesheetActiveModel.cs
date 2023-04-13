@@ -21,8 +21,4 @@ public class TimesheetActiveModel
     public double Duration { get; set; }
 
 
-
-
-
-
 }

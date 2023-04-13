@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MauiForKimai.Controls.TimesheetListControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    x:Name="TimesheetItemControl"
+    x:DataType="model:TimesheetModel">
+
+    <ContentView.Resources>
+        <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ContentView.Resources>
+
+
+
+    <Frame Style="{StaticResource TimesheetListCard}">
+
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=ShowDetailCommand}" CommandParameter="{Binding .}" />
+            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TimesheetListViewModel}}, Path=ShowDetailCommand}" CommandParameter="{Binding .}" />
+        </Frame.GestureRecognizers>
+
+
+        <!--<VerticalStackLayout Style="{StaticResource TimesheetListCard}">-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="13" />
+                <RowDefinition Height="23" />
+                <RowDefinition Height="13" />
+                <RowDefinition Height="13" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+
+            <HorizontalStackLayout Grid.Row="0">
+                <Label
+                    x:Name="Day"
+                    Style="{StaticResource MicroLabel}"
+                    TextColor="Grey" />
+                <Label
+                    Style="{StaticResource MicroLabel}"
+                    Text="{Binding Source={RelativeSource Self}, Path=BeginEnd}"
+                    TextColor="Grey" />
+
+
+            </HorizontalStackLayout>
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource MediumLabel}"
+                Text="{Binding ActivityName}"
+                VerticalOptions="Start" />
+
+
+            <Button
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=StartRecentTimesheetCommand}"
+                CommandParameter="{Binding .}"
+                HorizontalOptions="End"
+                IsVisible="{Binding IsRecent}"
+                Style="{StaticResource Key=RecentRestartButton}"
+                VerticalOptions="Start">
+
+
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialDesignIcons"
+                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
+                        Size="25" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TimesheetListViewModel}}, Path=QuickStartCommand}"
+                CommandParameter="{Binding .}"
+                HorizontalOptions="End"
+                IsVisible="{Binding IsRecent, Converter={StaticResource InvertedBoolConverter}}"
+                Style="{StaticResource Key=RecentRestartButton}"
+                VerticalOptions="Start">
+
+
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialDesignIcons"
+                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
+                        Size="25" />
+                </Button.ImageSource>
+            </Button>
+
+
+
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Style="{StaticResource MicroLabel}"
+                Text="{Binding ProjectName}" />
+            <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                Style="{StaticResource MicroLabel}"
+                Text="{Binding CustomerName}" />
+
+            <Label
+                Grid.RowSpan="4"
+                Grid.Column="1"
+                HorizontalOptions="EndAndExpand"
+                Style="{StaticResource MediumLabel}"
+                Text="{Binding Duration}"
+                VerticalOptions="EndAndExpand" />
+
+        </Grid>
+    </Frame>
+</ContentView>

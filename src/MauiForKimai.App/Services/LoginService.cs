@@ -1,5 +1,5 @@
 ﻿using MauiForKimai.ApiClient;
-
+using MauiForKimai.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,90 +14,26 @@ public class LoginService : ILoginService
 
     private readonly IEnumerable<IBaseService> _baseServices;
     private readonly IUserService _userService;
-    private readonly ApiStateProvider _asp;
+    private readonly ApiLoginContext _loginContext;
 
-    private List<ServerModel> Servers {get; set; } = new();
     public LoginService(IEnumerable<IBaseService> baseServices, 
         IUserService userService,
-        ApiStateProvider asp) 
+        ApiLoginContext asp, IServerService serverService) 
     {
 
-         var local = new ServerModel()
-        {
-            Id= 1,
-            Username = "admin@admin.com",
-            ApiPasswordKey = "internet",
-            IsDefault = true,
-            Name = "My local server",
-            Url = "http://localhost:8001/"
-            
-        };
-
-       var demo = new ServerModel()
-        {
-            Id= 2,
-            Username = "john_user",
-            ApiPasswordKey = "kitten",
-            IsDefault = false,
-            Name = "Demo server online",
-            Url = "https://demo-plugins.kimai.org/"
-            
-        };
-
-         var localJan = new ServerModel()
-        {
-            Id= 2,
-            Username = "jan@jan.com",
-            ApiPasswordKey = "internet",
-            IsDefault = false,
-            Name = "My local server Jan",
-            Url = "http://localhost:8001/"
-            
-        };
-        
-
-        _asp = asp;
+        _loginContext = asp;
         _baseServices = baseServices;
         _userService = userService;
-        Servers.Add(local);
-        Servers.Add(demo);
-        Servers.Add(localJan);
-        
     }
-    public ApiStateProvider GetApiStateProvider()
+    public ApiLoginContext GetLoginContext()
     {
-        return _asp;
+        return _loginContext;
     }
 
-    public async Task<bool> TestConnection(ServerModel server)
-    {
-        bool isSuccess;
-        try
-        {
-             DeInitializeClients();
-            _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
-            InitializeClients(server.Url);
-            await _userService.PingServerAsync();
-            isSuccess = true;
-        }
-        catch (Exception)
-        {
-            isSuccess = false;
-        }
 
-        _asp.Disconnect();
-        DeInitializeClients();
-        return isSuccess;
-    }
 
-    public bool IsLogged()
+    public async Task<bool> LoginOnStartUp(ServerModel defaultServer)
     {
-        return _asp.IsAuthenticated;
-    }
-
-    public async Task<bool> LoginToDefaultOnStartUp()
-    {
-        var defaultServer = Servers.FirstOrDefault(x=> x.IsDefault == true);
         if (defaultServer == null)
              return false;
         
@@ -106,8 +42,8 @@ public class LoginService : ILoginService
 
     public bool CheckIfConnected(ServerModel server)
     {
-        if(_asp.IsAuthenticated && _asp.BaseUrl == server.Url && 
-           _asp.UserName == server.Username && _userService.IsClientInitialized()) 
+        if(_loginContext.IsAuthenticated && _loginContext.BaseUrl == server.Url && 
+           _loginContext.UserName == server.Username && _userService.IsClientInitialized()) 
         {
             return true;
         }
@@ -122,42 +58,40 @@ public class LoginService : ILoginService
 
     }
 
+
+
     public Task Logout()
     {
         return Task.Run(() =>
         {
-            _asp.Disconnect();
+            _loginContext.Disconnect();
             DeInitializeClients();
+            //TODO send message to refresh data
         });
        
     }
 
-    public TimeSpan GetUserTimeOffset() => _userTimeOffset;
-
-
-    private TimeSpan _userTimeOffset;
 
     private async Task<bool> TryToLogin(ServerModel server)
     { 
         try
         {
-            _asp.Disconnect();
-            _asp.SetAuthInfo(server.Username,server.ApiPasswordKey,server.Url);  
+            _loginContext.Disconnect();
+            _loginContext.SetAuthInfo(server); 
             InitializeClients(server.Url);
-            var user = await _userService.GetMe();
-            _asp.SetLoggedUser(user);
-            _asp.SetRoles(user);
-            //set timezone offset by server
             var config = await _userService.GetI18nConfig();
-            _userTimeOffset = config.Now.Value.Offset;
+            var user = await _userService.GetMe();
+            _loginContext.SetUserAndOffset(user,config.Now.Value.Offset);
+            _loginContext.SetIsAuthenticated();
+
         }
         catch (Exception)
         {
-            _asp.Disconnect();
+            _loginContext.Disconnect();
             DeInitializeClients();
             return false;
         }
-        _asp.SetIsAuthenticated();
+        
         return true;
     }
 

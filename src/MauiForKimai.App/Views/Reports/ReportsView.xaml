@@ -4,16 +4,135 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:MauiForKimai.Controls"
+    xmlns:enums="clr-namespace:MauiForKimai.Core.Enums;assembly=MauiForKimai.Core"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    Title="ReportsView">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    Title="ReportsView"
+    x:DataType="viewmodel:ReportsViewModel">
+
+    <Shell.TitleView>
+        <Grid>
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="Reports"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
+    <!--<Grid>
+
+        <ActivityIndicator
+            Grid.RowSpan="3"
+            Grid.ColumnSpan="1"
+            HorizontalOptions="Fill"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center" />-->
+
+    <!--<lvc:CartesianChart Series="{Binding Series}" />-->
+    <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">-->
+
+    <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">-->
+
+    <Grid Padding="10" RowDefinitions="50,*">
+
+        <Picker
+            x:Name="picker"
+            Title="Select report type"
+            FontSize="20"
+            SelectedIndex="{Binding SelectedReportType}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Projects</x:String>
+                    <x:String>Customers</x:String>
+                    <x:String>Activities</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <ScrollView Grid.Row="1" Padding="5">
+            <StackLayout>
+
+
+
+
+
+                <Label Style="{StaticResource MediumLabel}" Text="Today" />
+                <Label Style="{StaticResource SmallLabel}" Text="{Binding TodayDate}" />
+
+                <ScrollView
+                    Padding="20"
+                    HeightRequest="400"
+                    Orientation="Horizontal"
+                    VerticalScrollBarVisibility="Never">
+
+                    <StackLayout HeightRequest="370">
+
+                        <lvc:CartesianChart
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HeightRequest="350"
+                            Series="{Binding TodaySeries}"
+                            TooltipTextSize="25"
+                            WidthRequest="{Binding TodayChartWidth}"
+                            XAxes="{Binding TodayXAxes}"
+                            YAxes="{Binding CommonYAxes}" />
+                    </StackLayout>
+                </ScrollView>
+
+                <Label Style="{StaticResource MediumLabel}" Text="This week" />
+                <Label Style="{StaticResource SmallLabel}" Text="{Binding WeekInterval}" />
+                <ScrollView
+                    Padding="20"
+                    HeightRequest="400"
+                    Orientation="Horizontal"
+                    VerticalScrollBarVisibility="Never">
+
+                    <StackLayout HeightRequest="370">
+
+                        <lvc:CartesianChart
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HeightRequest="350"
+                            Series="{Binding WeekSeries}"
+                            TooltipTextSize="25"
+                            WidthRequest="{Binding WeekChartWidth}"
+                            XAxes="{Binding WeekXAxes}"
+                            YAxes="{Binding CommonYAxes}" />
+                    </StackLayout>
+                </ScrollView>
+
+                <Label Style="{StaticResource MediumLabel}" Text="This month" />
+                <Label Style="{StaticResource SmallLabel}" Text="{Binding MonthName}" />
+                <ScrollView
+                    Padding="20"
+                    HeightRequest="400"
+                    Orientation="Horizontal"
+                    VerticalScrollBarVisibility="Never">
+
+                    <StackLayout HeightRequest="370">
+
+                        <lvc:CartesianChart
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HeightRequest="350"
+                            Series="{Binding MonthSeries}"
+                            TooltipTextSize="25"
+                            WidthRequest="{Binding MonthChartWidth}"
+                            XAxes="{Binding MonthXAxes}"
+                            YAxes="{Binding CommonYAxes}" />
+                    </StackLayout>
+                </ScrollView>
+
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+    <!--</RefreshView>-->
+    <!--</RefreshView>-->
+    <!--</Grid>-->
 </mvvm:TinyView>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MauiForKimai.Controls.ServerListControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:entity="clr-namespace:MauiForKimai.Core.Entities;assembly=MauiForKimai.Core"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    x:Name="ServerControl"
+    x:DataType="entity:ServerEntity">
+
+
+    <Frame Style="{StaticResource ServerListCard}">
+
+        <Grid ColumnDefinitions="0.90*,0.10*" RowDefinitions="23,20,20">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ServerTappedCommand}" CommandParameter="{Binding .}" />
+            </Grid.GestureRecognizers>
+
+            <Label
+                Grid.Row="0"
+                Style="{StaticResource MediumLabel}"
+                Text="{Binding Name}" />
+            <Label
+                Grid.Row="1"
+                Style="{StaticResource SmallLabel}"
+                Text="{Binding Username}" />
+            <Label
+                Grid.Row="2"
+                Style="{StaticResource SmallLabel}"
+                Text="{Binding Url}" />
+
+
+
+            <Button
+                Grid.RowSpan="3"
+                Grid.Column="1"
+                BackgroundColor="Transparent"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=QuickConnectCommand}"
+                CommandParameter="{Binding .}"
+                HorizontalOptions="End"
+                Style="{StaticResource Key=RecentRestartButton}">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialDesignIcons"
+                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.Login}"
+                        Size="30" />
+                </Button.ImageSource>
+            </Button>
+        </Grid>
+
+    </Frame>
+</ContentView>

@@ -13,6 +13,10 @@ using MauiForKimai.Services;
 using MauiForKimai.DependencyInjection;
 using TinyMvvm;
 using MauiForKimai.ApiClient.DependencyInjection;
+using SkiaSharp.Views.Maui.Controls.Hosting;
+using MauiForKimai.Popups;
+using InputKit.Handlers;
+using InputKit.Shared;
 
 namespace MauiForKimai;
 
@@ -24,15 +28,21 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
+			.UseSkiaSharp()
+			.UseTinyMvvm()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				fonts.AddFont(filename: "materialdesignicons-webfont.ttf", alias: "MaterialDesignIcons");
 			})
-			.UseTinyMvvm();
+			.ConfigureMauiHandlers(handlers =>
+			{
+				handlers.AddInputKitHandlers();
+			});
+			
 
-
+		InputKitOptions.GetAccentColor = () => Color.FromArgb("#1CD6CE");
 
 		builder.Services.RegisterClientServices();
 		builder.Services.RegisterAppServices();
@@ -40,6 +50,10 @@ public static class MauiProgram
 
 		builder.Services.ConfigureViewModels();
 		builder.Services.ConfigureViews();
+
+
+		builder.Services.AddSingleton<IDeviceDisplay>(DeviceDisplay.Current);
+		builder.Services.AddSingleton<PopupSizeConstants>();
 
 		
 #if DEBUG

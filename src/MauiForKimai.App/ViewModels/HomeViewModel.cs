@@ -3,12 +3,13 @@ using CommunityToolkit.Maui.Core;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Core.Extensions;
 using System.Numerics;
-using MauiForKimai.ViewModels.Timesheets;
 using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Messenger;
 using MauiForKimai.ApiClient.Services;
 using MauiForKimai.Wrappers;
 using MauiForKimai.ApiClient;
+using MauiForKimai.Core;
+using MauiForKimai.ApiClient.Extensions;
 
 namespace MauiForKimai.ViewModels;
 
@@ -17,105 +18,165 @@ public partial class HomeViewModel : ViewModelBase
 	protected readonly ITimesheetService timesheetService;
 	protected readonly ILoginService _loginService;
 	private readonly IDispatcherWrapper _dispatcherWrapper;
-	public HomeViewModel(IRoutingService rs, ILoginService ls, ITimesheetService ts, ApiStateProvider asp, IDispatcherWrapper dispatcherWrapper) : base(rs, ls)
+	private readonly IServerService _serverService;
+    private readonly ISecureStorageService  _secureStorageService;
+	
+
+	[ObservableProperty]
+	TimerWrapper  myTimer;
+
+	[ObservableProperty]
+	StatisticsWrapper  statistics;
+
+	public HomeViewModel(IRoutingService rs, 
+		ILoginService ls, 
+		ITimesheetService ts, 
+		IDispatcherWrapper dispatcherWrapper, 
+		IServerService ss, 
+		ISecureStorageService sc) : base(rs, ls)
 	{
 		timesheetService = ts;
 		_loginService = ls;
+		_serverService = ss;
+        _secureStorageService = sc;
 		_dispatcherWrapper = dispatcherWrapper ?? new DispatcherWrapper(Application.Current.Dispatcher);
-		CreateTimer();
+
+		MyTimer = new TimerWrapper(_dispatcherWrapper);
+		Statistics = new StatisticsWrapper();
+
 		RegisterMessages();
+		
 	}
 	// Initialize methods
 	private void RegisterMessages()
 	{ 
-		 WeakReferenceMessenger.Default.Register<TimesheetStartMessage>(this, async (r, m) =>
+		 WeakReferenceMessenger.Default.Register<TimesheetStartNewMessage>(this, async (r, m) =>
         {
-            var timesheetEditForm = m.Value;
-			await StartTimesheet(timesheetEditForm);
+            SelectedActivity = m.Value.ActivityName;
+			await StartTimesheet(m.Value.Timesheet);
+
+        });
+
+		 WeakReferenceMessenger.Default.Register<TimesheetStartExistingMessage>(this, async (r, m) =>
+        {
+			//TODO ROLES
+			//var editForm = m.Value.ToTimesheetEditForm(LoginContext.TimetrackingPermissions);
+            SelectedActivity = m.Value.ActivityName;
+			await StartTimesheet(m.Value);
         });
 	}
 
+	[ObservableProperty]
+	string selectedActivity;
 
-	private async Task StartTimesheet(TimesheetEditForm form)
+	private async Task StartTimesheet(TimesheetModel model)
     { 
-		await timesheetService.Create(form);
-		_timer.Start();
-		IsTimetrackingActive = true;
-		var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
-		ActiveTimesheet =  activeTimesheet.ToTimesheetActiveModel();
+		if(IsTimetrackingActive)
+		{ 
+			await Toast.Make("There is already active timesheet!", ToastDuration.Short, 14).Show();
+			return;
+		}
+
+		try
+		{
+			var form = model.ToTimesheetEditForm(LoginContext.TimetrackingPermissions, LoginContext.TimeOffset);
+			var timesheet = await timesheetService.Create(form);
+
+			if(model.GitlabIssueId != null) 
+			{
+				var meta = new Body5();
+				meta.Name ="gitlab_issue_id";
+				meta.Value = model.GitlabIssueId.Value.ToString();
+				await timesheetService.SetMetaField(timesheet.Id.Value, meta);
+			}
+			if(timesheet == null) 
+			{
+				await Toast.Make("Error starting timesheet! Check your connection.", ToastDuration.Long, 14).Show();
+			}
+			else
+			{
+				MyTimer.TimerStart();
+				IsTimetrackingActive = true;
+				var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
+				ActiveTimesheet =  activeTimesheet.ToTimesheetActiveModel();
+				SelectedActivity = ActiveTimesheet.ActivityName;
+			}
+		}
+		catch (KimaiApiException)
+		{
+			await Toast.Make("Error starting timesheet! There are insufficient time-tracking permissions.", ToastDuration.Long, 14).Show();
+			return;
+		}
+		
 	}
 
 	public override async Task Initialize()
-    {
-		var isSuccessfull = await _loginService.LoginToDefaultOnStartUp();
-		IToast toast;
-
-		if(isSuccessfull)
-		{
-			toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
-		}
-		else
-		{
-			toast = Toast.Make("Connection to Kimai failed!", ToastDuration.Short, 14);
-		}
-		await toast.Show();
-    }
-
-	public override async Task OnAppearing()
 	{
-
-		if (base.ApiStateProvider.IsAuthenticated && base.GetConnectivity() == NetworkAccess.Internet)
-		{
-			IsBusy = true;
-			// Connection to internet is available
-			await GetTimeSheets();
-			await TryToGetActiveTimesheet();
-			IsBusy = false;
-		}
-		else
-		{ 
-			var toast = Toast.Make("Cannot load data!", ToastDuration.Short, 14);
-			await toast.Show();
-		}
-
+		IsBusy = true;
+		await LoginToDefault();
+		IsBusy = false;
 	}
+
+
 
 	//Properties
 	[ObservableProperty]
 	private TimesheetActiveModel activeTimesheet;
-	public ObservableCollection<TimesheetRecentListModel> RecentTimesheets {get;set; } = new();
+	public ObservableCollection<TimesheetModel> RecentTimesheets {get; set; } = new ObservableCollection<TimesheetModel>();
 
 	[ObservableProperty]
 	bool isTimetrackingActive;
 
-	
-
-	[ObservableProperty]
-    public TimeSpan time = new TimeSpan();
 
 	[ObservableProperty]
     bool isRefreshing;
 
-	private double _seconds;
-	private IDispatcherTimer _timer;
-
 	// Commands
 	[RelayCommand]
-	async Task StartTimeTracking()
+	async Task StartNewTimesheet()
 	{
-		var route = routingService.GetRouteByViewModel<TimesheetCreateViewModel>();
-		await Navigation.NavigateTo(route);
+		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
+		await Navigation.NavigateTo(route,TimesheetDetailMode.Start);
+
+	}
+
+	[RelayCommand]
+	async Task StartRecentTimesheet(TimesheetModel timesheet)
+	{	
+		timesheet.Begin = DateTime.Now;
+		timesheet.End = null;
+		await StartTimesheet(timesheet);
+	}
+
+	[RelayCommand]
+	async Task CreateNewTimesheet()
+	{
+		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
+		await Navigation.NavigateTo(route,TimesheetDetailMode.Create);
 
 	}
 
 	[RelayCommand]
 	async Task StopTimeTracking()
 	{	
-		var stopped = await timesheetService.StopActive(ActiveTimesheet.Id);
-		_timer.Stop();
-		IsTimetrackingActive = false;
-		_seconds = 0;
-		Time = new TimeSpan();
+		
+
+		try
+		{
+			await timesheetService.StopActive(ActiveTimesheet.Id);
+			IsTimetrackingActive = false;
+			SelectedActivity = null;
+			MyTimer.TimerStop();
+			await RefreshTimesheets();
+			
+			await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
+		}
+		catch (KimaiApiException e)
+		{
+			await Toast.Make("There was a problem to stop a timesheet! It may be already stopped or time offset is wrong!", ToastDuration.Long, 14).Show();
+		}
+		
+	
 	}
 
 
@@ -131,31 +192,53 @@ public partial class HomeViewModel : ViewModelBase
 	async Task RefreshTimesheets()
 	{	
 		IsRefreshing = true;
-		await GetTimeSheets();
+		await Refresh();
 		IsRefreshing = false;
 	}
 
     [RelayCommand]
-    async Task GetTimeSheets()
+    async Task GetRecentTimesheets()
     {
-		var timeheets = (await timesheetService.GetTenRecentTimesheetsAsync()).ToObservableCollection();
-
+		var timesheets = await timesheetService.GetTenRecentTimesheetsAsync();
 		RecentTimesheets.Clear();
-		foreach(var timesheet in timeheets)
-		{ 
-			RecentTimesheets.Add(timesheet.ToTimesheetRecentListModel());
+		foreach (var timesheet in timesheets)
+		{
+			var model = timesheet.ToTimesheetModel();
+			model.IsRecent = true;
+			RecentTimesheets.Add(model);
 		}
 
-    }
+	}
+
 
 	[RelayCommand]
-    async Task TimesheetOnTap(TimesheetRecentListModel currentTimesheet)
+    async Task ShowDetail(TimesheetModel currentTimesheet)
     {
-		var x = 10;
-		var z = currentTimesheet;
+
+		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
+
+		var wrapper = new TimesheetDetailWrapper(currentTimesheet,TimesheetDetailMode.Edit);
+		await Navigation.NavigateTo(route,wrapper);
         
     }
+
 	// private methods
+	private async Task Refresh()
+	{ 
+		if (HasInternetAndIsLogged())
+		{
+			await GetRecentTimesheets();
+			await TryToGetActiveTimesheet();
+			await CalculateTodayStatistics();
+			
+		}
+		else
+		{ 
+			var toast = Toast.Make("Cannot acquire data!", ToastDuration.Short, 14);
+			await toast.Show();
+		}
+	}
+
 	private async Task TryToGetActiveTimesheet()
 	{ 
 		var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
@@ -163,26 +246,56 @@ public partial class HomeViewModel : ViewModelBase
 		if(activeTimesheet != null)
 		{
 			ActiveTimesheet = activeTimesheet.ToTimesheetActiveModel();
+			SelectedActivity = activeTimesheet.Activity.Name;
 			IsTimetrackingActive = true;
-			_seconds = ActiveTimesheet.Duration;
-			_timer.Start();
+			MyTimer.TimerStartExisting(ActiveTimesheet.Duration);
+		}
+		else
+		{
+			SelectedActivity = null;
+			IsTimetrackingActive = false;
+			MyTimer.TimerStop();
+			
 		}
 	}
 
-	private void CreateTimer()
+
+
+	private async Task CalculateTodayStatistics()
 	{ 
-		_timer = _dispatcherWrapper.CreateTimer();
-		_timer.Interval = TimeSpan.FromMilliseconds(1000);
-		_timer.Tick += (s, e) =>
+		var todayTimesheet = await timesheetService.GetTodayTimesheetsAsync();
+		
+		await Statistics.CalculateTodayStatistics(todayTimesheet);
+		OnPropertyChanged(nameof(Statistics));
+	}
+
+
+	public async Task LoginToDefault()
+	{ 
+		var defaultServer = await _serverService.GetDefaultServer();
+		if (defaultServer == null) 
 		{
-			_seconds += 1;
-			Time = TimeSpan.FromSeconds(_seconds);
-		};
+			return;
+		}
+		var key = $"{defaultServer.Id}_{defaultServer.Username}";
+		//check whether this throw excpetion TODO
+		var apiPassword = await _secureStorageService.Get(key);
+		var defaultServerModel = defaultServer.ToServerModel();
+		defaultServerModel.ApiPasswordKey = apiPassword;
+
+		var isSuccessfull = await _loginService.LoginOnStartUp(defaultServerModel);
+		IToast toast;
+
+		if (isSuccessfull)
+		{
+			toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
+		    await Refresh();
+		}
+		else
+		{
+			toast = Toast.Make("Connection to Kimai failed!", ToastDuration.Short, 14);
+		}
+		await toast.Show();
 	}
-	private void timer_Tick(object sender, EventArgs e)
-	{
-		_seconds += 1;
-	}
-	
 
 }

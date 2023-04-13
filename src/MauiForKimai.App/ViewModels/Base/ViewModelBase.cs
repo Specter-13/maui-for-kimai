@@ -8,28 +8,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TinyMvvm;
+using CommunityToolkit.Maui.Views;
 
 namespace MauiForKimai.ViewModels.Base;
 public abstract partial class ViewModelBase : TinyViewModel, IViewModel
 {
-	
+	//for popups
+	public static Page Page => Application.Current?.MainPage ?? throw new NullReferenceException();
 	protected ILoginService loginService {get; }
 	protected IRoutingService routingService { get; }
 	public ViewModelBase(IRoutingService rs, ILoginService ls)
 	{
 		routingService = rs;
 		loginService = ls;
-		ApiStateProvider = loginService.GetApiStateProvider();
+		LoginContext = loginService.GetLoginContext();
 	}
 
     [ObservableProperty]
-	ApiStateProvider apiStateProvider;
+	public ApiLoginContext loginContext;
 
 	//virtual for testing purposes
     public virtual NetworkAccess GetConnectivity()
 		=> Connectivity.Current.NetworkAccess;
 
-
+	public bool HasInternetAndIsLogged() =>  LoginContext.IsAuthenticated && GetConnectivity() == NetworkAccess.Internet;
+	
 
 
 }

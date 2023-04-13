@@ -5,11 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.Interfaces;
-public interface IServerService<T>
+public interface IServerService: ICrudOperationsMySql<ServerEntity,ServerModel>
 {
-    Task<T> Create(T model);
-    Task<T> Read(int id);
-    Task<T> Update(T model);
-    Task<bool> Delete(int id);
-    Task<ICollection<T>> GetAll();
+   Task<ServerEntity> GetDefaultServer();
+   Task<ServerEntity> UnsetDefaultPropertyExceptOne(int id);
 }

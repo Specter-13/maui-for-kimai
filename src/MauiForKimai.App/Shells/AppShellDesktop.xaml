@@ -45,12 +45,8 @@
                 <Image
                     Aspect="AspectFill"
                     Opacity="0.6"
-                    Source="blue_background.jpg" />
-                <Label
-                    FontAttributes="Bold"
-                    HorizontalTextAlignment="Center"
-                    Text="Maui For Kimai"
-                    VerticalTextAlignment="Center" />
+                    Source="maui_for_kimai_logo.png" />
+
             </Grid>
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
@@ -65,6 +61,13 @@
             Route="home" />
     </FlyoutItem>
 
+    <FlyoutItem Title="Favourites">
+        <ShellContent
+            Title="Favourites"
+            ContentTemplate="{DataTemplate local:FavouritesListView}"
+            Route="favourites" />
+    </FlyoutItem>
+
     <FlyoutItem Title="Timesheets">
         <ShellContent
             Title="Timesheets"
@@ -72,24 +75,34 @@
             Route="timesheets" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Management">
+
+    <FlyoutItem Title="Reports">
         <ShellContent
-            Title="Login"
-            ContentTemplate="{DataTemplate local:ServerListView}"
-            Icon="login.png"
-            Route="login" />
+            Title="Reports"
+            ContentTemplate="{DataTemplate local:ReportsView}"
+            Icon="chart_line.png"
+            Route="reports" />
     </FlyoutItem>
 
-    <Shell.FlyoutFooter>
+
+    <FlyoutItem Title="Management">
+        <ShellContent
+            Title="Servers"
+            ContentTemplate="{DataTemplate local:ServerListView}"
+            Icon="login.png"
+            Route="serverlistview" />
+    </FlyoutItem>
+
+    <!--<Shell.FlyoutFooter>
         <StackLayout>
             <Button
                 Margin="10,10"
                 Command="{Binding LogOutCommand}"
-                IsVisible="{Binding ApiStateProvider.IsAuthenticated}"
+                IsVisible="{Binding LoginContext.IsAuthenticated}"
                 Text="Log out" />
             <Label Text="Bc. David Spavor" />
         </StackLayout>
-    </Shell.FlyoutFooter>
+    </Shell.FlyoutFooter>-->
 
 
 

@@ -8,239 +8,318 @@
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    x:DataType="viewmodel:HomeViewModel"
-    Shell.NavBarIsVisible="False">
+    x:DataType="viewmodel:HomeViewModel">
 
     <ContentPage.Behaviors>
-        <mct:StatusBarBehavior StatusBarColor="{StaticResource AccentColor}" StatusBarStyle="LightContent" />
+        <mct:StatusBarBehavior StatusBarColor="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}" StatusBarStyle="LightContent" />
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
         <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
     </ContentPage.Resources>
 
-    <Grid>
+    <Shell.TitleView>
+        <Grid>
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="Home"
+                TextColor="White"
+                VerticalOptions="Center" />
+
+            <!--<ActivityIndicator
+                HeightRequest="30"
+                HorizontalOptions="End"
+                IsRunning="{Binding IsRefreshing}"
+                IsVisible="{Binding IsRefreshing}"
+                VerticalOptions="Center"
+                WidthRequest="30" />-->
+
+
+        </Grid>
+    </Shell.TitleView>
+
+
+
+
+    <Grid Padding="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height=".08*" />
-            <RowDefinition Height=".20*" />
-            <RowDefinition Height=".49*" />
-            <RowDefinition Height=".25*" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-
-
-        <Grid Grid.Row="0" Style="{StaticResource InfoStatusBar}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <!--<Label
-                Style="{StaticResource LargeLabel}"
-                Text="Maui For Kimai"
-                VerticalOptions="Center" />-->
-
-            <Image Margin="5,0,0,0" Source="logo_long_white.png" />
-            <!--<Button
-                Grid.Column="2"
-                Command="{Binding GoToLoginCommand}"
-                HorizontalOptions="End"
-                IsVisible="{Binding ApiStateProvider.IsAuthenticated}"
-                Text="Login"
-                VerticalOptions="Fill" />-->
-
-            <!--<Button
-                Grid.Column="1"
-                Command="{Binding GoToLoginCommand}"
-                Text="Profile" />-->
-        </Grid>
-
-
-
-
-
-        <Frame
-            Grid.Row="1"
-            Margin="5"
-            Style="{StaticResource CardTimesheetView}">
-            <VerticalStackLayout>
-                <Label
-                    Grid.Column="0"
-                    Style="{StaticResource LargeLabel}"
-                    Text="Widget" />
-
-                <Label
-                    FontFamily="MaterialDesignIcons"
-                    FontSize="50"
-                    HorizontalOptions="Center"
-                    Text="{x:Static helpers:MaterialDesignIconsFonts.RocketLaunch}" />
-            </VerticalStackLayout>
-
-
-        </Frame>
-
-        <RefreshView
-            Grid.Row="2"
-            Command="{Binding RefreshTimesheetsCommand}"
-            IsRefreshing="{Binding IsRefreshing}">
-            <ScrollView>
-
-                <CollectionView ItemsSource="{Binding RecentTimesheets}">
-
-                    <CollectionView.Header>
-                        <ContentView Padding="10">
-                            <Label Style="{StaticResource LargeLabel}">Recent Timesheets</Label>
-                        </ContentView>
-                    </CollectionView.Header>
-
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:TimesheetRecentListModel">
-                            <Grid Padding="10,5">
-                                <Frame Style="{StaticResource RecentTimesheetCard}">
-
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=TimesheetOnTapCommand}" CommandParameter="{Binding .}" />
-                                    </Frame.GestureRecognizers>
-
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="1.3*" />
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Label
-                                            Grid.Row="0"
-                                            Grid.Column="0"
-                                            Style="{StaticResource MediumLabel}"
-                                            Text="{Binding ActivityName}" />
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="0"
-                                            Style="{StaticResource SmallLabel}"
-                                            Text="{Binding ProjectName}" />
-                                        <Label
-                                            Grid.Row="2"
-                                            Grid.Column="0"
-                                            Style="{StaticResource SmallLabel}"
-                                            Text="{Binding CustomerName}" />
-
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="1"
-                                            Style="{StaticResource SmallLabel}"
-                                            Text="{Binding Date}" />
-                                        <Label
-                                            Grid.Row="2"
-                                            Grid.Column="1"
-                                            Style="{StaticResource LargeLabel}"
-                                            Text="{Binding Duration}" />
-
-
-                                        <Button
-                                            Grid.Row="0"
-                                            Grid.Column="2"
-                                            HorizontalOptions="End"
-                                            Style="{StaticResource Key=RecentRestartButton}">
-                                            <Button.ImageSource>
-                                                <FontImageSource
-                                                    FontFamily="MaterialDesignIcons"
-                                                    Glyph="{x:Static helpers:MaterialDesignIconsFonts.PlayOutline}"
-                                                    Size="25" />
-                                            </Button.ImageSource>
-                                        </Button>
-                                    </Grid>
-                                </Frame>
-                            </Grid>
-                            <!--<controls:TimesheetListItemControl ="{Binding .}" />-->
-                        </DataTemplate>
-
-                    </CollectionView.ItemTemplate>
-
-                </CollectionView>
-
-            </ScrollView>
-        </RefreshView>
-        <Grid Grid.Row="3" VerticalOptions="Center">
-
-
-            <Border x:Name="SwipeMenu" Style="{StaticResource TimeTrackingCard}">
-                <!--<Frame.GestureRecognizers>
-                    <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
-                </Frame.GestureRecognizers>-->
-
-                <VerticalStackLayout>
-
-                    <!--<Picker x:Name="picker" Title="Select a mode">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>Track instantly</x:String>
-                                <x:String>Create new</x:String>
-                                <x:String>Choose template</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>-->
-
-                    <Label
-                        Grid.Column="0"
-                        FontAttributes="Bold"
-                        FontSize="40"
-                        HorizontalTextAlignment="Center"
-                        Text="{Binding Time}" />
-
-
-
-                    <ImageButton
-                        x:Name="start"
-                        ClassId="StartButton"
-                        Command="{Binding StartTimeTrackingCommand}"
-                        IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}"
-                        Source="play_circle_outline_blue.png"
-                        Style="{StaticResource TimetrackingButton}">
-
-                        <ImageButton.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                        </ImageButton.GestureRecognizers>
-                    </ImageButton>
-
-                    <ImageButton
-                        x:Name="stop"
-                        ClassId="StopButton"
-                        Command="{Binding StopTimeTrackingCommand}"
-                        IsVisible="{Binding IsTimetrackingActive}"
-                        Source="stop_circle_outline_red.png"
-                        Style="{StaticResource TimetrackingButton}">
-
-                        <ImageButton.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                        </ImageButton.GestureRecognizers>
-                    </ImageButton>
-
-
-
-
-                </VerticalStackLayout>
-
-            </Border>
-        </Grid>
         <ActivityIndicator
-            Grid.RowSpan="3"
+            Grid.RowSpan="2"
             Grid.ColumnSpan="1"
             HorizontalOptions="Fill"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
             VerticalOptions="Center" />
+
+
+
+
+        <!--  Widget  -->
+        <Frame
+            Grid.Row="0"
+            Padding="10"
+            HeightRequest="100"
+            Style="{StaticResource Widget}">
+            <Grid ColumnDefinitions="*,3*" RowDefinitions="22,*">
+
+
+                <Label
+                    Grid.Row="0"
+                    Style="{StaticResource SmallLabel}"
+                    Text="Today" />
+
+
+                <StackLayout Grid.Row="1">
+                    <HorizontalStackLayout Margin="0,0,0,5">
+
+                        <Label
+                            FontAttributes="Bold"
+                            Style="{StaticResource MediumLabel}"
+                            Text="{Binding Statistics.TodayTracked}" />
+                    </HorizontalStackLayout>
+
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Statistics.NumberOfActivites}" />
+
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Statistics.NumberOfProjects}" />
+                </StackLayout>
+
+
+                <StackLayout
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    IsVisible="{Binding IsNotBusy}">
+                    <HorizontalStackLayout Margin="0,0,0,5">
+                        <Label Style="{StaticResource MediumLabel}" Text="Longest: " />
+                        <Label
+                            FontAttributes="Bold"
+                            Style="{StaticResource MediumLabel}"
+                            Text="{Binding Statistics.LongestActivityDuration}" />
+                    </HorizontalStackLayout>
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Statistics.LongestActivityName}" />
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Statistics.LongestActivityProjectName}" />
+                </StackLayout>
+
+
+            </Grid>
+
+
+        </Frame>
+
+
+        <!--  Recents  -->
+        <RefreshView
+            Grid.Row="1"
+            Command="{Binding RefreshTimesheetsCommand}"
+            IsRefreshing="{Binding IsRefreshing}">
+
+            <CollectionView ItemsSource="{Binding RecentTimesheets}" SelectionMode="Single">
+
+                <CollectionView.Header>
+                    <ContentView>
+                        <Grid Padding="10">
+                            <Label Style="{StaticResource LargeLabel}">Recent Timesheets</Label>
+
+                            <HorizontalStackLayout HorizontalOptions="End">
+                                <Button
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding CreateNewTimesheetCommand}"
+                                    Style="{StaticResource Key=RecentRestartButton}">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                            FontFamily="MaterialDesignIcons"
+                                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Plus}"
+                                            Size="30" />
+                                    </Button.ImageSource>
+
+                                </Button>
+
+                                <Button
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding RefreshTimesheetsCommand}"
+                                    HorizontalOptions="End"
+                                    Style="{StaticResource Key=RecentRestartButton}">
+                                    <Button.ImageSource>
+                                        <FontImageSource
+                                            FontFamily="MaterialDesignIcons"
+                                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Refresh}"
+                                            Size="30" />
+                                    </Button.ImageSource>
+
+                                </Button>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </ContentView>
+                </CollectionView.Header>
+
+
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <Label
+                            Padding="10"
+                            HorizontalTextAlignment="Center"
+                            Text="Empty recents timesheet" />
+                    </ContentView>
+
+                </CollectionView.EmptyView>
+
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:TimesheetModel">
+
+                        <controls:TimesheetListControl
+                            Title="{Binding Date}"
+                            Margin="5"
+                            Timesheet="{Binding .}" />
+
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </RefreshView>
+
+        <!--  Tracking  -->
+
+        <Border
+            x:Name="SwipeMenu"
+            Grid.Row="2"
+            HeightRequest="70"
+            Style="{StaticResource TimeTrackingCard}">
+            <!--<Frame.GestureRecognizers>
+                    <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
+                </Frame.GestureRecognizers>-->
+
+
+
+
+            <Grid>
+
+                <!--  timetracking ooff  -->
+                <Grid IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+
+
+
+                    <Label
+                        Grid.RowSpan="2"
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource MediumLabel}"
+                        Text="No activity"
+                        VerticalOptions="Center" />
+
+
+
+
+                    <ImageButton
+                        x:Name="start"
+                        Grid.RowSpan="2"
+                        Grid.Column="2"
+                        ClassId="StartButton"
+                        Command="{Binding StartNewTimesheetCommand}"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}"
+                        Source="play_circle_outline_blue.png"
+                        Style="{StaticResource TimetrackingButton}"
+                        VerticalOptions="Center">
+
+                        <ImageButton.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        </ImageButton.GestureRecognizers>
+                    </ImageButton>
+
+                </Grid>
+
+
+                <!--  timetracking on  -->
+                <Grid IsVisible="{Binding IsTimetrackingActive}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <skia:SKLottieView
+                        Grid.RowSpan="2"
+                        Grid.Column="0"
+                        HeightRequest="35"
+                        IsVisible="{Binding IsTimetrackingActive}"
+                        RepeatCount="-1"
+                        Source="active_animation.json"
+                        WidthRequest="70" />
+
+                    <Label
+                        Grid.RowSpan="1"
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        FontSize="25"
+                        HorizontalOptions="Center"
+                        Text="{Binding MyTimer.Time, StringFormat='{}{0:hh\\:mm}'}"
+                        VerticalOptions="Center" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding SelectedActivity}"
+                        VerticalOptions="Start" />
+
+
+
+
+                    <ImageButton
+                        x:Name="stop"
+                        Grid.RowSpan="2"
+                        Grid.Column="2"
+                        ClassId="StopButton"
+                        Command="{Binding StopTimeTrackingCommand}"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsTimetrackingActive}"
+                        Source="stop_circle_outline_red.png"
+                        Style="{StaticResource TimetrackingButton}"
+                        VerticalOptions="Center">
+
+                        <ImageButton.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        </ImageButton.GestureRecognizers>
+                    </ImageButton>
+
+
+
+
+
+                </Grid>
+            </Grid>
+        </Border>
+
 
     </Grid>
 

@@ -3,7 +3,10 @@
     x:Class="MauiForKimai.Views.ServerListView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MauiForKimai.Controls"
+    xmlns:entity="clr-namespace:MauiForKimai.Core.Entities;assembly=MauiForKimai.Core"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
@@ -11,8 +14,25 @@
     x:DataType="viewmodel:ServerListViewModel"
     Shell.NavBarIsVisible="True">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <mct:BoolToObjectConverter
+                x:Key="BoolToBorderColorConverter"
+                FalseObject="#FFFFFF"
+                TrueObject="#2069e0" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-
+    <Shell.TitleView>
+        <Grid>
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="Servers"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
 
 
     <Grid Padding="10">
@@ -21,56 +41,68 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--<Label
-            Grid.Row="0"
-            HorizontalOptions="Center"
-            Style="{StaticResource LargeLabel}"
-            Text="You are connected to:"
-            VerticalOptions="Center" />-->
-        <Label
-            Grid.Row="0"
-            HorizontalOptions="Center"
-            Style="{StaticResource MediumLabel}"
-            Text="{Binding ApiStateProvider.IsAuthenticated}"
-            VerticalOptions="Center" />
 
-        <ScrollView Grid.Row="1">
-            <CollectionView ItemsSource="{Binding Servers}">
+        <StackLayout Padding="10">
+            <HorizontalStackLayout Padding="5">
+                <Label
+                    FontAttributes="Bold"
+                    Style="{StaticResource SmallLabel}"
+                    Text="Connected to: "
+                    VerticalOptions="Center" />
+                <Label
+                    Style="{StaticResource SmallLabel}"
+                    Text="{Binding LoginContext.ServerName}"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:ServerModel">
-                        <Frame Style="{StaticResource ServerListCard}">
+            <HorizontalStackLayout Padding="5">
+                <Label
+                    FontAttributes="Bold"
+                    Style="{StaticResource SmallLabel}"
+                    Text="Url: "
+                    VerticalOptions="Center" />
+                <Label
+                    Style="{StaticResource SmallLabel}"
+                    Text="{Binding LoginContext.BaseUrl}"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Padding="5">
+                <Label
+                    FontAttributes="Bold"
+                    Style="{StaticResource SmallLabel}"
+                    Text="User: "
+                    VerticalOptions="Center" />
+                <Label
+                    Style="{StaticResource SmallLabel}"
+                    Text="{Binding LoginContext.UserName}"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
 
 
 
-                            <Grid ColumnDefinitions="0.90*,0.10*">
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ServerTappedCommand}" CommandParameter="{Binding .}" />
-                                    <!--<TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  ></TapGestureRecognizer>-->
-                                </Grid.GestureRecognizers>
-                                <VerticalStackLayout Grid.Column="0">
+        </StackLayout>
 
-                                    <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
-                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding Url}" />
-                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding IsDefault}" />
 
-                                </VerticalStackLayout>
+        <!--  BorderColor="{Binding IsDefault, Converter={StaticResource BoolToBorderColorConverter}}"  -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Servers}">
 
-                                <!--<Button
-                                    Grid.Column="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServerListViewModel}}, Path=ConnectCommand}"
-                                    CommandParameter="{Binding .}"
-                                    HeightRequest="40"
-                                    Text="Connect" />-->
-                            </Grid>
 
-                        </Frame>
+            <CollectionView.EmptyView>
+                <Grid>
+                    <Label Text="Empty" />
+                </Grid>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="entity:ServerEntity">
 
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                    <controls:ServerListControl Server="{Binding .}" />
 
-        </ScrollView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
 
 
 
@@ -80,6 +112,7 @@
             BackgroundColor="{StaticResource AccentColor}"
             BorderColor="#2b3c3c"
             BorderWidth="1"
+            Command="{Binding AddNewServerCommand}"
             CornerRadius="60"
             FontAttributes="Bold"
             HeightRequest="70"

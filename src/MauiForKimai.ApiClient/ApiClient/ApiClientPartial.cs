@@ -45,7 +45,7 @@ public partial class ApiClient
         /// <param name="term">Free search term</param>
         /// <param name="modified_after">Only records changed after this date will be included (format: HTML5). Available since Kimai 1.10 and works only for records that were created/updated since then.</param>
         /// <returns>Returns a collection of timesheets records. Be aware that the datetime fields are given in the users local time including the timezone offset via ISO 8601.</returns>
-        /// <exception cref="KiamiApiException">A server side error occurred.</exception>
+        /// <exception cref="KimaiApiException">A server side error occurred.</exception>
         public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>> TimesheetsAllExpandedAsync(string user, string customer, string customers, string project, string projects, string activity, string activities, string page, string size, string tags, string orderBy, string order, string begin, string end, string exported, string active, string billable, string full, string term, string modified_after, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
@@ -167,14 +167,14 @@ public partial class ApiClient
                             var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<TimesheetCollectionExpanded>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
-                                throw new KiamiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                                throw new KimaiApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
                         }
                         else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new KiamiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                            throw new KimaiApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                         }
                     }
                     finally

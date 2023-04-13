@@ -14,19 +14,18 @@ public partial class AuthHandler : DelegatingHandler
 {
     public const string AUTHENTICATED_CLIENT = nameof(AUTHENTICATED_CLIENT);
 
-    private readonly ApiStateProvider _apiStateProvider; 
-    public AuthHandler(ApiStateProvider apiStateProvider)
+    private readonly ApiLoginContext _loginContext; 
+    public AuthHandler(ApiLoginContext apiStateProvider)
     {
-        _apiStateProvider = apiStateProvider;
-
+        _loginContext = apiStateProvider;
     }
 
     //ovveride send async to add authorization
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
  
-        request.Headers.Add("X-AUTH-USER", _apiStateProvider.UserName);
-        request.Headers.Add("X-AUTH-TOKEN", _apiStateProvider.ApiPassword);
+        request.Headers.Add("X-AUTH-USER", _loginContext.UserName);
+        request.Headers.Add("X-AUTH-TOKEN", _loginContext.ApiPassword);
        
         return await base.SendAsync(request, cancellationToken);
     }

@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
     
-		<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
-    <!--<TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>-->
+		<!--<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>-->
+    <TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
@@ -38,10 +38,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg"  Color="#2069e0" BaseSize="128,128" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg"  Color="#2069e0" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -56,13 +56,17 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\materialdesignicons-webfont.ttf" />
+	  <None Remove="Resources\Raw\active_animation.json" />
 	</ItemGroup>
 
 	<ItemGroup>
     <PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
+    <PackageReference Include="InputKit.Maui" Version="4.2.8" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-beta.701" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Scrutor" Version="4.2.1" />
+		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.61" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />
     <PackageReference Include="TinyMvvm.Maui" Version="4.1.0" />
@@ -74,13 +78,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Controls\TimesheetListItemControl.xaml">
+	  <MauiXaml Update="Controls\FavouriteListControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\ServerListControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\TimesheetListControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\DurationPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\ServerDefaultPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Shells\AppShellDesktop.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Customer\CustomerChooseView.xaml">
+	  <MauiXaml Update="Views\ChooseItemView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\HomeView.xaml">
@@ -92,19 +108,16 @@
 	  <MauiXaml Update="Views\Servers\ServersListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Activity\ActivityChooseView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Projects\ProjectChooseView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\Reports\ReportsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Templates\TemplateListView.xaml">
+	  <MauiXaml Update="Views\Timesheets\TimesheetDetailView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Timesheets\TimesheetCreateView.xaml">
+	  <MauiXaml Update="Views\Favourites\FavouritesDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Favourites\FavouritesListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Timesheets\TimesheetListView.xaml">
@@ -113,8 +126,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Controls\TimesheetListItemControl.xaml.cs">
-	    <DependentUpon>TimesheetListItemControl.xaml</DependentUpon>
+	  <Compile Update="Controls\FavouriteListControl.xaml.cs">
+	    <DependentUpon>FavouriteListControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Controls\TimesheetListControl.xaml.cs">
+	    <DependentUpon>TimesheetListControl.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Shells\AppShellMobile.xaml.cs">
 	    <DependentUpon>AppShellMobile.xaml</DependentUpon>
@@ -131,8 +147,14 @@
 	  <Compile Update="Views\Servers\ServersListView.xaml.cs">
 	    <DependentUpon>ServersListView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Templates\TemplateListView.xaml.cs">
-	    <DependentUpon>TemplateListView.xaml</DependentUpon>
+	  <Compile Update="Views\Favourites\FavouritesListView.xaml.cs">
+	    <DependentUpon>FavouritesListView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Favourites\FavouritesDetailView.xaml.cs">
+	    <DependentUpon>FavouritesDetailView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Timesheets\TimesheetDetailView.xaml.cs">
+	    <DependentUpon>TimesheetDetailView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Timesheets\TimesheetListView.xaml.cs">
 	    <DependentUpon>TimesheetListView.xaml</DependentUpon>

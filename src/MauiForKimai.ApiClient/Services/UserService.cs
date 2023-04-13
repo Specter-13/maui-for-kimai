@@ -13,7 +13,7 @@ namespace MauiForKimai.ApiClient.Services;
 public class UserService : BaseService, IUserService
 {
 
-	public UserService(IHttpClientFactory httpClientFactory, ApiStateProvider asp) : base(httpClientFactory,asp)
+	public UserService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) : base(httpClientFactory,asp)
 	{
 
 	}
@@ -21,18 +21,18 @@ public class UserService : BaseService, IUserService
 
 	public Task<UserEntity> GetMe()
 	{ 
-		return ApiClient.MeAsync();
+		return ApiClient?.MeAsync();
 	}
 
 
 	public Task<ICollection<UserCollection>> GetAllUsersAsync()
 	{ 
-		return ApiClient.UsersAllAsync(null,null,null,null);
+		return ApiClient?.UsersAllAsync(null,null,null,null);
 	}
 
 	public Task<UserEntity> GetUserByIdAsync(int id)
 	{ 
-		return ApiClient.UsersGETAsync(id);
+		return ApiClient?.UsersGETAsync(id);
 	}
 
 	
