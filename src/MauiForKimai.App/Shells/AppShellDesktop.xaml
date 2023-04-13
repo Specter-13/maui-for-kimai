@@ -10,35 +10,6 @@
 
 
 
-    <!--<Shell.ToolbarItems>
-        <ToolbarItem Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSettingsCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource FontFamily="{x:Static fonts:Fonts.FontAwesome}"
-                                 Glyph="{x:Static fonts:FontAwesomeIcons.Cog}"
-                                 Size="10"
-                                 Color="{DynamicResource NavigationBarTextColor}" />
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
-    </Shell.ToolbarItems>-->
-
-
-    <!--<TabBar>
-        <ShellContent
-            Title="Home"
-            ContentTemplate="{DataTemplate local:HomeView}"
-            Icon="home.png"
-            Route="home" />
-        <ShellContent
-            Title="Timesheets"
-            ContentTemplate="{DataTemplate local:TimeSheetView}"
-            Route="timesheet" />
-        <ShellContent
-            Title="Login"
-            ContentTemplate="{DataTemplate local:LoginView}"
-            Icon="login.png"
-            Route="login" />
-    </TabBar>-->
-
     <Shell.FlyoutHeaderTemplate>
         <DataTemplate>
             <Grid HeightRequest="150">
