@@ -12,10 +12,16 @@ namespace MauiForKimai.ApiClient;
 
 public partial class ApiLoginContext : ObservableObject
 {
-    public string UserName {get; private set; } = string.Empty;
-    internal string ApiPassword {get; private set; } = string.Empty;
-    public string BaseUrl {get; private set; } = string.Empty;
 
+    internal string ApiPassword {get; private set; } = string.Empty;
+
+    [ObservableProperty]
+    public string userName = string.Empty;
+    [ObservableProperty]
+    public string baseUrl = string.Empty;
+
+    [ObservableProperty]
+    public string serverFirstLetter = string.Empty;
 
     public int ServerId {get; private set; }
 
@@ -41,8 +47,15 @@ public partial class ApiLoginContext : ObservableObject
         BaseUrl = server.Url;
         ServerId = server.Id;
         ServerName = server.Name;
+        if(!string.IsNullOrEmpty(ServerName))
+            ServerFirstLetter = ServerName.First().ToString().ToUpper();
         TimetrackingPermissions = new PermissionsTimetrackingModel(server.CanEditBillable,server.CanEditExport,server.CanEditRate,server.HasGitlabPlugin);
         OnPropertyChanged(nameof(TimetrackingPermissions));
+        OnPropertyChanged(nameof(UserName));
+        OnPropertyChanged(nameof(BaseUrl));
+        OnPropertyChanged(nameof(ActualUser));
+        OnPropertyChanged(nameof(IsAuthenticated));
+        OnPropertyChanged(nameof(ServerName));
         
     }
 
@@ -67,6 +80,8 @@ public partial class ApiLoginContext : ObservableObject
         ActualUser = null;
         TimetrackingPermissions = null;
         ServerName = null;
+        ServerFirstLetter = string.Empty;
+        OnPropertyChanged(nameof(TimetrackingPermissions));
         OnPropertyChanged(nameof(UserName));
         OnPropertyChanged(nameof(BaseUrl));
         OnPropertyChanged(nameof(ActualUser));

@@ -40,11 +40,15 @@
 
     <!--<RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">-->
 
-    <Grid Padding="10" RowDefinitions="50,*">
+    <Grid
+        Padding="10"
+        ColumnDefinitions="*,40"
+        RowDefinitions="50,*">
 
         <Picker
             x:Name="picker"
             Title="Select report type"
+            Grid.Column="0"
             FontSize="20"
             SelectedIndex="{Binding SelectedReportType}">
             <Picker.ItemsSource>
@@ -55,7 +59,26 @@
                 </x:Array>
             </Picker.ItemsSource>
         </Picker>
-        <ScrollView Grid.Row="1" Padding="5">
+
+        <Button
+            Grid.Column="1"
+            BackgroundColor="Transparent"
+            Command="{Binding RefreshCommand}"
+            HorizontalOptions="End"
+            Style="{StaticResource Key=RecentRestartButton}">
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="MaterialDesignIcons"
+                    Glyph="{x:Static helpers:MaterialDesignIconsFonts.Refresh}"
+                    Size="30" />
+            </Button.ImageSource>
+
+        </Button>
+
+        <ScrollView
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Padding="5">
             <StackLayout>
 
 

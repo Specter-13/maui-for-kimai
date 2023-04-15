@@ -59,26 +59,20 @@
             HorizontalOptions="Fill"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
-            VerticalOptions="Center" />
+            VerticalOptions="Start" />
 
 
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Timesheets}">
+        <CollectionView
+            Grid.Row="1"
+            EmptyView="Empty timesheets"
+            ItemsSource="{Binding Timesheets}">
 
             <CollectionView.Header>
                 <Label Text="" />
             </CollectionView.Header>
 
 
-            <CollectionView.EmptyView>
-                <ContentView>
-                    <Label
-                        Padding="10"
-                        HorizontalTextAlignment="Center"
-                        IsVisible="{Binding IsNotBusy}"
-                        Text="Empty timesheets list" />
-                </ContentView>
 
-            </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:TimesheetModel">

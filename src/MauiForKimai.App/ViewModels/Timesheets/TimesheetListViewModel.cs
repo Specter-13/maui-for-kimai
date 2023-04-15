@@ -20,7 +20,10 @@ public partial class TimesheetListViewModel : ViewModelBase
     public TimesheetListViewModel(IRoutingService rs, ILoginService ls, ITimesheetService ts) : base(rs, ls)
     {
         _timesheetService = ts;
-
+        WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
+        {
+			await Refresh();
+        });
     }
     
     [ObservableProperty]

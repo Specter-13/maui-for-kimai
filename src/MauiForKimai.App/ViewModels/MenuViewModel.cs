@@ -38,6 +38,8 @@ public partial class MenuViewModel : ViewModelBase
         await Navigation.NavigateTo(route);
     }
 
+ 
+
     [RelayCommand]
     async Task LogOutAsync()
     { 

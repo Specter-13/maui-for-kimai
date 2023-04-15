@@ -15,8 +15,10 @@
             <Grid HeightRequest="150">
                 <Image
                     Aspect="AspectFill"
+                    HorizontalOptions="Center"
                     Opacity="0.6"
-                    Source="maui_for_kimai_logo.png" />
+                    Source="maui_for_kimai_logo.png"
+                    VerticalOptions="Center" />
 
             </Grid>
         </DataTemplate>

@@ -21,7 +21,7 @@
 		<ApplicationTitle>MauiForKimai</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.mauiforkimai</ApplicationId>
+		<ApplicationId>com.mauiforkimai</ApplicationId>
 		<ApplicationIdGuid>6eb6aae9-bcc0-4ba4-822b-0a22b68dce6f</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -38,10 +38,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg"  Color="#2069e0" BaseSize="128,128" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg"  BaseSize="80,80" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg"  Color="#2069e0" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#2069e0" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -160,6 +160,19 @@
 	    <DependentUpon>TimesheetListView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
-  
 
+  <PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\School\maui-for-kimai-publish\myapp.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyAlias>key</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass></AndroidSigningKeyPass>
+    <AndroidSigningStorePass></AndroidSigningStorePass>
+  </PropertyGroup>
+
+  <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Compile Remove="**/*.SourceGenerated.cs" />
+    </ItemGroup>
+  </Target>
+  
 </Project>

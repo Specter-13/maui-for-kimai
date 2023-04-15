@@ -8,6 +8,7 @@ namespace MauiForKimai;
 #else                                       // access via http://10.0.2.2
 [Application]                               
 #endif
+//[Application]   
 public class MainApplication : MauiApplication
 {
 	public MainApplication(IntPtr handle, JniHandleOwnership ownership)

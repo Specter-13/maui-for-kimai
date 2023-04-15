@@ -102,6 +102,10 @@ public static class ApiModelsExtensions
             Billable = timesheet.Billable,
 
             GitlabIssueId = gitlabIssueId == 0 ? null : gitlabIssueId,
+
+            ActivityColor = timesheet.Activity.Color,
+            ProjectColor = timesheet.Project.Color,
+            CustomerColor = timesheet.Project.Customer.Color,
           
         };
     }

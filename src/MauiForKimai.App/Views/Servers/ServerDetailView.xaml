@@ -145,21 +145,24 @@
                     <Switch HorizontalOptions="Start" IsToggled="{Binding OverrideTimetrackingPermissions}" />
 
 
-                    <Label Text="can-edit-billable" />
+                    <Label IsVisible="{Binding OverrideTimetrackingPermissions}" Text="can-edit-billable" />
                     <CheckBox
                         HorizontalOptions="Start"
                         IsChecked="{Binding Server.CanEditBillable}"
-                        IsEnabled="{Binding OverrideTimetrackingPermissions}" />
-                    <Label Text="can-edit-export" />
+                        IsEnabled="{Binding OverrideTimetrackingPermissions}"
+                        IsVisible="{Binding OverrideTimetrackingPermissions}" />
+                    <Label IsVisible="{Binding OverrideTimetrackingPermissions}" Text="can-edit-export" />
                     <CheckBox
                         HorizontalOptions="Start"
                         IsChecked="{Binding Server.CanEditExport}"
-                        IsEnabled="{Binding OverrideTimetrackingPermissions}" />
-                    <Label Text="can-edit-rate" />
+                        IsEnabled="{Binding OverrideTimetrackingPermissions}"
+                        IsVisible="{Binding OverrideTimetrackingPermissions}" />
+                    <Label IsVisible="{Binding OverrideTimetrackingPermissions}" Text="can-edit-rate" />
                     <CheckBox
                         HorizontalOptions="Start"
                         IsChecked="{Binding Server.CanEditRate}"
-                        IsEnabled="{Binding OverrideTimetrackingPermissions}" />
+                        IsEnabled="{Binding OverrideTimetrackingPermissions}"
+                        IsVisible="{Binding OverrideTimetrackingPermissions}" />
 
                     <Button
                         Margin="10"
@@ -173,7 +176,7 @@
                         Command="{Binding ConnectandCreateCommand}"
                         IsVisible="{Binding IsCreation}"
                         Text="Create and connect"
-                        WidthRequest="200" />
+                        WidthRequest="170" />
 
                     <Button
                         Margin="10"

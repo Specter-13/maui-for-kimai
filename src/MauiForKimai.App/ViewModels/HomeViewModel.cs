@@ -57,6 +57,12 @@ public partial class HomeViewModel : ViewModelBase
 
         });
 
+		 WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
+        {
+            await Refresh();
+
+        });
+
 		 WeakReferenceMessenger.Default.Register<TimesheetStartExistingMessage>(this, async (r, m) =>
         {
 			//TODO ROLES
@@ -100,7 +106,10 @@ public partial class HomeViewModel : ViewModelBase
 				var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
 				ActiveTimesheet =  activeTimesheet.ToTimesheetActiveModel();
 				SelectedActivity = ActiveTimesheet.ActivityName;
+				await Toast.Make($"Activity {SelectedActivity} started successfully", ToastDuration.Short, 14).Show();
 			}
+
+			
 		}
 		catch (KimaiApiException)
 		{

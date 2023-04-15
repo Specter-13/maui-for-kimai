@@ -22,6 +22,9 @@ public class TimesheetModel
     public string Duration { get; set; }
     public bool IsRecent {get; set; }
 
+    public string ActivityColor { get; set; }
+    public string ProjectColor { get; set; }
+    public string CustomerColor { get; set; }
 
     //needed for new timetracking
     public int ActivityId { get; set; }

@@ -33,6 +33,8 @@ public class RoutingService : IRoutingService
     new("//timesheets/detail/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseDetailAllViewModel)),
 
     new("//reports", typeof(ReportsView), typeof(ReportsViewModel)),
+    new("///reports", typeof(ReportsView), typeof(ReportsViewModel)),
+
 
     new("//serverlistview", typeof(ServerListView), typeof(ServerListViewModel)),
     new("//serverlistview/detail", typeof(ServerDetailView), typeof(ServerDetailViewModel)),

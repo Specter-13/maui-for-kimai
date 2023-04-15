@@ -35,6 +35,13 @@ public partial class FavouritesListViewModel : ViewModelBase
         {
             await Refresh();
         });
+
+        WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
+        {
+            await Refresh();
+
+        });
+
     }
 
     

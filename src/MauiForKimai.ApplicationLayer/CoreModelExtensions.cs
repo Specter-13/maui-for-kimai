@@ -30,6 +30,10 @@ public static class CoreModelExtensions
             Exported = entity.Exported,
             HourlyRate = entity.HourlyRate,
 
+            ActivityColor = entity.ActivityColor,
+            ProjectColor = entity.ProjectColor,
+            CustomerColor = entity.CustomerColor,
+
             GitlabIssueId = entity.GitlabIssueId
         };
     }
@@ -53,6 +57,10 @@ public static class CoreModelExtensions
             FixedRate = model.FixedRate,
             Exported = model.Exported,
             HourlyRate = model.HourlyRate,
+
+            ActivityColor = model.ActivityColor,
+            ProjectColor = model.ProjectColor,
+            CustomerColor = model.CustomerColor,
 
             GitlabIssueId = model.GitlabIssueId
         };

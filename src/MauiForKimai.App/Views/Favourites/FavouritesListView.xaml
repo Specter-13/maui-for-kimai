@@ -39,18 +39,20 @@
 
     <Grid Padding="10">
 
-        <CollectionView ItemsSource="{Binding Favourites}">
+        <CollectionView EmptyView="Empty favourites" ItemsSource="{Binding Favourites}">
 
 
-            <CollectionView.EmptyView>
+            <!--<CollectionView.EmptyView>
                 <ContentView>
-                    <Label
-                        Padding="10"
-                        HorizontalTextAlignment="Center"
-                        Text="Favourites are empty, create new favourite timesheet or add it from existing timesheet" />
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label
+                            Padding="10"
+                            HorizontalTextAlignment="Center"
+                            Text="Favourites are empty, create new favourite timesheet or add it from existing timesheet" />
+                    </StackLayout>
                 </ContentView>
 
-            </CollectionView.EmptyView>
+            </CollectionView.EmptyView>-->
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:TimesheetModel">
 

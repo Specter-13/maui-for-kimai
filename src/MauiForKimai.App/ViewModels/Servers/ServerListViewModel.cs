@@ -34,7 +34,7 @@ public partial class ServerListViewModel : ViewModelBase
        _favouritesTimesheetService = fts;
         _secureStorageService = sc;
         
-        WeakReferenceMessenger.Default.Register<ServerAcquireMessage>(this, async (r, m) =>
+        WeakReferenceMessenger.Default.Register<ServerRefreshMessage>(this, async (r, m) =>
         {
 			await GetServersFromDb();
         });
@@ -131,6 +131,7 @@ public partial class ServerListViewModel : ViewModelBase
                 OnPropertyChanged(nameof(LoginContext));
 		    }
             IsBusy = false;
+            WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
         }
         else
         { 

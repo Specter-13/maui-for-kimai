@@ -276,13 +276,21 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         Timesheet.ProjectName = ChosenProject.Name;
         Timesheet.ActivityName = ChosenActivity.Name;
 
-        await _timesheetService.Update(_id,Timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions, LoginContext.TimeOffset));
-        //TODO = roles
-        await Navigation.NavigateTo("..");
-    }
+        var result = _createValidator.Validate(Timesheet);
+        if(result.IsValid)
+        { 
+            await _timesheetService.Update(_id,Timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions, LoginContext.TimeOffset));
+            //TODO = roles
+            await Navigation.NavigateTo("..");
+        }
+        else
+        {
+           ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+        }
+     }
 
 
-     [RelayCommand]
+        [RelayCommand]
     async Task Delete()
     {
         await _timesheetService.Delete(_id);
@@ -293,6 +301,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task Create()
     {
+
         Timesheet.Begin = TimeWrapper.BeginFull;
         Timesheet.End = TimeWrapper.EndFull;
         Timesheet.ProjectId = ChosenProject.Id;
@@ -300,9 +309,17 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         Timesheet.ProjectName = ChosenProject.Name;
         Timesheet.ActivityName = ChosenActivity.Name;
 
-        await _timesheetService.Create(Timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions, LoginContext.TimeOffset));
-        //TODO = roles
-        await Navigation.NavigateTo("..");
+        var result = _createValidator.Validate(Timesheet);
+
+        if(result.IsValid)
+        { 
+            await _timesheetService.Create(Timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions, LoginContext.TimeOffset));
+            await Navigation.NavigateTo("..");
+        }
+        else
+        {
+            ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+        }
     }
     //TODO - createa own validation object
   

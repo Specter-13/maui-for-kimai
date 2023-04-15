@@ -17,4 +17,10 @@
     <ProjectReference Include="..\MauiForKimai.ApplicationLayer\MauiForKimai.Core.csproj" />
   </ItemGroup>
 
+  <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Compile Remove="**/*.SourceGenerated.cs" />
+    </ItemGroup>
+  </Target>
+  
 </Project>

@@ -30,12 +30,22 @@ public partial class ReportsViewModel : ViewModelBase
     public ReportsViewModel(IRoutingService rs, ILoginService ls, ITimesheetService ts) : base(rs,ls)
     {
         _timesheetService = ts;
-
+        RegisterMessages();
 
     
 
     }
 
+    private void RegisterMessages()
+	{ 
+
+        WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
+        {
+            await Refresh();
+
+        });
+
+    }
     [ObservableProperty]
   
     string todayDate;

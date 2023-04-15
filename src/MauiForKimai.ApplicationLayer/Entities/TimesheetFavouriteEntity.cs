@@ -23,5 +23,9 @@ public class TimesheetFavouriteEntity
     public float? FixedRate { get; set; }
     public float? HourlyRate { get; set; }
 
-     public int? GitlabIssueId { get; set; }
+    public int? GitlabIssueId { get; set; }
+
+    public string ActivityColor { get; set; }
+    public string ProjectColor { get; set; }
+    public string CustomerColor { get; set; }
 }

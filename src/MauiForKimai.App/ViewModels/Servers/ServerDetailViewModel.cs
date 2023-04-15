@@ -93,6 +93,7 @@ public partial class ServerDetailViewModel : ViewModelBase
                 var toast = Toast.Make("Api key was not found in secure storage! Delete server and try to create it again.", ToastDuration.Short, 14);
                 await toast.Show();
             }
+            HasConnectionButton = true;
         }
 
         if (NavigationParameter is bool creation)
@@ -104,15 +105,10 @@ public partial class ServerDetailViewModel : ViewModelBase
 
         }
 
-        HasConnectionButton = IsCreation && !IsLoggedToThisServer;
+       
         IsBusy = false;
     }
 
-    private bool Validate()
-    {
-        return !string.IsNullOrEmpty(Server.Name) && !string.IsNullOrEmpty(Server.Url) &&
-            !string.IsNullOrEmpty(Server.Username) && !string.IsNullOrEmpty(Server.ApiPasswordKey);
-    }
 
     [ObservableProperty]
     public bool overrideTimetrackingPermissions;
@@ -133,6 +129,7 @@ public partial class ServerDetailViewModel : ViewModelBase
            {
                 await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
                 IsLoggedToThisServer = false;
+                 IsConnecting = false;
                 return;
            }
 
@@ -143,7 +140,7 @@ public partial class ServerDetailViewModel : ViewModelBase
             if(!OverrideTimetrackingPermissions)
                 SetPermissionsByRoles(base.LoginContext.ActualUser.Roles);
    
-
+            
             //server.PermissionsTimetracking.CanSetBillable
 
             //create server
@@ -158,7 +155,8 @@ public partial class ServerDetailViewModel : ViewModelBase
             IsLoggedToThisServer = true;
             await ReinitializeDatabases();
 
-            WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
+            WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
+            WeakReferenceMessenger.Default.Send(new ServerRefreshMessage(string.Empty));
             await Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14).Show();
             OnPropertyChanged(nameof(LoginContext));
             IsConnecting = false;
@@ -210,7 +208,7 @@ public partial class ServerDetailViewModel : ViewModelBase
             }
 
             await ConnectToServer();
-
+            WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
             IsConnecting = false;
         }
         else
@@ -248,6 +246,7 @@ public partial class ServerDetailViewModel : ViewModelBase
         IsLoggedToThisServer = false;
         await Toast.Make("Disconected successfully!", ToastDuration.Short, 14).Show();
         HasConnectionButton = IsCreation && IsLoggedToThisServer;
+        WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
     }
 
 
@@ -285,7 +284,7 @@ public partial class ServerDetailViewModel : ViewModelBase
             await _serverService.Update(Server);
 
             await Toast.Make("Connection and save successfull!", ToastDuration.Short, 14).Show();
-            WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
+            WeakReferenceMessenger.Default.Send(new ServerRefreshMessage(string.Empty));
             IsBusy = false;
         }
         else
@@ -304,6 +303,7 @@ public partial class ServerDetailViewModel : ViewModelBase
         if(isLogged)
         { 
 		    await loginService.Logout();
+            WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
         }
         //remove secure key if exists
         var key = $"{Server.Id}_{Server.Username}";
@@ -314,7 +314,8 @@ public partial class ServerDetailViewModel : ViewModelBase
 
         //notify and navigate back
         IsLoggedToThisServer = false;
-        WeakReferenceMessenger.Default.Send(new ServerAcquireMessage(string.Empty));
+        
+        WeakReferenceMessenger.Default.Send(new ServerRefreshMessage(string.Empty));
         await Navigation.NavigateTo("..");
 
     }

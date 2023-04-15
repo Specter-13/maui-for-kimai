@@ -3,6 +3,7 @@
     x:Class="MauiForKimai.Controls.TimesheetListControl"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cnv="clr-namespace:MauiForKimai.Converters"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
@@ -12,6 +13,7 @@
 
     <ContentView.Resources>
         <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <cnv:StringToColorConverter x:Key="StringToColorConverter" />
     </ContentView.Resources>
 
 
@@ -57,16 +59,25 @@
                 Text="{Binding ActivityName}"
                 VerticalOptions="Start" />
 
+            <Ellipse
+                Grid.Row="0"
+                Grid.Column="2"
+                Fill="{Binding ActivityColor, Converter={StaticResource StringToColorConverter}}"
+                HeightRequest="9"
+                HorizontalOptions="End"
+                Style="{StaticResource ColorIndicator}"
+                VerticalOptions="Start"
+                WidthRequest="9" />
 
             <Button
-                Grid.RowSpan="2"
+                Grid.Row="1"
                 Grid.Column="2"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}, Path=StartRecentTimesheetCommand}"
                 CommandParameter="{Binding .}"
                 HorizontalOptions="End"
                 IsVisible="{Binding IsRecent}"
                 Style="{StaticResource Key=RecentRestartButton}"
-                VerticalOptions="Start">
+                VerticalOptions="Center">
 
 
                 <Button.ImageSource>
@@ -78,7 +89,7 @@
             </Button>
 
             <Button
-                Grid.RowSpan="2"
+                Grid.Row="1"
                 Grid.Column="2"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TimesheetListViewModel}}, Path=QuickStartCommand}"
                 CommandParameter="{Binding .}"
@@ -99,17 +110,24 @@
 
 
 
-            <Label
-                Grid.Row="2"
-                Grid.Column="0"
-                Style="{StaticResource MicroLabel}"
-                Text="{Binding ProjectName}" />
-            <Label
-                Grid.Row="3"
-                Grid.Column="0"
-                Style="{StaticResource MicroLabel}"
-                Text="{Binding CustomerName}" />
+            <HorizontalStackLayout Grid.Row="2" Grid.Column="0">
+                <Ellipse Fill="{Binding ProjectColor, Converter={StaticResource StringToColorConverter}}" Style="{StaticResource ColorIndicator}" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource MicroLabel}"
+                    Text="{Binding ProjectName}" />
+            </HorizontalStackLayout>
 
+
+            <HorizontalStackLayout Grid.Row="3" Grid.Column="0">
+                <Ellipse Fill="{Binding CustomerColor, Converter={StaticResource StringToColorConverter}}" Style="{StaticResource ColorIndicator}" />
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Style="{StaticResource MicroLabel}"
+                    Text="{Binding CustomerName}" />
+            </HorizontalStackLayout>
             <Label
                 Grid.RowSpan="4"
                 Grid.Column="1"

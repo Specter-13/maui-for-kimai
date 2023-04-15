@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.Messenger;
-public class ServerAcquireMessage : ValueChangedMessage<string>
+public class RefreshMessage : ValueChangedMessage<string>
 {
-    public ServerAcquireMessage(string value) : base(value)
+    public RefreshMessage(string value) : base(value)
     {
     }
 }

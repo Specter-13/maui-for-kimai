@@ -3,11 +3,17 @@
     x:Class="MauiForKimai.Controls.FavouriteListControl"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cnv="clr-namespace:MauiForKimai.Converters"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     x:Name="TimesheetItemControl"
     x:DataType="model:TimesheetModel">
+
+
+    <ContentView.Resources>
+        <cnv:StringToColorConverter x:Key="StringToColorConverter" />
+    </ContentView.Resources>
 
     <Frame Style="{StaticResource TimesheetListCard}">
 
@@ -41,18 +47,36 @@
                     VerticalOptions="Center" />
                 <Label Style="{StaticResource MediumLabel}" Text="{Binding ActivityName}" />
             </HorizontalStackLayout>
-            <Label
-                Grid.Row="1"
-                Grid.Column="0"
-                Style="{StaticResource SmallLabel}"
-                Text="{Binding ProjectName}" />
-            <Label
-                Grid.Row="2"
-                Grid.Column="0"
-                Style="{StaticResource SmallLabel}"
-                Text="{Binding CustomerName}" />
+
+            <HorizontalStackLayout Grid.Row="1" Grid.Column="0">
+                <Ellipse Fill="{Binding ProjectColor, Converter={StaticResource StringToColorConverter}}" Style="{StaticResource ColorIndicator}" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource MicroLabel}"
+                    Text="{Binding ProjectName}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Grid.Row="2" Grid.Column="0">
+                <Ellipse Fill="{Binding CustomerColor, Converter={StaticResource StringToColorConverter}}" Style="{StaticResource ColorIndicator}" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource MicroLabel}"
+                    Text="{Binding CustomerName}" />
+            </HorizontalStackLayout>
 
 
+
+            <Ellipse
+                Grid.Row="0"
+                Grid.Column="3"
+                Fill="{Binding ActivityColor, Converter={StaticResource StringToColorConverter}}"
+                HeightRequest="9"
+                HorizontalOptions="End"
+                Style="{StaticResource ColorIndicator}"
+                VerticalOptions="Start"
+                WidthRequest="9" />
 
             <Button
                 Grid.RowSpan="3"

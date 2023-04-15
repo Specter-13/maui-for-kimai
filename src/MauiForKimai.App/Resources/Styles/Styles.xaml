@@ -3,14 +3,21 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
 
-    <!--  Pages  -->
-    <Style x:Key="MyShell" TargetType="Element">
-        <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
-        <Setter Property="Shell.ForegroundColor" Value="{StaticResource AccentColor}" />
-        <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource AccentTextColorDark}, Dark={StaticResource AccentTextColorLight}}" />
-        <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
-        <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-    </Style>
+    <!--Pages
+    <Style
+        x:Key="MyShell"
+        ApplyToDerivedTypes="True"
+        TargetType="Shell">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+        <Setter Property="ForegroundColor" Value="{OnPlatform WinUI={StaticResource AccentColor}, Default=White}" />
+        <Setter Property="TitleColor" Value="White" />
+        <Setter Property="DisabledColor" Value="#B4FFFFFF" />
+        <Setter Property="UnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
+        <Setter Property="TabBarBackgroundColor" Value="{AppThemeBinding Dark={StaticResource CardBackgroundDark}, Light={StaticResource CardBackgroundLight}}" />
+        <Setter Property="TabBarForegroundColor" Value="{AppThemeBinding Dark={StaticResource BackgroundLight}, Light={StaticResource BackgroundDark}}" />
+        <Setter Property="TabBarUnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
+        <Setter Property="TabBarTitleColor" Value="{AppThemeBinding Dark={StaticResource BackgroundLight}, Light={StaticResource BackgroundDark}}" />
+    </Style>-->
 
     <!--  Pages  -->
     <Style ApplyToDerivedTypes="True" TargetType="Page">
@@ -42,6 +49,13 @@
             </VisualStateGroupList>
         </Setter>
     </Style>-->
+
+    <Style x:Key="ColorIndicator" TargetType="Ellipse">
+        <Setter Property="Margin" Value="0,0,5,0" />
+        <Setter Property="HeightRequest" Value="7" />
+        <Setter Property="WidthRequest" Value="7" />
+        <Setter Property="Stroke" Value="black" />
+    </Style>
 
     <!--  Buttons  -->
     <Style TargetType="Button">
@@ -112,7 +126,9 @@
     <Style
         x:Key="Widget"
         BasedOn="{StaticResource BaseCard}"
-        TargetType="Frame" />
+        TargetType="Frame">
+        <Setter Property="BorderColor" Value="{StaticResource AccentColor}" />
+    </Style>
 
     <Style
         x:Key="ChooseItemCard"
@@ -152,8 +168,9 @@
 
     <Style x:Key="TimeTrackingCard" TargetType="Border">
         <Setter Property="Padding" Value="5" />
+        <!--<Setter Property="Background" Value="{StaticResource AccentColor}" />-->
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
-        <Setter Property="StrokeShape" Value="RoundRectangle 5,5,0,0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 15,15,0,0" />
     </Style>
 
     <Style x:Key="TimeTrackingFavouriteCard" TargetType="Frame">
