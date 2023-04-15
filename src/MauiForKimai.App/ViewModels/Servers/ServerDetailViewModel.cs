@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MauiForKimai.Core;
 using MauiForKimai.Core.Validators;
+using MauiForKimai.ApiClient;
 
 namespace MauiForKimai.ViewModels;
 public partial class ServerDetailViewModel : ViewModelBase
@@ -113,6 +114,9 @@ public partial class ServerDetailViewModel : ViewModelBase
     [ObservableProperty]
     public bool overrideTimetrackingPermissions;
 
+    [ObservableProperty]
+    public string serverNameErrors;
+
     [RelayCommand]
     async Task ConnectandCreate() 
     {
@@ -160,12 +164,14 @@ public partial class ServerDetailViewModel : ViewModelBase
             await Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14).Show();
             OnPropertyChanged(nameof(LoginContext));
             IsConnecting = false;
+            HasConnectionButton = IsCreation && !IsLoggedToThisServer;
         }
         else
         { 
             ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+       
         }
-        HasConnectionButton = IsCreation && !IsLoggedToThisServer;
+        
     }
 
     private void SetPermissionsByRoles(ICollection<string> roles)
@@ -204,6 +210,7 @@ public partial class ServerDetailViewModel : ViewModelBase
             {
                 var toast = Toast.Make($"Already connected to {Server.Name}!", ToastDuration.Short, 14);
                 await toast.Show();
+                IsConnecting = false;
                 return;
             }
 
@@ -260,6 +267,7 @@ public partial class ServerDetailViewModel : ViewModelBase
 
             await UnsetDefaultServerIfChanged();
         
+            
             //if i'm logged to this server, logout and try to login again with new credentialss
             if(IsLoggedToThisServer)
             {
@@ -267,6 +275,8 @@ public partial class ServerDetailViewModel : ViewModelBase
                 var isSuccess = await loginService.Login(Server);
                 if(!isSuccess)
                 { 
+                    IsConnecting = false;
+                    IsBusy = false;
                     await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
                     return;
                 }

@@ -12,7 +12,6 @@ public class TimesheetActiveModel
     public int Id { get; set; }
     public int ActivityId { get; set; }
     public string ActivityName { get; set; }
-
     public int ProjectId { get; set; }
     public string ProjectName { get; set; }
 

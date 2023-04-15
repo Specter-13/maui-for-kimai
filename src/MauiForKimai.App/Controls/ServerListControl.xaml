@@ -45,7 +45,9 @@
                     <FontImageSource
                         FontFamily="MaterialDesignIcons"
                         Glyph="{x:Static helpers:MaterialDesignIconsFonts.Login}"
-                        Size="30" />
+                        Size="30"
+                        Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                Dark={StaticResource AccentTextColorLight}}" />
                 </Button.ImageSource>
             </Button>
         </Grid>

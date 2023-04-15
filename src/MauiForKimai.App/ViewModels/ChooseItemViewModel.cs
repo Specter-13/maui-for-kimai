@@ -69,7 +69,7 @@ public partial class ChooseItemViewModel : ViewModelBase
             }
             else
             { 
-                await Toast.Make("cannot acquire data1", ToastDuration.Short, 14).Show();
+                await Toast.Make("Cannot acquire data! Check you internet connection.", ToastDuration.Short, 14).Show();
             }
         }
 

@@ -10,6 +10,7 @@ using MauiForKimai.Wrappers;
 using MauiForKimai.ApiClient;
 using MauiForKimai.Core;
 using MauiForKimai.ApiClient.Extensions;
+using MauiForKimai.Popups;
 
 namespace MauiForKimai.ViewModels;
 
@@ -45,6 +46,19 @@ public partial class HomeViewModel : ViewModelBase
 		Statistics = new StatisticsWrapper();
 
 		RegisterMessages();
+		
+	}
+
+
+	private async Task FirstStartUp()
+	{ 
+		bool hasKey = Preferences.Default.ContainsKey("maui_for_kimai_first");
+		if(!hasKey)
+		{
+			Preferences.Default.Set("maui_for_kimai_first", true);
+			var popup = new FirstStartPopup();
+			await Page.ShowPopupAsync(popup);
+		}
 		
 	}
 	// Initialize methods
@@ -121,6 +135,7 @@ public partial class HomeViewModel : ViewModelBase
 
 	public override async Task Initialize()
 	{
+		await FirstStartUp();
 		IsBusy = true;
 		await LoginToDefault();
 		IsBusy = false;
@@ -169,20 +184,26 @@ public partial class HomeViewModel : ViewModelBase
 	async Task StopTimeTracking()
 	{	
 		
-
-		try
-		{
-			await timesheetService.StopActive(ActiveTimesheet.Id);
-			IsTimetrackingActive = false;
-			SelectedActivity = null;
-			MyTimer.TimerStop();
-			await RefreshTimesheets();
+		if(HasInternetAndIsLogged())
+		{ 
+			try
+			{
+				await timesheetService.StopActive(ActiveTimesheet.Id);
+				IsTimetrackingActive = false;
+				SelectedActivity = null;
+				MyTimer.TimerStop();
+				await RefreshTimesheets();
 			
-			await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
+				await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
+			}
+			catch (KimaiApiException)
+			{
+				await Toast.Make("There was a problem to stop a timesheet! It may be already stopped or time offset is wrong!", ToastDuration.Long, 14).Show();
+			}
 		}
-		catch (KimaiApiException e)
+		else
 		{
-			await Toast.Make("There was a problem to stop a timesheet! It may be already stopped or time offset is wrong!", ToastDuration.Long, 14).Show();
+			await Toast.Make("Error stopping timesheet. Check your internet connection.", ToastDuration.Long, 14).Show();
 		}
 		
 	

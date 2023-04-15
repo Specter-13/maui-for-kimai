@@ -91,7 +91,7 @@ public partial class ReportsViewModel : ViewModelBase
         }
         else
         {
-           await Toast.Make("Cannot acquire report data", ToastDuration.Short, 14).Show();
+           await Toast.Make("Cannot acquire reports data", ToastDuration.Short, 14).Show();
         }
     }
 
@@ -237,8 +237,13 @@ public partial class ReportsViewModel : ViewModelBase
         var columnSeries = new ColumnSeries<int>
         {
             Name = reportsType.ToString(),
-            Fill = new SolidColorPaint(SKColors.CornflowerBlue),
+            Fill = new LiveChartsCore.SkiaSharpView.Painting.LinearGradientPaint(
+                new [] { new SKColor(255, 140, 148), new SKColor(32, 105, 224) },
+                new SKPoint(0.5f, 0),
+                new SKPoint(0.5f, 1)),
+                
             MaxBarWidth = 100,
+
             TooltipLabelFormatter =
                 (chartPoint) => $"Duration: {ConvertDurationToFormattedString((int)chartPoint.PrimaryValue)}",
         };

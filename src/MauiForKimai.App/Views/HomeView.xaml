@@ -13,7 +13,7 @@
     x:DataType="viewmodel:HomeViewModel">
 
     <ContentPage.Behaviors>
-        <mct:StatusBarBehavior StatusBarColor="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}" StatusBarStyle="LightContent" />
+        <mct:StatusBarBehavior StatusBarColor="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}" StatusBarStyle="{AppThemeBinding Light=DarkContent, Dark=LightContent}" />
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
@@ -22,7 +22,7 @@
 
     <Shell.TitleView>
         <Grid
-            Margin="0,0,10,0"
+            Margin="0,0,15,0"
             ColumnDefinitions="200,*"
             HeightRequest="40"
             VerticalOptions="End">
@@ -33,6 +33,13 @@
                 Text="Home"
                 VerticalOptions="Center" />
 
+            <Image
+                Grid.ColumnSpan="2"
+                HeightRequest="30"
+                HorizontalOptions="Center"
+                Source="logo.png"
+                VerticalOptions="Center"
+                WidthRequest="30" />
 
             <HorizontalStackLayout
                 Grid.Column="1"
@@ -61,7 +68,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
             <RowDefinition Height="8*" />
-            <RowDefinition Height="20" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -82,45 +88,55 @@
         <!--  Widget  -->
         <Frame
             Grid.Row="0"
-            Margin="16"
+            Margin="18"
             Padding="10"
             HeightRequest="100"
-            Style="{StaticResource Widget}">
+            Style="{StaticResource Widget}"
+            WidthRequest="200">
 
             <Grid
                 ColumnDefinitions="*,*"
                 IsVisible="{Binding IsNotBusy}"
-                RowDefinitions="22,*"
+                RowDefinitions="15,*"
                 VerticalOptions="Center">
 
                 <Label
                     Grid.Row="0"
-                    Margin="-30,0,0,0"
+                    Grid.ColumnSpan="2"
                     HorizontalOptions="Center"
-                    Style="{StaticResource SmallLabel}"
+                    Style="{StaticResource MicroLabel}"
                     Text="Today" />
 
 
-                <StackLayout Grid.Row="1" HorizontalOptions="Center">
+                <StackLayout
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Center">
+
                     <HorizontalStackLayout Margin="0,0,0,5">
 
                         <Label
                             FontAttributes="Bold"
-                            Style="{StaticResource MediumLabel}"
+                            Style="{StaticResource LargeLabel}"
                             Text="{Binding Statistics.TodayTracked}" />
                     </HorizontalStackLayout>
 
-                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Statistics.NumberOfActivites}" />
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SmallLabel}"
+                        Text="{Binding Statistics.NumberOfActivites}" />
 
-                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Statistics.NumberOfProjects}" />
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource SmallLabel}"
+                        Text="{Binding Statistics.NumberOfProjects}" />
                 </StackLayout>
 
-                <Label
+                <!--<Label
                     Grid.Row="0"
                     Grid.Column="1"
-                    Margin="-30,0,0,0"
                     HorizontalOptions="Center"
-                    Style="{StaticResource SmallLabel}"
+                    Style="{StaticResource MicroLabel}"
                     Text="Longest" />
                 <StackLayout
                     Grid.Row="1"
@@ -130,12 +146,12 @@
 
                         <Label
                             FontAttributes="Bold"
-                            Style="{StaticResource MediumLabel}"
+                            Style="{StaticResource LargeLabel}"
                             Text="{Binding Statistics.LongestActivityDuration}" />
                     </HorizontalStackLayout>
                     <Label Style="{StaticResource SmallLabel}" Text="{Binding Statistics.LongestActivityName}" />
                     <Label Style="{StaticResource SmallLabel}" Text="{Binding Statistics.LongestActivityProjectName}" />
-                </StackLayout>
+                </StackLayout>-->
 
 
             </Grid>
@@ -172,7 +188,9 @@
                                         <FontImageSource
                                             FontFamily="MaterialDesignIcons"
                                             Glyph="{x:Static helpers:MaterialDesignIconsFonts.Plus}"
-                                            Size="30" />
+                                            Size="30"
+                                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                                    Dark={StaticResource AccentTextColorLight}}" />
                                     </Button.ImageSource>
 
                                 </Button>
@@ -186,7 +204,9 @@
                                         <FontImageSource
                                             FontFamily="MaterialDesignIcons"
                                             Glyph="{x:Static helpers:MaterialDesignIconsFonts.Refresh}"
-                                            Size="30" />
+                                            Size="30"
+                                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                                    Dark={StaticResource AccentTextColorLight}}" />
                                     </Button.ImageSource>
 
                                 </Button>
@@ -215,25 +235,13 @@
             </CollectionView>
         </RefreshView>
 
-        <!--  Tracking  -->
-        <!--<BoxView
-            Grid.Row="2"
-            Margin="0,-10,0,0"
-            CornerRadius="15,15,0,0"
-            HeightRequest="2"
-            HorizontalOptions="Fill"
-            VerticalOptions="Start"
-            Color="{StaticResource CardBackgroundDark}" />-->
+
 
         <Border
-            Grid.Row="2"
-            Margin="0"
-            Padding="0"
-            BackgroundColor="{StaticResource BackgroundDark}"
-            HeightRequest="17"
-            HorizontalOptions="Fill"
+            Grid.Row="1"
             IsVisible="{Binding IsRefreshing}"
-            StrokeShape="RoundRectangle 100,100,0,0">
+            Style="{StaticResource InfoBar}"
+            VerticalOptions="End">
 
             <Label
                 HorizontalTextAlignment="Center"
@@ -246,15 +254,10 @@
         </Border>
         <Border
             x:Name="SwipeMenu"
-            Grid.Row="3"
+            Grid.Row="2"
             Margin="0"
             HeightRequest="70"
             Style="{StaticResource TimeTrackingCard}">
-            <!--<Frame.GestureRecognizers>
-                    <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
-                </Frame.GestureRecognizers>-->
-
-
 
 
             <Grid>
@@ -272,16 +275,6 @@
                     </Grid.ColumnDefinitions>
 
 
-
-
-
-                    <!--<Label
-                        Grid.RowSpan="2"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        Style="{StaticResource MediumLabel}"
-                        Text="No activity"
-                        VerticalOptions="Center" />-->
 
 
 
@@ -322,11 +315,11 @@
                     <skia:SKLottieView
                         Grid.RowSpan="2"
                         Grid.Column="0"
-                        HeightRequest="35"
+                        HeightRequest="45"
                         IsVisible="{Binding IsTimetrackingActive}"
                         RepeatCount="-1"
                         Source="active_animation.json"
-                        WidthRequest="70" />
+                        WidthRequest="45" />
 
                     <Label
                         Grid.RowSpan="1"
@@ -338,14 +331,23 @@
                         TextColor="{StaticResource AccentColor}"
                         VerticalOptions="Center" />
 
-                    <Label
+
+
+                    <HorizontalStackLayout
                         Grid.Row="1"
                         Grid.Column="1"
                         HorizontalOptions="Center"
-                        HorizontalTextAlignment="Center"
-                        Text="{Binding SelectedActivity}"
-                        VerticalOptions="Start" />
+                        VerticalOptions="Center">
 
+                        <Label
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource SmallLabel}"
+                            Text="{Binding SelectedActivity}"
+                            VerticalOptions="Start" />
+
+
+                    </HorizontalStackLayout>
 
 
 

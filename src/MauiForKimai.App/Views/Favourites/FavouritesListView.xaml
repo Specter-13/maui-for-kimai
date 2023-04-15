@@ -14,13 +14,35 @@
     Shell.NavBarIsVisible="True">
 
     <Shell.TitleView>
-        <Grid>
+        <Grid
+            Margin="0,0,15,0"
+            ColumnDefinitions="200,*"
+            HeightRequest="40"
+            VerticalOptions="End">
             <Label
+                Grid.Column="0"
                 HorizontalOptions="Start"
                 Style="{StaticResource TitleLabel}"
                 Text="Timesheets"
-                TextColor="White"
                 VerticalOptions="Center" />
+
+            <HorizontalStackLayout
+                Grid.Column="1"
+                HorizontalOptions="End"
+                IsVisible="{Binding LoginContext.IsAuthenticated}"
+                VerticalOptions="Center">
+                <Label
+                    Margin="0,0,10,0"
+                    Style="{StaticResource SmallLabel}"
+                    Text="{Binding LoginContext.UserName}"
+                    VerticalTextAlignment="Center" />
+                <mct:AvatarView
+                    BackgroundColor="Transparent"
+                    BorderColor="{StaticResource AccentColor}"
+                    HeightRequest="32"
+                    Text="{Binding LoginContext.ServerFirstLetter}"
+                    WidthRequest="32" />
+            </HorizontalStackLayout>
         </Grid>
     </Shell.TitleView>
 
@@ -42,17 +64,6 @@
         <CollectionView EmptyView="Empty favourites" ItemsSource="{Binding Favourites}">
 
 
-            <!--<CollectionView.EmptyView>
-                <ContentView>
-                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                        <Label
-                            Padding="10"
-                            HorizontalTextAlignment="Center"
-                            Text="Favourites are empty, create new favourite timesheet or add it from existing timesheet" />
-                    </StackLayout>
-                </ContentView>
-
-            </CollectionView.EmptyView>-->
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:TimesheetModel">
 

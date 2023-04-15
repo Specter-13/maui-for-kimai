@@ -18,7 +18,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>MauiForKimai</ApplicationTitle>
+		<ApplicationTitle>Maui for Kimai</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.mauiforkimai</ApplicationId>
@@ -38,11 +38,12 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg"  BaseSize="80,80" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#2069e0" BaseSize="80,80" />
+
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#2069e0" />
-
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#2069e0" />
+    
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
@@ -56,7 +57,11 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\materialdesignicons-webfont.ttf" />
+	  <None Remove="Resources\Images\logo.svg" />
+	  <None Remove="Resources\Images\logo_color.svg" />
+	  <None Remove="Resources\Images\logo_desktop.png" />
 	  <None Remove="Resources\Raw\active_animation.json" />
+	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -65,6 +70,7 @@
     <PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-beta.701" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.5.2" />
 		<PackageReference Include="Scrutor" Version="4.2.1" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.61" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
@@ -88,6 +94,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\DurationPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\FirstStartPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\ServerDefaultPopup.xaml">
@@ -132,6 +141,9 @@
 	  <Compile Update="Controls\TimesheetListControl.xaml.cs">
 	    <DependentUpon>TimesheetListControl.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Popups\FirstStartPopup.xaml.cs">
+	    <DependentUpon>FirstStartPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Shells\AppShellMobile.xaml.cs">
 	    <DependentUpon>AppShellMobile.xaml</DependentUpon>
 	  </Compile>
@@ -168,6 +180,14 @@
     <AndroidSigningKeyPass></AndroidSigningKeyPass>
     <AndroidSigningStorePass></AndroidSigningStorePass>
   </PropertyGroup>
+  
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(Configuration)' == 'Release'">
+    <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
+
+	</PropertyGroup>
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(RuntimeIdentifierOverride)' != ''">
+			<RuntimeIdentifier>$(RuntimeIdentifierOverride)</RuntimeIdentifier>
+	</PropertyGroup>
 
   <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
     <ItemGroup>

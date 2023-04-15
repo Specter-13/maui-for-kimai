@@ -16,7 +16,7 @@
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
                 <Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={StaticResource AccentColor}, Default=White}" />
-                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource AccentColor}" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}" />
@@ -31,12 +31,14 @@
         </ResourceDictionary>
     </Shell.Resources>
 
+
     <TabBar>
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate local:HomeView}"
             Icon="home_clock.png"
             Route="home" />
+
 
 
         <Tab Title="Timesheets" Icon="clipboard_text_clock.png">
@@ -50,6 +52,7 @@
             <ShellContent
                 Title="Favourites"
                 ContentTemplate="{DataTemplate local:FavouritesListView}"
+                Icon="playlist_star.png"
                 Route="favourites" />
 
             <ShellContent

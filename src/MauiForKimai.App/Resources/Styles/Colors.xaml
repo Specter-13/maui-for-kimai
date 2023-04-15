@@ -14,8 +14,8 @@
 
     <Color x:Key="Tertiary">#007acc</Color>
 
-
-    <Color x:Key="BackgroundLight">#FFFFFF</Color>
+    <!--<Color x:Key="BackgroundLight">#B0CDE1</Color>-->
+    <Color x:Key="BackgroundLight">#D4EDFC</Color>
     <Color x:Key="BackgroundDark">#1e1e1e</Color>
 
     <Color x:Key="CardBackgroundLight">#F7F7F7</Color>

@@ -84,7 +84,9 @@
                     <FontImageSource
                         FontFamily="MaterialDesignIcons"
                         Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
-                        Size="25" />
+                        Size="25"
+                        Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                Dark={StaticResource AccentTextColorLight}}" />
                 </Button.ImageSource>
             </Button>
 
@@ -103,7 +105,10 @@
                     <FontImageSource
                         FontFamily="MaterialDesignIcons"
                         Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
-                        Size="25" />
+                        Size="25"
+                        Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                Dark={StaticResource AccentTextColorLight}}" />
+
                 </Button.ImageSource>
             </Button>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mct:Popup
-    x:Class="MauiForKimai.Popups.ServerDefaultPopup"
+    x:Class="MauiForKimai.Popups.FirstStartPopup"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -42,15 +42,13 @@
         </VerticalStackLayout.Resources>
 
 
-        <Label Style="{StaticResource LargeLabel}" Text="Default server override" />
+        <Label Style="{StaticResource LargeLabel}" Text="Maui for Kimai" />
         <BoxView Style="{StaticResource Divider}" />
-        <Label Style="{StaticResource Content}" Text="Server was set as default, this will overwrite current default server. Do you want to continue?" />
-        <HorizontalStackLayout Style="{StaticResource ButtonGroup}">
-            <Button Clicked="OnYesButtonClicked" Text="Yes" />
-            <Button
-                Clicked="OnNoButtonClicked"
-                Style="{StaticResource CancelButton}"
-                Text="No" />
+        <Label Style="{StaticResource Content}" Text="Welcome to Maui for Kimai! " />
+        <Label Style="{StaticResource Content}" Text="Add your first Kimai server in Management. " />
+        <HorizontalStackLayout Margin="20" Style="{StaticResource ButtonGroup}">
+            <Button Clicked="OnYesButtonClicked" Text="Ok" />
+
         </HorizontalStackLayout>
 
     </VerticalStackLayout>

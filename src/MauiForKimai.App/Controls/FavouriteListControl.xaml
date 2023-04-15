@@ -44,6 +44,8 @@
                     FontSize="20"
                     HorizontalOptions="Center"
                     Text="{x:Static helpers:MaterialDesignIconsFonts.Star}"
+                    TextColor="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                Dark={StaticResource AccentTextColorLight}}"
                     VerticalOptions="Center" />
                 <Label Style="{StaticResource MediumLabel}" Text="{Binding ActivityName}" />
             </HorizontalStackLayout>
@@ -90,7 +92,9 @@
                     <FontImageSource
                         FontFamily="MaterialDesignIcons"
                         Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
-                        Size="30" />
+                        Size="30"
+                        Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                Dark={StaticResource AccentTextColorLight}}" />
                 </Button.ImageSource>
             </Button>
 

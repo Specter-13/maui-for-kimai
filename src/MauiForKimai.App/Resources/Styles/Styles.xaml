@@ -65,6 +65,7 @@
 
     <Style x:Key="RecentRestartButton" TargetType="Button">
         <Setter Property="BackgroundColor" Value="Transparent" />
+
         <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
         <Setter Property="Padding" Value="3,0,3,0" />
     </Style>
@@ -116,7 +117,6 @@
     <!--  Cards  -->
 
     <Style x:Key="BaseCard" TargetType="Frame">
-        <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
         <Setter Property="CornerRadius" Value="15" />
         <Setter Property="IsClippedToBounds" Value="True" />
@@ -157,7 +157,6 @@
     </Style>
 
     <Style x:Key="ServerListCard" TargetType="Frame">
-        <Setter Property="HasShadow" Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
         <Setter Property="IsClippedToBounds" Value="True" />
@@ -168,8 +167,19 @@
 
     <Style x:Key="TimeTrackingCard" TargetType="Border">
         <Setter Property="Padding" Value="5" />
+
         <!--<Setter Property="Background" Value="{StaticResource AccentColor}" />-->
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 30,30,0,0" />
+    </Style>
+
+
+    <Style x:Key="InfoBar" TargetType="Border">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="HeightRequest" Value="17" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="StrokeShape" Value="RoundRectangle 15,15,0,0" />
     </Style>
 
@@ -178,10 +188,7 @@
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
     </Style>
 
-    <Style x:Key="InfoStatusBar" TargetType="Grid">
-        <Setter Property="Padding" Value="2" />
-        <Setter Property="HeightRequest" Value="55" />
-    </Style>
+
 
 
     <!--  entry  -->
@@ -201,10 +208,7 @@
         TargetType="Label">
         <Setter Property="FontSize" Value="10" />
         <Setter Property="TextColor" Value="Red" />
-        <Setter Property="HorizontalOptions" Value="Start" />
-        <Setter Property="VerticalOptions" Value="Start" />
-        <Setter Property="VerticalTextAlignment" Value="Start" />
-        <Setter Property="HorizontalTextAlignment" Value="Start" />
+
     </Style>
 
     <Style

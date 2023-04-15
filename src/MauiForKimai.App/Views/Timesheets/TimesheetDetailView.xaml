@@ -36,33 +36,34 @@
 
 
     <Shell.TitleView>
-        <Grid>
+        <Grid Margin="0,0,15,0" HeightRequest="40">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label
+                Grid.Column="0"
                 HorizontalOptions="Start"
                 Style="{StaticResource TitleLabel}"
                 Text="{Binding PageLabel}"
-                TextColor="White"
                 VerticalOptions="Center" />
 
 
             <Button
                 Grid.Column="1"
-                Margin="10"
                 Command="{Binding AddToFavouritesCommand}"
                 HorizontalOptions="End"
                 IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
                 Style="{StaticResource Key=RecentRestartButton}"
-                VerticalOptions="End">
+                VerticalOptions="Center">
                 <Button.ImageSource>
                     <FontImageSource
                         FontFamily="MaterialDesignIcons"
                         Glyph="{x:Static helpers:MaterialDesignIconsFonts.StarPlusOutline}"
-                        Size="25" />
+                        Size="25"
+                        Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                Dark={StaticResource AccentTextColorLight}}" />
                 </Button.ImageSource>
             </Button>
         </Grid>
@@ -158,9 +159,9 @@
                 <StackLayout BindableLayout.ItemsSource="{Binding ValidationErrors}" HorizontalOptions="Center">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Margin="0,0,0,5">
-                                <Label Style="{StaticResource NotValidLabel}" Text="{Binding .}" />
-                            </StackLayout>
+
+                            <Label Style="{StaticResource NotValidLabel}" Text="{Binding}" />
+
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
