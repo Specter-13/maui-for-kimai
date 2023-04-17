@@ -5,10 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:enums="clr-namespace:MauiForKimai.Core.Enums;assembly=MauiForKimai.Core"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
-    xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
-    xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
     xmlns:validators="clr-namespace:FluentValidation;assembly=FluentValidation"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     x:DataType="viewmodel:TimesheetDetailViewModel"
@@ -155,17 +153,10 @@
         <ScrollView Grid.Row="3" Grid.ColumnSpan="2">
             <StackLayout>
 
-
-                <StackLayout BindableLayout.ItemsSource="{Binding ValidationErrors}" HorizontalOptions="Center">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-
-                            <Label Style="{StaticResource NotValidLabel}" Text="{Binding}" />
-
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </StackLayout>
-
+                <Label
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource NotValidLabel}"
+                    Text="{Binding ValidationErrors}" />
 
 
                 <Grid>
@@ -258,7 +249,10 @@
                             <TapGestureRecognizer Command="{Binding ShowCustomerChooseViewCommand}" />
 
                         </Entry.GestureRecognizers>
+
                     </Entry>
+
+
                     <Button
                         Command="{Binding ShowCustomerChooseViewCommand}"
                         IsVisible="{OnIdiom Phone=False,
@@ -275,7 +269,19 @@
                             <TapGestureRecognizer Command="{Binding ShowProjectChooseViewCommand}" />
 
                         </Entry.GestureRecognizers>
+
+                        <Entry.Behaviors>
+                            <mct:TextValidationBehavior
+                                x:Name="ProjectValidator"
+                                Flags="ValidateOnValueChanged"
+                                MinimumLength="1" />
+                        </Entry.Behaviors>
                     </Entry>
+
+                    <Label
+                        IsVisible="{Binding IsNotValid, Source={x:Reference ProjectValidator}}"
+                        Style="{StaticResource NotValidLabel}"
+                        Text="Project is required" />
 
 
                     <Button
@@ -288,14 +294,26 @@
 
                     <Entry
                         IsReadOnly="True"
-                        Placeholder="Select Activity"
+                        Placeholder="Select activity"
                         Text="{Binding ChosenActivity.Name}">
                         <Entry.GestureRecognizers>
 
                             <TapGestureRecognizer Command="{Binding ShowActivityChooseViewCommand}" />
 
                         </Entry.GestureRecognizers>
+
+                        <Entry.Behaviors>
+                            <mct:TextValidationBehavior
+                                x:Name="ActivityValidator"
+                                Flags="ValidateOnValueChanged"
+                                MinimumLength="1" />
+                        </Entry.Behaviors>
                     </Entry>
+
+                    <Label
+                        IsVisible="{Binding IsNotValid, Source={x:Reference ActivityValidator}}"
+                        Style="{StaticResource NotValidLabel}"
+                        Text="Activity is required" />
 
                     <Button
                         Command="{Binding ShowActivityChooseViewCommand}"

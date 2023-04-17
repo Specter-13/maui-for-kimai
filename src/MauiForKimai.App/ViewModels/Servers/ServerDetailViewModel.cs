@@ -63,8 +63,7 @@ public partial class ServerDetailViewModel : ViewModelBase
     }
 
 
-    [ObservableProperty]
-    List<string> validationErrors;
+
     private ServerModelValidator _validator = new ();
 
     private async Task ReinitializeDatabases()
@@ -112,10 +111,15 @@ public partial class ServerDetailViewModel : ViewModelBase
 
 
     [ObservableProperty]
+    public bool showErrors;
+
+    [ObservableProperty]
     public bool overrideTimetrackingPermissions;
 
     [ObservableProperty]
-    public string serverNameErrors;
+    public string validationErrors;
+
+
 
     [RelayCommand]
     async Task ConnectandCreate() 
@@ -168,8 +172,9 @@ public partial class ServerDetailViewModel : ViewModelBase
         }
         else
         { 
-            ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
-       
+            ValidationErrors = result.ToString("\n");
+            await Toast.Make("Form validation failed.", ToastDuration.Short, 14).Show();
+            ShowErrors = true;
         }
         
     }
@@ -220,8 +225,9 @@ public partial class ServerDetailViewModel : ViewModelBase
         }
         else
         {
+            ValidationErrors = result.ToString("\n");
             IsLoggedToThisServer = false;
-            ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+            await Toast.Make("Form validation failed.", ToastDuration.Short, 14).Show();
         }
     }
 
@@ -299,7 +305,8 @@ public partial class ServerDetailViewModel : ViewModelBase
         }
         else
         { 
-            ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+            ValidationErrors = result.ToString("\n");
+            await Toast.Make("Form validation failed.", ToastDuration.Short, 14).Show();
             IsLoggedToThisServer = false;
         }
     }

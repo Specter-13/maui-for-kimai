@@ -128,13 +128,14 @@ public partial class TimesheetDetailViewModel : ViewModelBase
 
     [ObservableProperty]
     TimeBeginEndWrapper timeWrapper;
-
+    
 
     [ObservableProperty]
     TimesheetModel timesheet = new();
 
-    private TimesheetModelStartValidator _startValidator = new ();
-    private TimesheetModelCreateValidator _createValidator = new ();
+   public TimesheetModelStartValidator _startValidator = new ();
+    TimesheetModelCreateValidator _createValidator = new ();
+
     [ObservableProperty]
     CustomerListModel chosenCustomer = new();
 
@@ -146,6 +147,9 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     
     [ObservableProperty]
     string selectedBillableMode = "Automatic";
+
+    [ObservableProperty]
+    string validationErrors;
 
     [ObservableProperty]
     int gitlabIssueId;
@@ -194,8 +198,6 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(""));
     }
 
-    [ObservableProperty]
-    List<string> validationErrors;
 
  
     [RelayCommand]
@@ -234,9 +236,8 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         }
         else
         {
-            ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
-            
-            // Display the validation errors...
+           ValidationErrors =  result.ToString("\n");
+           await Toast.Make("Form validation failed!", ToastDuration.Short, 14).Show();
         }
 
 
@@ -285,7 +286,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         }
         else
         {
-           ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+           await Toast.Make("Form validation failed!", ToastDuration.Short, 14).Show();
         }
      }
 
@@ -318,11 +319,10 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         }
         else
         {
-            ValidationErrors = result.Errors.Select(x => x.ErrorMessage).ToList();
+            await Toast.Make("Form validation failed!", ToastDuration.Short, 14).Show();
         }
     }
-    //TODO - createa own validation object
-  
+
 
 
     private async Task SetBillable()

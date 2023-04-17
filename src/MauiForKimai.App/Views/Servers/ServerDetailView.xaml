@@ -63,23 +63,19 @@
             WidthRequest="100" />
 
 
+        <Label
+            Grid.ColumnSpan="2"
+            HorizontalTextAlignment="Center"
+            Style="{StaticResource NotValidLabel}"
+            Text="{Binding ValidationErrors}" />
+
+
+
         <ScrollView
             Grid.Row="1"
             Grid.ColumnSpan="2"
             Margin="0,10,0,0">
             <StackLayout>
-
-
-
-                <StackLayout BindableLayout.ItemsSource="{Binding ValidationErrors}" HorizontalOptions="Center">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-
-                            <Label Style="{StaticResource NotValidLabel}" Text="{Binding}" />
-
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </StackLayout>
 
                 <Label
                     HorizontalOptions="Center"
@@ -130,14 +126,51 @@
                         Text="Server name is required" />
 
                     <Label Text="Url *" />
-                    <Entry Text="{Binding Server.Url}" />
+                    <Entry Text="{Binding Server.Url}">
+
+                        <Entry.Behaviors>
+                            <mct:TextValidationBehavior
+                                x:Name="UrlValidator"
+                                Flags="ValidateOnUnfocusing"
+                                MinimumLength="1" />
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Label
+                        IsVisible="{Binding IsNotValid, Source={x:Reference UrlValidator}}"
+                        Style="{StaticResource NotValidLabel}"
+                        Text="Invalid url" />
+
 
                     <Label Text="Username *" />
-                    <Entry Text="{Binding Server.Username}" />
+                    <Entry Text="{Binding Server.Username}">
 
+
+                        <Entry.Behaviors>
+                            <mct:TextValidationBehavior
+                                x:Name="UsernameValidator"
+                                Flags="ValidateOnUnfocusing"
+                                MinimumLength="1" />
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Label
+                        IsVisible="{Binding IsNotValid, Source={x:Reference UsernameValidator}}"
+                        Style="{StaticResource NotValidLabel}"
+                        Text="Username is required" />
 
                     <Label Text="API password *" />
-                    <Entry IsPassword="true" Text="{Binding Server.ApiPasswordKey, Mode=TwoWay}" />
+                    <Entry IsPassword="true" Text="{Binding Server.ApiPasswordKey, Mode=TwoWay}">
+                        <Entry.Behaviors>
+                            <mct:TextValidationBehavior
+                                x:Name="PasswordValidator"
+                                Flags="ValidateOnUnfocusing"
+                                MinimumLength="1" />
+                        </Entry.Behaviors>
+                    </Entry>
+
+                    <Label
+                        IsVisible="{Binding IsNotValid, Source={x:Reference PasswordValidator}}"
+                        Style="{StaticResource NotValidLabel}"
+                        Text="Password is required" />
 
                     <Label Text="Set as default server" />
                     <Switch HorizontalOptions="Start" IsToggled="{Binding Server.IsDefault}" />

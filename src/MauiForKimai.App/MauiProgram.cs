@@ -15,8 +15,7 @@ using TinyMvvm;
 using MauiForKimai.ApiClient.DependencyInjection;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using MauiForKimai.Popups;
-using InputKit.Handlers;
-using InputKit.Shared;
+using LiveChartsCore;
 
 namespace MauiForKimai;
 
@@ -35,15 +34,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				fonts.AddFont(filename: "materialdesignicons-webfont.ttf", alias: "MaterialDesignIcons");
-			})
-			.ConfigureMauiHandlers(handlers =>
-			{
-				handlers.AddInputKitHandlers();
-			});
-			
+            });
 
-		InputKitOptions.GetAccentColor = () => Color.FromArgb("#1CD6CE");
 
+		
 		builder.Services.RegisterClientServices();
 		builder.Services.RegisterAppServices();
 
