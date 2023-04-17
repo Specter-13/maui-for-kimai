@@ -52,7 +52,7 @@ public class TimesheetService : BaseService, ITimesheetService
         //dd-mm-yyyy
         var today = DateTime.Now;
         var begin = new DateTime(today.Year,today.Month,today.Day);
-        var end = begin.AddDays(1);
+        var end = new DateTime(today.Year,today.Month,today.Day,23,59,59);
         return  ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin.ToRFC3339(),end.ToRFC3339(),null,null,null,"true",null,null);;
 	}
     public Task<ICollection<TimesheetCollectionExpanded>> GetTenRecentTimesheetsAsync()

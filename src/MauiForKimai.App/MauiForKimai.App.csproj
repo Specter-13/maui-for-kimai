@@ -79,7 +79,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\MauiForKimai.ApiClient\MauiForKimai.ApiClient.csproj" />
-	  <ProjectReference Include="..\MauiForKimai.ApplicationLayer\MauiForKimai.Core.csproj" />
+	  <ProjectReference Include="..\MauiForKimai.Core\MauiForKimai.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

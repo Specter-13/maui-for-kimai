@@ -10,7 +10,7 @@ public partial class ServerDefaultPopup
 		Size = popupSizeConstants.Small;
 	}
 
-	void OnYesButtonClicked(object? sender, EventArgs e) => Close(true);
+	void OnYesButtonClicked(object sender, EventArgs e) => Close(true);
 
-	void OnNoButtonClicked(object? sender, EventArgs e) => Close(false);
+	void OnNoButtonClicked(object sender, EventArgs e) => Close(false);
 }

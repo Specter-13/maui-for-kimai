@@ -172,7 +172,7 @@
             <CollectionView
                 EmptyView="Empty recent timesheets"
                 ItemsSource="{Binding RecentTimesheets}"
-                SelectionMode="Single">
+                SelectionMode="None">
 
                 <CollectionView.Header>
                     <ContentView>

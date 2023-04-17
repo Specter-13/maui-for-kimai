@@ -1,23 +1,22 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <!--  Pages  -->
+    <Style ApplyToDerivedTypes="True" TargetType="Frame">
 
-
-    <!--Pages
-    <Style
-        x:Key="MyShell"
-        ApplyToDerivedTypes="True"
-        TargetType="Shell">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
-        <Setter Property="ForegroundColor" Value="{OnPlatform WinUI={StaticResource AccentColor}, Default=White}" />
-        <Setter Property="TitleColor" Value="White" />
-        <Setter Property="DisabledColor" Value="#B4FFFFFF" />
-        <Setter Property="UnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
-        <Setter Property="TabBarBackgroundColor" Value="{AppThemeBinding Dark={StaticResource CardBackgroundDark}, Light={StaticResource CardBackgroundLight}}" />
-        <Setter Property="TabBarForegroundColor" Value="{AppThemeBinding Dark={StaticResource BackgroundLight}, Light={StaticResource BackgroundDark}}" />
-        <Setter Property="TabBarUnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
-        <Setter Property="TabBarTitleColor" Value="{AppThemeBinding Dark={StaticResource BackgroundLight}, Light={StaticResource BackgroundDark}}" />
-    </Style>-->
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal" />
+                    <VisualState Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
 
     <!--  Pages  -->
     <Style ApplyToDerivedTypes="True" TargetType="Page">

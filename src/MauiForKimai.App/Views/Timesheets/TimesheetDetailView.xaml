@@ -48,22 +48,44 @@
                 VerticalOptions="Center" />
 
 
-            <Button
-                Grid.Column="1"
-                Command="{Binding AddToFavouritesCommand}"
-                HorizontalOptions="End"
-                IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
-                Style="{StaticResource Key=RecentRestartButton}"
-                VerticalOptions="Center">
-                <Button.ImageSource>
-                    <FontImageSource
-                        FontFamily="MaterialDesignIcons"
-                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.StarPlusOutline}"
-                        Size="25"
-                        Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
-                                                Dark={StaticResource AccentTextColorLight}}" />
-                </Button.ImageSource>
-            </Button>
+
+            <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
+
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding StartTimesheetCommand}"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
+                    Style="{StaticResource Key=RecentRestartButton}"
+                    VerticalOptions="Center">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="MaterialDesignIcons"
+                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
+                            Size="25"
+                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                    Dark={StaticResource AccentTextColorLight}}" />
+                    </Button.ImageSource>
+                </Button>
+
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding AddToFavouritesCommand}"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
+                    Style="{StaticResource Key=RecentRestartButton}"
+                    VerticalOptions="Center">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="MaterialDesignIcons"
+                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.StarPlusOutline}"
+                            Size="25"
+                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                    Dark={StaticResource AccentTextColorLight}}" />
+                    </Button.ImageSource>
+                </Button>
+
+            </HorizontalStackLayout>
         </Grid>
     </Shell.TitleView>
 
@@ -150,6 +172,8 @@
             WidthRequest="100" />
 
 
+
+
         <ScrollView Grid.Row="3" Grid.ColumnSpan="2">
             <StackLayout>
 
@@ -161,8 +185,8 @@
 
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 

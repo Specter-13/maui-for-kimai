@@ -23,7 +23,7 @@ public static class DateTimeExtensions
 {
      public static string ToRFC3339(this DateTime date)
      {
-         return date.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss");
+         return  date.ToString("yyyy-MM-dd'T'HH:mm:ss");;
      }
 
     public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)

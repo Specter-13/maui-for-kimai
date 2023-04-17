@@ -107,9 +107,9 @@ public partial class ReportsViewModel : ViewModelBase
     [ObservableProperty]
     int selectedReportType;
 
-    partial void OnSelectedReportTypeChanged(int value)
+    async partial void OnSelectedReportTypeChanged(int value)
     {
-        GetDataByReportsType((ReportsType)value);
+        await GetDataByReportsType((ReportsType)value);
     }
 
     private IEnumerable<TimesheetCollectionExpanded> _monthTimesheets;
@@ -270,9 +270,9 @@ public partial class ReportsViewModel : ViewModelBase
 
     private Task<ChartDataWrapper> FillGraphDataAsync(IEnumerable<TimesheetCollectionExpanded> timesheets, ReportsType reportType)
     { 
+        var data  = new Dictionary<string, int>();
         return Task.Run(() =>
         { 
-            var data  = new Dictionary<string, int>();
             var width = 0;
             foreach (var timesheet in timesheets) 
             {

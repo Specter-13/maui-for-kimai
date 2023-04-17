@@ -10,8 +10,4 @@ public partial class ServerListView
 		BindingContext= vm;
 	}
 
-    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
-    {
-		var x =10;
-    }
 }

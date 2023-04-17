@@ -51,14 +51,17 @@
     <Grid
         Padding="10"
         ColumnDefinitions="*,40"
-        RowDefinitions="50,*">
+        RowDefinitions="70,*">
 
         <Picker
             x:Name="picker"
             Title="Select report type"
             Grid.Column="0"
             FontSize="20"
-            SelectedIndex="{Binding SelectedReportType}">
+            HeightRequest="70"
+            SelectedIndex="{Binding SelectedReportType}"
+            SelectedItem="Projects"
+            VerticalTextAlignment="Center">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>Projects</x:String>
@@ -69,9 +72,11 @@
         </Picker>
 
         <Button
+            Grid.Row="0"
             Grid.Column="1"
             BackgroundColor="Transparent"
             Command="{Binding RefreshCommand}"
+            HeightRequest="50"
             HorizontalOptions="End"
             Style="{StaticResource Key=RecentRestartButton}">
             <Button.ImageSource>

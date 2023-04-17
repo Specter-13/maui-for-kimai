@@ -12,12 +12,12 @@ public partial class DurationPopup
 		
 	}
 
-    void OnYesButtonClicked(object? sender, EventArgs e)
+    void OnYesButtonClicked(object sender, EventArgs e)
 	{ 
 
 		var duration = new TimeSpan(_vm.Hours, _vm.Minutes,0);
 		Close(duration);
 	}
 
-	void OnNoButtonClicked(object? sender, EventArgs e) => Close(null);
+	void OnNoButtonClicked(object sender, EventArgs e) => Close(null);
 }

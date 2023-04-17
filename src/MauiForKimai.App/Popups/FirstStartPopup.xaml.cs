@@ -10,7 +10,7 @@ public partial class FirstStartPopup
 		Size = new(300, 300);
 	}
 
-	void OnYesButtonClicked(object? sender, EventArgs e) => Close(true);
+	void OnYesButtonClicked(object sender, EventArgs e) => Close(true);
 
 	
 }
