@@ -1,5 +1,6 @@
 ﻿
 using MauiForKimai.ViewModels;
+using MauiForKimai.ViewModels.Settings;
 using MauiForKimai.Views;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ public class RoutingService : IRoutingService
     new("//home/timesheet/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseRecentTimesheetViewModel)),
     new("//home/timesheet/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseRecentTimesheetViewModel)),
     new("//home/timesheet/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseRecentTimesheetViewModel)),
+     new("//settings", typeof(SettingsView), typeof(SettingsViewModel))
     
 
 };

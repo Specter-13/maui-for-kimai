@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mvvm:TinyView
+    x:Class="MauiForKimai.Views.SettingsView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MauiForKimai.Controls"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
+    xmlns:services="clr-namespace:MauiForKimai.Services"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels">
+
+    <Shell.TitleView>
+        <Grid Margin="0,0,15,0" HeightRequest="40">
+            <Label
+                Grid.Column="0"
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="Settings"
+                VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+    <VerticalStackLayout>
+
+
+
+        <VerticalStackLayout>
+            <Label
+                Style="{StaticResource MediumLabel}"
+                Text="Select Theme: "
+                VerticalOptions="Center" />
+
+
+            <Picker
+                ItemDisplayBinding="{Binding DisplayName}"
+                ItemsSource="{Binding Source={x:Static helpers:Theme.AvailableThemes}}"
+                SelectedItem="{Binding Path=Theme, Source={x:Static services:SettingsService.Instance}}"
+                TextColor="{AppThemeBinding Dark={StaticResource AccentTextColorLight},
+                                            Light={StaticResource AccentTextColorDark}}"
+                VerticalOptions="Center" />
+        </VerticalStackLayout>
+
+    </VerticalStackLayout>
+</mvvm:TinyView>

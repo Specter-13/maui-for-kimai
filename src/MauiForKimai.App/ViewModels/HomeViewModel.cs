@@ -11,6 +11,7 @@ using MauiForKimai.ApiClient;
 using MauiForKimai.Core;
 using MauiForKimai.ApiClient.Extensions;
 using MauiForKimai.Popups;
+using MauiForKimai.ViewModels.Settings;
 
 namespace MauiForKimai.ViewModels;
 
@@ -116,11 +117,15 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 				MyTimer.TimerStart();
 				IsTimetrackingActive = true;
 				var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
+				if(activeTimesheet == null) 
+				{
+					await Toast.Make($"Cannot start timesheet!", ToastDuration.Short, 14).Show();
+					return;
+				}
 				ActiveTimesheet =  activeTimesheet.ToTimesheetActiveModel();
 				SelectedActivity = ActiveTimesheet.ActivityName;
 				await Toast.Make($"Activity {SelectedActivity} started successfully", ToastDuration.Short, 14).Show();
 			}
-
 			
 		}
 		catch (KimaiApiException)
@@ -247,6 +252,15 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
 		var wrapper = new TimesheetDetailWrapper(currentTimesheet,TimesheetDetailMode.Edit);
 		await Navigation.NavigateTo(route,wrapper);
+        
+    }
+
+	[RelayCommand]
+    async Task GoToSettings()
+    {
+
+		var route = base.routingService.GetRouteByViewModel<SettingsViewModel>();
+		await Navigation.NavigateTo(route);
         
     }
 

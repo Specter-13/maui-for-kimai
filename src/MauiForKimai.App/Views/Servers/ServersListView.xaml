@@ -51,6 +51,8 @@
                     BorderColor="{StaticResource AccentColor}"
                     HeightRequest="32"
                     Text="{Binding LoginContext.ServerFirstLetter}"
+                    TextColor="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                Dark={StaticResource AccentTextColorLight}}"
                     WidthRequest="32" />
             </HorizontalStackLayout>
         </Grid>
@@ -65,6 +67,8 @@
 
 
         <StackLayout Padding="10">
+
+
             <HorizontalStackLayout Padding="5">
                 <Label
                     FontAttributes="Bold"

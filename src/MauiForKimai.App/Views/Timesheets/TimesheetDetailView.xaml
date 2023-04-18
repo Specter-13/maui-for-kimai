@@ -196,21 +196,21 @@
                     </Grid.ColumnDefinitions>
                     <!--  From Time  -->
                     <StackLayout Grid.Row="0">
-                        <Label Text="Begin" />
+                        <Label Style="{StaticResource SmallLabel}" Text="Begin" />
                         <TimePicker Format="HH:mm" Time="{Binding TimeWrapper.BeginTime}" />
 
                     </StackLayout>
                     <!--  From Date  -->
 
                     <StackLayout Grid.Row="0" Grid.Column="1">
-                        <Label />
+                        <Label Style="{StaticResource SmallLabel}" />
                         <DatePicker Date="{Binding TimeWrapper.BeginDate}" />
                     </StackLayout>
 
 
 
                     <StackLayout Grid.Row="1" IsVisible="{Binding IsCreateOrEdit}">
-                        <Label Text="End" />
+                        <Label Style="{StaticResource SmallLabel}" Text="End" />
                         <TimePicker
                             x:Name="BeginTimePicker"
                             Format="HH:mm"
@@ -237,7 +237,7 @@
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
                         IsVisible="{Binding IsCreateOrEdit}">
-                        <Label Text="Duration" />
+                        <Label Style="{StaticResource SmallLabel}" Text="Duration" />
 
                         <Entry
                             x:Name="HoursEntry"
@@ -263,7 +263,7 @@
 
                     <!--  Customer  -->
 
-                    <Label Text="Customer" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Customer" />
                     <Entry
                         IsReadOnly="True"
                         Placeholder="Select customer"
@@ -283,7 +283,7 @@
                                             Desktop=True}"
                         Text="Choose customer" />
                     <!--  Project  -->
-                    <Label Text="Project *" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Project *" />
                     <Entry
                         IsReadOnly="True"
                         Placeholder="Select project"
@@ -314,7 +314,7 @@
                                             Desktop=True}"
                         Text="Choose project" />
                     <!--  Activity  -->
-                    <Label Text="Activity *" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Activity *" />
 
                     <Entry
                         IsReadOnly="True"
@@ -345,19 +345,25 @@
                                             Desktop=True}"
                         Text="Choose Activity" />
                     <!--  Description  -->
-                    <Label Text="Description" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Description" />
                     <Entry Text="{Binding Timesheet.Description}" />
                     <!--  Tags  -->
-                    <Label Text="Tags" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Tags" />
                     <Entry Text="{Binding Timesheet.Tags}" />
 
                     <!--  Gitlab issue id  -->
-                    <Label IsVisible="{Binding LoginContext.TimetrackingPermissions.HasGitlabPlugin}" Text="Gitlab issue Id" />
+                    <Label
+                        IsVisible="{Binding LoginContext.TimetrackingPermissions.HasGitlabPlugin}"
+                        Style="{StaticResource SmallLabel}"
+                        Text="Gitlab issue Id" />
                     <Entry IsVisible="{Binding LoginContext.TimetrackingPermissions.HasGitlabPlugin}" Text="{Binding Timesheet.GitlabIssueId}" />
 
                     <!--  ROLE DEPENDAND!  -->
                     <!--  Billable  -->
-                    <Label IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditBillable}" Text="Billable" />
+                    <Label
+                        IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditBillable}"
+                        Style="{StaticResource SmallLabel}"
+                        Text="Billable" />
                     <Picker
                         x:Name="picker"
                         Title="Select a mode"
@@ -375,14 +381,14 @@
                     <!--  Rates  -->
 
                     <StackLayout IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditRate}">
-                        <Label Text="Fixed rate" />
+                        <Label Style="{StaticResource SmallLabel}" Text="Fixed rate" />
                         <Entry Keyboard="Numeric" Text="{Binding Timesheet.FixedRate}">
                             <Entry.Behaviors>
                                 <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
                             </Entry.Behaviors>
                         </Entry>
 
-                        <Label Text="Hourly rate" />
+                        <Label Style="{StaticResource SmallLabel}" Text="Hourly rate" />
                         <Entry Keyboard="Numeric" Text="{Binding Timesheet.HourlyRate}">
                             <Entry.Behaviors>
                                 <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
@@ -396,7 +402,7 @@
                     <!--  Exported  -->
 
                     <StackLayout IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditExport}">
-                        <Label Text="Exported" />
+                        <Label Style="{StaticResource SmallLabel}" Text="Exported" />
                         <CheckBox HorizontalOptions="Start" IsChecked="{Binding Timesheet.Exported}" />
                     </StackLayout>
 

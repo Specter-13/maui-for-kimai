@@ -204,22 +204,17 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
     async Task StartTimesheet()
     {
         ValidationErrors = string.Empty;
-        Timesheet.Begin = TimeWrapper.BeginFull;
         Timesheet.ProjectId = ChosenProject.Id;
         Timesheet.ProjectName = ChosenProject.Name;
         Timesheet.ActivityId = ChosenActivity.Id;
         Timesheet.CustomerName = ChosenCustomer.Name;
 
+        Timesheet.Begin = DateTime.Now;
+        Timesheet.End = null;
 
         ValidationResult result;
-        if(Mode == TimesheetDetailMode.Create || Mode == TimesheetDetailMode.Edit)
-        {
-            result = _createValidator.Validate(Timesheet);
-        }
-        else
-        { 
-            result = _startValidator.Validate(Timesheet);
-        }
+        result = _startValidator.Validate(Timesheet);
+        
 
         if (result.IsValid)
         {
@@ -228,7 +223,6 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
             {
                 await SetBillable();
             }
-
 
             var wrapper = new TimesheetTimetrackingWrapper(Timesheet, ChosenActivity.Name, ChosenProject.Name, GitlabIssueId);
             WeakReferenceMessenger.Default.Send(new TimesheetStartNewMessage(wrapper));

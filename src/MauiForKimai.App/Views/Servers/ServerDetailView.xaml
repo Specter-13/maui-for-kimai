@@ -107,7 +107,7 @@
 
 
 
-                    <Label Text="Server name *" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Server name *" />
 
                     <Entry Text="{Binding Server.Name}">
 
@@ -125,7 +125,7 @@
                         Style="{StaticResource NotValidLabel}"
                         Text="Server name is required" />
 
-                    <Label Text="Url *" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Url *" />
                     <Entry Text="{Binding Server.Url}">
 
                         <Entry.Behaviors>
@@ -141,7 +141,7 @@
                         Text="Invalid url" />
 
 
-                    <Label Text="Username *" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Username *" />
                     <Entry Text="{Binding Server.Username}">
 
 
@@ -157,7 +157,7 @@
                         Style="{StaticResource NotValidLabel}"
                         Text="Username is required" />
 
-                    <Label Text="API password *" />
+                    <Label Style="{StaticResource SmallLabel}" Text="API password *" />
                     <Entry IsPassword="true" Text="{Binding Server.ApiPasswordKey, Mode=TwoWay}">
                         <Entry.Behaviors>
                             <mct:TextValidationBehavior
@@ -172,29 +172,38 @@
                         Style="{StaticResource NotValidLabel}"
                         Text="Password is required" />
 
-                    <Label Text="Set as default server" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Set as default server" />
                     <Switch HorizontalOptions="Start" IsToggled="{Binding Server.IsDefault}" />
 
-                    <Label Text="Gitlab plugin" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Gitlab plugin" />
                     <Switch HorizontalOptions="Start" IsToggled="{Binding Server.HasGitlabPlugin}" />
 
-                    <Label Text="Override time-tracking permissions" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Override time-tracking permissions" />
                     <Switch HorizontalOptions="Start" IsToggled="{Binding OverrideTimetrackingPermissions}" />
 
 
-                    <Label IsVisible="{Binding OverrideTimetrackingPermissions}" Text="can-edit-billable" />
+                    <Label
+                        IsVisible="{Binding OverrideTimetrackingPermissions}"
+                        Style="{StaticResource SmallLabel}"
+                        Text="can-edit-billable" />
                     <CheckBox
                         HorizontalOptions="Start"
                         IsChecked="{Binding Server.CanEditBillable}"
                         IsEnabled="{Binding OverrideTimetrackingPermissions}"
                         IsVisible="{Binding OverrideTimetrackingPermissions}" />
-                    <Label IsVisible="{Binding OverrideTimetrackingPermissions}" Text="can-edit-export" />
+                    <Label
+                        IsVisible="{Binding OverrideTimetrackingPermissions}"
+                        Style="{StaticResource SmallLabel}"
+                        Text="can-edit-export" />
                     <CheckBox
                         HorizontalOptions="Start"
                         IsChecked="{Binding Server.CanEditExport}"
                         IsEnabled="{Binding OverrideTimetrackingPermissions}"
                         IsVisible="{Binding OverrideTimetrackingPermissions}" />
-                    <Label IsVisible="{Binding OverrideTimetrackingPermissions}" Text="can-edit-rate" />
+                    <Label
+                        IsVisible="{Binding OverrideTimetrackingPermissions}"
+                        Style="{StaticResource SmallLabel}"
+                        Text="can-edit-rate" />
                     <CheckBox
                         HorizontalOptions="Start"
                         IsChecked="{Binding Server.CanEditRate}"

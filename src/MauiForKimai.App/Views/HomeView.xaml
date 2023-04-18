@@ -44,10 +44,10 @@
             <HorizontalStackLayout
                 Grid.Column="1"
                 HorizontalOptions="End"
-                IsVisible="{Binding LoginContext.IsAuthenticated}"
                 VerticalOptions="Center">
                 <Label
                     Margin="0,0,10,0"
+                    IsVisible="{Binding LoginContext.IsAuthenticated}"
                     Style="{StaticResource SmallLabel}"
                     Text="{Binding LoginContext.UserName}"
                     VerticalTextAlignment="Center" />
@@ -55,8 +55,25 @@
                     BackgroundColor="Transparent"
                     BorderColor="{StaticResource AccentColor}"
                     HeightRequest="32"
+                    IsVisible="{Binding LoginContext.IsAuthenticated}"
                     Text="{Binding LoginContext.ServerFirstLetter}"
+                    TextColor="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                Dark={StaticResource AccentTextColorLight}}"
                     WidthRequest="32" />
+                <Button
+                    BackgroundColor="Transparent"
+                    Command="{Binding GoToSettingsCommand}"
+                    Style="{StaticResource Key=RecentRestartButton}">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="MaterialDesignIcons"
+                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Cog}"
+                            Size="25"
+                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                    Dark={StaticResource AccentTextColorLight}}" />
+                    </Button.ImageSource>
+
+                </Button>
             </HorizontalStackLayout>
         </Grid>
     </Shell.TitleView>
@@ -132,26 +149,6 @@
                         Text="{Binding Statistics.NumberOfProjects}" />
                 </StackLayout>
 
-                <!--<Label
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    HorizontalOptions="Center"
-                    Style="{StaticResource MicroLabel}"
-                    Text="Longest" />
-                <StackLayout
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    HorizontalOptions="Center">
-                    <HorizontalStackLayout Margin="0,0,0,5">
-
-                        <Label
-                            FontAttributes="Bold"
-                            Style="{StaticResource LargeLabel}"
-                            Text="{Binding Statistics.LongestActivityDuration}" />
-                    </HorizontalStackLayout>
-                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Statistics.LongestActivityName}" />
-                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Statistics.LongestActivityProjectName}" />
-                </StackLayout>-->
 
 
             </Grid>

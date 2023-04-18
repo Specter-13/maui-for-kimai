@@ -194,28 +194,29 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
     [RelayCommand]
     async Task GetDataByReportsType(ReportsType reportsType)
     {
-        
-        
-        var wrapper = await CreateGraphAsync(_todayTimesheets, reportsType);
-        TodaySeries = wrapper.Series;
-        TodayChartWidth = _chartWidth;
-        TodayChartWidth += wrapper.ChartWidth;
-        TodayXAxes.First().Labels = wrapper.Labels;
-        OnPropertyChanged(nameof(TodaySeries));
+        if(HasInternetAndIsLogged())
+        { 
+            var wrapper = await CreateGraphAsync(_todayTimesheets, reportsType);
+            TodaySeries = wrapper.Series;
+            TodayChartWidth = _chartWidth;
+            TodayChartWidth += wrapper.ChartWidth;
+            TodayXAxes.First().Labels = wrapper.Labels;
+            OnPropertyChanged(nameof(TodaySeries));
 
-        wrapper = await CreateGraphAsync(_weekTimesheets, reportsType);
-        WeekSeries = wrapper.Series;
-        WeekChartWidth = _chartWidth;
-        WeekChartWidth += wrapper.ChartWidth;
-        WeekXAxes.First().Labels = wrapper.Labels;
-        OnPropertyChanged(nameof(WeekSeries));
+            wrapper = await CreateGraphAsync(_weekTimesheets, reportsType);
+            WeekSeries = wrapper.Series;
+            WeekChartWidth = _chartWidth;
+            WeekChartWidth += wrapper.ChartWidth;
+            WeekXAxes.First().Labels = wrapper.Labels;
+            OnPropertyChanged(nameof(WeekSeries));
 
-        wrapper = await CreateGraphAsync(_monthTimesheets, reportsType);
-        MonthSeries = wrapper.Series;
-        MonthChartWidth = _chartWidth;
-        MonthChartWidth += wrapper.ChartWidth;
-        MonthXAxes.First().Labels = wrapper.Labels;
-        OnPropertyChanged(nameof(MonthSeries));
+            wrapper = await CreateGraphAsync(_monthTimesheets, reportsType);
+            MonthSeries = wrapper.Series;
+            MonthChartWidth = _chartWidth;
+            MonthChartWidth += wrapper.ChartWidth;
+            MonthXAxes.First().Labels = wrapper.Labels;
+            OnPropertyChanged(nameof(MonthSeries));
+        }
     }
 
 
