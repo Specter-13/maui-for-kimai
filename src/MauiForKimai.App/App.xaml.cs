@@ -31,14 +31,11 @@ public partial class App : TinyApplication
 		#else
             MainPage = new AppShellDesktop(menuViewModel);
 		#endif
-        
 
-		// let's set the initial theme already during the app start
 		SetThemeOnStartup();
-		// subscribe to changes in the settings
 		SettingsService.Instance.PropertyChanged += OnSettingsPropertyChanged;
 
-
+			
 	}
 
 	private void OnSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)

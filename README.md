@@ -48,7 +48,7 @@ I don't have access to Mac build tools, therefore IOS/MacOS is untested, but in 
 ## Limitations
 ---
 - **Kimai v2 is not supported yet**
-- Some inconsistencies within dark/light theme
+- There are some inconsistencies within in app dark/light theme changing
 - No support for management of project/customers/teams within app
 - Missing support for teams management and team reports
 
