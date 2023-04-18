@@ -18,7 +18,7 @@ using MauiForKimai.Core.Validators;
 using MauiForKimai.ApiClient;
 
 namespace MauiForKimai.ViewModels;
-public partial class ServerDetailViewModel : ViewModelBase
+public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
 {
 
 	[ObservableProperty]
@@ -124,7 +124,7 @@ public partial class ServerDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task ConnectandCreate() 
     {
-
+        ValidationErrors = string.Empty;
         var result = _validator.Validate(Server);
         if (result.IsValid)
         {
@@ -149,7 +149,6 @@ public partial class ServerDetailViewModel : ViewModelBase
                 SetPermissionsByRoles(base.LoginContext.ActualUser.Roles);
    
             
-            //server.PermissionsTimetracking.CanSetBillable
 
             //create server
             var newServer = await _serverService.Create(Server);
@@ -207,6 +206,7 @@ public partial class ServerDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task Connect() 
     {
+        ValidationErrors = string.Empty;
         var result = _validator.Validate(Server);
         if (result.IsValid)
         {
@@ -222,6 +222,7 @@ public partial class ServerDetailViewModel : ViewModelBase
             await ConnectToServer();
             WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
             IsConnecting = false;
+            ValidationErrors = string.Empty;
         }
         else
         {
@@ -253,7 +254,7 @@ public partial class ServerDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task Disconnect() 
     {
-
+         ValidationErrors = string.Empty;
 		await loginService.Logout();
         OnPropertyChanged(nameof(LoginContext));
         IsLoggedToThisServer = false;
@@ -266,6 +267,7 @@ public partial class ServerDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task Save() 
     {
+        ValidationErrors = string.Empty;
         var result = _validator.Validate(Server);
         if (result.IsValid)
         {
@@ -302,6 +304,7 @@ public partial class ServerDetailViewModel : ViewModelBase
             await Toast.Make("Connection and save successfull!", ToastDuration.Short, 14).Show();
             WeakReferenceMessenger.Default.Send(new ServerRefreshMessage(string.Empty));
             IsBusy = false;
+            ValidationErrors = string.Empty;
         }
         else
         { 

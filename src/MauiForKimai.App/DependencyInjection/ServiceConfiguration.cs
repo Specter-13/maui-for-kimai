@@ -30,14 +30,20 @@ public static class ServicesConfiguration
 
     public static void ConfigureViewModels(this IServiceCollection services)
     {
+
+
         services.Scan(selector => selector
             .FromAssemblyOf<App>()
-            .AddClasses(filter => filter.AssignableTo<IViewModel>())
+            .AddClasses(filter => filter.AssignableTo<IViewModelSingleton>())
             .AsSelfWithInterfaces()
             .WithTransientLifetime());
 
-        //i need reports view model as singleton as i share it between mulitple views
-        //services.AddSingleton<ReportsViewModel>();
+          services.Scan(selector => selector
+            .FromAssemblyOf<App>()
+            .AddClasses(filter => filter.AssignableTo<IViewModelTransient>())
+            .AsSelfWithInterfaces()
+            .WithTransientLifetime());
+
     }
 
     public static void ConfigureViews(this IServiceCollection services)

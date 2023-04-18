@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ViewModels;
-public partial class TimesheetListViewModel : ViewModelBase
+public partial class TimesheetListViewModel : ViewModelBase, IViewModelSingleton
 {
     private readonly ITimesheetService _timesheetService;
     public TimesheetListViewModel(IRoutingService rs, ILoginService ls, ITimesheetService ts) : base(rs, ls)

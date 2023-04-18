@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MauiForKimai.ViewModels;
 
-public partial class MenuViewModel : ViewModelBase
+public partial class MenuViewModel : ViewModelBase,IViewModelSingleton
 {
 
     private readonly ILoginService _loginService;

@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ViewModels;
-public partial class FavouritesListViewModel : ViewModelBase
+public partial class FavouritesListViewModel : ViewModelBase, IViewModelSingleton
 {
     private readonly IFavouritesTimesheetService _favouritesTimesheetService;
     public FavouritesListViewModel(IRoutingService rs, ILoginService ls, IFavouritesTimesheetService fts) : base(rs, ls)

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ViewModels;
-public partial class FavouritesDetailViewModel : ViewModelBase
+public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransient
 {
         private readonly IFavouritesTimesheetService _favouritesTimesheetService;
     public FavouritesDetailViewModel(IRoutingService rs, ILoginService ls, IFavouritesTimesheetService fts) : base(rs, ls)

@@ -14,7 +14,7 @@ using MauiForKimai.Popups;
 
 namespace MauiForKimai.ViewModels;
 
-public partial class HomeViewModel : ViewModelBase
+public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 {
 	protected readonly ITimesheetService timesheetService;
 	protected readonly ILoginService _loginService;

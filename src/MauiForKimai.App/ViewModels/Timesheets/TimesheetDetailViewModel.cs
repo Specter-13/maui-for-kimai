@@ -22,7 +22,7 @@ namespace MauiForKimai.ViewModels;
 
 
 
-public partial class TimesheetDetailViewModel : ViewModelBase
+public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransient
 {
     private readonly ICustomerService _customerService;
     private readonly ITimesheetService _timesheetService;
@@ -203,7 +203,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task StartTimesheet()
     {
-        //TODO higher roles
+        ValidationErrors = string.Empty;
         Timesheet.Begin = TimeWrapper.BeginFull;
         Timesheet.ProjectId = ChosenProject.Id;
         Timesheet.ProjectName = ChosenProject.Name;
@@ -233,6 +233,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
             var wrapper = new TimesheetTimetrackingWrapper(Timesheet, ChosenActivity.Name, ChosenProject.Name, GitlabIssueId);
             WeakReferenceMessenger.Default.Send(new TimesheetStartNewMessage(wrapper));
             await Navigation.NavigateTo("..");
+            ValidationErrors = string.Empty;
         }
         else
         {
@@ -270,6 +271,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task Save()
     {
+        ValidationErrors =  string.Empty;
         Timesheet.Begin = TimeWrapper.BeginFull;
         Timesheet.End = TimeWrapper.EndFull;
         Timesheet.ProjectId = ChosenProject.Id;
@@ -283,15 +285,17 @@ public partial class TimesheetDetailViewModel : ViewModelBase
             await _timesheetService.Update(_id,Timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions, LoginContext.TimeOffset));
             //TODO = roles
             await Navigation.NavigateTo("..");
+            ValidationErrors = string.Empty;
         }
         else
         {
            await Toast.Make("Form validation failed!", ToastDuration.Short, 14).Show();
+           ValidationErrors =  result.ToString("\n");
         }
      }
 
 
-        [RelayCommand]
+    [RelayCommand]
     async Task Delete()
     {
         await _timesheetService.Delete(_id);
@@ -302,7 +306,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase
     [RelayCommand]
     async Task Create()
     {
-
+        ValidationErrors =  string.Empty;
         Timesheet.Begin = TimeWrapper.BeginFull;
         Timesheet.End = TimeWrapper.EndFull;
         Timesheet.ProjectId = ChosenProject.Id;
@@ -316,10 +320,12 @@ public partial class TimesheetDetailViewModel : ViewModelBase
         { 
             await _timesheetService.Create(Timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions, LoginContext.TimeOffset));
             await Navigation.NavigateTo("..");
+            ValidationErrors = string.Empty;
         }
         else
         {
             await Toast.Make("Form validation failed!", ToastDuration.Short, 14).Show();
+            ValidationErrors =  result.ToString("\n");
         }
     }
 
@@ -360,6 +366,6 @@ public partial class TimesheetDetailViewModel : ViewModelBase
 }
 
 
-public class TimesheetDetailAllViewModel : IViewModel
+public class TimesheetDetailAllViewModel : IViewModelTransient
 {
 }

@@ -5,11 +5,13 @@
 
 <img src="assets/screens.png" alt="screens" >
 
-<img src="assets/logo.png" alt="logo" width="100" >
-<img src="assets/kimai_logo.png" alt="logo" width="100" >
+<img src="assets/logo.png" alt="logo" width="70" >
+<img src="assets/kimai_logo.png" alt="logo" width="70" >
 
 
 MAUI for Kimai is multi-platform time-tracking app companion for open-source  [Kimai time-tracker](https://github.com/kimai/kimai). This application is fully focused on time-tracking use-case and aims to simplify time-tracking within Kimai.
+
+Basic demonstration video: https://youtu.be/daTTTE8QJ0o
 
 | Platform      | Supported      |
 |--------------|-----------------|

@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.ViewModels;
-public partial class ChooseItemViewModel : ViewModelBase
+public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
 {
     public ChooseItemViewModel(IRoutingService rs, 
         ILoginService ls, 
@@ -183,40 +183,40 @@ public partial class ChooseItemViewModel : ViewModelBase
 
 
 
-public partial class ActivityChooseFavouriteViewModel : IViewModel
+public partial class ActivityChooseFavouriteViewModel : IViewModelTransient
 {
 }
 
-public partial class ActivityChooseRecentTimesheetViewModel : IViewModel
+public partial class ActivityChooseRecentTimesheetViewModel : IViewModelTransient
 {
 }
 
-public partial class ActivityChooseDetailAllViewModel : IViewModel
+public partial class ActivityChooseDetailAllViewModel : IViewModelTransient
 {
 }
 
 
-public partial class CustomerChooseFavouriteViewModel : IViewModel
+public partial class CustomerChooseFavouriteViewModel : IViewModelTransient
 {
 }
 
-public partial class CustomerChooseRecentTimesheetViewModel: IViewModel
+public partial class CustomerChooseRecentTimesheetViewModel: IViewModelTransient
 {
 }
 
-public partial class CustomerChooseDetailAllViewModel : IViewModel
+public partial class CustomerChooseDetailAllViewModel : IViewModelTransient
 {
 }
 
-public partial class ProjectChooseFavouriteViewModel: IViewModel
+public partial class ProjectChooseFavouriteViewModel: IViewModelTransient
 {
 }
 
-public partial class ProjectChooseRecentTimesheetViewModel : IViewModel
+public partial class ProjectChooseRecentTimesheetViewModel : IViewModelTransient
 {
 }
 
-public partial class ProjectChooseDetailAllViewModel : IViewModel
+public partial class ProjectChooseDetailAllViewModel : IViewModelTransient
 {
 }
 

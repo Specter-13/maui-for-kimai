@@ -23,7 +23,7 @@ using MauiForKimai.Core.Enums;
 namespace MauiForKimai.ViewModels;
 
 
-public partial class ReportsViewModel : ViewModelBase
+public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
 {
     private const int _chartWidth = 150;
     private readonly ITimesheetService _timesheetService;
@@ -41,6 +41,37 @@ public partial class ReportsViewModel : ViewModelBase
 
         WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
         {
+            TodaySeries = new();
+            TodayChartWidth = _chartWidth;
+            WeekSeries = new();
+            WeekChartWidth = _chartWidth;
+            MonthSeries = new();
+            MonthChartWidth = _chartWidth;
+
+            WeekXAxes = new ()
+            {
+                new Axis
+                {
+                    TextSize = _textSize
+                }
+            };
+
+            MonthXAxes = new ()
+            {
+                new Axis
+                {
+                    TextSize = _textSize
+                }
+            };
+
+            TodayXAxes = new ()
+            {
+                new Axis
+                {
+                    TextSize = _textSize
+                }
+            };
+
             await Refresh();
 
         });
@@ -138,6 +169,7 @@ public partial class ReportsViewModel : ViewModelBase
             TextSize = _textSize
         }
     };
+
     [ObservableProperty]
     public int weekChartWidth = _chartWidth;
 
