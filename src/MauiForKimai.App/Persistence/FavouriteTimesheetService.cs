@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MauiForKimai.Persistence;
 public class FavouriteTimesheetService : IFavouritesTimesheetService
 {
-     private SQLiteAsyncConnection _db;
+    private SQLiteAsyncConnection _db;
     private ApiLoginContext _asp;
     public FavouriteTimesheetService(ApiLoginContext asp)
     {
@@ -21,7 +21,7 @@ public class FavouriteTimesheetService : IFavouritesTimesheetService
         var name = $"maui_for_kimai_server_db_{_asp.ServerId}";
         var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), name);
         _db = new SQLiteAsyncConnection(dbPath);
-        var result = await _db.CreateTableAsync<TimesheetFavouriteEntity>();
+        await _db.CreateTableAsync<TimesheetFavouriteEntity>();
     }
 
     async Task Init()

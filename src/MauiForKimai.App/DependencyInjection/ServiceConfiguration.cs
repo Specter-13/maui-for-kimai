@@ -36,7 +36,7 @@ public static class ServicesConfiguration
             .FromAssemblyOf<App>()
             .AddClasses(filter => filter.AssignableTo<IViewModelSingleton>())
             .AsSelfWithInterfaces()
-            .WithTransientLifetime());
+            .WithSingletonLifetime());
 
           services.Scan(selector => selector
             .FromAssemblyOf<App>()

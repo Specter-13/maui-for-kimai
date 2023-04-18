@@ -45,7 +45,7 @@
         <Label Style="{StaticResource LargeLabel}" Text="Default server override" />
         <BoxView Style="{StaticResource Divider}" />
         <Label Style="{StaticResource Content}" Text="Server was set as default, this will overwrite current default server. Do you want to continue?" />
-        <HorizontalStackLayout Style="{StaticResource ButtonGroup}">
+        <HorizontalStackLayout Margin="30" Style="{StaticResource ButtonGroup}">
             <Button Clicked="OnYesButtonClicked" Text="Yes" />
             <Button
                 Clicked="OnNoButtonClicked"

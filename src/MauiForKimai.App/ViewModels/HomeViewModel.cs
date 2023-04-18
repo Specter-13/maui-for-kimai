@@ -79,8 +79,6 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
 		 WeakReferenceMessenger.Default.Register<TimesheetStartExistingMessage>(this, async (r, m) =>
         {
-			//TODO ROLES
-			//var editForm = m.Value.ToTimesheetEditForm(LoginContext.TimetrackingPermissions);
             SelectedActivity = m.Value.ActivityName;
 			await StartTimesheet(m.Value);
         });

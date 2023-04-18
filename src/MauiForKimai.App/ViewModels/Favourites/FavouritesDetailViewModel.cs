@@ -49,9 +49,6 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
        
     }
 
-    [ObservableProperty]
-    bool isEdit;
-
     public override Task OnParameterSet()
     {
         if (NavigationParameter is TimesheetDetailWrapper wrapper)
@@ -71,6 +68,9 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
         }
             return base.OnParameterSet();
     }
+
+    [ObservableProperty]
+    bool isEdit;
 
     [ObservableProperty]
     public TimesheetFavouriteEntity favourite = new();

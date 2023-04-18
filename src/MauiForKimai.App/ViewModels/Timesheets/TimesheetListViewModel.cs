@@ -30,12 +30,10 @@ public partial class TimesheetListViewModel : ViewModelBase, IViewModelSingleton
     private bool isRefreshing;
     public override async Task Initialize()
     {
-
         IsBusy = true;
         page = 1;
         await GetTimesheetsIncrementaly();
         IsBusy = false;
-        //return base.OnAppearing();
     }
 
     [RelayCommand]

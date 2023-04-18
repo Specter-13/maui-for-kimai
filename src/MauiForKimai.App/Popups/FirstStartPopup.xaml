@@ -46,7 +46,7 @@
         <BoxView Style="{StaticResource Divider}" />
         <Label Style="{StaticResource Content}" Text="Welcome to Maui for Kimai! " />
         <Label Style="{StaticResource Content}" Text="Add your first Kimai server in Management. " />
-        <HorizontalStackLayout Margin="20" Style="{StaticResource ButtonGroup}">
+        <HorizontalStackLayout Margin="30" Style="{StaticResource ButtonGroup}">
             <Button Clicked="OnYesButtonClicked" Text="Ok" />
 
         </HorizontalStackLayout>

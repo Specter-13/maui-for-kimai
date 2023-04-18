@@ -31,8 +31,6 @@
                 Style="{StaticResource SmallLabel}"
                 Text="{Binding Url}" />
 
-
-
             <Button
                 Grid.RowSpan="3"
                 Grid.Column="1"

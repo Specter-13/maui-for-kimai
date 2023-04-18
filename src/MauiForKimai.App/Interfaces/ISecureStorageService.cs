@@ -11,6 +11,5 @@ public interface ISecureStorageService
     Task Save(string key, string value);
     Task<bool> Contains(string key);
     Task<String> Get(string key);
-
     public bool Remove(string key);
 }

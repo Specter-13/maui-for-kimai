@@ -44,11 +44,6 @@
         <Tab Title="Timesheets" Icon="clipboard_text_clock.png">
 
 
-            <!--<ShellContent
-                Title="Templates"
-                ContentTemplate="{DataTemplate local:TemplateListView}"
-                Route="templates" />-->
-
             <ShellContent
                 Title="Favourites"
                 ContentTemplate="{DataTemplate local:FavouritesListView}"
@@ -65,15 +60,9 @@
 
         <Tab Title="Reports" Icon="chart_line.png">
 
-            <!--<ShellContent Title="Projects" ContentTemplate="{DataTemplate controls:ReportsControl}" />
-            <ShellContent Title="Customers" ContentTemplate="{DataTemplate controls:ReportsControl}" />
-            <ShellContent Title="Activities" ContentTemplate="{DataTemplate controls:ReportsControl}" />-->
-
 
             <ShellContent Title="Projects" ContentTemplate="{DataTemplate local:ReportsView}" />
 
-            <!--<ShellContent Title="Customers" ContentTemplate="{DataTemplate local:CustomerReportsView}" />
-            <ShellContent Title="Activities" ContentTemplate="{DataTemplate local:ActivityReportsView}" />-->
 
         </Tab>
         <Tab Title="Management" Icon="database.png">
@@ -84,91 +73,10 @@
                 ContentTemplate="{DataTemplate local:ServerListView}"
                 Route="serverlistview" />
 
-            <!--<ShellContent
-                Title="Projects"
-                ContentTemplate="{DataTemplate local:ServerListView}"
-                Route="serverlistview" />
-
-            <ShellContent
-                Title="Customers"
-                ContentTemplate="{DataTemplate local:ServerListView}"
-                Route="serverlistview" />
-
-            <ShellContent
-                Title="Activities"
-                ContentTemplate="{DataTemplate local:ServerListView}"
-                Route="serverlistview" />
-
-            <ShellContent
-                Title="Teams"
-                ContentTemplate="{DataTemplate local:ServerListView}"
-                Route="serverlistview" />-->
-
-
 
         </Tab>
 
-        <!--<ShellContent
-            Title="Management"
-            ContentTemplate="{DataTemplate local:ManagementView}"
-            Icon="database.png"
-            Route="management" />-->
-        <!--<ShellContent
-            Title="Login"
-            ContentTemplate="{DataTemplate local:LoginView}"
-            Icon="login.png"
-            Route="login" />-->
     </TabBar>
-
-    <!--<Shell.FlyoutHeaderTemplate>
-        <DataTemplate>
-            <Grid HeightRequest="150">
-                <Image
-                    Aspect="AspectFill"
-                    Opacity="0.6"
-                    Source="blue_background.jpg" />
-                <Label
-                    FontAttributes="Bold"
-                    HorizontalTextAlignment="Center"
-                    Text="Maui For Kimai"
-                    VerticalTextAlignment="Center" />
-            </Grid>
-        </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>
-
-    <FlyoutItem Title="Login">
-        <ShellContent
-            Title="Login"
-            ContentTemplate="{DataTemplate local:LoginView}"
-            Icon="login.png"
-            Route="login" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Home" IsVisible="{Binding LoginContext.IsAuthenticated}">
-        <ShellContent
-            Title="Home"
-            ContentTemplate="{DataTemplate local:HomeView}"
-            Icon="home.png"
-            Route="home" />
-    </FlyoutItem>
-
-    <FlyoutItem Title="Timesheets" IsVisible="{Binding LoginContext.IsAuthenticated}">
-        <ShellContent
-            Title="Timesheets"
-            ContentTemplate="{DataTemplate local:TimeSheetView}"
-            Route="timesheet" />
-    </FlyoutItem>
-
-    <Shell.FlyoutFooter>
-        <StackLayout>
-            <Button
-                Margin="10,10"
-                Command="{Binding LogOutCommand}"
-                IsVisible="{Binding LoginContext.IsAuthenticated}"
-                Text="Log out" />
-            <Label Text="Bc. David Spavor" />
-        </StackLayout>
-    </Shell.FlyoutFooter>-->
 
 
 </Shell>

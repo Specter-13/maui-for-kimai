@@ -44,15 +44,13 @@ public partial class FavouritesListViewModel : ViewModelBase, IViewModelSingleto
 
     }
 
-    
-
-
-    public ObservableCollection<TimesheetModel> Favourites {get; set; } = new();
-
     public override async Task Initialize()
     {
        await Refresh();
     }
+
+
+    public ObservableCollection<TimesheetModel> Favourites {get; set; } = new();
 
     [RelayCommand]
     async Task Refresh()

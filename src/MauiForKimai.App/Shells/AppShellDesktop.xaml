@@ -83,18 +83,5 @@
             Route="serverlistview" />
     </FlyoutItem>
 
-    <!--<Shell.FlyoutFooter>
-        <StackLayout>
-            <Button
-                Margin="10,10"
-                Command="{Binding LogOutCommand}"
-                IsVisible="{Binding LoginContext.IsAuthenticated}"
-                Text="Log out" />
-            <Label Text="Bc. David Spavor" />
-        </StackLayout>
-    </Shell.FlyoutFooter>-->
-
-
-
 
 </Shell>

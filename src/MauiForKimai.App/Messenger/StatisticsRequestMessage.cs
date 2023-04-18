@@ -7,6 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MauiForKimai.Messenger;
-internal class StatisticsRequestMessage : RequestMessage<StatisticsWrapper>
+public class StatisticsRequestMessage : RequestMessage<StatisticsWrapper>
 {
 }

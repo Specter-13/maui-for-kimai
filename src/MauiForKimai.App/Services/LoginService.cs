@@ -31,7 +31,6 @@ public class LoginService : ILoginService
     }
 
 
-
     public async Task<bool> LoginOnStartUp(ServerModel defaultServer)
     {
         if (defaultServer == null)
@@ -59,14 +58,12 @@ public class LoginService : ILoginService
     }
 
 
-
     public Task Logout()
     {
         return Task.Run(() =>
         {
             _loginContext.Disconnect();
             DeInitializeClients();
-            //TODO send message to refresh data
         });
        
     }

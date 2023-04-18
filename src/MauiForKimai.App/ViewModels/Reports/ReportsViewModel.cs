@@ -77,8 +77,17 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
         });
 
     }
+
+    public override async Task Initialize()
+    {
+        if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.LoginContext.IsAuthenticated )
+        { 
+            IsBusy = true;
+            await GetData();
+            IsBusy = false;
+        }
+    }
     [ObservableProperty]
-  
     string todayDate;
 
     [ObservableProperty]
@@ -91,40 +100,8 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
 
     public string WeekInterval => $"{BeginWeekDate} - {EndWeekDate}";
 
-
-
     [ObservableProperty]
     string monthName;
-
-
-    private static double _textSize =  DeviceInfo.Current.Idiom == DeviceIdiom.Desktop ? 15 : 40;
-
-    public override async Task Initialize()
-    {
-        if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.LoginContext.IsAuthenticated )
-        { 
-            IsBusy = true;
-            await GetData();
-            IsBusy = false;
-        }
-    }
-
-    [RelayCommand]
-    public async Task Refresh()
-    {
-        if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.LoginContext.IsAuthenticated )
-        { 
-            
-
-            await GetData();
-
-            IsRefreshing = false;
-        }
-        else
-        {
-           await Toast.Make("Cannot acquire reports data", ToastDuration.Short, 14).Show();
-        }
-    }
 
     [ObservableProperty]
     bool isDataLoaded;
@@ -137,6 +114,9 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
 
     [ObservableProperty]
     int selectedReportType;
+
+    private static double _textSize =  DeviceInfo.Current.Idiom == DeviceIdiom.Desktop ? 15 : 40;
+
 
     async partial void OnSelectedReportTypeChanged(int value)
     {
@@ -194,6 +174,22 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
         }
     };
   
+
+
+    [RelayCommand]
+    public async Task Refresh()
+    {
+        if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.LoginContext.IsAuthenticated )
+        { 
+
+            await GetData();
+                        IsRefreshing = false;
+        }
+        else
+        {
+           await Toast.Make("Cannot acquire reports data", ToastDuration.Short, 14).Show();
+        }
+    }
 
     [RelayCommand]
     async Task GetDataByReportsType(ReportsType reportsType)
