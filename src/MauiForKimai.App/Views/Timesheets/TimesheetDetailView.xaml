@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mvvm:TinyView
+    x:Class="MauiForKimai.Views.TimesheetDetailView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:enums="clr-namespace:MauiForKimai.Core.Enums;assembly=MauiForKimai.Core"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
+    xmlns:validators="clr-namespace:FluentValidation;assembly=FluentValidation"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    x:DataType="viewmodel:TimesheetDetailViewModel"
+    Shell.DisabledColor="White"
+    Shell.TabBarIsVisible="True">
+
+    <ContentPage.Resources>
+
+        <ResourceDictionary>
+            <mct:EnumToBoolConverter x:Key="ModeConverter" />
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <mct:EnumToBoolConverter x:Key="UserRoleConverter" />
+        </ResourceDictionary>
+
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
+
+    </ContentPage.Resources>
+
+
+    <Shell.TitleView>
+        <Grid Margin="0,0,15,0" HeightRequest="40">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label
+                Grid.Column="0"
+                HorizontalOptions="Start"
+                Style="{StaticResource TitleLabel}"
+                Text="{Binding PageLabel}"
+                VerticalOptions="Center" />
+
+
+
+            <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
+
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding StartTimesheetCommand}"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
+                    Style="{StaticResource Key=RecentRestartButton}"
+                    VerticalOptions="Center">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="MaterialDesignIcons"
+                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
+                            Size="25"
+                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                    Dark={StaticResource AccentTextColorLight}}" />
+                    </Button.ImageSource>
+                </Button>
+
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding AddToFavouritesCommand}"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
+                    Style="{StaticResource Key=RecentRestartButton}"
+                    VerticalOptions="Center">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="MaterialDesignIcons"
+                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.StarPlusOutline}"
+                            Size="25"
+                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                    Dark={StaticResource AccentTextColorLight}}" />
+                    </Button.ImageSource>
+                </Button>
+
+            </HorizontalStackLayout>
+        </Grid>
+    </Shell.TitleView>
+
+
+
+
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="90" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+
+
+        <!--  Header with buttons  -->
+        <Label
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="Center"
+            Style="{StaticResource LargeLabel}"
+            Text="{Binding TimeWrapper.Duration}"
+            VerticalOptions="Center" />
+
+        <Label
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            HorizontalOptions="Center"
+            Style="{StaticResource MediumLabel}"
+            Text="{Binding TimeWrapper.BeginFullString}"
+            VerticalOptions="Center" />
+
+
+
+
+
+        <Button
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="10"
+            Command="{Binding DeleteCommand}"
+            HeightRequest="40"
+            HorizontalOptions="Center"
+            IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
+            Style="{StaticResource DeleteButton}"
+            Text="Delete"
+            WidthRequest="100" />
+
+
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="10"
+            Command="{Binding StartTimesheetCommand}"
+            HeightRequest="40"
+            HorizontalOptions="Center"
+            IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Start}}"
+            Text="Start"
+            WidthRequest="100" />
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="10"
+            Command="{Binding CreateCommand}"
+            HeightRequest="40"
+            HorizontalOptions="Center"
+            IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Create}}"
+            Text="Create"
+            WidthRequest="100" />
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="10"
+            Command="{Binding SaveCommand}"
+            HeightRequest="40"
+            HorizontalOptions="Center"
+            IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"
+            Text="Save"
+            WidthRequest="100" />
+
+
+
+
+        <ScrollView Grid.Row="3" Grid.ColumnSpan="2">
+            <StackLayout>
+
+                <Label
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource NotValidLabel}"
+                    Text="{Binding ValidationErrors}" />
+
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <!--  From Time  -->
+                    <StackLayout Grid.Row="0">
+                        <Label Style="{StaticResource SmallLabel}" Text="Begin" />
+                        <TimePicker Format="HH:mm" Time="{Binding TimeWrapper.BeginTime}" />
+
+                    </StackLayout>
+                    <!--  From Date  -->
+
+                    <StackLayout Grid.Row="0" Grid.Column="1">
+                        <Label Style="{StaticResource SmallLabel}" />
+                        <DatePicker Date="{Binding TimeWrapper.BeginDate}" />
+                    </StackLayout>
+
+
+
+                    <StackLayout Grid.Row="1" IsVisible="{Binding IsCreateOrEdit}">
+                        <Label Style="{StaticResource SmallLabel}" Text="End" />
+                        <TimePicker
+                            x:Name="BeginTimePicker"
+                            Format="HH:mm"
+                            Time="{Binding TimeWrapper.EndTime}" />
+                    </StackLayout>
+
+
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        IsVisible="{Binding IsCreateOrEdit}">
+                        <Label />
+                        <DatePicker
+                            Date="{Binding TimeWrapper.EndDate}"
+                            IsVisible="{Binding IsCreateOrEdit}"
+                            VerticalOptions="End" />
+                    </StackLayout>
+
+
+
+
+                    <!--  Duration  -->
+                    <StackLayout
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        IsVisible="{Binding IsCreateOrEdit}">
+                        <Label Style="{StaticResource SmallLabel}" Text="Duration" />
+
+                        <Entry
+                            x:Name="HoursEntry"
+                            HorizontalTextAlignment="Center"
+                            IsReadOnly="True"
+                            Keyboard="Numeric"
+                            Placeholder="00"
+                            Text="{Binding TimeWrapper.Duration}"
+                            VerticalTextAlignment="Center">
+
+                            <Entry.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding DurationTappedCommand}" />
+                            </Entry.GestureRecognizers>
+
+                        </Entry>
+
+                    </StackLayout>
+
+                </Grid>
+
+                <VerticalStackLayout>
+
+
+                    <!--  Customer  -->
+
+                    <Label Style="{StaticResource SmallLabel}" Text="Customer" />
+                    <Entry
+                        IsReadOnly="True"
+                        Placeholder="Select customer"
+                        Text="{Binding ChosenCustomer.Name}">
+                        <Entry.GestureRecognizers>
+
+                            <TapGestureRecognizer Command="{Binding ShowCustomerChooseViewCommand}" />
+
+                        </Entry.GestureRecognizers>
+
+                    </Entry>
+
+
+                    <Button
+                        Command="{Binding ShowCustomerChooseViewCommand}"
+                        IsVisible="{OnIdiom Phone=False,
+                                            Desktop=True}"
+                        Text="Choose customer" />
+                    <!--  Project  -->
+                    <Label Style="{StaticResource SmallLabel}" Text="Project *" />
+                    <Entry
+                        IsReadOnly="True"
+                        Placeholder="Select project"
+                        Text="{Binding ChosenProject.Name}">
+                        <Entry.GestureRecognizers>
+
+                            <TapGestureRecognizer Command="{Binding ShowProjectChooseViewCommand}" />
+
+                        </Entry.GestureRecognizers>
+
+                        <Entry.Behaviors>
+                            <mct:TextValidationBehavior
+                                x:Name="ProjectValidator"
+                                Flags="ValidateOnValueChanged"
+                                MinimumLength="1" />
+                        </Entry.Behaviors>
+                    </Entry>
+
+                    <Label
+                        IsVisible="{Binding IsNotValid, Source={x:Reference ProjectValidator}}"
+                        Style="{StaticResource NotValidLabel}"
+                        Text="Project is required" />
+
+
+                    <Button
+                        Command="{Binding ShowProjectChooseViewCommand}"
+                        IsVisible="{OnIdiom Phone=False,
+                                            Desktop=True}"
+                        Text="Choose project" />
+                    <!--  Activity  -->
+                    <Label Style="{StaticResource SmallLabel}" Text="Activity *" />
+
+                    <Entry
+                        IsReadOnly="True"
+                        Placeholder="Select activity"
+                        Text="{Binding ChosenActivity.Name}">
+                        <Entry.GestureRecognizers>
+
+                            <TapGestureRecognizer Command="{Binding ShowActivityChooseViewCommand}" />
+
+                        </Entry.GestureRecognizers>
+
+                        <Entry.Behaviors>
+                            <mct:TextValidationBehavior
+                                x:Name="ActivityValidator"
+                                Flags="ValidateOnValueChanged"
+                                MinimumLength="1" />
+                        </Entry.Behaviors>
+                    </Entry>
+
+                    <Label
+                        IsVisible="{Binding IsNotValid, Source={x:Reference ActivityValidator}}"
+                        Style="{StaticResource NotValidLabel}"
+                        Text="Activity is required" />
+
+                    <Button
+                        Command="{Binding ShowActivityChooseViewCommand}"
+                        IsVisible="{OnIdiom Phone=False,
+                                            Desktop=True}"
+                        Text="Choose Activity" />
+                    <!--  Description  -->
+                    <Label Style="{StaticResource SmallLabel}" Text="Description" />
+                    <Entry Text="{Binding Timesheet.Description}" />
+                    <!--  Tags  -->
+                    <Label Style="{StaticResource SmallLabel}" Text="Tags" />
+                    <Entry Text="{Binding Timesheet.Tags}" />
+
+                    <!--  Gitlab issue id  -->
+                    <Label
+                        IsVisible="{Binding LoginContext.TimetrackingPermissions.HasGitlabPlugin}"
+                        Style="{StaticResource SmallLabel}"
+                        Text="Gitlab issue Id" />
+                    <Entry IsVisible="{Binding LoginContext.TimetrackingPermissions.HasGitlabPlugin}" Text="{Binding Timesheet.GitlabIssueId}" />
+
+                    <!--  ROLE DEPENDAND!  -->
+                    <!--  Billable  -->
+                    <Label
+                        IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditBillable}"
+                        Style="{StaticResource SmallLabel}"
+                        Text="Billable" />
+                    <Picker
+                        x:Name="picker"
+                        Title="Select a mode"
+                        IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditBillable}"
+                        SelectedItem="{Binding SelectedBillableMode}">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Automatic</x:String>
+                                <x:String>Yes</x:String>
+                                <x:String>No</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+
+                    <!--  Rates  -->
+
+                    <StackLayout IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditRate}">
+                        <Label Style="{StaticResource SmallLabel}" Text="Fixed rate" />
+                        <Entry Keyboard="Numeric" Text="{Binding Timesheet.FixedRate}">
+                            <Entry.Behaviors>
+                                <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
+                            </Entry.Behaviors>
+                        </Entry>
+
+                        <Label Style="{StaticResource SmallLabel}" Text="Hourly rate" />
+                        <Entry Keyboard="Numeric" Text="{Binding Timesheet.HourlyRate}">
+                            <Entry.Behaviors>
+                                <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </StackLayout>
+
+
+
+
+                    <!--  Exported  -->
+
+                    <StackLayout IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditExport}">
+                        <Label Style="{StaticResource SmallLabel}" Text="Exported" />
+                        <CheckBox HorizontalOptions="Start" IsChecked="{Binding Timesheet.Exported}" />
+                    </StackLayout>
+
+
+
+                    <!--  ROLE DEPENDAND!  -->
+                </VerticalStackLayout>
+
+            </StackLayout>
+        </ScrollView>
+
+
+    </Grid>
+
+
+</mvvm:TinyView>

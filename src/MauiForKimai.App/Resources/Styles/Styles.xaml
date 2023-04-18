@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <!--  Pages  -->
+    <Style ApplyToDerivedTypes="True" TargetType="Frame">
+
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal" />
+                    <VisualState Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <!--  Pages  -->
+    <Style ApplyToDerivedTypes="True" TargetType="Page">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+    </Style>
+    <!--  Navigation  -->
+    <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+        <Setter Property="BarBackgroundColor" Value="{StaticResource AccentColor}" />
+        <Setter Property="BarTextColor" Value="White" />
+    </Style>
+
+    <!--  Entry  -->
+    <Style TargetType="Entry">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource AccentTextColorLight}, Light={StaticResource AccentTextColorDark}}" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+        <Setter Property="MinimumWidthRequest" Value="44" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="Grey" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+
+    <!--  Entry  -->
+    <Style TargetType="DatePicker">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource AccentTextColorLight}, Light={StaticResource AccentTextColorDark}}" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+        <Setter Property="MinimumWidthRequest" Value="44" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="Grey" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <!--  TimePicker  -->
+    <Style TargetType="TimePicker">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource AccentTextColorLight}, Light={StaticResource AccentTextColorDark}}" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+        <Setter Property="MinimumWidthRequest" Value="44" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="Grey" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <!--  Picker  -->
+    <Style TargetType="Picker">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource AccentTextColorLight}, Light={StaticResource AccentTextColorDark}}" />
+        <Setter Property="MinimumHeightRequest" Value="44" />
+        <Setter Property="MinimumWidthRequest" Value="44" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="TextColor" Value="Grey" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ColorIndicator" TargetType="Ellipse">
+        <Setter Property="Margin" Value="0,0,5,0" />
+        <Setter Property="HeightRequest" Value="7" />
+        <Setter Property="WidthRequest" Value="7" />
+        <Setter Property="Stroke" Value="black" />
+    </Style>
+
+    <!--  Buttons  -->
+    <Style TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+        <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
+    </Style>
+
+    <Style x:Key="RecentRestartButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+
+        <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
+        <Setter Property="Padding" Value="3,0,3,0" />
+    </Style>
+
+    <Style x:Key="ReportButton" TargetType="Button">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale" Value="0.8" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
+        <Setter Property="Padding" Value="10" />
+    </Style>
+
+    <Style x:Key="DeleteButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentColorDanger}" />
+        <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
+    </Style>
+
+    <Style x:Key="CancelButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource AccentTextColorLight}" />
+        <Setter Property="TextColor" Value="{StaticResource AccentTextColorDark}" />
+    </Style>
+
+    <Style x:Key="TimetrackingButton" TargetType="ImageButton">
+        <Setter Property="Aspect" Value="AspectFill" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="WidthRequest" Value="50" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+
+    </Style>
+
+    <!--  Cards  -->
+
+    <Style x:Key="BaseCard" TargetType="Frame">
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="IsClippedToBounds" Value="True" />
+    </Style>
+
+
+    <Style
+        x:Key="Widget"
+        BasedOn="{StaticResource BaseCard}"
+        TargetType="Frame">
+        <Setter Property="BorderColor" Value="{StaticResource AccentColor}" />
+    </Style>
+
+    <Style
+        x:Key="ChooseItemCard"
+        BasedOn="{StaticResource BaseCard}"
+        TargetType="Frame">
+        <Setter Property="Padding" Value="10" />
+    </Style>
+
+    <Style
+        x:Key="TimesheetListCard"
+        BasedOn="{StaticResource BaseCard}"
+        TargetType="Frame">
+
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="HeightRequest" Value="80" />
+
+    </Style>
+
+    <Style
+        x:Key="FavouritesTimesheetCard"
+        BasedOn="{StaticResource BaseCard}"
+        TargetType="Frame">
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="HeightRequest" Value="70" />
+    </Style>
+
+    <Style x:Key="ServerListCard" TargetType="Frame">
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
+        <Setter Property="IsClippedToBounds" Value="True" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="HeightRequest" Value="80" />
+    </Style>
+
+    <Style x:Key="TimeTrackingCard" TargetType="Border">
+        <Setter Property="Padding" Value="5" />
+
+        <!--<Setter Property="Background" Value="{StaticResource AccentColor}" />-->
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 30,30,0,0" />
+    </Style>
+
+
+    <Style x:Key="InfoBar" TargetType="Border">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="HeightRequest" Value="17" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 15,15,0,0" />
+    </Style>
+
+    <Style x:Key="TimeTrackingFavouriteCard" TargetType="Frame">
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, Dark={StaticResource CardBackgroundDark}}" />
+    </Style>
+
+
+
+
+    <!--  entry  -->
+
+
+
+
+    <!--  Labels  -->
+    <Style x:Key="BaseLabel" TargetType="Label">
+        <Setter Property="FontFamily" Value="OpenSansRegular" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource AccentTextColorDark}, Dark={StaticResource AccentTextColorLight}}" />
+    </Style>
+
+    <Style
+        x:Key="NotValidLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="TextColor" Value="Red" />
+
+    </Style>
+
+    <Style
+        x:Key="MicroLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="10" />
+    </Style>
+
+    <Style
+        x:Key="SmallLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style
+        x:Key="MediumLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <Style
+        x:Key="LargeLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+
+    <Style
+        x:Key="TitleLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="23" />
+    </Style>
+
+
+
+
+
+
+
+
+</ResourceDictionary>

@@ -1,0 +1,153 @@
+<Shell
+    x:Class="MauiForKimai.Shells.AppShellDesktop"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:local="clr-namespace:MauiForKimai.Views"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    x:DataType="viewmodel:MenuViewModel"
+    FlyoutBackground="{AppThemeBinding Light={StaticResource BackgroundLight},
+                                       Dark=Black}"
+    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight},
+                                            Dark=Black}"
+    FlyoutBehavior="Locked">
+
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+                <Setter Property="Shell.ForegroundColor" Value="{DynamicResource AccentColor}" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource AccentColor}" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
+
+            </Style>
+            <Style
+                ApplyToDerivedTypes="True"
+                BasedOn="{StaticResource BaseStyle}"
+                TargetType="ShellItem" />
+
+            <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource AccentTextColorLight}, Light={StaticResource AccentTextColorDark}}" />
+            </Style>
+        </ResourceDictionary>
+
+
+
+
+    </Shell.Resources>
+
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid HeightRequest="150">
+                <Image
+                    Aspect="AspectFill"
+                    HorizontalOptions="Center"
+                    Opacity="0.6"
+                    Source="logo_desktop.png"
+                    VerticalOptions="Start" />
+
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+
+
+    <FlyoutItem Title="Home">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                FontFamily="MaterialDesignIcons"
+                Glyph="{x:Static helpers:MaterialDesignIconsFonts.Home}"
+                Size="Large"
+                Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                        Dark={StaticResource AccentTextColorLight}}" />
+        </FlyoutItem.Icon>
+
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:HomeView}"
+            Icon="home.png"
+            Route="home" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Favourites">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                FontFamily="MaterialDesignIcons"
+                Glyph="{x:Static helpers:MaterialDesignIconsFonts.Star}"
+                Size="Large"
+                Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                        Dark={StaticResource AccentTextColorLight}}" />
+        </FlyoutItem.Icon>
+        <ShellContent
+            Title="Favourites"
+            ContentTemplate="{DataTemplate local:FavouritesListView}"
+            Route="favourites" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Timesheets">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                FontFamily="MaterialDesignIcons"
+                Glyph="{x:Static helpers:MaterialDesignIconsFonts.ClipboardClock}"
+                Size="Large"
+                Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                        Dark={StaticResource AccentTextColorLight}}" />
+        </FlyoutItem.Icon>
+        <ShellContent
+            Title="Timesheets"
+            ContentTemplate="{DataTemplate local:TimesheetListView}"
+            Route="timesheets" />
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="Reports">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                FontFamily="MaterialDesignIcons"
+                Glyph="{x:Static helpers:MaterialDesignIconsFonts.ChartLine}"
+                Size="Large"
+                Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                        Dark={StaticResource AccentTextColorLight}}" />
+        </FlyoutItem.Icon>
+        <ShellContent
+            Title="Reports"
+            ContentTemplate="{DataTemplate local:ReportsView}"
+            Icon="chart_line.png"
+            Route="reports" />
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="Management">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                FontFamily="MaterialDesignIcons"
+                Glyph="{x:Static helpers:MaterialDesignIconsFonts.Database}"
+                Size="Large"
+                Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                        Dark={StaticResource AccentTextColorLight}}" />
+        </FlyoutItem.Icon>
+        <ShellContent
+            Title="Servers"
+            ContentTemplate="{DataTemplate local:ServerListView}"
+            Icon="login.png"
+            Route="serverlistview" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Settings">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                FontFamily="MaterialDesignIcons"
+                Glyph="{x:Static helpers:MaterialDesignIconsFonts.Cog}"
+                Size="Large"
+                Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                        Dark={StaticResource AccentTextColorLight}}" />
+        </FlyoutItem.Icon>
+        <ShellContent
+            Title="Settings"
+            ContentTemplate="{DataTemplate local:SettingsView}"
+            Route="settings" />
+    </FlyoutItem>
+
+</Shell>

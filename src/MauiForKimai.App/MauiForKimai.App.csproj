@@ -1,0 +1,200 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+    
+		<!--<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>-->
+    <TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+
+    <!-- add this condition as well -->
+    <OutputType Condition="'$(TargetFramework)' != 'net7.0'">Exe</OutputType>
+    <!--<OutputType Condition="'$(TargetFramework)' == 'net7.0'">Library</OutputType>-->
+		<!--<OutputType>Exe</OutputType>-->
+		<RootNamespace>MauiForKimai</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>Maui for Kimai</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.mauiforkimai</ApplicationId>
+		<ApplicationIdGuid>6eb6aae9-bcc0-4ba4-822b-0a22b68dce6f</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#2069e0" BaseSize="80,80" />
+
+
+		<!-- Splash Screen -->
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#2069e0" />
+    
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Fonts\materialdesignicons-webfont.ttf" />
+	  <None Remove="Resources\Images\logo.svg" />
+	  <None Remove="Resources\Images\logo_color.svg" />
+	  <None Remove="Resources\Images\logo_desktop.png" />
+	  <None Remove="Resources\Raw\active_animation.json" />
+	  <None Remove="Resources\Splash\splash.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui" Version="5.1.0" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-beta.701" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.5.2" />
+		<PackageReference Include="Scrutor" Version="4.2.2" />
+		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.61" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.4" />
+    <PackageReference Include="TinyMvvm.Maui" Version="4.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\MauiForKimai.ApiClient\MauiForKimai.ApiClient.csproj" />
+	  <ProjectReference Include="..\MauiForKimai.Core\MauiForKimai.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Controls\FavouriteListControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\ServerListControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\TimesheetListControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\DurationPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\FirstStartPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\ServerDefaultPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Shells\AppShellDesktop.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ChooseItemView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\HomeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Servers\ServerDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Servers\ServersListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Reports\ReportsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Settings\SettingsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Timesheets\TimesheetDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Favourites\FavouritesDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Favourites\FavouritesListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Timesheets\TimesheetListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Controls\FavouriteListControl.xaml.cs">
+	    <DependentUpon>FavouriteListControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Controls\TimesheetListControl.xaml.cs">
+	    <DependentUpon>TimesheetListControl.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Popups\FirstStartPopup.xaml.cs">
+	    <DependentUpon>FirstStartPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Shells\AppShellMobile.xaml.cs">
+	    <DependentUpon>AppShellMobile.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Shells\AppShellDesktop.xaml.cs">
+	    <DependentUpon>AppShellDesktop.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\HomeView.xaml.cs">
+	    <DependentUpon>HomeView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Servers\ServerDetailView.xaml.cs">
+	    <DependentUpon>ServerDetailView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Servers\ServersListView.xaml.cs">
+	    <DependentUpon>ServersListView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Favourites\FavouritesListView.xaml.cs">
+	    <DependentUpon>FavouritesListView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Favourites\FavouritesDetailView.xaml.cs">
+	    <DependentUpon>FavouritesDetailView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Timesheets\TimesheetDetailView.xaml.cs">
+	    <DependentUpon>TimesheetDetailView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Timesheets\TimesheetListView.xaml.cs">
+	    <DependentUpon>TimesheetListView.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\School\maui-for-kimai-publish\myapp.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyAlias>key</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass></AndroidSigningKeyPass>
+    <AndroidSigningStorePass></AndroidSigningStorePass>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(Configuration)' == 'Release'">
+    <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
+
+	</PropertyGroup>
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' and '$(RuntimeIdentifierOverride)' != ''">
+			<RuntimeIdentifier>$(RuntimeIdentifierOverride)</RuntimeIdentifier>
+	</PropertyGroup>
+
+  <Target Name="RemoveSourceGeneratedFiles" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Compile Remove="**/*.SourceGenerated.cs" />
+    </ItemGroup>
+  </Target>
+  
+</Project>

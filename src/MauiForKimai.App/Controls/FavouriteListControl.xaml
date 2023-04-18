@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MauiForKimai.Controls.FavouriteListControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cnv="clr-namespace:MauiForKimai.Converters"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    x:Name="TimesheetItemControl"
+    x:DataType="model:TimesheetModel">
+
+
+    <ContentView.Resources>
+        <cnv:StringToColorConverter x:Key="StringToColorConverter" />
+    </ContentView.Resources>
+
+    <Frame Style="{StaticResource TimesheetListCard}">
+
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FavouritesListViewModel}}, Path=FavouriteTappedCommand}" CommandParameter="{Binding .}" />
+        </Frame.GestureRecognizers>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
+                <Label
+                    Margin="0,0,3,0"
+                    FontFamily="MaterialDesignIcons"
+                    FontSize="20"
+                    HorizontalOptions="Center"
+                    Text="{x:Static helpers:MaterialDesignIconsFonts.Star}"
+                    TextColor="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                Dark={StaticResource AccentTextColorLight}}"
+                    VerticalOptions="Center" />
+                <Label Style="{StaticResource MediumLabel}" Text="{Binding ActivityName}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Grid.Row="1" Grid.Column="0">
+                <Ellipse Fill="{Binding ProjectColor, Converter={StaticResource StringToColorConverter}}" Style="{StaticResource ColorIndicator}" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource MicroLabel}"
+                    Text="{Binding ProjectName}" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Grid.Row="2" Grid.Column="0">
+                <Ellipse Fill="{Binding CustomerColor, Converter={StaticResource StringToColorConverter}}" Style="{StaticResource ColorIndicator}" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource MicroLabel}"
+                    Text="{Binding CustomerName}" />
+            </HorizontalStackLayout>
+
+
+            <Ellipse
+                Grid.Row="0"
+                Grid.Column="3"
+                Fill="{Binding ActivityColor, Converter={StaticResource StringToColorConverter}}"
+                HeightRequest="9"
+                HorizontalOptions="End"
+                Style="{StaticResource ColorIndicator}"
+                VerticalOptions="Start"
+                WidthRequest="9" />
+
+            <Button
+                Grid.RowSpan="3"
+                Grid.Column="3"
+                BackgroundColor="Transparent"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FavouritesListViewModel}}, Path=QuickStartCommand}"
+                CommandParameter="{Binding .}"
+                HorizontalOptions="End"
+                Style="{StaticResource Key=RecentRestartButton}">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialDesignIcons"
+                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
+                        Size="30"
+                        Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                Dark={StaticResource AccentTextColorLight}}" />
+                </Button.ImageSource>
+            </Button>
+
+        </Grid>
+
+    </Frame>
+</ContentView>

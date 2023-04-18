@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MauiForKimai.Shells.AppShellMobile"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MauiForKimai.Controls"
+    xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
+    xmlns:local="clr-namespace:MauiForKimai.Views"
+    xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
+    x:Name="MyShell"
+    x:DataType="viewmodel:MenuViewModel">
+
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+                <Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={StaticResource AccentColor}, Default=White}" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource AccentColor}" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Dark={StaticResource BackgroundDark}, Light={StaticResource BackgroundLight}}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Dark={StaticResource BackgroundLight}, Light={StaticResource BackgroundDark}}" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource AccentColor}" />
+            </Style>
+            <Style
+                ApplyToDerivedTypes="True"
+                BasedOn="{StaticResource BaseStyle}"
+                TargetType="ShellItem" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+
+    <TabBar>
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:HomeView}"
+            Icon="home_clock.png"
+            Route="home" />
+
+
+
+        <Tab Title="Timesheets" Icon="clipboard_text_clock.png">
+
+
+            <ShellContent
+                Title="Favourites"
+                ContentTemplate="{DataTemplate local:FavouritesListView}"
+                Icon="playlist_star.png"
+                Route="favourites" />
+
+            <ShellContent
+                Title="All"
+                ContentTemplate="{DataTemplate local:TimesheetListView}"
+                Route="timesheets" />
+
+        </Tab>
+
+
+        <Tab Title="Reports" Icon="chart_line.png">
+
+
+            <ShellContent Title="Projects" ContentTemplate="{DataTemplate local:ReportsView}" />
+
+
+        </Tab>
+        <Tab Title="Management" Icon="database.png">
+
+
+            <ShellContent
+                Title="Servers"
+                ContentTemplate="{DataTemplate local:ServerListView}"
+                Route="serverlistview" />
+
+
+        </Tab>
+
+    </TabBar>
+
+
+</Shell>
