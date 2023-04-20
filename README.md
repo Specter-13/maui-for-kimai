@@ -18,12 +18,12 @@ Basic demonstration video: https://youtu.be/daTTTE8QJ0o
 | Android      | <span style="color:green">yes</span>     |
 | Windows      | <span style="color:green">yes</span>     |
 | IOS          | ? (need testing) |
-| MacCatalysts | ? (need testing) |
+| MacCatalyst  | ? (need testing) |
 
 I don't have access to Mac build tools, therefore IOS/MacOS is untested, but in theory it should work. If anyone would be willing to test it, I would deeply appreciate it.
 
 ## Features
----
+
 ### Kimai features
 
 - Timesheet management (start, stop, delete, recent, all)
@@ -46,11 +46,12 @@ I don't have access to Mac build tools, therefore IOS/MacOS is untested, but in 
 - Graphs by [LiveCharts2](https://github.com/beto-rodriguez/LiveCharts2)
 
 ## Limitations
----
+
 - **Kimai v2 is not supported yet**
 - There are some inconsistencies within in app dark/light theme changing
 - No support for management of project/customers/teams within app
-- Missing support for teams management and team reports
+- Missing team reports
+- Missing offline time-tracking
 
 ## Installation
 ---

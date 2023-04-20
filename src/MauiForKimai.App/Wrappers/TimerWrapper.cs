@@ -37,7 +37,6 @@ public partial class TimerWrapper : ObservableObject
 	}
     private void CreateTimer()
 	{ 
-		//Application.Current.Dispatcher.C
 		_timer = _dispatcherWrapper.CreateTimer();
 		_timer.Interval = TimeSpan.FromSeconds(1);
 		_timer.Tick += (s, e) =>

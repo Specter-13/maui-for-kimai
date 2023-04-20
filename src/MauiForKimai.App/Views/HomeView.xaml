@@ -247,8 +247,23 @@
                 TextColor="Green"
                 VerticalTextAlignment="Center" />
 
+        </Border>
+
+        <Border
+            Grid.Row="1"
+            IsVisible="{Binding IsActivityStarting}"
+            Style="{StaticResource InfoBar}"
+            VerticalOptions="End">
+
+            <Label
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource MicroLabel}"
+                Text="Activity is starting..."
+                TextColor="Green"
+                VerticalTextAlignment="Center" />
 
         </Border>
+
         <Border
             x:Name="SwipeMenu"
             Grid.Row="2"

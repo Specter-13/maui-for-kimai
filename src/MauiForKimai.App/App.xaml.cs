@@ -53,7 +53,7 @@ public partial class App : TinyApplication
 	
 	}
 
-	private void SetThemeOnStartup()
+    private void SetThemeOnStartup()
 	{ 
 		int value = Preferences.Default.Get("mfk_default_theme",-1);
 		if (value != -1) 
