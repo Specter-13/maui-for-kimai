@@ -1,0 +1,2272 @@
+{
+  "homepages": [],
+  "source_base_path": "C:/School/maui-for-kimai/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Activity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Activity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ActivityCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ActivityCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ActivityEditForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ActivityEditForm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ActivityEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ActivityEntity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ActivityExpanded.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ActivityExpanded.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ActivityMeta.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ActivityMeta.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ActivityRate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ActivityRate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ActivityRateForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ActivityRateForm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ApiClient.ObjectResponseResult-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ApiClient.ObjectResponseResult-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ApiClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ApiClient.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ApiLoginContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ApiLoginContext.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Authentication.AuthHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Authentication.AuthHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Authentication.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Authentication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Body.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Body.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Body2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Body2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Body3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Body3.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Body4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Body4.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Body5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Body5.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Customer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Customer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.CustomerCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.CustomerCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.CustomerEditForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.CustomerEditForm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.CustomerEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.CustomerEntity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.CustomerMeta.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.CustomerMeta.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.CustomerRate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.CustomerRate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.CustomerRateForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.CustomerRateForm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.DependencyInjection.ServicesConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.DependencyInjection.ServicesConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.DependencyInjection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.DependencyInjection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Extensions.ApiModelsExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Extensions.ApiModelsExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Extensions.DateTimeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Extensions.DateTimeExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Extensions.TimeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Extensions.TimeExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.I18nConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.I18nConfig.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.IApiClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.IApiClient.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Interfaces.IActivityService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Interfaces.IActivityService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Interfaces.IBaseService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Interfaces.IBaseService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Interfaces.ICrudOperations-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Interfaces.ICrudOperations-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Interfaces.ICustomerService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Interfaces.ICustomerService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Interfaces.IProjectService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Interfaces.IProjectService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Interfaces.ITimesheetService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Interfaces.ITimesheetService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Interfaces.IUserService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Interfaces.IUserService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Interfaces.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.KiamiApiException-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.KiamiApiException-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.KimaiApiException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.KimaiApiException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Members.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Members.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Plugin.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Plugin.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Project.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Project.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ProjectCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ProjectCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ProjectEditForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ProjectEditForm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ProjectEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ProjectEntity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ProjectExpanded.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ProjectExpanded.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ProjectMeta.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ProjectMeta.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ProjectRate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ProjectRate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.ProjectRateForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.ProjectRateForm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Roles.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Roles.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Roles2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Roles2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Services.ActivityService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Services.ActivityService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Services.BaseService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Services.BaseService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Services.CustomerService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Services.CustomerService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Services.ProjectService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Services.ProjectService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Services.TimesheetService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Services.TimesheetService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Services.UserService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Services.UserService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Services.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TagEditForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TagEditForm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TagEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TagEntity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Team.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Team.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TeamCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TeamCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TeamEditForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TeamEditForm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TeamMember.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TeamMember.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TeamMembership.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TeamMembership.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TimesheetCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TimesheetCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TimesheetCollectionExpanded.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TimesheetCollectionExpanded.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TimesheetConfig.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TimesheetConfig.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TimesheetEditForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TimesheetEditForm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TimesheetEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TimesheetEntity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TimesheetEntityExpanded.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TimesheetEntityExpanded.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.TimesheetMeta.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.TimesheetMeta.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.User.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.User.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.UserCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.UserCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.UserCreateForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.UserCreateForm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.UserCreateFormLanguage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.UserCreateFormLanguage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.UserEditForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.UserEditForm.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.UserEditFormLanguage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.UserEditFormLanguage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.UserEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.UserEntity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.UserPreference.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.UserPreference.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.Version.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.Version.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ApiClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ApiClient.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.App.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.App.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Controls.FavouriteListControl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Controls.FavouriteListControl.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Controls.ServerListControl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Controls.ServerListControl.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Controls.TimesheetListControl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Controls.TimesheetListControl.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Controls.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Controls.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Converters.StringToColorConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Converters.StringToColorConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Converters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Converters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.CoreModelExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.CoreModelExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Entities.ServerEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Entities.ServerEntity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Entities.TimesheetFavouriteEntity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Entities.TimesheetFavouriteEntity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Entities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Entities.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Enums.ChooseItemMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Enums.ChooseItemMode.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Enums.ReportsType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Enums.ReportsType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Enums.TimesheetDetailMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Enums.TimesheetDetailMode.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Enums.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Enums.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Interfaces.IChooseItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Interfaces.IChooseItem.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Interfaces.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Models.ActivityListModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Models.ActivityListModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Models.CustomerListModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Models.CustomerListModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Models.PermissionsTimetrackingModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Models.PermissionsTimetrackingModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Models.ProjectListModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Models.ProjectListModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Models.RouteModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Models.RouteModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Models.ServerModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Models.ServerModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Models.TimesheetActiveModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Models.TimesheetActiveModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Models.TimesheetModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Models.TimesheetModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Models.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.UserRole.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.UserRole.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Utils.Colors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Utils.Colors.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Utils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Utils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Validators.ServerModelValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Validators.ServerModelValidator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Validators.TimesheetModelCreateValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Validators.TimesheetModelCreateValidator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Validators.TimesheetModelStartValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Validators.TimesheetModelStartValidator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Validators.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Validators.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.DependencyInjection.ServiceProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.DependencyInjection.ServiceProvider.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.DependencyInjection.ServicesConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.DependencyInjection.ServicesConfiguration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.DependencyInjection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.DependencyInjection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Helpers.MaterialDesignIconsFonts.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Helpers.MaterialDesignIconsFonts.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Helpers.Theme.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Helpers.Theme.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Helpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Helpers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Interfaces.ICrudOperationsMySql-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Interfaces.ICrudOperationsMySql-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Interfaces.IFavouritesTimesheetService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Interfaces.IFavouritesTimesheetService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Interfaces.ILoginService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Interfaces.ILoginService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Interfaces.IRoutingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Interfaces.IRoutingService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Interfaces.ISecureStorageService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Interfaces.ISecureStorageService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Interfaces.IServerService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Interfaces.IServerService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Interfaces.IViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Interfaces.IViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Interfaces.IViewModelSingleton.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Interfaces.IViewModelSingleton.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Interfaces.IViewModelTransient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Interfaces.IViewModelTransient.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Interfaces.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.MauiProgram.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.MauiProgram.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Messenger.FavouritesRefreshMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Messenger.FavouritesRefreshMessage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Messenger.ItemChooseMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Messenger.ItemChooseMessage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Messenger.RefreshMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Messenger.RefreshMessage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Messenger.ServerRefreshMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Messenger.ServerRefreshMessage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Messenger.StatisticsRequestMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Messenger.StatisticsRequestMessage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Messenger.TimesheetFavouriteCreateMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Messenger.TimesheetFavouriteCreateMessage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Messenger.TimesheetStartExistingMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Messenger.TimesheetStartExistingMessage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Messenger.TimesheetStartNewMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Messenger.TimesheetStartNewMessage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Messenger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Messenger.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Persistence.Constants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Persistence.Constants.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Persistence.FavouriteTimesheetService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Persistence.FavouriteTimesheetService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Persistence.ServerService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Persistence.ServerService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Persistence.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Persistence.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Popups.DurationPopup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Popups.DurationPopup.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Popups.DurationPopupViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Popups.DurationPopupViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Popups.FirstStartPopup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Popups.FirstStartPopup.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Popups.PopupSizeConstants.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Popups.PopupSizeConstants.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Popups.ServerDefaultPopup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Popups.ServerDefaultPopup.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Popups.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Popups.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Services.LoginService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Services.LoginService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Services.RoutingService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Services.RoutingService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Services.SecureStorageService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Services.SecureStorageService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Services.SettingsService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Services.SettingsService.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Services.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Shells.AppShellDesktop.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Shells.AppShellDesktop.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Shells.AppShellMobile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Shells.AppShellMobile.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Shells.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Shells.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Tests.Data.TestData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Tests.Data.TestData.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Tests.Data.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Tests.Data.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Tests.HomeViewModelTests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Tests.HomeViewModelTests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Tests.Mocks.FakeDispatcherTimer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Tests.Mocks.FakeDispatcherTimer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Tests.Mocks.FakeDispatcherWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Tests.Mocks.FakeDispatcherWrapper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Tests.Mocks.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Tests.Mocks.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Tests.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Tests.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.ActivityChooseDetailAllViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.ActivityChooseDetailAllViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.ActivityChooseFavouriteViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.ActivityChooseFavouriteViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.ActivityChooseRecentTimesheetViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.ActivityChooseRecentTimesheetViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.Base.ViewModelBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.Base.ViewModelBase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.Base.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.Base.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.ChooseItemViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.ChooseItemViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.CustomerChooseDetailAllViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.CustomerChooseDetailAllViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.CustomerChooseFavouriteViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.CustomerChooseFavouriteViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.CustomerChooseRecentTimesheetViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.CustomerChooseRecentTimesheetViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.FavouritesDetailViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.FavouritesDetailViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.FavouritesListViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.FavouritesListViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.HomeViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.HomeViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.MenuViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.MenuViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.ProjectChooseDetailAllViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.ProjectChooseDetailAllViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.ProjectChooseFavouriteViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.ProjectChooseFavouriteViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.ProjectChooseRecentTimesheetViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.ProjectChooseRecentTimesheetViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.ReportsViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.ReportsViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.ServerDetailViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.ServerDetailViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.ServerListViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.ServerListViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.Settings.SettingsViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.Settings.SettingsViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.Settings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.Settings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.TimesheetDetailAllViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.TimesheetDetailAllViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.TimesheetDetailViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.TimesheetDetailViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.TimesheetListViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.TimesheetListViewModel.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.ViewModels.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.ViewModels.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Views.ChooseItemView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Views.ChooseItemView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Views.FavouritesDetailView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Views.FavouritesDetailView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Views.FavouritesListView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Views.FavouritesListView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Views.HomeView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Views.HomeView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Views.ReportsView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Views.ReportsView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Views.ServerDetailView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Views.ServerDetailView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Views.ServerListView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Views.ServerListView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Views.SettingsView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Views.SettingsView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Views.TimesheetDetailView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Views.TimesheetDetailView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Views.TimesheetListView.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Views.TimesheetListView.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Views.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Views.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Wrappers.ChartDataWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Wrappers.ChartDataWrapper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Wrappers.ChartSeriesWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Wrappers.ChartSeriesWrapper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Wrappers.ChooseItemWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Wrappers.ChooseItemWrapper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Wrappers.DispatcherWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Wrappers.DispatcherWrapper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Wrappers.IDispatcherWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Wrappers.IDispatcherWrapper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Wrappers.StatisticsWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Wrappers.StatisticsWrapper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Wrappers.TimeBeginEndWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Wrappers.TimeBeginEndWrapper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Wrappers.TimerWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Wrappers.TimerWrapper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Wrappers.TimesheetDetailWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Wrappers.TimesheetDetailWrapper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Wrappers.TimesheetTimetrackingWrapper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Wrappers.TimesheetTimetrackingWrapper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Wrappers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Wrappers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
