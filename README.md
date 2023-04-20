@@ -68,7 +68,6 @@ Since this is early release, only raw files are available. When more features ar
 
 ## What is next 
 
----
 
 There is following plan to add features:
 - Add integration within the team (team management, team reports)
@@ -78,14 +77,12 @@ There is following plan to add features:
 
 
 ## Contribution 
----
 Feel free to share your ideas and create issues. PR's are welcome.
 
 
 ## License 
 This project is licensed under the MIT License - see the LICENSE file for more.
 
----
 <img src="assets/logo.png" alt="logo" width="30"  > 
 
 MAUI for Kimai
