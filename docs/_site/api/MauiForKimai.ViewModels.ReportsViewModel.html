@@ -1,0 +1,1178 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ReportsViewModel
+ </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ReportsViewModel
+ ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.min.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Specter-13/maui-for-kimai/new/features/apiSpec/new?filename=MauiForKimai_ViewModels_ReportsViewModel.md&amp;value=---%0Auid%3A%20MauiForKimai.ViewModels.ReportsViewModel%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+
+      <script>
+        MathJax = {
+          options: {
+            processHtmlClass: ['tex2jax_process', 'math']
+          }
+        };
+      </script>
+
+      <script type="text/javascript" src="../styles/docfx.min.js"></script>
+      <script type="text/javascript" src="../styles/main.js"></script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="MauiForKimai.ViewModels.ReportsViewModel">
+
+
+
+  <h1 id="MauiForKimai_ViewModels_ReportsViewModel" data-uid="MauiForKimai.ViewModels.ReportsViewModel" class="text-break">
+    Class ReportsViewModel
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.RelayCommandGenerator/MauiForKimai.ViewModels.ReportsViewModel.Refresh.g.cs/#L7"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="MauiForKimai.html">MauiForKimai</a>.<a class="xref" href="MauiForKimai.ViewModels.html">ViewModels</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>MauiForKimai.App.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ReportsViewModel : ViewModelBase, INotifyPropertyChanged, INotifyPropertyChanging, ITinyViewModel, IQueryAttributable, IViewModelSingleton, IViewModel</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject">ObservableObject</a></div>
+      <div><span class="xref">TinyViewModel</span></div>
+      <div><a class="xref" href="MauiForKimai.ViewModels.Base.ViewModelBase.html">ViewModelBase</a></div>
+      <div><span class="xref">ReportsViewModel</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged">INotifyPropertyChanged</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanging">INotifyPropertyChanging</a></div>
+      <div><span class="xref">ITinyViewModel</span></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.maui.controls.iqueryattributable">IQueryAttributable</a></div>
+      <div><a class="xref" href="MauiForKimai.Interfaces.IViewModelSingleton.html">IViewModelSingleton</a></div>
+      <div><a class="xref" href="MauiForKimai.Interfaces.IViewModel.html">IViewModel</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="MauiForKimai.ViewModels.Base.ViewModelBase.html#MauiForKimai_ViewModels_Base_ViewModelBase_Page">ViewModelBase.Page</a>
+    </div>
+    <div>
+      <a class="xref" href="MauiForKimai.ViewModels.Base.ViewModelBase.html#MauiForKimai_ViewModels_Base_ViewModelBase_loginService">ViewModelBase.loginService</a>
+    </div>
+    <div>
+      <a class="xref" href="MauiForKimai.ViewModels.Base.ViewModelBase.html#MauiForKimai_ViewModels_Base_ViewModelBase_routingService">ViewModelBase.routingService</a>
+    </div>
+    <div>
+      <a class="xref" href="MauiForKimai.ViewModels.Base.ViewModelBase.html#MauiForKimai_ViewModels_Base_ViewModelBase_loginContext">ViewModelBase.loginContext</a>
+    </div>
+    <div>
+      <a class="xref" href="MauiForKimai.ViewModels.Base.ViewModelBase.html#MauiForKimai_ViewModels_Base_ViewModelBase_GetConnectivity">ViewModelBase.GetConnectivity()</a>
+    </div>
+    <div>
+      <a class="xref" href="MauiForKimai.ViewModels.Base.ViewModelBase.html#MauiForKimai_ViewModels_Base_ViewModelBase_HasInternetAndIsLogged">ViewModelBase.HasInternetAndIsLogged()</a>
+    </div>
+    <div>
+      <a class="xref" href="MauiForKimai.ViewModels.Base.ViewModelBase.html#MauiForKimai_ViewModels_Base_ViewModelBase_LoginContext">ViewModelBase.LoginContext</a>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.OnParameterSet()</span>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.OnAppearing()</span>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.OnFirstAppear()</span>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.OnDisappearing()</span>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.OnApplicationResume()</span>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.OnApplicationSleep()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">TinyViewModel.ApplyQueryAttributes(IDictionary&lt;string, object&gt;)</a>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.NavigationParameter</span>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.QueryParameters</span>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.Navigation</span>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.IsNotBusy</span>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.IsNotInitialized</span>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.IsBusy</span>
+    </div>
+    <div>
+      <span class="xref">TinyViewModel.IsInitialized</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.onpropertychanged#communitytoolkit-mvvm-componentmodel-observableobject-onpropertychanged(system-componentmodel-propertychangedeventargs)">ObservableObject.OnPropertyChanged(PropertyChangedEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.onpropertychanging#communitytoolkit-mvvm-componentmodel-observableobject-onpropertychanging(system-componentmodel-propertychangingeventargs)">ObservableObject.OnPropertyChanging(PropertyChangingEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.onpropertychanged#communitytoolkit-mvvm-componentmodel-observableobject-onpropertychanged(system-string)">ObservableObject.OnPropertyChanged(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.onpropertychanging#communitytoolkit-mvvm-componentmodel-observableobject-onpropertychanging(system-string)">ObservableObject.OnPropertyChanging(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0@-0-system-string)">ObservableObject.SetProperty&lt;T&gt;(ref T, T, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0@-0-system-collections-generic-iequalitycomparer((-0))-system-string)">ObservableObject.SetProperty&lt;T&gt;(ref T, T, IEqualityComparer&lt;T&gt;, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0-0-system-action((-0))-system-string)">ObservableObject.SetProperty&lt;T&gt;(T, T, Action&lt;T&gt;, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0-0-system-collections-generic-iequalitycomparer((-0))-system-action((-0))-system-string)">ObservableObject.SetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, Action&lt;T&gt;, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-2(-1-1-0-system-action((-0-1))-system-string)">ObservableObject.SetProperty&lt;TModel, T&gt;(T, T, TModel, Action&lt;TModel, T&gt;, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-2(-1-1-system-collections-generic-iequalitycomparer((-1))-0-system-action((-0-1))-system-string)">ObservableObject.SetProperty&lt;TModel, T&gt;(T, T, IEqualityComparer&lt;T&gt;, TModel, Action&lt;TModel, T&gt;, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier@-system-threading-tasks-task-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion(ref ObservableObject.TaskNotifier, Task, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier@-system-threading-tasks-task-system-action((system-threading-tasks-task))-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion(ref ObservableObject.TaskNotifier, Task, Action&lt;Task&gt;, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion-1(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier((-0))@-system-threading-tasks-task((-0))-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion&lt;T&gt;(ref ObservableObject.TaskNotifier&lt;T&gt;, Task&lt;T&gt;, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion-1(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier((-0))@-system-threading-tasks-task((-0))-system-action((system-threading-tasks-task((-0))))-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion&lt;T&gt;(ref ObservableObject.TaskNotifier&lt;T&gt;, Task&lt;T&gt;, Action&lt;Task&lt;T&gt;&gt;, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.propertychanged">ObservableObject.PropertyChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.propertychanging">ObservableObject.PropertyChanging</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel__ctor_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.#ctor*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel__ctor_MauiForKimai_Interfaces_IRoutingService_MauiForKimai_Interfaces_ILoginService_MauiForKimai_ApiClient_Interfaces_ITimesheetService_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.#ctor(MauiForKimai.Interfaces.IRoutingService,MauiForKimai.Interfaces.ILoginService,MauiForKimai.ApiClient.Interfaces.ITimesheetService)">
+  ReportsViewModel(IRoutingService, ILoginService, ITimesheetService)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ReportsViewModel(IRoutingService rs, ILoginService ls, ITimesheetService ts)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>rs</code> <a class="xref" href="MauiForKimai.Interfaces.IRoutingService.html">IRoutingService</a></dt>
+    <dd></dd>
+    <dt><code>ls</code> <a class="xref" href="MauiForKimai.Interfaces.ILoginService.html">ILoginService</a></dt>
+    <dd></dd>
+    <dt><code>ts</code> <a class="xref" href="MauiForKimai.ApiClient.Interfaces.ITimesheetService.html">ITimesheetService</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_monthChartWidth" data-uid="MauiForKimai.ViewModels.ReportsViewModel.monthChartWidth">
+  monthChartWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L166"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[ObservableProperty]
+public int monthChartWidth</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_todayChartWidth" data-uid="MauiForKimai.ViewModels.ReportsViewModel.todayChartWidth">
+  todayChartWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L141"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[ObservableProperty]
+public int todayChartWidth</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_weekChartWidth" data-uid="MauiForKimai.ViewModels.ReportsViewModel.weekChartWidth">
+  weekChartWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L154"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[ObservableProperty]
+public int weekChartWidth</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_BeginWeekDate_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.BeginWeekDate*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_BeginWeekDate" data-uid="MauiForKimai.ViewModels.ReportsViewModel.BeginWeekDate">
+  BeginWeekDate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator/MauiForKimai.ViewModels.ReportsViewModel.g.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string BeginWeekDate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_CommonYAxes_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.CommonYAxes*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_CommonYAxes" data-uid="MauiForKimai.ViewModels.ReportsViewModel.CommonYAxes">
+  CommonYAxes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L168"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservableCollection&lt;Axis&gt; CommonYAxes { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1">ObservableCollection</a>&lt;<span class="xref">Axis</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_EndWeekDate_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.EndWeekDate*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_EndWeekDate" data-uid="MauiForKimai.ViewModels.ReportsViewModel.EndWeekDate">
+  EndWeekDate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator/MauiForKimai.ViewModels.ReportsViewModel.g.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string EndWeekDate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_GetDataByReportsTypeCommand_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.GetDataByReportsTypeCommand*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_GetDataByReportsTypeCommand" data-uid="MauiForKimai.ViewModels.ReportsViewModel.GetDataByReportsTypeCommand">
+  GetDataByReportsTypeCommand
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.RelayCommandGenerator/MauiForKimai.ViewModels.ReportsViewModel.GetDataByReportsType.g.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets an <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.input.iasyncrelaycommand-1">IAsyncRelayCommand&lt;T&gt;</a> instance wrapping <a class="xref" href="MauiForKimai.ViewModels.ReportsViewModel.html#MauiForKimai.ViewModels.ReportsViewModel.GetDataByReportsType(MauiForKimai.Core.Enums.ReportsType)">GetDataByReportsType(ReportsType)</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IAsyncRelayCommand&lt;ReportsType&gt; GetDataByReportsTypeCommand { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.input.iasyncrelaycommand-1">IAsyncRelayCommand</a>&lt;<a class="xref" href="MauiForKimai.Core.Enums.ReportsType.html">ReportsType</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_IsDataLoaded_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.IsDataLoaded*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_IsDataLoaded" data-uid="MauiForKimai.ViewModels.ReportsViewModel.IsDataLoaded">
+  IsDataLoaded
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator/MauiForKimai.ViewModels.ReportsViewModel.g.cs/#L100"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsDataLoaded { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_IsRefreshing_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.IsRefreshing*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_IsRefreshing" data-uid="MauiForKimai.ViewModels.ReportsViewModel.IsRefreshing">
+  IsRefreshing
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator/MauiForKimai.ViewModels.ReportsViewModel.g.cs/#L121"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsRefreshing { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_MonthChartWidth_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.MonthChartWidth*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_MonthChartWidth" data-uid="MauiForKimai.ViewModels.ReportsViewModel.MonthChartWidth">
+  MonthChartWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator/MauiForKimai.ViewModels.ReportsViewModel.g.cs/#L227"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MonthChartWidth { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_MonthName_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.MonthName*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_MonthName" data-uid="MauiForKimai.ViewModels.ReportsViewModel.MonthName">
+  MonthName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator/MauiForKimai.ViewModels.ReportsViewModel.g.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string MonthName { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_MonthSeries_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.MonthSeries*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_MonthSeries" data-uid="MauiForKimai.ViewModels.ReportsViewModel.MonthSeries">
+  MonthSeries
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L156"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservableCollection&lt;ISeries&gt; MonthSeries { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1">ObservableCollection</a>&lt;<span class="xref">ISeries</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_MonthXAxes_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.MonthXAxes*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_MonthXAxes" data-uid="MauiForKimai.ViewModels.ReportsViewModel.MonthXAxes">
+  MonthXAxes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L158"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservableCollection&lt;Axis&gt; MonthXAxes { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1">ObservableCollection</a>&lt;<span class="xref">Axis</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_PageLabel_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.PageLabel*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_PageLabel" data-uid="MauiForKimai.ViewModels.ReportsViewModel.PageLabel">
+  PageLabel
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator/MauiForKimai.ViewModels.ReportsViewModel.g.cs/#L142"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string PageLabel { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_RefreshCommand_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.RefreshCommand*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_RefreshCommand" data-uid="MauiForKimai.ViewModels.ReportsViewModel.RefreshCommand">
+  RefreshCommand
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.RelayCommandGenerator/MauiForKimai.ViewModels.ReportsViewModel.Refresh.g.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets an <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.input.iasyncrelaycommand">IAsyncRelayCommand</a> instance wrapping <a class="xref" href="MauiForKimai.ViewModels.ReportsViewModel.html#MauiForKimai_ViewModels_ReportsViewModel_Refresh">Refresh()</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IAsyncRelayCommand RefreshCommand { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.input.iasyncrelaycommand">IAsyncRelayCommand</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_SelectedReportType_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.SelectedReportType*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_SelectedReportType" data-uid="MauiForKimai.ViewModels.ReportsViewModel.SelectedReportType">
+  SelectedReportType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator/MauiForKimai.ViewModels.ReportsViewModel.g.cs/#L164"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SelectedReportType { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_TodayDate_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.TodayDate*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_TodayDate" data-uid="MauiForKimai.ViewModels.ReportsViewModel.TodayDate">
+  TodayDate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator/MauiForKimai.ViewModels.ReportsViewModel.g.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TodayDate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_TodayChartWidth_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.TodayChartWidth*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_TodayChartWidth" data-uid="MauiForKimai.ViewModels.ReportsViewModel.TodayChartWidth">
+  TodayChartWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator/MauiForKimai.ViewModels.ReportsViewModel.g.cs/#L185"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int TodayChartWidth { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_TodaySeries_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.TodaySeries*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_TodaySeries" data-uid="MauiForKimai.ViewModels.ReportsViewModel.TodaySeries">
+  TodaySeries
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L130"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservableCollection&lt;ISeries&gt; TodaySeries { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1">ObservableCollection</a>&lt;<span class="xref">ISeries</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_TodayXAxes_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.TodayXAxes*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_TodayXAxes" data-uid="MauiForKimai.ViewModels.ReportsViewModel.TodayXAxes">
+  TodayXAxes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservableCollection&lt;Axis&gt; TodayXAxes { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1">ObservableCollection</a>&lt;<span class="xref">Axis</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_WeekChartWidth_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.WeekChartWidth*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_WeekChartWidth" data-uid="MauiForKimai.ViewModels.ReportsViewModel.WeekChartWidth">
+  WeekChartWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator/MauiForKimai.ViewModels.ReportsViewModel.g.cs/#L206"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int WeekChartWidth { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_WeekInterval_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.WeekInterval*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_WeekInterval" data-uid="MauiForKimai.ViewModels.ReportsViewModel.WeekInterval">
+  WeekInterval
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string WeekInterval { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_WeekSeries_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.WeekSeries*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_WeekSeries" data-uid="MauiForKimai.ViewModels.ReportsViewModel.WeekSeries">
+  WeekSeries
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservableCollection&lt;ISeries&gt; WeekSeries { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1">ObservableCollection</a>&lt;<span class="xref">ISeries</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_WeekXAxes_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.WeekXAxes*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_WeekXAxes" data-uid="MauiForKimai.ViewModels.ReportsViewModel.WeekXAxes">
+  WeekXAxes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObservableCollection&lt;Axis&gt; WeekXAxes { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1">ObservableCollection</a>&lt;<span class="xref">Axis</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_GetData_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.GetData*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_GetData" data-uid="MauiForKimai.ViewModels.ReportsViewModel.GetData">
+  GetData()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L224"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task GetData()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_Initialize_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.Initialize*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_Initialize" data-uid="MauiForKimai.ViewModels.ReportsViewModel.Initialize">
+  Initialize()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task Initialize()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_ViewModels_ReportsViewModel_Refresh_" data-uid="MauiForKimai.ViewModels.ReportsViewModel.Refresh*"></a>
+
+  <h3 id="MauiForKimai_ViewModels_ReportsViewModel_Refresh" data-uid="MauiForKimai.ViewModels.ReportsViewModel.Refresh">
+  Refresh()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/features/src/MauiForKimai.App/ViewModels/Reports/ReportsViewModel.cs/#L179"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RelayCommand]
+public Task Refresh()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Specter-13/maui-for-kimai/new/features/apiSpec/new?filename=MauiForKimai_ViewModels_ReportsViewModel.md&amp;value=---%0Auid%3A%20MauiForKimai.ViewModels.ReportsViewModel%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="edit-link">Edit this page</a>
+        </div>
+
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
