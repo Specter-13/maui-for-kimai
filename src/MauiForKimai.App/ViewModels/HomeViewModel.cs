@@ -50,6 +50,10 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		
 	}
 
+	public override async Task OnApplicationResume()
+	{
+		await Refresh();
+	}
 
 	private async Task FirstStartUp()
 	{ 
@@ -87,6 +91,8 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
 	[ObservableProperty]
 	string selectedActivity;
+	[ObservableProperty]
+	bool isActivityStarting;
 
 	private async Task StartTimesheet(TimesheetModel model)
     { 
@@ -98,6 +104,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
 		try
 		{
+			IsActivityStarting = true;
 			var form = model.ToTimesheetEditForm(LoginContext.TimetrackingPermissions, LoginContext.TimeOffset);
 			var timesheet = await timesheetService.Create(form);
 
@@ -114,7 +121,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 			}
 			else
 			{
-				MyTimer.TimerStart();
+				//MyTimer.TimerStart();
 				IsTimetrackingActive = true;
 				var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
 				if(activeTimesheet == null) 
@@ -124,8 +131,10 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 				}
 				ActiveTimesheet =  activeTimesheet.ToTimesheetActiveModel();
 				SelectedActivity = ActiveTimesheet.ActivityName;
+				MyTimer.TimerStartExisting(ActiveTimesheet.Duration);
 				await Toast.Make($"Activity {SelectedActivity} started successfully", ToastDuration.Short, 14).Show();
 			}
+			IsActivityStarting = false;
 			
 		}
 		catch (KimaiApiException)
@@ -142,6 +151,10 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		IsBusy = true;
 		await LoginToDefault();
 		IsBusy = false;
+		if(IsTimetrackingActive)
+		{
+			await Refresh();
+		}
 	}
 
 

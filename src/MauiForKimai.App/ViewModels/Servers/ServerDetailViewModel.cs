@@ -334,7 +334,7 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
 
         //notify and navigate back
         IsLoggedToThisServer = false;
-        
+        await ReinitializeDatabases();
         WeakReferenceMessenger.Default.Send(new ServerRefreshMessage(string.Empty));
         await Navigation.NavigateTo("..");
 

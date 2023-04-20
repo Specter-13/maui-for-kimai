@@ -11,13 +11,6 @@ public partial class HomeView
         _vm = vm;
 		BindingContext = _vm;
 	}
-
-  //  protected override async void OnAppearing()
-  //  {
-		//await _vm.TryToLoginToDefaultServer();
-  //      base.OnAppearing();	
-  //  }
-
    
         
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
