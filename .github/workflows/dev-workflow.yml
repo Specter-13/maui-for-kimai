@@ -31,14 +31,5 @@ jobs:
     - name: "Run tests"
       run: dotnet test src/MauiForKimai.Tests/MauiForKimai.Tests.csproj -f net7.0
       
-      # doc
-    - run: dotnet tool update -g docfx
-    - run: docfx docs/docfx.json
-
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: docs/_site
      
 
