@@ -16,20 +16,16 @@ namespace MauiForKimai;
 
 public partial class App : TinyApplication
 {
-	private readonly ILoginService _loginService;
-	public App(MenuViewModel menuViewModel, ILoginService loginService)
+	public App()
 	{
 
 		InitializeComponent();
-		_loginService = loginService;
 
-
-		
 
 		#if ANDROID || IOS
-            MainPage = new AppShellMobile(menuViewModel);
+            MainPage = new AppShellMobile();
 		#else
-            MainPage = new AppShellDesktop(menuViewModel);
+            MainPage = new AppShellDesktop();
 		#endif
 
 		SetThemeOnStartup();

@@ -10,7 +10,10 @@
                                        Dark={StaticResource BackgroundDark}}"
     FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight},
                                             Dark={StaticResource BackgroundDark}}"
-    FlyoutBehavior="Flyout">
+    FlyoutBehavior="Locked">
+
+
+
 
 
     <Shell.Resources>

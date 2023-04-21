@@ -226,7 +226,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
         Timesheet.ActivityId = ChosenActivity.Id;
         Timesheet.CustomerName = ChosenCustomer.Name;
 
-        Timesheet.Begin = DateTime.Now;
+        Timesheet.Begin = TimeWrapper.BeginFull;
         Timesheet.End = null;
 
         ValidationResult result;

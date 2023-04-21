@@ -274,7 +274,7 @@
                         HorizontalOptions="End"
                         IsVisible="{OnIdiom Phone=False,
                                             Desktop=True}"
-                        Text="Choose customer"
+                        Text="Select customer"
                         WidthRequest="160" />
                     <!--  Project  -->
                     <Label Style="{StaticResource SmallLabel}" Text="Project *" />
@@ -340,7 +340,7 @@
                         HorizontalOptions="End"
                         IsVisible="{OnIdiom Phone=False,
                                             Desktop=True}"
-                        Text="Choose Activity"
+                        Text="Select Activity"
                         WidthRequest="160" />
                     <!--  Description  -->
                     <Label Style="{StaticResource SmallLabel}" Text="Description" />
