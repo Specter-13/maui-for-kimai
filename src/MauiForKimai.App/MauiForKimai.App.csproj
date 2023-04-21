@@ -96,12 +96,6 @@
 	  <MauiXaml Update="Popups\DurationPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Popups\FirstStartPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Popups\ServerDefaultPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Shells\AppShellDesktop.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -143,9 +137,6 @@
 	  </Compile>
 	  <Compile Update="Controls\TimesheetListControl.xaml.cs">
 	    <DependentUpon>TimesheetListControl.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Popups\FirstStartPopup.xaml.cs">
-	    <DependentUpon>FirstStartPopup.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Shells\AppShellMobile.xaml.cs">
 	    <DependentUpon>AppShellMobile.xaml</DependentUpon>

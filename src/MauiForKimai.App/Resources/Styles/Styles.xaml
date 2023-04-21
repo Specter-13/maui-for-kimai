@@ -30,8 +30,9 @@
     </Style>
 
     <!--  Entry  -->
-    <Style TargetType="Entry">
+    <Style ApplyToDerivedTypes="True" TargetType="Entry">
         <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="PlaceholderColor" Value="{AppThemeBinding Dark={StaticResource AccentTextColorLight}, Light={StaticResource AccentTextColorDark}}" />
         <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource AccentTextColorLight}, Light={StaticResource AccentTextColorDark}}" />
         <Setter Property="MinimumHeightRequest" Value="44" />
         <Setter Property="MinimumWidthRequest" Value="44" />

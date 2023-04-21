@@ -238,6 +238,13 @@
                         </Entry.GestureRecognizers>
 
                     </Entry>
+                    <Button
+                        Command="{Binding DurationTappedCommand}"
+                        HorizontalOptions="End"
+                        IsVisible="{OnIdiom Phone=False,
+                                            Desktop=True}"
+                        Text="Set duration"
+                        WidthRequest="160" />
 
                 </StackLayout>
 
@@ -264,9 +271,11 @@
 
                     <Button
                         Command="{Binding ShowCustomerChooseViewCommand}"
+                        HorizontalOptions="End"
                         IsVisible="{OnIdiom Phone=False,
                                             Desktop=True}"
-                        Text="Choose customer" />
+                        Text="Choose customer"
+                        WidthRequest="160" />
                     <!--  Project  -->
                     <Label Style="{StaticResource SmallLabel}" Text="Project *" />
                     <Entry
@@ -295,9 +304,11 @@
 
                     <Button
                         Command="{Binding ShowProjectChooseViewCommand}"
+                        HorizontalOptions="End"
                         IsVisible="{OnIdiom Phone=False,
                                             Desktop=True}"
-                        Text="Choose project" />
+                        Text="Select project"
+                        WidthRequest="160" />
                     <!--  Activity  -->
                     <Label Style="{StaticResource SmallLabel}" Text="Activity *" />
 
@@ -326,9 +337,11 @@
 
                     <Button
                         Command="{Binding ShowActivityChooseViewCommand}"
+                        HorizontalOptions="End"
                         IsVisible="{OnIdiom Phone=False,
                                             Desktop=True}"
-                        Text="Choose Activity" />
+                        Text="Choose Activity"
+                        WidthRequest="160" />
                     <!--  Description  -->
                     <Label Style="{StaticResource SmallLabel}" Text="Description" />
                     <Entry Text="{Binding Timesheet.Description}" />

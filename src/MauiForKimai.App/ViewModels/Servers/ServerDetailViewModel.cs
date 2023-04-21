@@ -346,18 +346,13 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
         //if there was a change of default server, ask user for consent to override default server
         if(previousIsDefaultValue != Server.IsDefault && Server.IsDefault == true) 
         {
-            var isDefaultOverride = await DisplayServerDefaultPopup();
-            if(!isDefaultOverride)
+            bool answer = await Page.DisplayAlert("Override default server", "Are you sure, that you want to override default server?", "Yes", "No");
+            if(!answer)
             { 
                 return;
             }
             await _serverService.UnsetDefaultPropertyExceptOne(Server.Id);
         }
     }
-    private async Task<bool> DisplayServerDefaultPopup()
-    {
-        var popup = new ServerDefaultPopup(_popupSizeConstants);
-
-        return (bool) await Page.ShowPopupAsync(popup);
-    }
+   
 }

@@ -48,7 +48,6 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		Statistics = new StatisticsWrapper();
 
 		RegisterMessages();
-		
 	}
 
 	public override async Task OnApplicationResume()
@@ -62,8 +61,8 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		if(!hasKey)
 		{
 			Preferences.Default.Set("maui_for_kimai_first", true);
-			var popup = new FirstStartPopup();
-			await Page.ShowPopupAsync(popup);
+		    await Page.DisplayAlert("MAUI for Kimai","Welcome! Create your first server in management.", "Ok");
+
 		}
 		
 	}
@@ -134,8 +133,9 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 				SelectedActivity = ActiveTimesheet.ActivityName;
 				MyTimer.TimerStartExisting(ActiveTimesheet.Duration);
 				await Toast.Make($"Activity {SelectedActivity} started successfully", ToastDuration.Short, 14).Show();
+				#if ANDROID || IOS
 				await TryToCreateNotification();
-				
+				#endif
 			}
 			IsActivityStarting = false;
 			
@@ -147,40 +147,38 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		}
 		
 	}
-
-	async Task TryToCreateNotification()
-	{ 
-		#if ANDROID || IOS
-		if (await LocalNotificationCenter.Current.AreNotificationsEnabled() == false)
-		{
-			await LocalNotificationCenter.Current.RequestNotificationPermission();
-		}
-
-		var notification = new NotificationRequest
-		{
-			NotificationId = 100,
-			Title = $"{ActiveTimesheet?.Start.TimeOfDay.ToString(@"hh\:mm")} Time-tracking is active ",
-			Description = $"{ActiveTimesheet.ActivityName}, {ActiveTimesheet.ProjectName}",
-			CategoryType = NotificationCategoryType.Service,
-			Silent = true,
-			Android =
+	#if ANDROID || IOS
+		async Task TryToCreateNotification()
+		{ 
+		
+			if (await LocalNotificationCenter.Current.AreNotificationsEnabled() == false)
 			{
-			    AutoCancel = false,
-				Ongoing = true,   
+				await LocalNotificationCenter.Current.RequestNotificationPermission();
 			}
-		};
-		await LocalNotificationCenter.Current.Show(notification);
+
+			var notification = new NotificationRequest
+			{
+				NotificationId = 100,
+				Title = $"{ActiveTimesheet?.Start.TimeOfDay.ToString(@"hh\:mm")} Time-tracking is active ",
+				Description = $"{ActiveTimesheet.ActivityName}, {ActiveTimesheet.ProjectName}",
+				CategoryType = NotificationCategoryType.Service,
+				Silent = true,
+				Android =
+				{
+					AutoCancel = false,
+					Ongoing = true,   
+				}
+			};
+			await LocalNotificationCenter.Current.Show(notification);
 				
-		#endif
-	}
-
-	void TryToStopNotification()
-	{ 
-		#if ANDROID || IOS
+	
+		}
+		void TryToStopNotification()
+		{ 
 			LocalNotificationCenter.Current.Cancel(100);
-		#endif
-	}
-
+		
+		}
+	#endif
 	public override async Task Initialize()
 	{
 		await FirstStartUp();
@@ -244,7 +242,9 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 				SelectedActivity = null;
 				MyTimer.TimerStop();
 				await RefreshTimesheets();
+				#if ANDROID || IOS
 				TryToStopNotification();
+				#endif
 				await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
 				
 			}
@@ -337,7 +337,9 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 			SelectedActivity = activeTimesheet.Activity.Name;
 			IsTimetrackingActive = true;
 			MyTimer.TimerStartExisting(ActiveTimesheet.Duration);
+			#if ANDROID || IOS
 			await TryToCreateNotification();
+			#endif 
 		}
 		else
 		{

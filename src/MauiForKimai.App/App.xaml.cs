@@ -64,6 +64,8 @@ public partial class App : TinyApplication
 				SettingsService.Instance.Theme = Theme.Light;
 			else
 				SettingsService.Instance.Theme = Theme.Dark;
+
+			SetTheme();
 			
 		}
 	}

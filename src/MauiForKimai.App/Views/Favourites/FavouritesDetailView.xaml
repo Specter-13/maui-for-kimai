@@ -74,7 +74,7 @@
         <ScrollView Grid.Row="1" Grid.ColumnSpan="3">
             <StackLayout>
 
-                <Label Text="Customer" />
+                <Label Style="{StaticResource SmallLabel}" Text="Customer" />
                 <Entry
                     IsReadOnly="True"
                     Placeholder="Select customer"
@@ -86,14 +86,16 @@
                     </Entry.GestureRecognizers>
                 </Entry>
 
-                <!--<Label Style="{StaticResource NotValidLabel}" Text="{Binding}" />-->
+
                 <Button
                     Command="{Binding ShowCustomerChooseViewCommand}"
+                    HorizontalOptions="End"
                     IsVisible="{OnIdiom Phone=False,
                                         Desktop=True}"
-                    Text="Choose customer" />
+                    Text="Choose customer"
+                    WidthRequest="160" />
 
-                <Label Text="Project *" />
+                <Label Style="{StaticResource SmallLabel}" Text="Project *" />
                 <Entry
                     IsReadOnly="True"
                     Placeholder="Select project"
@@ -105,7 +107,14 @@
                     </Entry.GestureRecognizers>
                 </Entry>
 
-                <Label Text="Activity *" />
+                <Button
+                    Command="{Binding ShowProjectChooseViewCommand}"
+                    HorizontalOptions="End"
+                    IsVisible="{OnIdiom Phone=False,
+                                        Desktop=True}"
+                    Text="Select customer"
+                    WidthRequest="160" />
+                <Label Style="{StaticResource SmallLabel}" Text="Activity *" />
                 <Entry
                     IsReadOnly="True"
                     Placeholder="Select Activity"
@@ -117,26 +126,41 @@
                     </Entry.GestureRecognizers>
                 </Entry>
 
+                <Button
+                    Command="{Binding ShowActivityChooseViewCommand}"
+                    HorizontalOptions="End"
+                    IsVisible="{OnIdiom Phone=False,
+                                        Desktop=True}"
+                    Text="Select activity"
+                    WidthRequest="160" />
 
 
-                <Label Text="Description" />
+
+                <Label Style="{StaticResource SmallLabel}" Text="Description" />
                 <Entry Text="{Binding Favourite.Description}" />
 
-                <Label Text="Tags" />
+                <Label Style="{StaticResource SmallLabel}" Text="Tags" />
                 <Entry Text="{Binding Favourite.Tags}" />
 
                 <!--  Gitlab issue id  -->
-                <Label IsVisible="{Binding LoginContext.TimetrackingPermissions.HasGitlabPlugin}" Text="Gitlab issues id" />
+                <Label
+                    IsVisible="{Binding LoginContext.TimetrackingPermissions.HasGitlabPlugin}"
+                    Style="{StaticResource SmallLabel}"
+                    Text="Gitlab issue id" />
                 <Entry IsVisible="{Binding LoginContext.TimetrackingPermissions.HasGitlabPlugin}" Text="{Binding Favourite.GitlabIssueId}" />
 
                 <!--  ROLE DEPENDAND!  -->
                 <!--  Billable  -->
-                <Label IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditBillable}" Text="Billable" />
+                <Label
+                    IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditBillable}"
+                    Style="{StaticResource SmallLabel}"
+                    Text="Billable" />
                 <Picker
                     x:Name="picker"
                     Title="Select a mode"
                     IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditBillable}"
-                    SelectedItem="{Binding SelectedBillableMode}">
+                    SelectedItem="{Binding SelectedBillableMode}"
+                    Style="{StaticResource SmallLabel}">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>Automatic</x:String>
@@ -149,14 +173,14 @@
                 <!--  Rates  -->
 
                 <StackLayout IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditRate}">
-                    <Label Text="Fixed rate" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Fixed rate" />
                     <Entry Keyboard="Numeric" Text="{Binding Favourite.FixedRate}">
                         <Entry.Behaviors>
                             <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
                         </Entry.Behaviors>
                     </Entry>
 
-                    <Label Text="Hourly rate" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Hourly rate" />
                     <Entry Keyboard="Numeric" Text="{Binding Favourite.HourlyRate}">
                         <Entry.Behaviors>
                             <mct:NumericValidationBehavior Flags="ValidateOnValueChanged" InvalidStyle="{StaticResource InvalidEntryStyle}" />
@@ -170,7 +194,7 @@
                 <!--  Exported  -->
 
                 <StackLayout IsVisible="{Binding LoginContext.TimetrackingPermissions.CanEditExport}">
-                    <Label Text="Exported" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Exported" />
                     <CheckBox HorizontalOptions="Start" IsChecked="{Binding Favourite.Exported}" />
                 </StackLayout>
 

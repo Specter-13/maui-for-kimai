@@ -7,10 +7,10 @@
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
     x:DataType="viewmodel:MenuViewModel"
     FlyoutBackground="{AppThemeBinding Light={StaticResource BackgroundLight},
-                                       Dark=Black}"
+                                       Dark={StaticResource BackgroundDark}}"
     FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight},
-                                            Dark=Black}"
-    FlyoutBehavior="Locked">
+                                            Dark={StaticResource BackgroundDark}}"
+    FlyoutBehavior="Flyout">
 
 
     <Shell.Resources>
