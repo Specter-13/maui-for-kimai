@@ -100,34 +100,6 @@
 
             </CollectionView.ItemTemplate>
 
-
-            <CollectionView.Footer>
-                <Grid
-                    Grid.Row="2"
-                    Padding="10,0,10,0"
-                    IsVisible="{Binding IsNotBusy}">
-                    <ActivityIndicator
-                        HeightRequest="20"
-                        HorizontalOptions="Start"
-                        IsRunning="{Binding IsLoadingMore}"
-                        IsVisible="{Binding IsLoadingMore}"
-                        VerticalOptions="Center"
-                        WidthRequest="20" />
-                    <Button
-                        BackgroundColor="Transparent"
-                        Command="{Binding LoadMoreCommand}"
-                        HorizontalOptions="Center"
-                        Text="Load more..."
-                        TextColor="{AppThemeBinding Dark={StaticResource AccentTextColorLight},
-                                                    Light={StaticResource AccentTextColorDark}}"
-                        VerticalOptions="Center" />
-                    <Label
-                        HorizontalOptions="End"
-                        Text="{Binding NumberOfEntries}"
-                        VerticalOptions="Center" />
-                </Grid>
-            </CollectionView.Footer>
-
         </CollectionView>
 
         <Grid
