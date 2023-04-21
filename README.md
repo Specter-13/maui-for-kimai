@@ -13,14 +13,14 @@ MAUI for Kimai is multi-platform time-tracking app companion for open-source  [K
 
 Basic demonstration video: https://youtu.be/daTTTE8QJ0o
 
-| Platform      | Supported      |
-|--------------|-----------------|
-| Android      | <span style="color:green">yes</span>     |
-| Windows      | <span style="color:green">yes</span>     |
-| IOS          | ? (need testing) |
+| Platform      | Supported       |
+|--------------|----------------- |
+| Android      | yes              |
+| Windows      | yes              |
+| iOS          | ? (need testing) |
 | MacCatalyst  | ? (need testing) |
 
-I don't have access to Mac build tools, therefore IOS/MacOS is untested, but in theory it should work. If anyone would be willing to test it, I would deeply appreciate it.
+I don't have access to Mac build tools, therefore IOS/MacOS is untested, but in theory it should work (I tried to use platform-specific code as little as possible). If anyone have Mac available and would be willing to test it, please contact me, I would deeply appreciate it.
 
 ## Features
 
@@ -41,21 +41,23 @@ I don't have access to Mac build tools, therefore IOS/MacOS is untested, but in 
 
 ### MAUI application features
 - Dark/Light mode 
+- Running timesheet notification (Android, iOS)
 - Form validation with [Fluent validation](https://github.com/FluentValidation/FluentValidation)
-- MySQL local database, Secure storage for api passwords
+- MySQL local database, Secure storage for API passwords
 - Graphs by [LiveCharts2](https://github.com/beto-rodriguez/LiveCharts2)
 
 ## Limitations
 
 - **Kimai v2 is not supported yet**
 - There are some inconsistencies within in app dark/light theme changing
-- No support for management of project/customers/teams within app
+- There may be unexpected behaviour in iOS notifications (need testing)
+- Missing management possibilities of users, customers, projects, teams
 - Missing team reports
-- Missing offline time-tracking
+- Missing support offline time-tracking
 
 ## Installation
----
-Since this is early release, only raw files are available. When more features are added, there is a plan to publish apps in Google play and Microsoft store.
+
+Since this is early release, only raw files are available. When time comes, there is a plan to publish apps in Google play and Microsoft store.
 
 ### Android
 
@@ -77,7 +79,7 @@ There is following plan to add features:
 
 
 ## Contribution 
-Feel free to share your ideas and create issues. PR's are welcome.
+Feel free to share your ideas and create issues. PR's are welcome. I would really appreciate your feedback and ideas for improvements of UI or features.
 
 
 ## License 
