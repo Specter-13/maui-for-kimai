@@ -23,7 +23,7 @@
                 Grid.Column="0"
                 HorizontalOptions="Start"
                 Style="{StaticResource TitleLabel}"
-                Text="Timesheets"
+                Text="My Times"
                 VerticalOptions="Center" />
 
             <HorizontalStackLayout

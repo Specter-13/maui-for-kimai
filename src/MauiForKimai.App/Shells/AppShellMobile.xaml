@@ -41,7 +41,7 @@
 
 
 
-        <Tab Title="Timesheets" Icon="clipboard_text_clock.png">
+        <Tab Title="My Times" Icon="clipboard_text_clock.png">
 
 
             <ShellContent

@@ -24,7 +24,7 @@
                 Grid.Column="0"
                 HorizontalOptions="Start"
                 Style="{StaticResource TitleLabel}"
-                Text="Timesheets"
+                Text="My Times"
                 VerticalOptions="Center" />
 
             <HorizontalStackLayout
@@ -53,6 +53,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="35" />
         </Grid.RowDefinitions>
 
 
@@ -86,11 +87,6 @@
             Grid.Row="1"
             EmptyView="Empty timesheets"
             ItemsSource="{Binding Timesheets}">
-
-            <CollectionView.Header>
-                <Label Text="" />
-            </CollectionView.Header>
-
 
 
 
@@ -134,7 +130,30 @@
 
         </CollectionView>
 
-
+        <Grid
+            Grid.Row="2"
+            Padding="10,0,10,0"
+            IsVisible="{Binding IsNotBusy}">
+            <ActivityIndicator
+                HeightRequest="20"
+                HorizontalOptions="Start"
+                IsRunning="{Binding IsLoadingMore}"
+                IsVisible="{Binding IsLoadingMore}"
+                VerticalOptions="Center"
+                WidthRequest="20" />
+            <Button
+                BackgroundColor="Transparent"
+                Command="{Binding LoadMoreCommand}"
+                HorizontalOptions="Center"
+                Text="Load more..."
+                TextColor="{AppThemeBinding Dark={StaticResource AccentTextColorLight},
+                                            Light={StaticResource AccentTextColorDark}}"
+                VerticalOptions="Center" />
+            <Label
+                HorizontalOptions="End"
+                Text="{Binding NumberOfEntries}"
+                VerticalOptions="Center" />
+        </Grid>
 
     </Grid>
 

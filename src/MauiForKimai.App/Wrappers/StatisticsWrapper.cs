@@ -21,11 +21,6 @@ public partial class StatisticsWrapper
     public string MostTrackedProjectName { get; set; }
     public string MostTrackedProjectDuration { get; set; }
 
-    public string LongestActivityName { get; set; }
-    public string LongestActivityDuration { get; set; }
-
-    public string LongestActivityProjectName { get; set; }
-
     public string NumberOfActivites { get; set; }
     public string NumberOfProjects{ get; set; }
 
@@ -36,7 +31,6 @@ public partial class StatisticsWrapper
 
 		    int todayDuration = 0;
             int numberOfactivities = 0;
-            string longestActivityProjectName = "";
             KeyValuePair<string,int> longestActivity = new KeyValuePair<string, int>("",0);
 		    foreach (var timesheet in todayTimesheets)
 		    {
@@ -55,19 +49,10 @@ public partial class StatisticsWrapper
                     numberOfactivities++;
                 }
 
-                if (activityTimes[name] > longestActivity.Value) 
-                {
-                    longestActivity = new KeyValuePair<string, int>(name,activityTimes[name]);
-                    longestActivityProjectName = timesheet.Project.Name;
-                }
-
 			    todayDuration += duration;
 		    }
 
             TodayTracked = TimeSpan.FromSeconds(todayDuration).ToString(@"hh\:mm") + " h";
-            LongestActivityDuration = TimeSpan.FromSeconds(longestActivity.Value).ToString(@"hh\:mm") + " h";
-            LongestActivityName = longestActivity.Key;
-            LongestActivityProjectName = longestActivityProjectName;
 
             if(numberOfactivities == 1)
             {

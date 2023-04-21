@@ -86,7 +86,7 @@
             Route="favourites" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Timesheets">
+    <FlyoutItem Title="My Times">
         <FlyoutItem.Icon>
             <FontImageSource
                 FontFamily="MaterialDesignIcons"

@@ -183,18 +183,9 @@
                     Text="{Binding ValidationErrors}" />
 
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <Grid ColumnDefinitions="*,*">
                     <!--  From Time  -->
+
                     <StackLayout Grid.Row="0">
                         <Label Style="{StaticResource SmallLabel}" Text="Begin" />
                         <TimePicker Format="HH:mm" Time="{Binding TimeWrapper.BeginTime}" />
@@ -206,57 +197,51 @@
                         <Label Style="{StaticResource SmallLabel}" />
                         <DatePicker Date="{Binding TimeWrapper.BeginDate}" />
                     </StackLayout>
+                </Grid>
 
 
-
-                    <StackLayout Grid.Row="1" IsVisible="{Binding IsCreateOrEdit}">
+                <Grid ColumnDefinitions="*,*" IsVisible="{Binding IsCreateOrEdit}">
+                    <!--  End Time  -->
+                    <StackLayout>
                         <Label Style="{StaticResource SmallLabel}" Text="End" />
                         <TimePicker
                             x:Name="BeginTimePicker"
                             Format="HH:mm"
                             Time="{Binding TimeWrapper.EndTime}" />
                     </StackLayout>
-
-
-                    <StackLayout
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        IsVisible="{Binding IsCreateOrEdit}">
-                        <Label />
-                        <DatePicker
-                            Date="{Binding TimeWrapper.EndDate}"
-                            IsVisible="{Binding IsCreateOrEdit}"
-                            VerticalOptions="End" />
+                    <!--  End Date  -->
+                    <StackLayout Grid.Column="1">
+                        <Label Style="{StaticResource SmallLabel}" />
+                        <DatePicker Date="{Binding TimeWrapper.EndDate}" />
                     </StackLayout>
-
-
-
-
-                    <!--  Duration  -->
-                    <StackLayout
-                        Grid.Row="2"
-                        Grid.ColumnSpan="2"
-                        IsVisible="{Binding IsCreateOrEdit}">
-                        <Label Style="{StaticResource SmallLabel}" Text="Duration" />
-
-                        <Entry
-                            x:Name="HoursEntry"
-                            HorizontalTextAlignment="Center"
-                            IsReadOnly="True"
-                            Keyboard="Numeric"
-                            Placeholder="00"
-                            Text="{Binding TimeWrapper.Duration}"
-                            VerticalTextAlignment="Center">
-
-                            <Entry.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding DurationTappedCommand}" />
-                            </Entry.GestureRecognizers>
-
-                        </Entry>
-
-                    </StackLayout>
-
                 </Grid>
+
+
+                <!--  Duration  -->
+                <StackLayout
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    IsVisible="{Binding IsCreateOrEdit}">
+                    <Label Style="{StaticResource SmallLabel}" Text="Duration" />
+
+                    <Entry
+                        x:Name="HoursEntry"
+                        HorizontalTextAlignment="Center"
+                        IsReadOnly="True"
+                        Keyboard="Numeric"
+                        Placeholder="00"
+                        Text="{Binding TimeWrapper.Duration}"
+                        VerticalTextAlignment="Center">
+
+                        <Entry.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DurationTappedCommand}" />
+                        </Entry.GestureRecognizers>
+
+                    </Entry>
+
+                </StackLayout>
+
+
 
                 <VerticalStackLayout>
 

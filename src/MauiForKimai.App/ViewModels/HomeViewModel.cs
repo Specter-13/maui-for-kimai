@@ -12,6 +12,7 @@ using MauiForKimai.Core;
 using MauiForKimai.ApiClient.Extensions;
 using MauiForKimai.Popups;
 using MauiForKimai.ViewModels.Settings;
+using Plugin.LocalNotification;
 
 namespace MauiForKimai.ViewModels;
 
@@ -133,6 +134,8 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 				SelectedActivity = ActiveTimesheet.ActivityName;
 				MyTimer.TimerStartExisting(ActiveTimesheet.Duration);
 				await Toast.Make($"Activity {SelectedActivity} started successfully", ToastDuration.Short, 14).Show();
+				await TryToCreateNotification();
+				
 			}
 			IsActivityStarting = false;
 			
@@ -143,6 +146,39 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 			return;
 		}
 		
+	}
+
+	async Task TryToCreateNotification()
+	{ 
+		#if ANDROID || IOS
+		if (await LocalNotificationCenter.Current.AreNotificationsEnabled() == false)
+		{
+			await LocalNotificationCenter.Current.RequestNotificationPermission();
+		}
+
+		var notification = new NotificationRequest
+		{
+			NotificationId = 100,
+			Title = $"{ActiveTimesheet?.Start.TimeOfDay.ToString(@"hh\:mm")} Time-tracking is active ",
+			Description = $"{ActiveTimesheet.ActivityName}, {ActiveTimesheet.ProjectName}",
+			CategoryType = NotificationCategoryType.Service,
+			Silent = true,
+			Android =
+			{
+			    AutoCancel = false,
+				Ongoing = true,   
+			}
+		};
+		await LocalNotificationCenter.Current.Show(notification);
+				
+		#endif
+	}
+
+	void TryToStopNotification()
+	{ 
+		#if ANDROID || IOS
+			LocalNotificationCenter.Current.Cancel(100);
+		#endif
 	}
 
 	public override async Task Initialize()
@@ -161,11 +197,11 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
 	//Properties
 	[ObservableProperty]
-	private TimesheetActiveModel activeTimesheet;
+	public TimesheetActiveModel activeTimesheet;
 	public ObservableCollection<TimesheetModel> RecentTimesheets {get; set; } = new ObservableCollection<TimesheetModel>();
 
 	[ObservableProperty]
-	bool isTimetrackingActive;
+	public bool isTimetrackingActive;
 
 
 	[ObservableProperty]
@@ -199,7 +235,6 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	[RelayCommand]
 	async Task StopTimeTracking()
 	{	
-		
 		if(HasInternetAndIsLogged())
 		{ 
 			try
@@ -209,8 +244,9 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 				SelectedActivity = null;
 				MyTimer.TimerStop();
 				await RefreshTimesheets();
-			
+				TryToStopNotification();
 				await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
+				
 			}
 			catch (KimaiApiException)
 			{
@@ -221,8 +257,6 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		{
 			await Toast.Make("Error stopping timesheet. Check your internet connection.", ToastDuration.Long, 14).Show();
 		}
-		
-	
 	}
 
 
@@ -262,7 +296,6 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
     {
 
 		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
-
 		var wrapper = new TimesheetDetailWrapper(currentTimesheet,TimesheetDetailMode.Edit);
 		await Navigation.NavigateTo(route,wrapper);
         
@@ -304,6 +337,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 			SelectedActivity = activeTimesheet.Activity.Name;
 			IsTimetrackingActive = true;
 			MyTimer.TimerStartExisting(ActiveTimesheet.Duration);
+			await TryToCreateNotification();
 		}
 		else
 		{

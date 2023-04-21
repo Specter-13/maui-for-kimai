@@ -50,7 +50,7 @@
     </Style>
 
 
-    <!--  Entry  -->
+    <!--  DatePicker  -->
     <Style TargetType="DatePicker">
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource AccentTextColorLight}, Light={StaticResource AccentTextColorDark}}" />
@@ -125,7 +125,7 @@
 
     <Style x:Key="RecentRestartButton" TargetType="Button">
         <Setter Property="BackgroundColor" Value="Transparent" />
-
+        <Setter Property="BorderColor" Value="Transparent" />
         <Setter Property="TextColor" Value="{StaticResource AccentTextColorLight}" />
         <Setter Property="Padding" Value="3,0,3,0" />
     </Style>
@@ -276,6 +276,14 @@
         BasedOn="{StaticResource BaseLabel}"
         TargetType="Label">
         <Setter Property="FontSize" Value="10" />
+    </Style>
+
+    <Style
+        x:Key="MicroShadowLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="TextColor" Value="Grey" />
     </Style>
 
     <Style

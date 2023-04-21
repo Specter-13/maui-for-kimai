@@ -17,7 +17,10 @@ public class TimesheetActiveModel
 
     public string CustomerName { get; set; }
 
-    public double Duration { get; set; }
+    public string ActivityColor { get; set; }
+    public string ProjectColor { get; set; }
 
+    public double Duration { get; set; }
+    public DateTime Start { get; set; }
 
 }
