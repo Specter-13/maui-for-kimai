@@ -11,7 +11,8 @@
 
 MAUI for Kimai is multi-platform time-tracking app companion for open-source  [Kimai time-tracker](https://github.com/kimai/kimai). This application is fully focused on time-tracking use-case and aims to simplify time-tracking within Kimai.
 
-Basic demonstration video: https://youtu.be/daTTTE8QJ0o
+**New demonstration video MAUI for Kimai v0.2.0-alpha**: 
+https://youtu.be/XoMrFvPtgJw
 
 | Platform      | Supported       |
 |--------------|----------------- |
@@ -49,15 +50,15 @@ I don't have access to Mac build tools, therefore IOS/MacOS is untested, but in 
 ## Limitations
 
 - **Kimai v2 is not supported yet**
-- There are some inconsistencies within in app dark/light theme changing
+- There are some inconsistencies within in-app dark/light theme
 - There may be unexpected behaviour in iOS notifications (need testing)
 - Missing management possibilities of users, customers, projects, teams
 - Missing team reports
-- Missing support offline time-tracking
+- Missing support for offline time-tracking
 
 ## Installation
 
-Since this is early release, only raw files are available. When time comes, there is a plan to publish apps in Google play and Microsoft store.
+Since this is early release, only raw files are available. When time comes, there is a plan to publish app in Google play and Microsoft store.
 
 ### Android
 
