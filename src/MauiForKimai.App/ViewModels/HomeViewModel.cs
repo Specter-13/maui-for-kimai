@@ -313,6 +313,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	// private methods
 	private async Task Refresh()
 	{ 
+
 		if (HasInternetAndIsLogged())
 		{
 			await GetRecentTimesheets();
@@ -343,6 +344,10 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		}
 		else
 		{
+			#if ANDROID || IOS
+			TryToStopNotification();
+			#endif 
+
 			SelectedActivity = null;
 			IsTimetrackingActive = false;
 			MyTimer.TimerStop();

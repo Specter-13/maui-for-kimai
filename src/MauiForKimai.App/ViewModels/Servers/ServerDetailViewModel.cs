@@ -288,6 +288,10 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
                     await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
                     return;
                 }
+                else
+                {
+                    await Toast.Make("Reconnect successfull.", ToastDuration.Short, 14).Show();
+                }
             }
 
             //delete previous key from secure storage
@@ -301,7 +305,7 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
             //update changes in db
             await _serverService.Update(Server);
 
-            await Toast.Make("Connection and save successfull!", ToastDuration.Short, 14).Show();
+            await Toast.Make("Save successfull!", ToastDuration.Short, 14).Show();
             WeakReferenceMessenger.Default.Send(new ServerRefreshMessage(string.Empty));
             IsBusy = false;
             ValidationErrors = string.Empty;
