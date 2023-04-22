@@ -323,6 +323,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		}
 		else
 		{ 
+			RecentTimesheets.Clear();
 			var toast = Toast.Make("Cannot acquire data!", ToastDuration.Short, 14);
 			await toast.Show();
 		}

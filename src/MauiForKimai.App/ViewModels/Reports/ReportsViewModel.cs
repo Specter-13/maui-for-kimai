@@ -82,9 +82,14 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
     {
         if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.LoginContext.IsAuthenticated )
         { 
+            ReportsAreVisible = true;
             IsBusy = true;
             await GetData();
             IsBusy = false;
+        }
+        else
+        {
+            ReportsAreVisible = false;
         }
     }
     [ObservableProperty]
@@ -173,21 +178,23 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
             Labeler = (value) => ConvertDurationToFormattedString((int)value)
         }
     };
-  
 
+    [ObservableProperty]
+    public bool reportsAreVisible;
 
     [RelayCommand]
     public async Task Refresh()
     {
         if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.LoginContext.IsAuthenticated )
         { 
-
+            ReportsAreVisible = true;
             await GetData();
-                        IsRefreshing = false;
+            IsRefreshing = false;
+            
         }
         else
         {
-           await Toast.Make("Cannot acquire reports data", ToastDuration.Short, 14).Show();
+           ReportsAreVisible = false;
         }
     }
 
