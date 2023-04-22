@@ -41,38 +41,7 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
 
         WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
         {
-            TodaySeries = new();
-            TodayChartWidth = _chartWidth;
-            WeekSeries = new();
-            WeekChartWidth = _chartWidth;
-            MonthSeries = new();
-            MonthChartWidth = _chartWidth;
-
-            WeekXAxes = new ()
-            {
-                new Axis
-                {
-                    TextSize = _textSize
-                }
-            };
-
-            MonthXAxes = new ()
-            {
-                new Axis
-                {
-                    TextSize = _textSize
-                }
-            };
-
-            TodayXAxes = new ()
-            {
-                new Axis
-                {
-                    TextSize = _textSize
-                }
-            };
-
-            await Refresh();
+           await Refresh();
 
         });
 
