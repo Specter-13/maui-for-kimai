@@ -12,41 +12,30 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ViewModels;
 public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransient
 {
-        private readonly IFavouritesTimesheetService _favouritesTimesheetService;
+    private readonly IFavouritesTimesheetService _favouritesTimesheetService;
     public FavouritesDetailViewModel(IRoutingService rs, ILoginService ls, IFavouritesTimesheetService fts) : base(rs, ls)
     {
        _favouritesTimesheetService = fts;
-        RegisterMessages();
     }
 
-
-    private void RegisterMessages()
-    {
-        WeakReferenceMessenger.Default.Register<ItemChooseMessage,int>(this, (int)ChooseItemMode.Favourite, (r, m) =>
+    private void HandleReceivedChosenItem(ChooseItemWrapper wrapper)
+    { 
+        if (wrapper.ChooseItem is CustomerListModel customer)
         {
-
-            if (m.Value.ChooseItem is CustomerListModel customer)
-            {
-                ChosenCustomer = customer;
-                if(! string.IsNullOrEmpty(ChosenProject.Name) )
-                    ChosenProject = new();
-            }
-
-            if (m.Value.ChooseItem is ProjectListModel project)
-            {
-                ChosenProject = project;
-                if(! string.IsNullOrEmpty(ChosenActivity.Name) )
-                    ChosenActivity = new();
-            }
-
-            if (m.Value.ChooseItem is ActivityListModel activity)
-            {
-                ChosenActivity = activity;
-            }
-
-        });
-        
-       
+            ChosenCustomer = customer;
+            if(! string.IsNullOrEmpty(ChosenProject.Name) )
+                ChosenProject = new();
+        }
+        else if (wrapper.ChooseItem is ProjectListModel project)
+        {
+            ChosenProject = project;
+            if(! string.IsNullOrEmpty(ChosenActivity.Name) )
+                ChosenActivity = new();
+        }
+        else if (wrapper.ChooseItem is ActivityListModel activity)
+        {
+            ChosenActivity = activity;
+        }
     }
 
     public override Task OnParameterSet()
@@ -64,7 +53,12 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
 
                 Favourite = model.ToTimesheetFavouriteEntity();
             }
+           
 
+        }
+        else if (NavigationParameter is ChooseItemWrapper chooseWrapper)
+        {
+            HandleReceivedChosenItem(chooseWrapper);
         }
             return base.OnParameterSet();
     }
@@ -91,7 +85,7 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
     async Task ShowProjectChooseView()
     {
         var route = routingService.GetRouteByViewModel<ProjectChooseFavouriteViewModel>();
-        var wrapper = new ChooseItemWrapper(ChosenProject,ChooseItemMode.Favourite);
+        var wrapper = new ChooseItemWrapper(ChosenProject);
         wrapper.ChosenCustomerId = ChosenCustomer.Id;
         await Navigation.NavigateTo(route, wrapper);
     }
@@ -100,7 +94,7 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
     async Task ShowActivityChooseView()
     {
         var route = routingService.GetRouteByViewModel<CustomerChooseFavouriteViewModel>();
-        var wrapper = new ChooseItemWrapper(ChosenActivity,ChooseItemMode.Favourite);
+        var wrapper = new ChooseItemWrapper(ChosenActivity);
         wrapper.ChosenProjectId = ChosenProject.Id;
         await Navigation.NavigateTo(route, wrapper);
     }
@@ -109,7 +103,7 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
     async Task ShowCustomerChooseView()
     {
         var route = routingService.GetRouteByViewModel<CustomerChooseFavouriteViewModel>();
-        var wrapper = new ChooseItemWrapper(ChosenCustomer,ChooseItemMode.Favourite);
+        var wrapper = new ChooseItemWrapper(ChosenCustomer);
         await Navigation.NavigateTo(route, wrapper);
     }
 

@@ -36,19 +36,35 @@
             </Grid.ColumnDefinitions>
 
             <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
+
+                <Ellipse
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Fill="{Binding ActivityColor, Converter={StaticResource StringToColorConverter}}"
+                    HeightRequest="9"
+                    HorizontalOptions="End"
+                    Style="{StaticResource ColorIndicator}"
+                    VerticalOptions="Center"
+                    WidthRequest="9" />
+
                 <Label
                     Margin="0,0,3,0"
                     FontFamily="MaterialDesignIcons"
-                    FontSize="20"
+                    FontSize="18"
                     HorizontalOptions="Center"
                     Text="{x:Static helpers:MaterialDesignIconsFonts.Star}"
                     TextColor="{AppThemeBinding Light={StaticResource AccentTextColorDark},
                                                 Dark={StaticResource AccentTextColorLight}}"
                     VerticalOptions="Center" />
-                <Label Style="{StaticResource MediumLabel}" Text="{Binding ActivityName}" />
+
+
+                <Label Style="{StaticResource MediumLabel}" Text="{Binding ActivityName}" VerticalOptions="Center" />
             </HorizontalStackLayout>
 
-            <HorizontalStackLayout Grid.Row="1" Grid.Column="0">
+            <HorizontalStackLayout
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="1,0,0,0">
                 <Ellipse Fill="{Binding ProjectColor, Converter={StaticResource StringToColorConverter}}" Style="{StaticResource ColorIndicator}" />
                 <Label
                     Grid.Row="2"
@@ -57,7 +73,10 @@
                     Text="{Binding ProjectName}" />
             </HorizontalStackLayout>
 
-            <HorizontalStackLayout Grid.Row="2" Grid.Column="0">
+            <HorizontalStackLayout
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="1,0,0,0">
                 <Ellipse Fill="{Binding CustomerColor, Converter={StaticResource StringToColorConverter}}" Style="{StaticResource ColorIndicator}" />
                 <Label
                     Grid.Row="2"
@@ -67,15 +86,7 @@
             </HorizontalStackLayout>
 
 
-            <Ellipse
-                Grid.Row="0"
-                Grid.Column="3"
-                Fill="{Binding ActivityColor, Converter={StaticResource StringToColorConverter}}"
-                HeightRequest="9"
-                HorizontalOptions="End"
-                Style="{StaticResource ColorIndicator}"
-                VerticalOptions="Start"
-                WidthRequest="9" />
+
 
             <Button
                 Grid.RowSpan="3"
@@ -83,8 +94,10 @@
                 BackgroundColor="Transparent"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FavouritesListViewModel}}, Path=QuickStartCommand}"
                 CommandParameter="{Binding .}"
+                HeightRequest="40"
                 HorizontalOptions="End"
-                Style="{StaticResource Key=RecentRestartButton}">
+                Style="{StaticResource Key=RecentRestartButton}"
+                WidthRequest="40">
                 <Button.ImageSource>
                     <FontImageSource
                         FontFamily="MaterialDesignIcons"

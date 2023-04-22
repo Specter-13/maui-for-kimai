@@ -64,6 +64,7 @@ public class LoginService : ILoginService
         {
             _loginContext.Disconnect();
             DeInitializeClients();
+            Task.Delay(1000);
         });
        
     }
@@ -86,6 +87,7 @@ public class LoginService : ILoginService
         {
             _loginContext.Disconnect();
             DeInitializeClients();
+            await Task.Delay(1000);
             return false;
         }
         

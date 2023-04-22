@@ -49,6 +49,7 @@ public partial class ApiLoginContext : ObservableObject
         ServerName = server.Name;
         if(!string.IsNullOrEmpty(ServerName))
             ServerFirstLetter = ServerName.First().ToString().ToUpper();
+
         TimetrackingPermissions = new PermissionsTimetrackingModel(server.CanEditBillable,server.CanEditExport,server.CanEditRate,server.HasGitlabPlugin);
         OnPropertyChanged(nameof(TimetrackingPermissions));
         OnPropertyChanged(nameof(UserName));

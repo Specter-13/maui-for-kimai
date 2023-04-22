@@ -41,38 +41,7 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
 
         WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
         {
-            TodaySeries = new();
-            TodayChartWidth = _chartWidth;
-            WeekSeries = new();
-            WeekChartWidth = _chartWidth;
-            MonthSeries = new();
-            MonthChartWidth = _chartWidth;
-
-            WeekXAxes = new ()
-            {
-                new Axis
-                {
-                    TextSize = _textSize
-                }
-            };
-
-            MonthXAxes = new ()
-            {
-                new Axis
-                {
-                    TextSize = _textSize
-                }
-            };
-
-            TodayXAxes = new ()
-            {
-                new Axis
-                {
-                    TextSize = _textSize
-                }
-            };
-
-            await Refresh();
+           await Refresh();
 
         });
 
@@ -82,9 +51,14 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
     {
         if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.LoginContext.IsAuthenticated )
         { 
+            ReportsAreVisible = true;
             IsBusy = true;
             await GetData();
             IsBusy = false;
+        }
+        else
+        {
+            ReportsAreVisible = false;
         }
     }
     [ObservableProperty]
@@ -173,21 +147,23 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
             Labeler = (value) => ConvertDurationToFormattedString((int)value)
         }
     };
-  
 
+    [ObservableProperty]
+    public bool reportsAreVisible;
 
     [RelayCommand]
     public async Task Refresh()
     {
         if(Connectivity.Current.NetworkAccess == NetworkAccess.Internet && base.LoginContext.IsAuthenticated )
         { 
-
+            ReportsAreVisible = true;
             await GetData();
-                        IsRefreshing = false;
+            IsRefreshing = false;
+            
         }
         else
         {
-           await Toast.Make("Cannot acquire reports data", ToastDuration.Short, 14).Show();
+           ReportsAreVisible = false;
         }
     }
 

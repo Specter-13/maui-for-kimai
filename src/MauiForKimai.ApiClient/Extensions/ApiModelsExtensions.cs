@@ -56,7 +56,10 @@ public static class ApiModelsExtensions
             ProjectId = timesheet.Project.Id.Value,
             ProjectName = timesheet.Project.Name,
             CustomerName = timesheet.Project.Customer.Name,
-            Duration = GetDuration(timesheet.Begin)
+            Duration = GetDuration(timesheet.Begin),
+            Start = timesheet.Begin.DateTime,
+            ActivityColor = timesheet.Activity.Color,
+            ProjectColor = timesheet.Project.Color,
         };
     }
 
@@ -70,7 +73,10 @@ public static class ApiModelsExtensions
             ProjectId = timesheet.Project.Id.Value,
             ProjectName = timesheet.Project.Name,
             CustomerName = timesheet.Project.Customer.Name,
-            Duration = GetDuration(timesheet.Begin)
+            Duration = GetDuration(timesheet.Begin),
+            Start = timesheet.Begin.DateTime,
+            ActivityColor = timesheet.Activity.Color,
+            ProjectColor = timesheet.Project.Color,
         };
     }
 

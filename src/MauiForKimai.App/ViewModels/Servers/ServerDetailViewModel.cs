@@ -93,7 +93,7 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
                 var toast = Toast.Make("Api key was not found in secure storage! Delete server and try to create it again.", ToastDuration.Short, 14);
                 await toast.Show();
             }
-            HasConnectionButton = true;
+            if(!IsLoggedToThisServer) HasConnectionButton = true;
         }
 
         if (NavigationParameter is bool creation)
@@ -129,6 +129,7 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
         if (result.IsValid)
         {
            IsConnecting = true;
+          
 
            var isSuccess = await loginService.Login(Server);
         
@@ -141,14 +142,12 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
                 return;
            }
 
+            //set timesheet permissions automatically if ovverride is off
+           if(!OverrideTimetrackingPermissions)
+               SetPermissionsByRoles(base.LoginContext.ActualUser.Roles);
+
             await UnsetDefaultServerIfChanged();
 
-
-            //set timesheet permissions automatically if ovverride is off
-            if(!OverrideTimetrackingPermissions)
-                SetPermissionsByRoles(base.LoginContext.ActualUser.Roles);
-   
-            
 
             //create server
             var newServer = await _serverService.Create(Server);
@@ -185,9 +184,13 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
         {
             if (role == UserRole.ROLE_SUPER_ADMIN || role == UserRole.ROLE_ADMIN)
             {
+               
                 Server.CanEditBillable = true;
                 Server.CanEditExport = true;
                 Server.CanEditRate = true;
+                LoginContext.TimetrackingPermissions.CanEditBillable = true;
+                LoginContext.TimetrackingPermissions.CanEditExport = true;
+                LoginContext.TimetrackingPermissions.CanEditRate = true;
                 break;
             }
 
@@ -195,6 +198,8 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
             {
                 Server.CanEditBillable = true;
                 Server.CanEditExport = true;
+                LoginContext.TimetrackingPermissions.CanEditBillable = true;
+                LoginContext.TimetrackingPermissions.CanEditExport = true;
             }
 
         }
@@ -233,18 +238,25 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
     }
 
     private async Task<bool> ConnectToServer()
-    { 
+    {
+    
         var isSuccess = await loginService.Login(Server);
+       
         if(isSuccess) 
         {
+        
             await ReinitializeDatabases();
             OnPropertyChanged(nameof(LoginContext));
             await Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14).Show();
+            IsLoggedToThisServer = true;
+            HasConnectionButton = false;
             return true;
         }
 		else
 		{
 			await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
+            IsLoggedToThisServer = false;
+            HasConnectionButton = true;
             return false;
 		}
        
@@ -254,13 +266,15 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
     [RelayCommand]
     async Task Disconnect() 
     {
-         ValidationErrors = string.Empty;
+        ValidationErrors = string.Empty;
 		await loginService.Logout();
+
         OnPropertyChanged(nameof(LoginContext));
         IsLoggedToThisServer = false;
-        await Toast.Make("Disconected successfully!", ToastDuration.Short, 14).Show();
-        HasConnectionButton = IsCreation && IsLoggedToThisServer;
         WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
+        HasConnectionButton = true;
+        await Toast.Make("Disconected successfully!", ToastDuration.Short, 14).Show();
+        await Navigation.NavigateTo("..");
     }
 
 
@@ -288,6 +302,10 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
                     await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
                     return;
                 }
+                else
+                {
+                    await Toast.Make("Reconnect successfull.", ToastDuration.Short, 14).Show();
+                }
             }
 
             //delete previous key from secure storage
@@ -301,7 +319,7 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
             //update changes in db
             await _serverService.Update(Server);
 
-            await Toast.Make("Connection and save successfull!", ToastDuration.Short, 14).Show();
+            await Toast.Make("Save successfull!", ToastDuration.Short, 14).Show();
             WeakReferenceMessenger.Default.Send(new ServerRefreshMessage(string.Empty));
             IsBusy = false;
             ValidationErrors = string.Empty;
@@ -346,18 +364,13 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
         //if there was a change of default server, ask user for consent to override default server
         if(previousIsDefaultValue != Server.IsDefault && Server.IsDefault == true) 
         {
-            var isDefaultOverride = await DisplayServerDefaultPopup();
-            if(!isDefaultOverride)
+            bool answer = await Page.DisplayAlert("Override default server", "Are you sure, that you want to override default server?", "Yes", "No");
+            if(!answer)
             { 
                 return;
             }
             await _serverService.UnsetDefaultPropertyExceptOne(Server.Id);
         }
     }
-    private async Task<bool> DisplayServerDefaultPopup()
-    {
-        var popup = new ServerDefaultPopup(_popupSizeConstants);
-
-        return (bool) await Page.ShowPopupAsync(popup);
-    }
+   
 }

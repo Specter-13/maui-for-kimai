@@ -1,3 +1,4 @@
+using MauiForKimai.Popups;
 using MauiForKimai.ViewModels;
 
 namespace MauiForKimai.Views;
@@ -10,9 +11,10 @@ public partial class HomeView
 		InitializeComponent();
         _vm = vm;
 		BindingContext = _vm;
-	}
-   
         
+	}
+
+		
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
         var myButton = (ImageButton)sender;

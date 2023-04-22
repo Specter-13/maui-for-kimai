@@ -9,21 +9,10 @@ namespace MauiForKimai.Shells;
 
 public partial class AppShellMobile : Shell
 {
-	public AppShellMobile(MenuViewModel menuViewModel)
+	public AppShellMobile()
 	{
 		InitializeComponent();
-		BindingContext = menuViewModel;
 
 	}
 
-	//protected override async Task OnInitialize()
-	//{
-	//	var ls = MauiForKimai.DependencyInjection.ServiceProvider.GetService<ILoginService>();
-	//	var status = await ls.LoginToDefaultOnStartUp();
-
-	//	var toast = Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14);
-	//	await toast.Show();
-
-
-	//}
 }

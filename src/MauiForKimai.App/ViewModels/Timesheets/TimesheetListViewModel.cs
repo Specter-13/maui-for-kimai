@@ -36,6 +36,16 @@ public partial class TimesheetListViewModel : ViewModelBase, IViewModelSingleton
         IsBusy = false;
     }
 
+    public override Task OnParameterSet()
+    {
+        // delete
+        if(NavigationParameter is TimesheetModel timesheetModel)
+        {
+            if(timesheetModel != null) Timesheets.Remove(timesheetModel);
+        }
+        return base.OnParameterSet();
+    }
+
     [RelayCommand]
     async Task Refresh()
     { 

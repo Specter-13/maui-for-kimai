@@ -6,8 +6,7 @@
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:pop="clr-namespace:MauiForKimai.Popups"
     x:DataType="pop:DurationPopupViewModel"
-    Color="{AppThemeBinding Dark={StaticResource CardBackgroundDark},
-                            Light={StaticResource CardBackgroundLight}}">
+    Color="{StaticResource CardBackgroundDark}">
     <VerticalStackLayout Style="{StaticResource PopupLayout}">
         <VerticalStackLayout.Resources>
             <ResourceDictionary>
@@ -43,6 +42,7 @@
             HorizontalOptions="Center"
             Style="{StaticResource LargeLabel}"
             Text="Duration"
+            TextColor="{StaticResource AccentTextColorLight}"
             VerticalOptions="Center" />
         <BoxView Style="{StaticResource Divider}" />
 
@@ -65,11 +65,13 @@
                     HorizontalTextAlignment="Center"
                     Keyboard="Numeric"
                     Text="{Binding Hours}"
+                    TextColor="{StaticResource AccentTextColorLight}"
                     VerticalTextAlignment="Center" />
                 <Label
                     Grid.Row="0"
                     Grid.Column="1"
                     Text="h"
+                    TextColor="{StaticResource AccentTextColorLight}"
                     VerticalTextAlignment="Center" />
 
                 <Entry
@@ -80,6 +82,7 @@
                     Keyboard="Numeric"
                     MaxLength="2"
                     Text="{Binding Minutes}"
+                    TextColor="{StaticResource AccentTextColorLight}"
                     VerticalOptions="End"
                     VerticalTextAlignment="Center" />
 

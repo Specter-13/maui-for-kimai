@@ -31,7 +31,6 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
     private readonly IActivityService _activityService;
  
 
-    private int _mode {get; set; }
    
     [ObservableProperty]
     string pageLabel;
@@ -44,8 +43,6 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
 
         if (NavigationParameter is ChooseItemWrapper wrapper)
         {
-            
-            _mode = (int)wrapper.Mode;
 
             if(base.HasInternetAndIsLogged())
             { 
@@ -107,9 +104,8 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
     [RelayCommand]
     async Task ItemTapped(IChooseItem item)
     {
-        var wrapper = new ChooseItemWrapper(item,ChooseItemMode.Favourite);
-        WeakReferenceMessenger.Default.Send<ItemChooseMessage,int>(new ItemChooseMessage(wrapper), _mode);
-        await Navigation.NavigateTo("..",null);
+        var wrapper = new ChooseItemWrapper(item);
+        await Navigation.NavigateTo("..", wrapper);
     }
     
 
