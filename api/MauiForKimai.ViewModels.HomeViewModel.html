@@ -76,7 +76,7 @@
 
   <h1 id="MauiForKimai_ViewModels_HomeViewModel" data-uid="MauiForKimai.ViewModels.HomeViewModel" class="text-break">
     Class HomeViewModel
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.RelayCommandGenerator/MauiForKimai.ViewModels.HomeViewModel.GetRecentTimesheets.g.cs/#L7"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/docs/CommunityToolkit.Mvvm.SourceGenerators/CommunityToolkit.Mvvm.SourceGenerators.RelayCommandGenerator/MauiForKimai.ViewModels.HomeViewModel.StartRecentTimesheet.g.cs/#L7"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -265,7 +265,7 @@
 
   <h3 id="MauiForKimai_ViewModels_HomeViewModel__ctor_MauiForKimai_Interfaces_IRoutingService_MauiForKimai_Interfaces_ILoginService_MauiForKimai_ApiClient_Interfaces_ITimesheetService_MauiForKimai_Wrappers_IDispatcherWrapper_MauiForKimai_Interfaces_IServerService_MauiForKimai_Interfaces_ISecureStorageService_" data-uid="MauiForKimai.ViewModels.HomeViewModel.#ctor(MauiForKimai.Interfaces.IRoutingService,MauiForKimai.Interfaces.ILoginService,MauiForKimai.ApiClient.Interfaces.ITimesheetService,MauiForKimai.Wrappers.IDispatcherWrapper,MauiForKimai.Interfaces.IServerService,MauiForKimai.Interfaces.ISecureStorageService)">
   HomeViewModel(IRoutingService, ILoginService, ITimesheetService, IDispatcherWrapper, IServerService, ISecureStorageService)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -309,7 +309,7 @@
 
   <h3 id="MauiForKimai_ViewModels_HomeViewModel__loginService" data-uid="MauiForKimai.ViewModels.HomeViewModel._loginService">
   _loginService
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -337,9 +337,71 @@
 
 
 
+  <h3 id="MauiForKimai_ViewModels_HomeViewModel_activeTimesheet" data-uid="MauiForKimai.ViewModels.HomeViewModel.activeTimesheet">
+  activeTimesheet
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L198"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[ObservableProperty]
+public TimesheetActiveModel activeTimesheet</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MauiForKimai.Core.Models.TimesheetActiveModel.html">TimesheetActiveModel</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="MauiForKimai_ViewModels_HomeViewModel_isTimetrackingActive" data-uid="MauiForKimai.ViewModels.HomeViewModel.isTimetrackingActive">
+  isTimetrackingActive
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L202"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[ObservableProperty]
+public bool isTimetrackingActive</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="MauiForKimai_ViewModels_HomeViewModel_timesheetService" data-uid="MauiForKimai.ViewModels.HomeViewModel.timesheetService">
   timesheetService
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -657,7 +719,7 @@
 
   <h3 id="MauiForKimai_ViewModels_HomeViewModel_RecentTimesheets" data-uid="MauiForKimai.ViewModels.HomeViewModel.RecentTimesheets">
   RecentTimesheets
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L165"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L199"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -914,7 +976,7 @@
 
   <h3 id="MauiForKimai_ViewModels_HomeViewModel_Initialize" data-uid="MauiForKimai.ViewModels.HomeViewModel.Initialize">
   Initialize()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L148"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L182"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -945,7 +1007,7 @@
 
   <h3 id="MauiForKimai_ViewModels_HomeViewModel_LoginToDefault" data-uid="MauiForKimai.ViewModels.HomeViewModel.LoginToDefault">
   LoginToDefault()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L328"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/ViewModels/HomeViewModel.cs/#L370"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>

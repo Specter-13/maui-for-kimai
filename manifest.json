@@ -1385,16 +1385,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/MauiForKimai.Messenger.ItemChooseMessage.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/MauiForKimai.Messenger.ItemChooseMessage.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/MauiForKimai.Messenger.RefreshMessage.yml",
       "output": {
         ".html": {
@@ -1525,30 +1515,10 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/MauiForKimai.Popups.FirstStartPopup.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/MauiForKimai.Popups.FirstStartPopup.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/MauiForKimai.Popups.PopupSizeConstants.yml",
       "output": {
         ".html": {
           "relative_path": "api/MauiForKimai.Popups.PopupSizeConstants.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/MauiForKimai.Popups.ServerDefaultPopup.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/MauiForKimai.Popups.ServerDefaultPopup.html"
         }
       },
       "version": ""
@@ -1829,16 +1799,6 @@
       "output": {
         ".html": {
           "relative_path": "api/MauiForKimai.ViewModels.HomeViewModel.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/MauiForKimai.ViewModels.MenuViewModel.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/MauiForKimai.ViewModels.MenuViewModel.html"
         }
       },
       "version": ""
