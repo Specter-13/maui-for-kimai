@@ -10427,15 +10427,15 @@ references:
   commentId: T:MauiForKimai.App
   fullName: MauiForKimai.App
   nameWithType: App
-- uid: MauiForKimai.App.#ctor(MauiForKimai.ViewModels.MenuViewModel,MauiForKimai.Interfaces.ILoginService)
-  name: App(MenuViewModel, ILoginService)
-  href: api/MauiForKimai.App.html#MauiForKimai_App__ctor_MauiForKimai_ViewModels_MenuViewModel_MauiForKimai_Interfaces_ILoginService_
-  commentId: M:MauiForKimai.App.#ctor(MauiForKimai.ViewModels.MenuViewModel,MauiForKimai.Interfaces.ILoginService)
-  name.vb: New(MenuViewModel, ILoginService)
-  fullName: MauiForKimai.App.App(MauiForKimai.ViewModels.MenuViewModel, MauiForKimai.Interfaces.ILoginService)
-  fullName.vb: MauiForKimai.App.New(MauiForKimai.ViewModels.MenuViewModel, MauiForKimai.Interfaces.ILoginService)
-  nameWithType: App.App(MenuViewModel, ILoginService)
-  nameWithType.vb: App.New(MenuViewModel, ILoginService)
+- uid: MauiForKimai.App.#ctor
+  name: App()
+  href: api/MauiForKimai.App.html#MauiForKimai_App__ctor
+  commentId: M:MauiForKimai.App.#ctor
+  name.vb: New()
+  fullName: MauiForKimai.App.App()
+  fullName.vb: MauiForKimai.App.New()
+  nameWithType: App.App()
+  nameWithType.vb: App.New()
 - uid: MauiForKimai.App.#ctor*
   name: App
   href: api/MauiForKimai.App.html#MauiForKimai_App__ctor_
@@ -11736,6 +11736,19 @@ references:
   commentId: T:MauiForKimai.Core.Models.TimesheetActiveModel
   fullName: MauiForKimai.Core.Models.TimesheetActiveModel
   nameWithType: TimesheetActiveModel
+- uid: MauiForKimai.Core.Models.TimesheetActiveModel.ActivityColor
+  name: ActivityColor
+  href: api/MauiForKimai.Core.Models.TimesheetActiveModel.html#MauiForKimai_Core_Models_TimesheetActiveModel_ActivityColor
+  commentId: P:MauiForKimai.Core.Models.TimesheetActiveModel.ActivityColor
+  fullName: MauiForKimai.Core.Models.TimesheetActiveModel.ActivityColor
+  nameWithType: TimesheetActiveModel.ActivityColor
+- uid: MauiForKimai.Core.Models.TimesheetActiveModel.ActivityColor*
+  name: ActivityColor
+  href: api/MauiForKimai.Core.Models.TimesheetActiveModel.html#MauiForKimai_Core_Models_TimesheetActiveModel_ActivityColor_
+  commentId: Overload:MauiForKimai.Core.Models.TimesheetActiveModel.ActivityColor
+  isSpec: "True"
+  fullName: MauiForKimai.Core.Models.TimesheetActiveModel.ActivityColor
+  nameWithType: TimesheetActiveModel.ActivityColor
 - uid: MauiForKimai.Core.Models.TimesheetActiveModel.ActivityId
   name: ActivityId
   href: api/MauiForKimai.Core.Models.TimesheetActiveModel.html#MauiForKimai_Core_Models_TimesheetActiveModel_ActivityId
@@ -11801,6 +11814,19 @@ references:
   isSpec: "True"
   fullName: MauiForKimai.Core.Models.TimesheetActiveModel.Id
   nameWithType: TimesheetActiveModel.Id
+- uid: MauiForKimai.Core.Models.TimesheetActiveModel.ProjectColor
+  name: ProjectColor
+  href: api/MauiForKimai.Core.Models.TimesheetActiveModel.html#MauiForKimai_Core_Models_TimesheetActiveModel_ProjectColor
+  commentId: P:MauiForKimai.Core.Models.TimesheetActiveModel.ProjectColor
+  fullName: MauiForKimai.Core.Models.TimesheetActiveModel.ProjectColor
+  nameWithType: TimesheetActiveModel.ProjectColor
+- uid: MauiForKimai.Core.Models.TimesheetActiveModel.ProjectColor*
+  name: ProjectColor
+  href: api/MauiForKimai.Core.Models.TimesheetActiveModel.html#MauiForKimai_Core_Models_TimesheetActiveModel_ProjectColor_
+  commentId: Overload:MauiForKimai.Core.Models.TimesheetActiveModel.ProjectColor
+  isSpec: "True"
+  fullName: MauiForKimai.Core.Models.TimesheetActiveModel.ProjectColor
+  nameWithType: TimesheetActiveModel.ProjectColor
 - uid: MauiForKimai.Core.Models.TimesheetActiveModel.ProjectId
   name: ProjectId
   href: api/MauiForKimai.Core.Models.TimesheetActiveModel.html#MauiForKimai_Core_Models_TimesheetActiveModel_ProjectId
@@ -11827,6 +11853,19 @@ references:
   isSpec: "True"
   fullName: MauiForKimai.Core.Models.TimesheetActiveModel.ProjectName
   nameWithType: TimesheetActiveModel.ProjectName
+- uid: MauiForKimai.Core.Models.TimesheetActiveModel.Start
+  name: Start
+  href: api/MauiForKimai.Core.Models.TimesheetActiveModel.html#MauiForKimai_Core_Models_TimesheetActiveModel_Start
+  commentId: P:MauiForKimai.Core.Models.TimesheetActiveModel.Start
+  fullName: MauiForKimai.Core.Models.TimesheetActiveModel.Start
+  nameWithType: TimesheetActiveModel.Start
+- uid: MauiForKimai.Core.Models.TimesheetActiveModel.Start*
+  name: Start
+  href: api/MauiForKimai.Core.Models.TimesheetActiveModel.html#MauiForKimai_Core_Models_TimesheetActiveModel_Start_
+  commentId: Overload:MauiForKimai.Core.Models.TimesheetActiveModel.Start
+  isSpec: "True"
+  fullName: MauiForKimai.Core.Models.TimesheetActiveModel.Start
+  nameWithType: TimesheetActiveModel.Start
 - uid: MauiForKimai.Core.Models.TimesheetModel
   name: TimesheetModel
   href: api/MauiForKimai.Core.Models.TimesheetModel.html
@@ -56805,15 +56844,15 @@ references:
   commentId: T:MauiForKimai.Shells.AppShellDesktop
   fullName: MauiForKimai.Shells.AppShellDesktop
   nameWithType: AppShellDesktop
-- uid: MauiForKimai.Shells.AppShellDesktop.#ctor(MauiForKimai.ViewModels.MenuViewModel)
-  name: AppShellDesktop(MenuViewModel)
-  href: api/MauiForKimai.Shells.AppShellDesktop.html#MauiForKimai_Shells_AppShellDesktop__ctor_MauiForKimai_ViewModels_MenuViewModel_
-  commentId: M:MauiForKimai.Shells.AppShellDesktop.#ctor(MauiForKimai.ViewModels.MenuViewModel)
-  name.vb: New(MenuViewModel)
-  fullName: MauiForKimai.Shells.AppShellDesktop.AppShellDesktop(MauiForKimai.ViewModels.MenuViewModel)
-  fullName.vb: MauiForKimai.Shells.AppShellDesktop.New(MauiForKimai.ViewModels.MenuViewModel)
-  nameWithType: AppShellDesktop.AppShellDesktop(MenuViewModel)
-  nameWithType.vb: AppShellDesktop.New(MenuViewModel)
+- uid: MauiForKimai.Shells.AppShellDesktop.#ctor
+  name: AppShellDesktop()
+  href: api/MauiForKimai.Shells.AppShellDesktop.html#MauiForKimai_Shells_AppShellDesktop__ctor
+  commentId: M:MauiForKimai.Shells.AppShellDesktop.#ctor
+  name.vb: New()
+  fullName: MauiForKimai.Shells.AppShellDesktop.AppShellDesktop()
+  fullName.vb: MauiForKimai.Shells.AppShellDesktop.New()
+  nameWithType: AppShellDesktop.AppShellDesktop()
+  nameWithType.vb: AppShellDesktop.New()
 - uid: MauiForKimai.Shells.AppShellDesktop.#ctor*
   name: AppShellDesktop
   href: api/MauiForKimai.Shells.AppShellDesktop.html#MauiForKimai_Shells_AppShellDesktop__ctor_
@@ -56830,15 +56869,15 @@ references:
   commentId: T:MauiForKimai.Shells.AppShellMobile
   fullName: MauiForKimai.Shells.AppShellMobile
   nameWithType: AppShellMobile
-- uid: MauiForKimai.Shells.AppShellMobile.#ctor(MauiForKimai.ViewModels.MenuViewModel)
-  name: AppShellMobile(MenuViewModel)
-  href: api/MauiForKimai.Shells.AppShellMobile.html#MauiForKimai_Shells_AppShellMobile__ctor_MauiForKimai_ViewModels_MenuViewModel_
-  commentId: M:MauiForKimai.Shells.AppShellMobile.#ctor(MauiForKimai.ViewModels.MenuViewModel)
-  name.vb: New(MenuViewModel)
-  fullName: MauiForKimai.Shells.AppShellMobile.AppShellMobile(MauiForKimai.ViewModels.MenuViewModel)
-  fullName.vb: MauiForKimai.Shells.AppShellMobile.New(MauiForKimai.ViewModels.MenuViewModel)
-  nameWithType: AppShellMobile.AppShellMobile(MenuViewModel)
-  nameWithType.vb: AppShellMobile.New(MenuViewModel)
+- uid: MauiForKimai.Shells.AppShellMobile.#ctor
+  name: AppShellMobile()
+  href: api/MauiForKimai.Shells.AppShellMobile.html#MauiForKimai_Shells_AppShellMobile__ctor
+  commentId: M:MauiForKimai.Shells.AppShellMobile.#ctor
+  name.vb: New()
+  fullName: MauiForKimai.Shells.AppShellMobile.AppShellMobile()
+  fullName.vb: MauiForKimai.Shells.AppShellMobile.New()
+  nameWithType: AppShellMobile.AppShellMobile()
+  nameWithType.vb: AppShellMobile.New()
 - uid: MauiForKimai.Shells.AppShellMobile.#ctor*
   name: AppShellMobile
   href: api/MauiForKimai.Shells.AppShellMobile.html#MauiForKimai_Shells_AppShellMobile__ctor_
@@ -57737,6 +57776,12 @@ references:
   fullName.vb: MauiForKimai.ViewModels.HomeViewModel.New
   nameWithType: HomeViewModel.HomeViewModel
   nameWithType.vb: HomeViewModel.New
+- uid: MauiForKimai.ViewModels.HomeViewModel.activeTimesheet
+  name: activeTimesheet
+  href: api/MauiForKimai.ViewModels.HomeViewModel.html#MauiForKimai_ViewModels_HomeViewModel_activeTimesheet
+  commentId: F:MauiForKimai.ViewModels.HomeViewModel.activeTimesheet
+  fullName: MauiForKimai.ViewModels.HomeViewModel.activeTimesheet
+  nameWithType: HomeViewModel.activeTimesheet
 - uid: MauiForKimai.ViewModels.HomeViewModel.ActiveTimesheet
   name: ActiveTimesheet
   href: api/MauiForKimai.ViewModels.HomeViewModel.html#MauiForKimai_ViewModels_HomeViewModel_ActiveTimesheet
@@ -57841,6 +57886,12 @@ references:
   isSpec: "True"
   fullName: MauiForKimai.ViewModels.HomeViewModel.IsRefreshing
   nameWithType: HomeViewModel.IsRefreshing
+- uid: MauiForKimai.ViewModels.HomeViewModel.isTimetrackingActive
+  name: isTimetrackingActive
+  href: api/MauiForKimai.ViewModels.HomeViewModel.html#MauiForKimai_ViewModels_HomeViewModel_isTimetrackingActive
+  commentId: F:MauiForKimai.ViewModels.HomeViewModel.isTimetrackingActive
+  fullName: MauiForKimai.ViewModels.HomeViewModel.isTimetrackingActive
+  nameWithType: HomeViewModel.isTimetrackingActive
 - uid: MauiForKimai.ViewModels.HomeViewModel.IsTimetrackingActive
   name: IsTimetrackingActive
   href: api/MauiForKimai.ViewModels.HomeViewModel.html#MauiForKimai_ViewModels_HomeViewModel_IsTimetrackingActive
@@ -58311,6 +58362,25 @@ references:
   isSpec: "True"
   fullName: MauiForKimai.ViewModels.ReportsViewModel.RefreshCommand
   nameWithType: ReportsViewModel.RefreshCommand
+- uid: MauiForKimai.ViewModels.ReportsViewModel.reportsAreVisible
+  name: reportsAreVisible
+  href: api/MauiForKimai.ViewModels.ReportsViewModel.html#MauiForKimai_ViewModels_ReportsViewModel_reportsAreVisible
+  commentId: F:MauiForKimai.ViewModels.ReportsViewModel.reportsAreVisible
+  fullName: MauiForKimai.ViewModels.ReportsViewModel.reportsAreVisible
+  nameWithType: ReportsViewModel.reportsAreVisible
+- uid: MauiForKimai.ViewModels.ReportsViewModel.ReportsAreVisible
+  name: ReportsAreVisible
+  href: api/MauiForKimai.ViewModels.ReportsViewModel.html#MauiForKimai_ViewModels_ReportsViewModel_ReportsAreVisible
+  commentId: P:MauiForKimai.ViewModels.ReportsViewModel.ReportsAreVisible
+  fullName: MauiForKimai.ViewModels.ReportsViewModel.ReportsAreVisible
+  nameWithType: ReportsViewModel.ReportsAreVisible
+- uid: MauiForKimai.ViewModels.ReportsViewModel.ReportsAreVisible*
+  name: ReportsAreVisible
+  href: api/MauiForKimai.ViewModels.ReportsViewModel.html#MauiForKimai_ViewModels_ReportsViewModel_ReportsAreVisible_
+  commentId: Overload:MauiForKimai.ViewModels.ReportsViewModel.ReportsAreVisible
+  isSpec: "True"
+  fullName: MauiForKimai.ViewModels.ReportsViewModel.ReportsAreVisible
+  nameWithType: ReportsViewModel.ReportsAreVisible
 - uid: MauiForKimai.ViewModels.ReportsViewModel.SelectedReportType
   name: SelectedReportType
   href: api/MauiForKimai.ViewModels.ReportsViewModel.html#MauiForKimai_ViewModels_ReportsViewModel_SelectedReportType
@@ -59212,6 +59282,19 @@ references:
   isSpec: "True"
   fullName: MauiForKimai.ViewModels.TimesheetListViewModel.NumberOfEntries
   nameWithType: TimesheetListViewModel.NumberOfEntries
+- uid: MauiForKimai.ViewModels.TimesheetListViewModel.OnParameterSet
+  name: OnParameterSet()
+  href: api/MauiForKimai.ViewModels.TimesheetListViewModel.html#MauiForKimai_ViewModels_TimesheetListViewModel_OnParameterSet
+  commentId: M:MauiForKimai.ViewModels.TimesheetListViewModel.OnParameterSet
+  fullName: MauiForKimai.ViewModels.TimesheetListViewModel.OnParameterSet()
+  nameWithType: TimesheetListViewModel.OnParameterSet()
+- uid: MauiForKimai.ViewModels.TimesheetListViewModel.OnParameterSet*
+  name: OnParameterSet
+  href: api/MauiForKimai.ViewModels.TimesheetListViewModel.html#MauiForKimai_ViewModels_TimesheetListViewModel_OnParameterSet_
+  commentId: Overload:MauiForKimai.ViewModels.TimesheetListViewModel.OnParameterSet
+  isSpec: "True"
+  fullName: MauiForKimai.ViewModels.TimesheetListViewModel.OnParameterSet
+  nameWithType: TimesheetListViewModel.OnParameterSet
 - uid: MauiForKimai.ViewModels.TimesheetListViewModel.QuickStartCommand
   name: QuickStartCommand
   href: api/MauiForKimai.ViewModels.TimesheetListViewModel.html#MauiForKimai_ViewModels_TimesheetListViewModel_QuickStartCommand
@@ -59647,15 +59730,15 @@ references:
   commentId: T:MauiForKimai.Wrappers.ChooseItemWrapper
   fullName: MauiForKimai.Wrappers.ChooseItemWrapper
   nameWithType: ChooseItemWrapper
-- uid: MauiForKimai.Wrappers.ChooseItemWrapper.#ctor(MauiForKimai.Core.Interfaces.IChooseItem,MauiForKimai.Core.Enums.ChooseItemMode)
-  name: ChooseItemWrapper(IChooseItem, ChooseItemMode)
-  href: api/MauiForKimai.Wrappers.ChooseItemWrapper.html#MauiForKimai_Wrappers_ChooseItemWrapper__ctor_MauiForKimai_Core_Interfaces_IChooseItem_MauiForKimai_Core_Enums_ChooseItemMode_
-  commentId: M:MauiForKimai.Wrappers.ChooseItemWrapper.#ctor(MauiForKimai.Core.Interfaces.IChooseItem,MauiForKimai.Core.Enums.ChooseItemMode)
-  name.vb: New(IChooseItem, ChooseItemMode)
-  fullName: MauiForKimai.Wrappers.ChooseItemWrapper.ChooseItemWrapper(MauiForKimai.Core.Interfaces.IChooseItem, MauiForKimai.Core.Enums.ChooseItemMode)
-  fullName.vb: MauiForKimai.Wrappers.ChooseItemWrapper.New(MauiForKimai.Core.Interfaces.IChooseItem, MauiForKimai.Core.Enums.ChooseItemMode)
-  nameWithType: ChooseItemWrapper.ChooseItemWrapper(IChooseItem, ChooseItemMode)
-  nameWithType.vb: ChooseItemWrapper.New(IChooseItem, ChooseItemMode)
+- uid: MauiForKimai.Wrappers.ChooseItemWrapper.#ctor(MauiForKimai.Core.Interfaces.IChooseItem)
+  name: ChooseItemWrapper(IChooseItem)
+  href: api/MauiForKimai.Wrappers.ChooseItemWrapper.html#MauiForKimai_Wrappers_ChooseItemWrapper__ctor_MauiForKimai_Core_Interfaces_IChooseItem_
+  commentId: M:MauiForKimai.Wrappers.ChooseItemWrapper.#ctor(MauiForKimai.Core.Interfaces.IChooseItem)
+  name.vb: New(IChooseItem)
+  fullName: MauiForKimai.Wrappers.ChooseItemWrapper.ChooseItemWrapper(MauiForKimai.Core.Interfaces.IChooseItem)
+  fullName.vb: MauiForKimai.Wrappers.ChooseItemWrapper.New(MauiForKimai.Core.Interfaces.IChooseItem)
+  nameWithType: ChooseItemWrapper.ChooseItemWrapper(IChooseItem)
+  nameWithType.vb: ChooseItemWrapper.New(IChooseItem)
 - uid: MauiForKimai.Wrappers.ChooseItemWrapper.#ctor*
   name: ChooseItemWrapper
   href: api/MauiForKimai.Wrappers.ChooseItemWrapper.html#MauiForKimai_Wrappers_ChooseItemWrapper__ctor_
@@ -59705,19 +59788,6 @@ references:
   isSpec: "True"
   fullName: MauiForKimai.Wrappers.ChooseItemWrapper.ChosenProjectId
   nameWithType: ChooseItemWrapper.ChosenProjectId
-- uid: MauiForKimai.Wrappers.ChooseItemWrapper.Mode
-  name: Mode
-  href: api/MauiForKimai.Wrappers.ChooseItemWrapper.html#MauiForKimai_Wrappers_ChooseItemWrapper_Mode
-  commentId: P:MauiForKimai.Wrappers.ChooseItemWrapper.Mode
-  fullName: MauiForKimai.Wrappers.ChooseItemWrapper.Mode
-  nameWithType: ChooseItemWrapper.Mode
-- uid: MauiForKimai.Wrappers.ChooseItemWrapper.Mode*
-  name: Mode
-  href: api/MauiForKimai.Wrappers.ChooseItemWrapper.html#MauiForKimai_Wrappers_ChooseItemWrapper_Mode_
-  commentId: Overload:MauiForKimai.Wrappers.ChooseItemWrapper.Mode
-  isSpec: "True"
-  fullName: MauiForKimai.Wrappers.ChooseItemWrapper.Mode
-  nameWithType: ChooseItemWrapper.Mode
 - uid: MauiForKimai.Wrappers.DispatcherWrapper
   name: DispatcherWrapper
   href: api/MauiForKimai.Wrappers.DispatcherWrapper.html
@@ -59816,45 +59886,6 @@ references:
   isSpec: "True"
   fullName: MauiForKimai.Wrappers.StatisticsWrapper.CalculateTodayStatistics
   nameWithType: StatisticsWrapper.CalculateTodayStatistics
-- uid: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityDuration
-  name: LongestActivityDuration
-  href: api/MauiForKimai.Wrappers.StatisticsWrapper.html#MauiForKimai_Wrappers_StatisticsWrapper_LongestActivityDuration
-  commentId: P:MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityDuration
-  fullName: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityDuration
-  nameWithType: StatisticsWrapper.LongestActivityDuration
-- uid: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityDuration*
-  name: LongestActivityDuration
-  href: api/MauiForKimai.Wrappers.StatisticsWrapper.html#MauiForKimai_Wrappers_StatisticsWrapper_LongestActivityDuration_
-  commentId: Overload:MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityDuration
-  isSpec: "True"
-  fullName: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityDuration
-  nameWithType: StatisticsWrapper.LongestActivityDuration
-- uid: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityName
-  name: LongestActivityName
-  href: api/MauiForKimai.Wrappers.StatisticsWrapper.html#MauiForKimai_Wrappers_StatisticsWrapper_LongestActivityName
-  commentId: P:MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityName
-  fullName: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityName
-  nameWithType: StatisticsWrapper.LongestActivityName
-- uid: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityName*
-  name: LongestActivityName
-  href: api/MauiForKimai.Wrappers.StatisticsWrapper.html#MauiForKimai_Wrappers_StatisticsWrapper_LongestActivityName_
-  commentId: Overload:MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityName
-  isSpec: "True"
-  fullName: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityName
-  nameWithType: StatisticsWrapper.LongestActivityName
-- uid: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityProjectName
-  name: LongestActivityProjectName
-  href: api/MauiForKimai.Wrappers.StatisticsWrapper.html#MauiForKimai_Wrappers_StatisticsWrapper_LongestActivityProjectName
-  commentId: P:MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityProjectName
-  fullName: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityProjectName
-  nameWithType: StatisticsWrapper.LongestActivityProjectName
-- uid: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityProjectName*
-  name: LongestActivityProjectName
-  href: api/MauiForKimai.Wrappers.StatisticsWrapper.html#MauiForKimai_Wrappers_StatisticsWrapper_LongestActivityProjectName_
-  commentId: Overload:MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityProjectName
-  isSpec: "True"
-  fullName: MauiForKimai.Wrappers.StatisticsWrapper.LongestActivityProjectName
-  nameWithType: StatisticsWrapper.LongestActivityProjectName
 - uid: MauiForKimai.Wrappers.StatisticsWrapper.MostTrackedProjectDuration
   name: MostTrackedProjectDuration
   href: api/MauiForKimai.Wrappers.StatisticsWrapper.html#MauiForKimai_Wrappers_StatisticsWrapper_MostTrackedProjectDuration

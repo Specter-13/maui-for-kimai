@@ -2218,10 +2218,10 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "articles/intro.md",
+      "source_relative_path": "articles/architecture.md",
       "output": {
         ".html": {
-          "relative_path": "articles/intro.html"
+          "relative_path": "articles/architecture.html"
         }
       },
       "version": ""
@@ -2240,6 +2240,19 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "images/app-architecture.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/app-architecture.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {

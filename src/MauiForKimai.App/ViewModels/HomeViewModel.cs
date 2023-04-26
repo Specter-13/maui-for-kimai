@@ -31,6 +31,24 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	[ObservableProperty]
 	StatisticsWrapper  statistics;
 
+	[ObservableProperty]
+	string selectedActivity;
+
+	[ObservableProperty]
+	bool isActivityStarting;
+
+	[ObservableProperty]
+	public TimesheetActiveModel activeTimesheet;
+	public ObservableCollection<TimesheetModel> RecentTimesheets {get; set; } = new ObservableCollection<TimesheetModel>();
+
+	[ObservableProperty]
+	public bool isTimetrackingActive;
+
+
+	[ObservableProperty]
+    bool isRefreshing;
+
+
 	public HomeViewModel(IRoutingService rs, 
 		ILoginService ls, 
 		ITimesheetService ts, 
@@ -49,13 +67,31 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
 		RegisterMessages();
 	}
-
+	/// <summary>
+	///  On viewmodel initialization, tryto login to default server and acquire data.
+	/// </summary>
+	public override async Task Initialize()
+	{
+		await ShowAlertOnFirstStartup();
+		IsBusy = true;
+		await LoginToDefault();
+		IsBusy = false;
+		if(IsTimetrackingActive)
+		{
+			await Refresh();
+		}
+	}
+	/// <summary>
+	///  On application resume, acquire data
+	/// </summary>
 	public override async Task OnApplicationResume()
 	{
 		await Refresh();
 	}
-
-	private async Task FirstStartUp()
+	/// <summary>
+	///  Show alert on first startup
+	/// </summary>
+	private async Task ShowAlertOnFirstStartup()
 	{ 
 		bool hasKey = Preferences.Default.ContainsKey("maui_for_kimai_first");
 		if(!hasKey)
@@ -66,7 +102,9 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		}
 		
 	}
-	// Initialize methods
+	/// <summary>
+	///  Register Messenger handlers
+	/// </summary>
 	private void RegisterMessages()
 	{ 
 		 WeakReferenceMessenger.Default.Register<TimesheetStartNewMessage>(this, async (r, m) =>
@@ -89,11 +127,11 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
         });
 	}
 
-	[ObservableProperty]
-	string selectedActivity;
-	[ObservableProperty]
-	bool isActivityStarting;
-
+	
+	/// <summary>
+	///  Start the timesheet provided by Timesheet model,
+	/// </summary>
+	/// <param name="model">TimesheetModel, which application will try to start.</param>
 	private async Task StartTimesheet(TimesheetModel model)
     { 
 		if(IsTimetrackingActive)
@@ -121,7 +159,6 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 			}
 			else
 			{
-				//MyTimer.TimerStart();
 				IsTimetrackingActive = true;
 				var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
 				if(activeTimesheet == null) 
@@ -147,65 +184,13 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		}
 		
 	}
-	#if ANDROID || IOS
-		async Task TryToCreateNotification()
-		{ 
-		
-			if (await LocalNotificationCenter.Current.AreNotificationsEnabled() == false)
-			{
-				await LocalNotificationCenter.Current.RequestNotificationPermission();
-			}
-
-			var notification = new NotificationRequest
-			{
-				NotificationId = 100,
-				Title = $"{ActiveTimesheet?.Start.TimeOfDay.ToString(@"hh\:mm")} Time-tracking is active ",
-				Description = $"{ActiveTimesheet.ActivityName}, {ActiveTimesheet.ProjectName}",
-				CategoryType = NotificationCategoryType.Service,
-				Silent = true,
-				Android =
-				{
-					AutoCancel = false,
-					Ongoing = true,   
-				}
-			};
-			await LocalNotificationCenter.Current.Show(notification);
-				
 	
-		}
-		void TryToStopNotification()
-		{ 
-			LocalNotificationCenter.Current.Cancel(100);
-		
-		}
-	#endif
-	public override async Task Initialize()
-	{
-		await FirstStartUp();
-		IsBusy = true;
-		await LoginToDefault();
-		IsBusy = false;
-		if(IsTimetrackingActive)
-		{
-			await Refresh();
-		}
-	}
+	
 
+	/// <summary>
+	///  Go to TimesheedDetail view for craeting new timesheet to start.
+	/// </summary>
 
-
-	//Properties
-	[ObservableProperty]
-	public TimesheetActiveModel activeTimesheet;
-	public ObservableCollection<TimesheetModel> RecentTimesheets {get; set; } = new ObservableCollection<TimesheetModel>();
-
-	[ObservableProperty]
-	public bool isTimetrackingActive;
-
-
-	[ObservableProperty]
-    bool isRefreshing;
-
-	// Commands
 	[RelayCommand]
 	async Task StartNewTimesheet()
 	{
@@ -214,6 +199,10 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
 	}
 
+	/// <summary>
+	///  Start recent timesheet.
+	/// </summary>
+	/// <param name="timesheet">Timesheet to start</param>
 	[RelayCommand]
 	async Task StartRecentTimesheet(TimesheetModel timesheet)
 	{	
@@ -221,7 +210,9 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		timesheet.End = null;
 		await StartTimesheet(timesheet);
 	}
-
+	/// <summary>
+	///  Go to TimesheedDetail view for craeting new timesheet.
+	/// </summary>
 	[RelayCommand]
 	async Task CreateNewTimesheet()
 	{
@@ -229,7 +220,9 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		await Navigation.NavigateTo(route,TimesheetDetailMode.Create);
 
 	}
-
+	/// <summary>
+	///  Stop active time-tracking.
+	/// </summary>
 	[RelayCommand]
 	async Task StopTimeTracking()
 	{	
@@ -323,6 +316,9 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		}
 		else
 		{ 
+			#if ANDROID || IOS
+			TryToStopNotification();
+			#endif 
 			RecentTimesheets.Clear();
 			var toast = Toast.Make("Cannot acquire data!", ToastDuration.Short, 14);
 			await toast.Show();
@@ -394,5 +390,39 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		}
 		await toast.Show();
 	}
+
+	#if ANDROID || IOS
+		async Task TryToCreateNotification()
+		{ 
+		
+			if (await LocalNotificationCenter.Current.AreNotificationsEnabled() == false)
+			{
+				await LocalNotificationCenter.Current.RequestNotificationPermission();
+			}
+
+			var notification = new NotificationRequest
+			{
+				NotificationId = 100,
+				Title = $"{ActiveTimesheet?.Start.TimeOfDay.ToString(@"hh\:mm")} Time-tracking is active ",
+				Description = $"{ActiveTimesheet.ActivityName}, {ActiveTimesheet.ProjectName}",
+				CategoryType = NotificationCategoryType.Service,
+				Silent = true,
+				Android =
+				{
+					AutoCancel = false,
+					Ongoing = true,   
+				}
+			};
+			await LocalNotificationCenter.Current.Show(notification);
+				
+	
+		}
+		void TryToStopNotification()
+		{ 
+			LocalNotificationCenter.Current.Cancel(100);
+		
+		}
+	#endif
+
 
 }
