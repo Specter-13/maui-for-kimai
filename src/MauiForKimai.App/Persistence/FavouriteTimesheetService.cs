@@ -24,6 +24,18 @@ public class FavouriteTimesheetService : IFavouritesTimesheetService
         await _db.CreateTableAsync<TimesheetFavouriteEntity>();
     }
 
+    public void DeleteDatabase(string path)
+    { 
+        try
+        {
+            File.Delete(path);
+        }
+        catch (Exception)
+        {
+        }
+        
+    }
+
     async Task Init()
     {
         if (_db is not null)

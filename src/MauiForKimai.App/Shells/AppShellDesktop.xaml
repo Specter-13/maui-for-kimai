@@ -5,7 +5,6 @@
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:local="clr-namespace:MauiForKimai.Views"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    x:DataType="viewmodel:MenuViewModel"
     FlyoutBackground="{AppThemeBinding Light={StaticResource BackgroundLight},
                                        Dark={StaticResource BackgroundDark}}"
     FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight},

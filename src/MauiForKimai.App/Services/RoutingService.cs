@@ -14,9 +14,7 @@ public class RoutingService : IRoutingService
 {
      private static ICollection<RouteModel> routesCommon = new List<RouteModel>
 {
-//           Routing.RegisterRoute("//loginview", typeof(LoginView));
-		//Routing.RegisterRoute("//homeview", typeof(HomeView));
-    //new("//login", typeof(LoginView), typeof(LoginViewModel)),
+
     new("//home", typeof(HomeView), typeof(HomeViewModel)),
 
 
@@ -44,7 +42,7 @@ public class RoutingService : IRoutingService
     new("//home/timesheet/choosecustomer", typeof(ChooseItemView), typeof(CustomerChooseRecentTimesheetViewModel)),
     new("//home/timesheet/chooseproject", typeof(ChooseItemView), typeof(ProjectChooseRecentTimesheetViewModel)),
     new("//home/timesheet/chooseactivity", typeof(ChooseItemView), typeof(ActivityChooseRecentTimesheetViewModel)),
-     new("//settings", typeof(SettingsView), typeof(SettingsViewModel))
+    new("//settings", typeof(SettingsView), typeof(SettingsViewModel))
     
 
 };

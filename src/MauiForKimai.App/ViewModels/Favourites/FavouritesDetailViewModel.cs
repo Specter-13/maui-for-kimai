@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Core;
 using MauiForKimai.Core.Entities;
+using MauiForKimai.Core.Validators;
 using MauiForKimai.Messenger;
 using MauiForKimai.Wrappers;
 using System;
@@ -81,6 +82,13 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
     [ObservableProperty]
     ActivityListModel chosenActivity= new();
 
+    [ObservableProperty]
+    public string validationErrors;
+
+    [ObservableProperty]
+    public bool showErrors;
+
+    private TimesheetFavouriteEntityValidator _validator = new ();
     [RelayCommand]
     async Task ShowProjectChooseView()
     {
@@ -110,29 +118,52 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
     [RelayCommand]
     async Task Save()
     {
+        ShowErrors = false;
+        ValidationErrors = string.Empty;
         Favourite.CustomerName = ChosenCustomer.Name;
         Favourite.ActivityId = ChosenActivity.Id;
         Favourite.ActivityName = ChosenActivity.Name;
         Favourite.ProjectName = ChosenProject.Name;
         Favourite.ProjectId = ChosenProject.Id;
        
-        await _favouritesTimesheetService.Update(Favourite);
-        WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
-        await Navigation.NavigateTo("..");
+        var result = _validator.Validate(Favourite);
+        if(result.IsValid)
+        { 
+            await _favouritesTimesheetService.Update(Favourite);
+            WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
+            await Navigation.NavigateTo("..");
+        }
+        else
+        { 
+            ValidationErrors = result.ToString("\n");
+            ShowErrors = true;
+        }
     }
 
     [RelayCommand]
     async Task Create()
     {
+        ShowErrors = false;
+        ValidationErrors = string.Empty;
         Favourite.CustomerName = ChosenCustomer.Name;
         Favourite.ActivityId = ChosenActivity.Id;
         Favourite.ActivityName = ChosenActivity.Name;
         Favourite.ProjectName = ChosenProject.Name;
         Favourite.ProjectId = ChosenProject.Id;
        
-        await _favouritesTimesheetService.Create(Favourite);
-        WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
-        await Navigation.NavigateTo("..");
+
+        var result = _validator.Validate(Favourite);
+        if(result.IsValid)
+        { 
+            await _favouritesTimesheetService.Create(Favourite);
+            WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
+            await Navigation.NavigateTo("..");
+        }
+        else
+        { 
+            ValidationErrors = result.ToString("\n");
+            ShowErrors = true;
+        }
     }
     [RelayCommand]
     async Task Delete()

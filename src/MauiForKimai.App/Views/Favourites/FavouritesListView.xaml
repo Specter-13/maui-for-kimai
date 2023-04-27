@@ -63,7 +63,7 @@
 
     <Grid Padding="10">
 
-        <CollectionView EmptyView="Empty favourites" ItemsSource="{Binding Favourites}">
+        <CollectionView ItemsSource="{Binding Favourites}">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:TimesheetModel">
