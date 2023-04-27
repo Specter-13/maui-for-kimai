@@ -21,8 +21,6 @@ namespace MauiForKimai.ViewModels;
 public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
 {
 
-	[ObservableProperty]
-	private string apiPassword;
 
     [ObservableProperty]
 	private bool isCreation;
@@ -37,6 +35,17 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
 
     [ObservableProperty]
 	private bool hasConnectionButton;
+
+    [ObservableProperty]
+    public bool showErrors;
+
+    [ObservableProperty]
+    public bool overrideTimetrackingPermissions;
+
+    [ObservableProperty]
+    public string validationErrors;
+
+    private ServerModelValidator _validator = new ();
 
     private readonly IServerService _serverService;
     private readonly IFavouritesTimesheetService _favouritesTimesheetService;
@@ -64,7 +73,7 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
 
 
 
-    private ServerModelValidator _validator = new ();
+   
 
     private async Task ReinitializeDatabases()
     {
@@ -110,15 +119,7 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
     }
 
 
-    [ObservableProperty]
-    public bool showErrors;
-
-    [ObservableProperty]
-    public bool overrideTimetrackingPermissions;
-
-    [ObservableProperty]
-    public string validationErrors;
-
+    
 
 
     [RelayCommand]
@@ -129,8 +130,12 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
         if (result.IsValid)
         {
            IsConnecting = true;
-          
-
+           if(loginService.CheckIfConnected(Server))
+           {
+                await loginService.Logout();
+                IsLoggedToThisServer = false;
+           }
+           Server.Id = Guid.NewGuid();
            var isSuccess = await loginService.Login(Server);
         
 
@@ -240,25 +245,33 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
     private async Task<bool> ConnectToServer()
     {
     
-        var isSuccess = await loginService.Login(Server);
+        if(base.GetConnectivity() == NetworkAccess.Internet)
+        { 
+            var isSuccess = await loginService.Login(Server);
        
-        if(isSuccess) 
-        {
+            if(isSuccess) 
+            {
         
-            await ReinitializeDatabases();
-            OnPropertyChanged(nameof(LoginContext));
-            await Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14).Show();
-            IsLoggedToThisServer = true;
-            HasConnectionButton = false;
-            return true;
+                await ReinitializeDatabases();
+                OnPropertyChanged(nameof(LoginContext));
+                await Toast.Make("Connection to Kimai established!", ToastDuration.Short, 14).Show();
+                IsLoggedToThisServer = true;
+                HasConnectionButton = false;
+                return true;
+            }
+		    else
+		    {
+			    await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
+                IsLoggedToThisServer = false;
+                HasConnectionButton = true;
+                return false;
+		    }
         }
-		else
-		{
-			await Toast.Make("Connection to Kimai failed! Check your credentials!", ToastDuration.Short, 14).Show();
-            IsLoggedToThisServer = false;
-            HasConnectionButton = true;
-            return false;
-		}
+        else
+        { 
+            await Toast.Make("Check your internet connection!", ToastDuration.Short, 14).Show();
+            return false; 
+        }
        
     }
 
@@ -272,6 +285,7 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
         OnPropertyChanged(nameof(LoginContext));
         IsLoggedToThisServer = false;
         WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
+        WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
         HasConnectionButton = true;
         await Toast.Make("Disconected successfully!", ToastDuration.Short, 14).Show();
         await Navigation.NavigateTo("..");
@@ -340,6 +354,7 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
         var isLogged = loginService.CheckIfConnected(Server);
         if(isLogged)
         { 
+            _favouritesTimesheetService.DeleteDatabase($"maui_for_kimai_server_db_{base.LoginContext.ServerId}");
 		    await loginService.Logout();
             WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
         }

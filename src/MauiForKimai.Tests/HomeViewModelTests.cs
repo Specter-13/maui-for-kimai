@@ -69,7 +69,7 @@ public class HomeViewModelTests
 
     }
 
-      [Fact]
+    [Fact]
     public async Task StartRecentTimesheet_Success()
     {
 
@@ -81,18 +81,12 @@ public class HomeViewModelTests
         timesheetMock.Setup(x => x.Create(It.IsAny<TimesheetEditForm>())).ReturnsAsync(TestData.TestTimesheetEntity);
         timesheetMock.Setup(x => x.GetActive()).ReturnsAsync(list);
 
-
-
         //act
         await vm.StartRecentTimesheetCommand.ExecuteAsync(TestData.TestTimsheetModelRecent);
-
-        
 
         //assert
         Assert.NotNull(vm.ActiveTimesheet);
         Assert.Equal(TestData.TestTimsheetModelRecent.ActivityName, vm.SelectedActivity);
-
-        
 
     }
 

@@ -74,6 +74,12 @@
         <ScrollView Grid.Row="1" Grid.ColumnSpan="3">
             <StackLayout>
 
+                <Label
+                    HorizontalTextAlignment="Center"
+                    IsVisible="{Binding ShowErrors}"
+                    Style="{StaticResource NotValidLabel}"
+                    Text="{Binding ValidationErrors}" />
+
                 <Label Style="{StaticResource SmallLabel}" Text="Customer" />
                 <Entry
                     IsReadOnly="True"

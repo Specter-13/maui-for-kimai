@@ -22,8 +22,6 @@ public partial class FavouritesListViewModel : ViewModelBase, IViewModelSingleto
         RegisterMessages();
     }
 
-
-
     private void RegisterMessages()
 	{ 
 		 WeakReferenceMessenger.Default.Register<TimesheetFavouriteCreateMessage>(this, (r, m) =>
@@ -56,11 +54,14 @@ public partial class FavouritesListViewModel : ViewModelBase, IViewModelSingleto
     async Task Refresh()
     { 
         IsBusy = true;
-        var favourites = await _favouritesTimesheetService.GetAll();
         Favourites.Clear();
-        foreach (var favourite in favourites)
-        {
-            Favourites.Add(favourite.ToTimesheetModel());
+        if(base.LoginContext.IsAuthenticated)
+        { 
+            var favourites = await _favouritesTimesheetService.GetAll();
+            foreach (var favourite in favourites)
+            {
+                Favourites.Add(favourite.ToTimesheetModel());
+            }
         }
         IsBusy = false;
     }

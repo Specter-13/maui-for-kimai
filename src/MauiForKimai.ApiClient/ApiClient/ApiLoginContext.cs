@@ -23,7 +23,7 @@ public partial class ApiLoginContext : ObservableObject
     [ObservableProperty]
     public string serverFirstLetter = string.Empty;
 
-    public int ServerId {get; private set; }
+    public Guid ServerId {get; private set; }
 
 
     public UserEntity? ActualUser {get; private set;}

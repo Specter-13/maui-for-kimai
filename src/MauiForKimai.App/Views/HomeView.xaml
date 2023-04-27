@@ -182,6 +182,7 @@
                         Grid.Row="0"
                         Grid.ColumnSpan="2"
                         HorizontalOptions="Center"
+                        IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}"
                         Style="{StaticResource MicroLabel}"
                         Text="Today" />
 
@@ -227,10 +228,15 @@
 
 
             <CollectionView
-                EmptyView="Empty recent timesheets"
+                x:Name="FavouriteCollection"
                 ItemsSource="{Binding RecentTimesheets}"
                 SelectionMode="None">
 
+                <CollectionView.EmptyView>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Style="{StaticResource SmallLabel}" Text="Empty" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
                 <CollectionView.Header>
                     <ContentView>
                         <Grid Padding="10">
@@ -283,7 +289,7 @@
 
         <Border
             Grid.Row="1"
-            IsVisible="{Binding IsRefreshing}"
+            IsVisible="{Binding IsLoading}"
             Style="{StaticResource InfoBar}"
             VerticalOptions="End">
 
@@ -292,6 +298,21 @@
                 Style="{StaticResource MicroLabel}"
                 Text="Synchronizing..."
                 TextColor="Green"
+                VerticalTextAlignment="Center" />
+
+        </Border>
+
+        <Border
+            Grid.Row="1"
+            IsVisible="{Binding ShowErrorLabel}"
+            Style="{StaticResource InfoBar}"
+            VerticalOptions="End">
+
+            <Label
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource MicroLabel}"
+                Text="{Binding ErrorText}"
+                TextColor="Red"
                 VerticalTextAlignment="Center" />
 
         </Border>

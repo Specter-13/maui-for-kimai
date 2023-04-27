@@ -49,6 +49,21 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
     bool isRefreshing;
 
 
+	[ObservableProperty]
+    bool isLoading;
+	[ObservableProperty]
+    bool showErrorLabel;
+	[ObservableProperty]
+	string errorText;
+
+	private async Task ShowErrorAlert()
+	{ 
+		ErrorText = "Cannot acquire data!";
+		ShowErrorLabel = true;
+		await Task.Delay(2000);
+		ShowErrorLabel = false;
+	}
+
 	public HomeViewModel(IRoutingService rs, 
 		ILoginService ls, 
 		ITimesheetService ts, 
@@ -287,20 +302,16 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	[RelayCommand]
     async Task ShowDetail(TimesheetModel currentTimesheet)
     {
-
 		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
 		var wrapper = new TimesheetDetailWrapper(currentTimesheet,TimesheetDetailMode.Edit);
 		await Navigation.NavigateTo(route,wrapper);
-        
     }
 
 	[RelayCommand]
     async Task GoToSettings()
     {
-
 		var route = base.routingService.GetRouteByViewModel<SettingsViewModel>();
 		await Navigation.NavigateTo(route);
-        
     }
 
 	// private methods
@@ -309,9 +320,11 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
 		if (HasInternetAndIsLogged())
 		{
+			IsLoading = true;
 			await GetRecentTimesheets();
 			await TryToGetActiveTimesheet();
 			await CalculateTodayStatistics();
+			IsLoading = false;
 			
 		}
 		else
@@ -320,8 +333,8 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 			TryToStopNotification();
 			#endif 
 			RecentTimesheets.Clear();
-			var toast = Toast.Make("Cannot acquire data!", ToastDuration.Short, 14);
-			await toast.Show();
+			IsTimetrackingActive = false;
+			await ShowErrorAlert();
 		}
 	}
 

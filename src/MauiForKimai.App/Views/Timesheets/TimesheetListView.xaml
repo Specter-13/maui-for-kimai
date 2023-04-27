@@ -83,10 +83,7 @@
             VerticalOptions="Start" />
 
 
-        <CollectionView
-            Grid.Row="1"
-            EmptyView="Empty timesheets"
-            ItemsSource="{Binding Timesheets}">
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Timesheets}">
 
 
 
@@ -123,6 +120,7 @@
                 VerticalOptions="Center" />
             <Label
                 HorizontalOptions="End"
+                Style="{x:StaticResource SmallLabel}"
                 Text="{Binding NumberOfEntries}"
                 VerticalOptions="Center" />
         </Grid>
