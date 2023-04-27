@@ -1165,6 +1165,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Core.Validators.TimesheetFavouriteEntityValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Core.Validators.TimesheetFavouriteEntityValidator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/MauiForKimai.Core.Validators.TimesheetModelCreateValidator.yml",
       "output": {
         ".html": {
@@ -1365,6 +1375,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.MainActivity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.MainActivity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.MainApplication.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.MainApplication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/MauiForKimai.MauiProgram.yml",
       "output": {
         ".html": {
@@ -1529,6 +1559,186 @@
       "output": {
         ".html": {
           "relative_path": "api/MauiForKimai.Popups.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Animation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Animation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Animator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Animator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Attribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Attribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Boolean.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Boolean.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Color.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Color.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Dimension.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Dimension.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Drawable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Drawable.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Id.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Id.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Integer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Integer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Interpolator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Interpolator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Layout.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Layout.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Mipmap.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Mipmap.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Plurals.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Plurals.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.String.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.String.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Style.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Style.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Styleable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Styleable.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.Xml.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.Xml.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MauiForKimai.Resource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MauiForKimai.Resource.html"
         }
       },
       "version": ""
@@ -2178,10 +2388,10 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "articles/intro.md",
+      "source_relative_path": "articles/architecture.md",
       "output": {
         ".html": {
-          "relative_path": "articles/intro.html"
+          "relative_path": "articles/architecture.html"
         }
       },
       "version": ""
@@ -2195,6 +2405,16 @@
         },
         ".json": {
           "relative_path": "articles/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/app-architecture.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/app-architecture.png"
         }
       },
       "version": ""

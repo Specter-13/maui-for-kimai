@@ -185,7 +185,7 @@
 
   <h3 id="MauiForKimai_Persistence_FavouriteTimesheetService_Create_MauiForKimai_Core_Entities_TimesheetFavouriteEntity_" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.Create(MauiForKimai.Core.Entities.TimesheetFavouriteEntity)">
   Create(TimesheetFavouriteEntity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -221,7 +221,7 @@
 
   <h3 id="MauiForKimai_Persistence_FavouriteTimesheetService_Delete_System_Int32_" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.Delete(System.Int32)">
   Delete(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L61"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -253,11 +253,42 @@
 
 
 
+  <a id="MauiForKimai_Persistence_FavouriteTimesheetService_DeleteDatabase_" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.DeleteDatabase*"></a>
+
+  <h3 id="MauiForKimai_Persistence_FavouriteTimesheetService_DeleteDatabase_System_String_" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.DeleteDatabase(System.String)">
+  DeleteDatabase(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DeleteDatabase(string path)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="MauiForKimai_Persistence_FavouriteTimesheetService_GetAll_" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.GetAll*"></a>
 
   <h3 id="MauiForKimai_Persistence_FavouriteTimesheetService_GetAll" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.GetAll">
   GetAll()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L68"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -271,42 +302,6 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="MauiForKimai.Core.Entities.TimesheetFavouriteEntity.html">TimesheetFavouriteEntity</a>&gt;&gt;</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="MauiForKimai_Persistence_FavouriteTimesheetService_Read_" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.Read*"></a>
-
-  <h3 id="MauiForKimai_Persistence_FavouriteTimesheetService_Read_System_Int32_" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.Read(System.Int32)">
-  Read(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L62"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;TimesheetFavouriteEntity&gt; Read(int id)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="MauiForKimai.Core.Entities.TimesheetFavouriteEntity.html">TimesheetFavouriteEntity</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -351,11 +346,47 @@
 
 
 
+  <a id="MauiForKimai_Persistence_FavouriteTimesheetService_Read_" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.Read*"></a>
+
+  <h3 id="MauiForKimai_Persistence_FavouriteTimesheetService_Read_System_Int32_" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.Read(System.Int32)">
+  Read(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;TimesheetFavouriteEntity&gt; Read(int id)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="MauiForKimai.Core.Entities.TimesheetFavouriteEntity.html">TimesheetFavouriteEntity</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="MauiForKimai_Persistence_FavouriteTimesheetService_Update_" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.Update*"></a>
 
   <h3 id="MauiForKimai_Persistence_FavouriteTimesheetService_Update_MauiForKimai_Core_Entities_TimesheetFavouriteEntity_" data-uid="MauiForKimai.Persistence.FavouriteTimesheetService.Update(MauiForKimai.Core.Entities.TimesheetFavouriteEntity)">
   Update(TimesheetFavouriteEntity)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L80"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -391,7 +422,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Specter-13/maui-for-kimai/new/dev/apiSpec/new?filename=MauiForKimai_Persistence_FavouriteTimesheetService.md&amp;value=---%0Auid%3A%20MauiForKimai.Persistence.FavouriteTimesheetService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/FavouriteTimesheetService.cs/#L10" class="edit-link">Edit this page</a>
         </div>
 
         

@@ -88,7 +88,7 @@
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ServerService : IServerService, ICrudOperationsMySql&lt;ServerEntity, ServerModel&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class ServerService : IServerService</code></pre>
   </div>
 
 
@@ -106,7 +106,6 @@
     <dt>Implements</dt>
     <dd>
       <div><a class="xref" href="MauiForKimai.Interfaces.IServerService.html">IServerService</a></div>
-      <div><a class="xref" href="MauiForKimai.Interfaces.ICrudOperationsMySql-2.html">ICrudOperationsMySql</a>&lt;<a class="xref" href="MauiForKimai.Core.Entities.ServerEntity.html">ServerEntity</a>, <a class="xref" href="MauiForKimai.Core.Models.ServerModel.html">ServerModel</a>&gt;</div>
     </dd>
   </dl>
 
@@ -219,8 +218,8 @@
 
   <a id="MauiForKimai_Persistence_ServerService_Delete_" data-uid="MauiForKimai.Persistence.ServerService.Delete*"></a>
 
-  <h3 id="MauiForKimai_Persistence_ServerService_Delete_System_Int32_" data-uid="MauiForKimai.Persistence.ServerService.Delete(System.Int32)">
-  Delete(int)
+  <h3 id="MauiForKimai_Persistence_ServerService_Delete_System_Guid_" data-uid="MauiForKimai.Persistence.ServerService.Delete(System.Guid)">
+  Delete(Guid)
   <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/ServerService.cs/#L46"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -228,12 +227,12 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; Delete(int id)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;bool&gt; Delete(Guid id)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></dt>
     <dd></dd>
   </dl>
 
@@ -348,8 +347,8 @@
 
   <a id="MauiForKimai_Persistence_ServerService_Read_" data-uid="MauiForKimai.Persistence.ServerService.Read*"></a>
 
-  <h3 id="MauiForKimai_Persistence_ServerService_Read_System_Int32_" data-uid="MauiForKimai.Persistence.ServerService.Read(System.Int32)">
-  Read(int)
+  <h3 id="MauiForKimai_Persistence_ServerService_Read_System_Guid_" data-uid="MauiForKimai.Persistence.ServerService.Read(System.Guid)">
+  Read(Guid)
   <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/ServerService.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -357,12 +356,12 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;ServerEntity&gt; Read(int id)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;ServerEntity&gt; Read(Guid id)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></dt>
     <dd></dd>
   </dl>
 
@@ -384,8 +383,8 @@
 
   <a id="MauiForKimai_Persistence_ServerService_UnsetDefaultPropertyExceptOne_" data-uid="MauiForKimai.Persistence.ServerService.UnsetDefaultPropertyExceptOne*"></a>
 
-  <h3 id="MauiForKimai_Persistence_ServerService_UnsetDefaultPropertyExceptOne_System_Int32_" data-uid="MauiForKimai.Persistence.ServerService.UnsetDefaultPropertyExceptOne(System.Int32)">
-  UnsetDefaultPropertyExceptOne(int)
+  <h3 id="MauiForKimai_Persistence_ServerService_UnsetDefaultPropertyExceptOne_System_Guid_" data-uid="MauiForKimai.Persistence.ServerService.UnsetDefaultPropertyExceptOne(System.Guid)">
+  UnsetDefaultPropertyExceptOne(Guid)
   <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/ServerService.cs/#L85"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -393,12 +392,12 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;ServerEntity&gt; UnsetDefaultPropertyExceptOne(int id)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task&lt;ServerEntity&gt; UnsetDefaultPropertyExceptOne(Guid id)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></dt>
     <dd></dd>
   </dl>
 
@@ -458,7 +457,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Specter-13/maui-for-kimai/new/dev/apiSpec/new?filename=MauiForKimai_Persistence_ServerService.md&amp;value=---%0Auid%3A%20MauiForKimai.Persistence.ServerService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Persistence/ServerService.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
         

@@ -88,7 +88,7 @@
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IServerService : ICrudOperationsMySql&lt;ServerEntity, ServerModel&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IServerService</code></pre>
   </div>
 
 
@@ -97,25 +97,6 @@
 
 
 
-  <dl class="typelist derived">
-    <dt>Inherited Members</dt>
-    <dd>
-    <div>
-      <a class="xref" href="MauiForKimai.Interfaces.ICrudOperationsMySql-2.html#MauiForKimai_Interfaces_ICrudOperationsMySql_2_Create__1_">ICrudOperationsMySql&lt;ServerEntity, ServerModel&gt;.Create(ServerModel)</a>
-    </div>
-    <div>
-      <a class="xref" href="MauiForKimai.Interfaces.ICrudOperationsMySql-2.html#MauiForKimai_Interfaces_ICrudOperationsMySql_2_Read_System_Int32_">ICrudOperationsMySql&lt;ServerEntity, ServerModel&gt;.Read(int)</a>
-    </div>
-    <div>
-      <a class="xref" href="MauiForKimai.Interfaces.ICrudOperationsMySql-2.html#MauiForKimai_Interfaces_ICrudOperationsMySql_2_Update__1_">ICrudOperationsMySql&lt;ServerEntity, ServerModel&gt;.Update(ServerModel)</a>
-    </div>
-    <div>
-      <a class="xref" href="MauiForKimai.Interfaces.ICrudOperationsMySql-2.html#MauiForKimai_Interfaces_ICrudOperationsMySql_2_Delete_System_Int32_">ICrudOperationsMySql&lt;ServerEntity, ServerModel&gt;.Delete(int)</a>
-    </div>
-    <div>
-      <a class="xref" href="MauiForKimai.Interfaces.ICrudOperationsMySql-2.html#MauiForKimai_Interfaces_ICrudOperationsMySql_2_GetAll">ICrudOperationsMySql&lt;ServerEntity, ServerModel&gt;.GetAll()</a>
-    </div>
-  </dd></dl>
 
 
 
@@ -124,6 +105,109 @@
 
   <h2 class="section" id="methods">Methods
 </h2>
+
+
+  <a id="MauiForKimai_Interfaces_IServerService_Create_" data-uid="MauiForKimai.Interfaces.IServerService.Create*"></a>
+
+  <h3 id="MauiForKimai_Interfaces_IServerService_Create_MauiForKimai_Core_Models_ServerModel_" data-uid="MauiForKimai.Interfaces.IServerService.Create(MauiForKimai.Core.Models.ServerModel)">
+  Create(ServerModel)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Interfaces/IServerService.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;ServerEntity&gt; Create(ServerModel model)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>model</code> <a class="xref" href="MauiForKimai.Core.Models.ServerModel.html">ServerModel</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="MauiForKimai.Core.Entities.ServerEntity.html">ServerEntity</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_Interfaces_IServerService_Delete_" data-uid="MauiForKimai.Interfaces.IServerService.Delete*"></a>
+
+  <h3 id="MauiForKimai_Interfaces_IServerService_Delete_System_Guid_" data-uid="MauiForKimai.Interfaces.IServerService.Delete(System.Guid)">
+  Delete(Guid)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Interfaces/IServerService.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; Delete(Guid id)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_Interfaces_IServerService_GetAll_" data-uid="MauiForKimai.Interfaces.IServerService.GetAll*"></a>
+
+  <h3 id="MauiForKimai_Interfaces_IServerService_GetAll" data-uid="MauiForKimai.Interfaces.IServerService.GetAll">
+  GetAll()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Interfaces/IServerService.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;ICollection&lt;ServerEntity&gt;&gt; GetAll()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="MauiForKimai.Core.Entities.ServerEntity.html">ServerEntity</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="MauiForKimai_Interfaces_IServerService_GetDefaultServer_" data-uid="MauiForKimai.Interfaces.IServerService.GetDefaultServer*"></a>
@@ -157,10 +241,46 @@
 
 
 
+  <a id="MauiForKimai_Interfaces_IServerService_Read_" data-uid="MauiForKimai.Interfaces.IServerService.Read*"></a>
+
+  <h3 id="MauiForKimai_Interfaces_IServerService_Read_System_Guid_" data-uid="MauiForKimai.Interfaces.IServerService.Read(System.Guid)">
+  Read(Guid)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Interfaces/IServerService.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;ServerEntity&gt; Read(Guid id)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="MauiForKimai.Core.Entities.ServerEntity.html">ServerEntity</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="MauiForKimai_Interfaces_IServerService_UnsetDefaultPropertyExceptOne_" data-uid="MauiForKimai.Interfaces.IServerService.UnsetDefaultPropertyExceptOne*"></a>
 
-  <h3 id="MauiForKimai_Interfaces_IServerService_UnsetDefaultPropertyExceptOne_System_Int32_" data-uid="MauiForKimai.Interfaces.IServerService.UnsetDefaultPropertyExceptOne(System.Int32)">
-  UnsetDefaultPropertyExceptOne(int)
+  <h3 id="MauiForKimai_Interfaces_IServerService_UnsetDefaultPropertyExceptOne_System_Guid_" data-uid="MauiForKimai.Interfaces.IServerService.UnsetDefaultPropertyExceptOne(System.Guid)">
+  UnsetDefaultPropertyExceptOne(Guid)
   <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Interfaces/IServerService.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -168,12 +288,48 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;ServerEntity&gt; UnsetDefaultPropertyExceptOne(int id)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;ServerEntity&gt; UnsetDefaultPropertyExceptOne(Guid id)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="MauiForKimai.Core.Entities.ServerEntity.html">ServerEntity</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MauiForKimai_Interfaces_IServerService_Update_" data-uid="MauiForKimai.Interfaces.IServerService.Update*"></a>
+
+  <h3 id="MauiForKimai_Interfaces_IServerService_Update_MauiForKimai_Core_Models_ServerModel_" data-uid="MauiForKimai.Interfaces.IServerService.Update(MauiForKimai.Core.Models.ServerModel)">
+  Update(ServerModel)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Interfaces/IServerService.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;ServerEntity&gt; Update(ServerModel model)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>model</code> <a class="xref" href="MauiForKimai.Core.Models.ServerModel.html">ServerModel</a></dt>
     <dd></dd>
   </dl>
 
@@ -197,7 +353,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/Specter-13/maui-for-kimai/new/dev/apiSpec/new?filename=MauiForKimai_Interfaces_IServerService.md&amp;value=---%0Auid%3A%20MauiForKimai.Interfaces.IServerService%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="edit-link">Edit this page</a>
+          <a href="https://github.com/Specter-13/maui-for-kimai/blob/dev/src/MauiForKimai.App/Interfaces/IServerService.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
         
