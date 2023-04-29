@@ -2388,6 +2388,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "articles/api-integration.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/api-integration.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "articles/architecture.md",
       "output": {
         ".html": {

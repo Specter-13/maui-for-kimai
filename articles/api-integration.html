@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Integration and authorization of Kimai API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Integration and authorization of Kimai API ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.min.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/Specter-13/maui-for-kimai/blob/dev/docs/articles/api-integration.md/#L1">
+
+      <script>
+        MathJax = {
+          options: {
+            processHtmlClass: ['tex2jax_process', 'math']
+          }
+        };
+      </script>
+
+      <script type="text/javascript" src="../styles/docfx.min.js"></script>
+      <script type="text/javascript" src="../styles/main.js"></script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="integration-and-authorization-of-kimai-api">Integration and authorization of Kimai API</h1>
+
+<p>This article describes integration and authorization of Kimai API. This API contains
+the OpenAPI specification, which defines a standard for HTTP APIs which allows both
+humans and computers to discover and understand the capabilities of the service. This
+standardized specification can be used for auto-generation of the API client for different
+applications.</p>
+<p>I used NSwag toolchain, specifically the NSwagStudio application, for the generation
+of the API client for the stable version of Kimai 1.30.11. The API client uses .NET HTTP
+client for sending and receiving request and NewtfonSoft.Json library for serializing and
+deserializing requests.</p>
+<h2 id="authorization-and-login-context">Authorization and login context</h2>
+<p>For testing purposes, authorization tokens were added to every request globally as Default
+Request Headers. These headers can be set only once on the initialization of the HTTP
+client. However, this approach is not feasible for the case where a new user or server is
+added to the application and new credentials are needed. As a result of this, custom HTTP
+Message handler is introduced.
+The HTTP client factory (object, which handles initialization and de-initialization
+of HTTP clients) is initialized on application startup and added to the DI container.
+This HTTP client factory is provided with my custom HTTP request handler named
+AuthHandler. AuthHandler contains override of SendAsync method from HTTP client.
+This is main method, which is invoked every time, when new HTTP request is send. In
+this overridden method, authorization headers are added to each request. The example of
+the overridden SendAsync method is shown in the code snippet below.</p>
+<pre><code class="lang-C#">protected override async Task&lt;HttpResponseMessage&gt; SendAsync(request, cancellationToken)
+{
+    request.Headers.Add(&quot;X-AUTH-USER&quot;, _loginContext.UserName);
+    request.Headers.Add(&quot;X-AUTH-TOKEN&quot;, _loginContext.ApiPassword);
+    return await base.SendAsync(request, cancellationToken);
+}
+</code></pre>
+<p>The credentials needed for authorization are provided by a special class called LoginContext.
+The LoginContext is a singleton object, which contains essential information about the cur-
+rently logged user to a specific Kimai server. It is derived from Observable object (from
+the Community Toolkit), which means it implements the INotifyPropertyChanged inter-
+face. That means, when an authorization context is changed (for example, user will log in
+or log out into application), the UI and viewmodels are notified about the change and are
+reinitialized accordingly.</p>
+<p>All this is glued together with the implementation of Login service. The Login
+service provides methods for logging in and logging out users to the Kimai server. These
+methods initialize and deinitialize accordingly LoginContext with credentials and also reini-
+tialize HTTP clients that are used in API services (specific abstractions of the generated
+API client).</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/Specter-13/maui-for-kimai/blob/dev/docs/articles/api-integration.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
