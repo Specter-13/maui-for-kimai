@@ -1,2 +1,4 @@
 - name: Architecture
   href: architecture.md
+- name: Integration and authorization of Kimai API
+  href: api-integration.md
