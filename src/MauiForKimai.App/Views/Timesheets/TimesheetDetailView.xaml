@@ -53,6 +53,7 @@
 
                 <Button
                     Grid.Column="1"
+                    Margin="0,0,10,0"
                     Command="{Binding StartTimesheetCommand}"
                     HorizontalOptions="End"
                     IsVisible="{Binding Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums:TimesheetDetailMode.Edit}}"

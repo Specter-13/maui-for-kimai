@@ -33,7 +33,24 @@
                 HorizontalOptions="Start"
                 Style="{StaticResource TitleLabel}"
                 Text="Detail"
-                VerticalOptions="Center" />
+                VerticalOptions="Start" />
+
+            <Button
+                Grid.Column="1"
+                Margin="0,0,10,0"
+                Command="{Binding StartFavouriteCommand}"
+                HorizontalOptions="End"
+                Style="{StaticResource Key=RecentRestartButton}"
+                VerticalOptions="Center">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialDesignIcons"
+                        Glyph="{x:Static helpers:MaterialDesignIconsFonts.Play}"
+                        Size="25"
+                        Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                Dark={StaticResource AccentTextColorLight}}" />
+                </Button.ImageSource>
+            </Button>
         </Grid>
     </Shell.TitleView>
 

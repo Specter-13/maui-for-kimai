@@ -11,7 +11,6 @@
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    Title="ReportsView"
     x:DataType="viewmodel:ReportsViewModel">
 
 
@@ -59,7 +58,7 @@
         ColumnDefinitions="*,40"
         RowDefinitions="80,*">
 
-        <StackLayout>
+        <StackLayout Padding="8,0,8,0">
             <Label Style="{StaticResource MediumLabel}" Text="Select report type" />
             <Picker
                 x:Name="picker"

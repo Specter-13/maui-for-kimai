@@ -53,12 +53,27 @@ public class TimesheetService : BaseService, ITimesheetService
         var today = DateTime.Now;
         var begin = new DateTime(today.Year,today.Month,today.Day);
         var end = new DateTime(today.Year,today.Month,today.Day,23,59,59);
-        return  ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin.ToRFC3339(),end.ToRFC3339(),null,null,null,"true",null,null);;
+
+        try
+        {
+            return  ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin.ToRFC3339(),end.ToRFC3339(),null,null,null,"true",null,null);;
+        }
+        catch (KimaiApiException)
+        {
+            return null;
+        }
 	}
     public Task<ICollection<TimesheetCollectionExpanded>> GetTenRecentTimesheetsAsync()
     {
-        //if(ApiClient == null) return null;
+        try
+        {
             return  ApiClient?.RecentAsync(base.loginContext.ActualUser.Id.ToString(),null,null);
+        }
+        catch (KimaiApiException)
+        {
+
+            return null;
+        }
     }
 
     public Task<TimesheetEntity> Read(int id)
@@ -72,17 +87,29 @@ public class TimesheetService : BaseService, ITimesheetService
     }
     public Task<ICollection<TimesheetCollectionExpanded>> GetActive()
     {
-        return  ApiClient?.ActiveAsync();
+        try
+        {
+            return  ApiClient?.ActiveAsync();
+        }
+        catch (KimaiApiException)
+        {
+            return null;
+        }
     }
     public Task<TimesheetEntity> StopActive(int id)
     {
-        return  ApiClient?.StopAsync(id);
+        try
+        {
+            return  ApiClient?.StopAsync(id);
+        }
+        catch (KimaiApiException)
+        {
+            return null;
+        }
     }
 
     public Task<TimesheetEntity> SetMetaField(int id, Body5 body)
-    {
-        var meta = new Body5();
-        
+    {   
         return  ApiClient?.Meta4Async(id,body);
     }
 }
