@@ -28,12 +28,6 @@
             ColumnDefinitions="200,*"
             HeightRequest="40"
             VerticalOptions="End">
-            <!--<Label
-                Grid.Column="0"
-                HorizontalOptions="Start"
-                Style="{StaticResource TitleLabel}"
-                Text="Home"
-                VerticalOptions="Center" />-->
 
             <Image
                 Grid.Column="0"
@@ -86,6 +80,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
+            <RowDefinition Height="45" />
             <RowDefinition Height="8*" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
@@ -218,55 +213,52 @@
         </Frame>
 
 
+
+
+        <Grid Grid.Row="1" Padding="10" Margin="7,0,7,0">
+            <Label Style="{StaticResource LargeLabel}">Recent Timesheets</Label>
+
+            <HorizontalStackLayout HorizontalOptions="End">
+
+
+                <Button
+                    BackgroundColor="Transparent"
+                    Command="{Binding RefreshTimesheetsCommand}"
+                    HorizontalOptions="End"
+                    Style="{StaticResource Key=RecentRestartButton}">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="MaterialDesignIcons"
+                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Refresh}"
+                            Size="30"
+                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                    Dark={StaticResource AccentTextColorLight}}" />
+                    </Button.ImageSource>
+
+                </Button>
+            </HorizontalStackLayout>
+        </Grid>
+
         <!--  Recents  -->
 
         <RefreshView
-            Grid.Row="1"
+            Grid.Row="2"
             Margin="10,0,10,0"
             Command="{Binding RefreshTimesheetsCommand}"
             IsRefreshing="{Binding IsRefreshing}">
 
 
-            <CollectionView
-                x:Name="FavouriteCollection"
-                ItemsSource="{Binding RecentTimesheets}"
-                SelectionMode="None">
+            <CollectionView ItemsSource="{Binding RecentTimesheets}" SelectionMode="None">
 
                 <CollectionView.EmptyView>
                     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label Style="{StaticResource SmallLabel}" Text="Empty" />
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource SmallLabel}"
+                            Text="Empty"
+                            VerticalOptions="Center" />
                     </StackLayout>
                 </CollectionView.EmptyView>
-                <CollectionView.Header>
-                    <ContentView>
-                        <Grid Padding="10">
-                            <Label Style="{StaticResource LargeLabel}">Recent Timesheets</Label>
-
-                            <HorizontalStackLayout HorizontalOptions="End">
-
-
-                                <Button
-                                    BackgroundColor="Transparent"
-                                    Command="{Binding RefreshTimesheetsCommand}"
-                                    HorizontalOptions="End"
-                                    Style="{StaticResource Key=RecentRestartButton}">
-                                    <Button.ImageSource>
-                                        <FontImageSource
-                                            FontFamily="MaterialDesignIcons"
-                                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Refresh}"
-                                            Size="30"
-                                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
-                                                                    Dark={StaticResource AccentTextColorLight}}" />
-                                    </Button.ImageSource>
-
-                                </Button>
-                            </HorizontalStackLayout>
-                        </Grid>
-                    </ContentView>
-                </CollectionView.Header>
-
-
-
 
 
                 <CollectionView.ItemTemplate>
@@ -288,7 +280,7 @@
 
 
         <Border
-            Grid.Row="1"
+            Grid.Row="2"
             IsVisible="{Binding IsLoading}"
             Style="{StaticResource InfoBar}"
             VerticalOptions="End">
@@ -303,7 +295,7 @@
         </Border>
 
         <Border
-            Grid.Row="1"
+            Grid.Row="2"
             IsVisible="{Binding ShowErrorLabel}"
             Style="{StaticResource InfoBar}"
             VerticalOptions="End">
@@ -318,7 +310,7 @@
         </Border>
 
         <Border
-            Grid.Row="1"
+            Grid.Row="2"
             IsVisible="{Binding IsActivityStarting}"
             Style="{StaticResource InfoBar}"
             VerticalOptions="End">
@@ -334,7 +326,7 @@
 
         <Border
             x:Name="SwipeMenu"
-            Grid.Row="2"
+            Grid.Row="3"
             Margin="0"
             BackgroundColor="Transparent"
             HeightRequest="56"

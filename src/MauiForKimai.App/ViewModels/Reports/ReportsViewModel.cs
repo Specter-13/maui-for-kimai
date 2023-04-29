@@ -32,19 +32,15 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
         _timesheetService = ts;
         RegisterMessages();
 
-    
-
     }
 
     private void RegisterMessages()
 	{ 
-
         WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
         {
            await Refresh();
 
         });
-
     }
 
     public override async Task Initialize()
@@ -159,7 +155,6 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
             ReportsAreVisible = true;
             await GetData();
             IsRefreshing = false;
-            
         }
         else
         {
@@ -209,9 +204,16 @@ public partial class ReportsViewModel : ViewModelBase, IViewModelSingleton
         // first day of a month
         var beginTime = new DateTime(now.Year, now.Month, 1);
         var endTime = new DateTime(now.Year, now.Month, lastDayOfMonth);
-     
+
         //get timesheets of current month
-        _monthTimesheets = await _timesheetService.GetTimesheetsForReportsAsync(beginTime.ToRFC3339() ,endTime.ToRFC3339());
+        try
+        {
+            _monthTimesheets = await _timesheetService.GetTimesheetsForReportsAsync(beginTime.ToRFC3339() ,endTime.ToRFC3339());
+        }
+        catch (Exception)
+        {
+            return;
+        }
         
         if(_monthTimesheets == null || _monthTimesheets.Count() == 0)
         {

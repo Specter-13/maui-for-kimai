@@ -51,13 +51,20 @@
 
     <Grid Padding="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="35" />
         </Grid.RowDefinitions>
 
 
 
+        <Label
+            Grid.Row="0"
+            HorizontalOptions="Start"
+            IsVisible="{OnIdiom Desktop=true,
+                                Default=false}"
+            Style="{StaticResource LargeLabel}"
+            Text="All" />
 
         <Button
             BackgroundColor="Transparent"
@@ -83,22 +90,27 @@
             VerticalOptions="Start" />
 
 
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Timesheets}">
+
+        <RefreshView
+            Grid.Row="1"
+            Command="{Binding RefreshCommand}"
+            IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView Grid.Row="1" ItemsSource="{Binding Timesheets}">
 
 
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:TimesheetModel">
-                    <controls:TimesheetListControl
-                        Title="{Binding Date}"
-                        Margin="5"
-                        Timesheet="{Binding .}" />
-                </DataTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:TimesheetModel">
+                        <controls:TimesheetListControl
+                            Title="{Binding Date}"
+                            Margin="5"
+                            Timesheet="{Binding .}" />
+                    </DataTemplate>
 
-            </CollectionView.ItemTemplate>
+                </CollectionView.ItemTemplate>
 
-        </CollectionView>
-
+            </CollectionView>
+        </RefreshView>
         <Grid
             Grid.Row="2"
             Padding="10,0,10,0"

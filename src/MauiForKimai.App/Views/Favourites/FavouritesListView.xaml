@@ -61,9 +61,34 @@
 
 
 
-    <Grid Padding="10">
+    <Grid Padding="10" RowDefinitions="30,*">
 
-        <CollectionView ItemsSource="{Binding Favourites}">
+
+        <Label
+            Grid.Row="0"
+            HorizontalOptions="Start"
+            IsVisible="{OnIdiom Desktop=true,
+                                Default=false}"
+            Style="{StaticResource LargeLabel}"
+            Text="Favourites" />
+
+        <Button
+            BackgroundColor="Transparent"
+            Command="{Binding RefreshCommand}"
+            HorizontalOptions="End"
+            Style="{StaticResource Key=RecentRestartButton}">
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="MaterialDesignIcons"
+                    Glyph="{x:Static helpers:MaterialDesignIconsFonts.Refresh}"
+                    Size="30"
+                    Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                            Dark={StaticResource AccentTextColorLight}}" />
+            </Button.ImageSource>
+
+        </Button>
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Favourites}">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:TimesheetModel">

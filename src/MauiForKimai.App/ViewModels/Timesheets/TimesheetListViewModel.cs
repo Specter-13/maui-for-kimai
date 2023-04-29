@@ -32,7 +32,14 @@ public partial class TimesheetListViewModel : ViewModelBase, IViewModelSingleton
     {
         IsBusy = true;
         page = 1;
-        await GetTimesheetsIncrementaly();
+        try
+        {
+            await GetTimesheetsIncrementaly();
+        }
+        catch(KimaiApiException)
+        { 
+            await Toast.Make("Cannot acquire data!", ToastDuration.Short, 14).Show();
+        }
         IsBusy = false;
     }
 
@@ -49,11 +56,18 @@ public partial class TimesheetListViewModel : ViewModelBase, IViewModelSingleton
     [RelayCommand]
     async Task Refresh()
     { 
-        IsBusy = true;
-        page = 1;
-       Timesheets.Clear();
-       await GetTimesheetsIncrementaly();
-        IsBusy = false;
+        try
+		{
+            page = 1;
+            Timesheets.Clear();
+            NumberOfEntries = 0;
+            await GetTimesheetsIncrementaly();
+            IsRefreshing = false;
+        }
+        catch(KimaiApiException)
+        { 
+            await Toast.Make("Cannot acquire data!", ToastDuration.Short, 14).Show();
+        }
     }
 
     public ObservableCollection<TimesheetModel> Timesheets { get; set;} = new();
@@ -104,8 +118,8 @@ public partial class TimesheetListViewModel : ViewModelBase, IViewModelSingleton
     [RelayCommand]
     async Task QuickStart(TimesheetModel model)
     {
-        model.Begin =  DateTime.Now;
-        model.End =  null;
+        model.Begin = DateTime.Now;
+        model.End = null;
         WeakReferenceMessenger.Default.Send(new TimesheetStartExistingMessage(model));
         var route = base.routingService.GetRouteByViewModel<HomeViewModel>();
 		await Navigation.NavigateTo(route, model);
@@ -127,8 +141,7 @@ public partial class TimesheetListViewModel : ViewModelBase, IViewModelSingleton
         }
         else
 		{ 
-			var toast = Toast.Make("Cannot acquire data!", ToastDuration.Short, 14);
-			await toast.Show();
+			await Toast.Make("Cannot acquire data!", ToastDuration.Short, 14).Show();
 		}
      }
 }

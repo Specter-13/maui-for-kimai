@@ -21,6 +21,7 @@ public static class CoreModelExtensions
             ProjectId = entity.ProjectId,
             ProjectName = entity.ProjectName,
             CustomerName = entity.CustomerName,
+            CustomerId = entity.CustomerId,
 
             Description = entity.Description,
             Tags = entity.Tags,
@@ -49,6 +50,7 @@ public static class CoreModelExtensions
             ProjectId = model.ProjectId,
             ProjectName = model.ProjectName,
             CustomerName = model.CustomerName,
+            CustomerId = model.CustomerId,
 
             Description = model.Description,
             Tags = model.Tags,

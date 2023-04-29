@@ -13,6 +13,7 @@ using MauiForKimai.ApiClient.Extensions;
 using MauiForKimai.Popups;
 using MauiForKimai.ViewModels.Settings;
 using Plugin.LocalNotification;
+using System.Threading.Tasks;
 
 namespace MauiForKimai.ViewModels;
 
@@ -194,13 +195,13 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		}
 		catch (KimaiApiException)
 		{
-			await Toast.Make("Error starting timesheet! There are insufficient time-tracking permissions.", ToastDuration.Long, 14).Show();
+			IsActivityStarting = false;
+			IsRefreshing = false;
+			await Toast.Make("Error starting timesheet!", ToastDuration.Long, 14).Show();
 			return;
 		}
 		
 	}
-	
-	
 
 	/// <summary>
 	///  Go to TimesheedDetail view for craeting new timesheet to start.
@@ -242,24 +243,37 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	async Task StopTimeTracking()
 	{	
 		if(HasInternetAndIsLogged())
-		{ 
+		{
+
+			TimesheetEntity stopped;
 			try
 			{
-				await timesheetService.StopActive(ActiveTimesheet.Id);
-				IsTimetrackingActive = false;
-				SelectedActivity = null;
-				MyTimer.TimerStop();
-				await RefreshTimesheets();
-				#if ANDROID || IOS
-				TryToStopNotification();
-				#endif
-				await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
-				
+				stopped = await timesheetService.StopActive(ActiveTimesheet.Id);
 			}
 			catch (KimaiApiException)
 			{
-				await Toast.Make("There was a problem to stop a timesheet! It may be already stopped or time offset is wrong!", ToastDuration.Long, 14).Show();
+				stopped = null;
 			}
+			
+			if(stopped == null)
+			{
+				await Toast.Make("There was a problem to stop a timesheet! It may be already stopped or time offset is wrong!", ToastDuration.Long, 14).Show();
+				#if ANDROID || IOS
+				TryToStopNotification();
+					#endif
+				return;
+			}
+
+			IsTimetrackingActive = false;
+			SelectedActivity = null;
+			MyTimer.TimerStop();
+			await RefreshTimesheets();
+			#if ANDROID || IOS
+			TryToStopNotification();
+			#endif
+			await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
+				
+			
 		}
 		else
 		{
@@ -279,7 +293,6 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	[RelayCommand]
 	async Task RefreshTimesheets()
 	{	
-		IsRefreshing = true;
 		await Refresh();
 		IsRefreshing = false;
 	}
@@ -289,6 +302,8 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
     {
 		var timesheets = await timesheetService.GetTenRecentTimesheetsAsync();
 		RecentTimesheets.Clear();
+		if(timesheets == null) return;
+
 		foreach (var timesheet in timesheets)
 		{
 			var model = timesheet.ToTimesheetModel();
@@ -320,11 +335,19 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
 		if (HasInternetAndIsLogged())
 		{
-			IsLoading = true;
-			await GetRecentTimesheets();
-			await TryToGetActiveTimesheet();
-			await CalculateTodayStatistics();
-			IsLoading = false;
+			try
+			{
+				IsLoading = true;
+				await GetRecentTimesheets();
+				await TryToGetActiveTimesheet();
+				await CalculateTodayStatistics();
+				IsLoading = false;
+
+			}
+			catch (KimaiApiException)
+            {
+				await Toast.Make("Cannot acquire data!", ToastDuration.Short, 14).Show();
+			}
 			
 		}
 		else
@@ -370,7 +393,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	private async Task CalculateTodayStatistics()
 	{ 
 		var todayTimesheet = await timesheetService.GetTodayTimesheetsAsync();
-		
+		if(todayTimesheet  == null) return;
 		await Statistics.CalculateTodayStatistics(todayTimesheet);
 		OnPropertyChanged(nameof(Statistics));
 	}

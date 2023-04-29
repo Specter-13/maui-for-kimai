@@ -146,6 +146,7 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
         ShowErrors = false;
         ValidationErrors = string.Empty;
         Favourite.CustomerName = ChosenCustomer.Name;
+        Favourite.CustomerId = ChosenCustomer.Id;
         Favourite.ActivityId = ChosenActivity.Id;
         Favourite.ActivityName = ChosenActivity.Name;
         Favourite.ProjectName = ChosenProject.Name;
@@ -165,6 +166,23 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
             ShowErrors = true;
         }
     }
+
+    [RelayCommand]
+    async Task StartFavourite()
+    { 
+        Favourite.ActivityId = ChosenActivity.Id;
+        Favourite.ProjectId = ChosenProject.Id;
+        Favourite.CustomerId = ChosenCustomer.Id;
+
+        var model = Favourite.ToTimesheetModel();
+        model.Begin = DateTime.Now;
+        model.End = null;
+        WeakReferenceMessenger.Default.Send(new TimesheetStartExistingMessage(model));
+        var route = base.routingService.GetRouteByViewModel<HomeViewModel>();
+		await Navigation.NavigateTo(route, model);
+    }
+
+
     [RelayCommand]
     async Task Delete()
     {
