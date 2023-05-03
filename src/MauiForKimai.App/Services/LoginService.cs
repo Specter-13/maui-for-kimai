@@ -12,22 +12,17 @@ namespace MauiForKimai.Services;
 public class LoginService : ILoginService
 {
 
-    private readonly IEnumerable<IBaseService> _baseServices;
     private readonly IUserService _userService;
-    private readonly ApiLoginContext _loginContext;
+    private ApiClientWrapper _aw { get ;set; }
 
-    public LoginService(IEnumerable<IBaseService> baseServices, 
-        IUserService userService,
-        ApiLoginContext asp, IServerService serverService) 
+    public LoginService(IUserService userService, ApiClientWrapper aw) 
     {
-
-        _loginContext = asp;
-        _baseServices = baseServices;
         _userService = userService;
+        _aw = aw;
     }
     public ApiLoginContext GetLoginContext()
     {
-        return _loginContext;
+        return _aw.loginContext;
     }
 
 
@@ -36,13 +31,13 @@ public class LoginService : ILoginService
         if (defaultServer == null)
              return false;
         
-        return await TryToLogin(defaultServer);
+        return await LoginToKimai(defaultServer);
     }
 
     public bool CheckIfConnected(ServerModel server)
     {
-        if(_loginContext.IsAuthenticated && _loginContext.BaseUrl == server.Url && 
-           _loginContext.UserName == server.Username && _userService.IsClientInitialized()) 
+        if(_aw.loginContext.IsAuthenticated && _aw.loginContext.BaseUrl == server.Url && 
+           _aw.loginContext.UserName == server.Username && _aw.IsClientInitialized()) 
         {
             return true;
         }
@@ -53,8 +48,7 @@ public class LoginService : ILoginService
 
     public Task<bool> Login(ServerModel server)
     {
-        return TryToLogin(server); 
-
+        return LoginToKimai(server); 
     }
 
 
@@ -62,31 +56,31 @@ public class LoginService : ILoginService
     {
         return Task.Run(() =>
         {
-            _loginContext.Disconnect();
-            DeInitializeClients();
+            _aw.loginContext.Disconnect();
+            DeInitializeApiClient();
             Task.Delay(1000);
         });
        
     }
 
 
-    private async Task<bool> TryToLogin(ServerModel server)
+    private async Task<bool> LoginToKimai(ServerModel server)
     { 
         try
         {
-            _loginContext.Disconnect();
-            _loginContext.SetAuthInfo(server); 
-            InitializeClients(server.Url);
-            var config = await _userService.GetI18nConfig();
+            _aw.loginContext.Disconnect();
+            _aw.loginContext.SetAuthInfo(server); 
+            InitializeApiClient(server.Url);
+            var config = await _aw.GetI18nConfig();
             var user = await _userService.GetMe();
-            _loginContext.SetUserAndOffset(user,config.Now.Value.Offset);
-            _loginContext.SetIsAuthenticated();
+            _aw.loginContext.SetUserAndOffset(user,config.Now.Value.Offset);
+            _aw.loginContext.SetIsAuthenticated();
 
         }
         catch (Exception)
         {
-            _loginContext.Disconnect();
-            DeInitializeClients();
+            _aw.loginContext.Disconnect();
+            DeInitializeApiClient();
             await Task.Delay(1000);
             return false;
         }
@@ -94,23 +88,15 @@ public class LoginService : ILoginService
         return true;
     }
 
+    private void InitializeApiClient(string baseUrl)
+    {
+        _aw.InitializeClient(baseUrl);
+    }
 
+    private void DeInitializeApiClient()
+    {
+        _aw.DeInitializeClient();
+    }
   
-    private void InitializeClients(string baseUrl)
-    {
-        foreach (var baseService in _baseServices)
-        {
-            baseService.InitializeClient(baseUrl);
-        }
-    }
-
-    private void DeInitializeClients()
-    {
-        foreach (var baseService in _baseServices)
-        {
-            baseService.DeInitializeClient();
-        }
-    }
-
 
 }

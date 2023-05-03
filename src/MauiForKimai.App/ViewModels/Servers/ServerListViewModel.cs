@@ -131,6 +131,8 @@ public partial class ServerListViewModel : ViewModelBase, IViewModelSingleton
                 OnPropertyChanged(nameof(LoginContext));
 		    }
             IsBusy = false;
+            //wait a second to be sure, that everything is deinitialized
+            await Task.Delay(1000);
             WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
         }
         else

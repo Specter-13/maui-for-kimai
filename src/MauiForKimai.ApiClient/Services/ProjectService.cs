@@ -8,38 +8,38 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ApiClient.Services;
 public class ProjectService : BaseService, IProjectService
 {
-    public ProjectService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) : base(httpClientFactory, asp)
+    public ProjectService(ApiClientWrapper aw) : base(aw)
     {
     }
 
 
     public Task<ICollection<ProjectCollection>> GetProjects()
     {
-        return ApiClient?.ProjectsAllAsync(null,null,null,null,null,null,null,null,null,null);
+        return _aw.ApiClient?.ProjectsAllAsync(null,null,null,null,null,null,null,null,null,null);
     }
 
 
     public Task<ICollection<ProjectCollection>> GetProjectsByCustomer(int customerId)
     {
-        return ApiClient?.ProjectsAllAsync(customerId.ToString(),null,null,null,null,null,null,null,null,null);
+        return _aw.ApiClient?.ProjectsAllAsync(customerId.ToString(),null,null,null,null,null,null,null,null,null);
     }
     public Task<ProjectEntity> Create(ProjectEditForm entity)
     {
-        return ApiClient?.ProjectsPOSTAsync(entity);
+        return _aw.ApiClient?.ProjectsPOSTAsync(entity);
     }
 
     public Task DeleteProjectFromTeam(int teamId, int projectId)
     {
-         return ApiClient?.ProjectsDELETEAsync(teamId, projectId);
+         return _aw.ApiClient?.ProjectsDELETEAsync(teamId, projectId);
     }
 
     public Task<ProjectEntity> Read(int id)
     {
-        return ApiClient?.ProjectsGETAsync(id.ToString());
+        return _aw.ApiClient?.ProjectsGETAsync(id.ToString());
     }
 
     public Task<ProjectEntity> Update(int id, ProjectEditForm body)
     {
-        return ApiClient?.ProjectsPATCHAsync(body, id);
+        return _aw.ApiClient?.ProjectsPATCHAsync(body, id);
     }
 }

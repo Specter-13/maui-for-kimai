@@ -48,9 +48,9 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
                 IsEdit = true;
 
                 var model = wrapper.Timesheet;
-                ChosenCustomer = new CustomerListModel(model.CustomerId.GetValueOrDefault(), model.CustomerName, model.Billable.GetValueOrDefault());
-                ChosenActivity =  new ActivityListModel(model.ActivityId, model.ActivityName, model.Billable);
-                ChosenProject = new ProjectListModel(model.ProjectId, model.ProjectName, model.CustomerId.GetValueOrDefault(), model.Billable);
+                ChosenCustomer = new CustomerListModel(model.CustomerId.GetValueOrDefault(), model.CustomerName, model.Billable.GetValueOrDefault(),  model.CustomerColor);
+                ChosenActivity =  new ActivityListModel(model.ActivityId, model.ActivityName, model.Billable, model.ActivityColor);
+                ChosenProject = new ProjectListModel(model.ProjectId, model.ProjectName, model.CustomerId.GetValueOrDefault(), model.Billable, model.ProjectColor);
 
                 Favourite = model.ToTimesheetFavouriteEntity();
             }
@@ -151,13 +151,15 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
         Favourite.ActivityName = ChosenActivity.Name;
         Favourite.ProjectName = ChosenProject.Name;
         Favourite.ProjectId = ChosenProject.Id;
-       
+        Favourite.CustomerColor = ChosenCustomer.Color;
+        Favourite.ProjectColor = ChosenProject.Color;
+        Favourite.ActivityColor = ChosenActivity.Color;
 
         var result = _validator.Validate(Favourite);
         if(result.IsValid)
         { 
-            await _favouritesTimesheetService.Create(Favourite);
-            WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
+            var entity = await _favouritesTimesheetService.Create(Favourite);
+            WeakReferenceMessenger.Default.Send(new TimesheetFavouriteCreateMessage(entity.ToTimesheetModel()));
             await Navigation.NavigateTo("..");
         }
         else

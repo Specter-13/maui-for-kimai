@@ -14,12 +14,13 @@ public class ProjectListModel : IChooseItem
     {
         
     }
-    public ProjectListModel(int id, string name, int customerId, bool? billable)
+    public ProjectListModel(int id, string name, int customerId, bool? billable, string color)
     {
         Id = id; 
         Name = name;
         CustomerId = customerId;
         Billable = billable;
+        Color = color;
     }
     public int Id { get; set; }
     public string Name { get; set; }
@@ -27,4 +28,5 @@ public class ProjectListModel : IChooseItem
     public int CustomerId { get; set; }
     public bool? Billable { get; set; }
 
+    public string Color { get; set; }
 }

@@ -13,7 +13,7 @@ namespace MauiForKimai.ApiClient.Services;
 public class TimesheetService : BaseService, ITimesheetService
 {
     //private ITimesheetClient _timesheetClient;
-    public TimesheetService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) : base(httpClientFactory,asp)
+    public TimesheetService(ApiClientWrapper aw) : base(aw)
     {
     }
 
@@ -23,28 +23,27 @@ public class TimesheetService : BaseService, ITimesheetService
             return null;
 
         
-         return ApiClient?.TimesheetsPOSTAsync(entity,null);
-       
+         return _aw.ApiClient?.TimesheetsPOSTAsync(entity,null);
         
     }
 
     public Task Delete(int id)
     {
-        return  ApiClient?.TimesheetsDELETEAsync(id);
+        return  _aw.ApiClient?.TimesheetsDELETEAsync(id);
     }
 
 
     public Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsIncrementalyAsync(int page, int sizePerPage)
 	{ 
         
-        return  ApiClient?.TimesheetsAllExpandedAsync(base.loginContext.ActualUser.Id.ToString(),null,null,null,null,null,null,page.ToString(),sizePerPage.ToString(),null,null,null,null,null,null,null,null,"true",null,null);
+        return  _aw.ApiClient?.TimesheetsAllExpandedAsync(base._aw.loginContext.ActualUser.Id.ToString(),null,null,null,null,null,null,page.ToString(),sizePerPage.ToString(),null,null,null,null,null,null,null,null,"true",null,null);
 	}
 
 
     public Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsForReportsAsync(string begin, string end)
 	{ 
         //dd-mm-yyyy
-        return  ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin,end,null,null,null,"true",null,null);;
+        return  _aw.ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin,end,null,null,null,"true",null,null);;
 	}
 
      public Task<ICollection<TimesheetCollectionExpanded>> GetTodayTimesheetsAsync()
@@ -56,7 +55,9 @@ public class TimesheetService : BaseService, ITimesheetService
 
         try
         {
-            return  ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin.ToRFC3339(),end.ToRFC3339(),null,null,null,"true",null,null);;
+            //return  _aw.ApiClientv2?.Get_get_timesheetsAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin.ToRFC3339(),end.ToRFC3339(),null,null,null,"true",null,null);
+
+            return  _aw.ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin.ToRFC3339(),end.ToRFC3339(),null,null,null,"true",null,null);
         }
         catch (KimaiApiException)
         {
@@ -67,7 +68,7 @@ public class TimesheetService : BaseService, ITimesheetService
     {
         try
         {
-            return  ApiClient?.RecentAsync(base.loginContext.ActualUser.Id.ToString(),null,null);
+            return  _aw.ApiClient?.RecentAsync(_aw.loginContext.ActualUser.Id.ToString(),null,null);
         }
         catch (KimaiApiException)
         {
@@ -78,18 +79,18 @@ public class TimesheetService : BaseService, ITimesheetService
 
     public Task<TimesheetEntity> Read(int id)
     {
-        return  ApiClient?.TimesheetsGETAsync(id);
+        return  _aw.ApiClient?.TimesheetsGETAsync(id);
     }
 
     public Task<TimesheetEntity> Update(int id, TimesheetEditForm body)
     {
-        return  ApiClient?.TimesheetsPATCHAsync(id, body);
+        return  _aw.ApiClient?.TimesheetsPATCHAsync(id, body);
     }
     public Task<ICollection<TimesheetCollectionExpanded>> GetActive()
     {
         try
         {
-            return  ApiClient?.ActiveAsync();
+            return  _aw.ApiClient?.ActiveAsync();
         }
         catch (KimaiApiException)
         {
@@ -100,7 +101,7 @@ public class TimesheetService : BaseService, ITimesheetService
     {
         try
         {
-            return  ApiClient?.StopAsync(id);
+            return  _aw.ApiClient?.StopAsync(id);
         }
         catch (KimaiApiException)
         {
@@ -110,6 +111,6 @@ public class TimesheetService : BaseService, ITimesheetService
 
     public Task<TimesheetEntity> SetMetaField(int id, Body5 body)
     {   
-        return  ApiClient?.Meta4Async(id,body);
+        return  _aw.ApiClient?.Meta4Async(id,body);
     }
 }
