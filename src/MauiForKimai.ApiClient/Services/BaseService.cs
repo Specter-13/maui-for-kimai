@@ -14,60 +14,10 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ApiClient.Services;
 public class BaseService : IBaseService
 {
-	protected IHttpClientFactory _httpClientFactory;
-	protected HttpClient? _httpClient;
-	protected ApiLoginContext loginContext;
-    public BaseService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) 
+	protected ApiClientWrapper _aw;
+    public BaseService(ApiClientWrapper apiWrapper) 
 	{
-		_httpClientFactory = httpClientFactory;
-		loginContext = asp;
+		_aw = apiWrapper;
 	}
 
-	public IApiClient? ApiClient {get; set;}
-
-	public bool IsClientInitialized() => ApiClient != null;
-
-    public void InitializeClient(string baseUrl)
-	{ 
-		_httpClient = _httpClientFactory.CreateClient(AuthHandler.AUTHENTICATED_CLIENT);
-		_httpClient.BaseAddress = new Uri(baseUrl);
-		ApiClient = new ApiClient(_httpClient);
-	}
-
-	public void DeInitializeClient()
-	{ 
-		if(_httpClient != null)
-		{
-			_httpClient.Dispose();
-		}
-
-		if(ApiClient != null) 
-		{
-			ApiClient = null;
-		}
-	
-		
-	}
-	public async Task<bool> PingServerAsync()
-	{
-		try
-		{
-			await ApiClient?.PingAsync();
-			return true;
-		}
-		catch 
-		{
-			return false;
-		}
-		
-
-	}
-
-	public async Task<I18nConfig> GetI18nConfig()
-	{
-		return await ApiClient?.I18nAsync();
-	}
-
-
-	
 }

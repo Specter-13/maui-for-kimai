@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using MauiForKimai.Core;
 using MauiForKimai.Core.Entities;
+using MauiForKimai.Core.Validators;
 using MauiForKimai.Messenger;
 using MauiForKimai.Wrappers;
 using System;
@@ -12,41 +13,30 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ViewModels;
 public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransient
 {
-        private readonly IFavouritesTimesheetService _favouritesTimesheetService;
+    private readonly IFavouritesTimesheetService _favouritesTimesheetService;
     public FavouritesDetailViewModel(IRoutingService rs, ILoginService ls, IFavouritesTimesheetService fts) : base(rs, ls)
     {
        _favouritesTimesheetService = fts;
-        RegisterMessages();
     }
 
-
-    private void RegisterMessages()
-    {
-        WeakReferenceMessenger.Default.Register<ItemChooseMessage,int>(this, (int)ChooseItemMode.Favourite, (r, m) =>
+    private void HandleReceivedChosenItem(ChooseItemWrapper wrapper)
+    { 
+        if (wrapper.ChooseItem is CustomerListModel customer)
         {
-
-            if (m.Value.ChooseItem is CustomerListModel customer)
-            {
-                ChosenCustomer = customer;
-                if(! string.IsNullOrEmpty(ChosenProject.Name) )
-                    ChosenProject = new();
-            }
-
-            if (m.Value.ChooseItem is ProjectListModel project)
-            {
-                ChosenProject = project;
-                if(! string.IsNullOrEmpty(ChosenActivity.Name) )
-                    ChosenActivity = new();
-            }
-
-            if (m.Value.ChooseItem is ActivityListModel activity)
-            {
-                ChosenActivity = activity;
-            }
-
-        });
-        
-       
+            ChosenCustomer = customer;
+            if(! string.IsNullOrEmpty(ChosenProject.Name) )
+                ChosenProject = new();
+        }
+        else if (wrapper.ChooseItem is ProjectListModel project)
+        {
+            ChosenProject = project;
+            if(! string.IsNullOrEmpty(ChosenActivity.Name) )
+                ChosenActivity = new();
+        }
+        else if (wrapper.ChooseItem is ActivityListModel activity)
+        {
+            ChosenActivity = activity;
+        }
     }
 
     public override Task OnParameterSet()
@@ -58,13 +48,18 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
                 IsEdit = true;
 
                 var model = wrapper.Timesheet;
-                ChosenCustomer = new CustomerListModel(model.CustomerId.GetValueOrDefault(), model.CustomerName, model.Billable.GetValueOrDefault());
-                ChosenActivity =  new ActivityListModel(model.ActivityId, model.ActivityName, model.Billable);
-                ChosenProject = new ProjectListModel(model.ProjectId, model.ProjectName, model.CustomerId.GetValueOrDefault(), model.Billable);
+                ChosenCustomer = new CustomerListModel(model.CustomerId.GetValueOrDefault(), model.CustomerName, model.Billable.GetValueOrDefault(),  model.CustomerColor);
+                ChosenActivity =  new ActivityListModel(model.ActivityId, model.ActivityName, model.Billable, model.ActivityColor);
+                ChosenProject = new ProjectListModel(model.ProjectId, model.ProjectName, model.CustomerId.GetValueOrDefault(), model.Billable, model.ProjectColor);
 
                 Favourite = model.ToTimesheetFavouriteEntity();
             }
+           
 
+        }
+        else if (NavigationParameter is ChooseItemWrapper chooseWrapper)
+        {
+            HandleReceivedChosenItem(chooseWrapper);
         }
             return base.OnParameterSet();
     }
@@ -87,11 +82,18 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
     [ObservableProperty]
     ActivityListModel chosenActivity= new();
 
+    [ObservableProperty]
+    public string validationErrors;
+
+    [ObservableProperty]
+    public bool showErrors;
+
+    private TimesheetFavouriteEntityValidator _validator = new ();
     [RelayCommand]
     async Task ShowProjectChooseView()
     {
         var route = routingService.GetRouteByViewModel<ProjectChooseFavouriteViewModel>();
-        var wrapper = new ChooseItemWrapper(ChosenProject,ChooseItemMode.Favourite);
+        var wrapper = new ChooseItemWrapper(ChosenProject);
         wrapper.ChosenCustomerId = ChosenCustomer.Id;
         await Navigation.NavigateTo(route, wrapper);
     }
@@ -100,7 +102,7 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
     async Task ShowActivityChooseView()
     {
         var route = routingService.GetRouteByViewModel<CustomerChooseFavouriteViewModel>();
-        var wrapper = new ChooseItemWrapper(ChosenActivity,ChooseItemMode.Favourite);
+        var wrapper = new ChooseItemWrapper(ChosenActivity);
         wrapper.ChosenProjectId = ChosenProject.Id;
         await Navigation.NavigateTo(route, wrapper);
     }
@@ -109,37 +111,80 @@ public partial class FavouritesDetailViewModel : ViewModelBase, IViewModelTransi
     async Task ShowCustomerChooseView()
     {
         var route = routingService.GetRouteByViewModel<CustomerChooseFavouriteViewModel>();
-        var wrapper = new ChooseItemWrapper(ChosenCustomer,ChooseItemMode.Favourite);
+        var wrapper = new ChooseItemWrapper(ChosenCustomer);
         await Navigation.NavigateTo(route, wrapper);
     }
 
     [RelayCommand]
     async Task Save()
     {
+        ShowErrors = false;
+        ValidationErrors = string.Empty;
         Favourite.CustomerName = ChosenCustomer.Name;
         Favourite.ActivityId = ChosenActivity.Id;
         Favourite.ActivityName = ChosenActivity.Name;
         Favourite.ProjectName = ChosenProject.Name;
         Favourite.ProjectId = ChosenProject.Id;
        
-        await _favouritesTimesheetService.Update(Favourite);
-        WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
-        await Navigation.NavigateTo("..");
+        var result = _validator.Validate(Favourite);
+        if(result.IsValid)
+        { 
+            await _favouritesTimesheetService.Update(Favourite);
+            WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
+            await Navigation.NavigateTo("..");
+        }
+        else
+        { 
+            ValidationErrors = result.ToString("\n");
+            ShowErrors = true;
+        }
     }
 
     [RelayCommand]
     async Task Create()
     {
+        ShowErrors = false;
+        ValidationErrors = string.Empty;
         Favourite.CustomerName = ChosenCustomer.Name;
+        Favourite.CustomerId = ChosenCustomer.Id;
         Favourite.ActivityId = ChosenActivity.Id;
         Favourite.ActivityName = ChosenActivity.Name;
         Favourite.ProjectName = ChosenProject.Name;
         Favourite.ProjectId = ChosenProject.Id;
-       
-        await _favouritesTimesheetService.Create(Favourite);
-        WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
-        await Navigation.NavigateTo("..");
+        Favourite.CustomerColor = ChosenCustomer.Color;
+        Favourite.ProjectColor = ChosenProject.Color;
+        Favourite.ActivityColor = ChosenActivity.Color;
+
+        var result = _validator.Validate(Favourite);
+        if(result.IsValid)
+        { 
+            var entity = await _favouritesTimesheetService.Create(Favourite);
+            WeakReferenceMessenger.Default.Send(new TimesheetFavouriteCreateMessage(entity.ToTimesheetModel()));
+            await Navigation.NavigateTo("..");
+        }
+        else
+        { 
+            ValidationErrors = result.ToString("\n");
+            ShowErrors = true;
+        }
     }
+
+    [RelayCommand]
+    async Task StartFavourite()
+    { 
+        Favourite.ActivityId = ChosenActivity.Id;
+        Favourite.ProjectId = ChosenProject.Id;
+        Favourite.CustomerId = ChosenCustomer.Id;
+
+        var model = Favourite.ToTimesheetModel();
+        model.Begin = DateTime.Now;
+        model.End = null;
+        WeakReferenceMessenger.Default.Send(new TimesheetStartExistingMessage(model));
+        var route = base.routingService.GetRouteByViewModel<HomeViewModel>();
+		await Navigation.NavigateTo(route, model);
+    }
+
+
     [RelayCommand]
     async Task Delete()
     {

@@ -43,7 +43,7 @@ public class ServerService : IServerService
         return null;
     }
 
-    public async Task<bool> Delete(int id)
+    public async Task<bool> Delete(Guid id)
     {
         await Init();
         var numOfDeleteTRows = await _db.Table<ServerEntity>().DeleteAsync(x=> x.Id == id);
@@ -56,7 +56,7 @@ public class ServerService : IServerService
         return await _db.Table<ServerEntity>().ToListAsync();
     }
 
-    public async Task<ServerEntity> Read(int id)
+    public async Task<ServerEntity> Read(Guid id)
     {
         await Init();
         return await _db.GetAsync<ServerEntity>(id);
@@ -82,7 +82,7 @@ public class ServerService : IServerService
     
     }
 
-    public async Task<ServerEntity> UnsetDefaultPropertyExceptOne(int id)
+    public async Task<ServerEntity> UnsetDefaultPropertyExceptOne(Guid id)
     {
         await Init();
         var servers = await _db.Table<ServerEntity>().ToListAsync();

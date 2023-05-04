@@ -3,6 +3,7 @@
     x:Class="MauiForKimai.Views.HomeView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cnv="clr-namespace:MauiForKimai.Converters"
     xmlns:controls="clr-namespace:MauiForKimai.Controls"
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -18,6 +19,7 @@
 
     <ContentPage.Resources>
         <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <cnv:StringToColorConverter x:Key="StringToColorConverter" />
     </ContentPage.Resources>
 
     <Shell.TitleView>
@@ -26,20 +28,14 @@
             ColumnDefinitions="200,*"
             HeightRequest="40"
             VerticalOptions="End">
-            <Label
-                Grid.Column="0"
-                HorizontalOptions="Start"
-                Style="{StaticResource TitleLabel}"
-                Text="Home"
-                VerticalOptions="Center" />
 
             <Image
-                Grid.ColumnSpan="2"
-                HeightRequest="30"
-                HorizontalOptions="Center"
+                Grid.Column="0"
+                HeightRequest="32"
+                HorizontalOptions="Start"
                 Source="logo.png"
                 VerticalOptions="Center"
-                WidthRequest="30" />
+                WidthRequest="32" />
 
             <HorizontalStackLayout
                 Grid.Column="1"
@@ -54,12 +50,12 @@
                 <mct:AvatarView
                     BackgroundColor="Transparent"
                     BorderColor="{StaticResource AccentColor}"
-                    HeightRequest="32"
+                    HeightRequest="30"
                     IsVisible="{Binding LoginContext.IsAuthenticated}"
                     Text="{Binding LoginContext.ServerFirstLetter}"
                     TextColor="{AppThemeBinding Light={StaticResource AccentTextColorDark},
                                                 Dark={StaticResource AccentTextColorLight}}"
-                    WidthRequest="32" />
+                    WidthRequest="30" />
                 <Button
                     BackgroundColor="Transparent"
                     Command="{Binding GoToSettingsCommand}"
@@ -84,8 +80,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
+            <RowDefinition Height="45" />
             <RowDefinition Height="8*" />
-            <RowDefinition Height="70" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -108,112 +105,160 @@
             Margin="18"
             Padding="10"
             HeightRequest="100"
-            Style="{StaticResource Widget}"
-            WidthRequest="200">
+            Style="{StaticResource Widget}">
 
-            <Grid
-                ColumnDefinitions="*,*"
-                IsVisible="{Binding IsNotBusy}"
-                RowDefinitions="15,*"
-                VerticalOptions="Center">
+            <StackLayout>
+                <Grid
+                    ColumnDefinitions="*,90"
+                    IsVisible="{Binding IsTimetrackingActive}"
+                    RowDefinitions="17,13,23,20">
 
-                <Label
-                    Grid.Row="0"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="Center"
-                    Style="{StaticResource MicroLabel}"
-                    Text="Today" />
-
-
-                <StackLayout
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="Center">
-
-                    <HorizontalStackLayout Margin="0,0,0,5">
-
-                        <Label
-                            FontAttributes="Bold"
-                            Style="{StaticResource LargeLabel}"
-                            Text="{Binding Statistics.TodayTracked}" />
+                    <Label Style="{StaticResource SmallLabel}" Text="Currently working on:" />
+                    <HorizontalStackLayout Grid.Row="1">
+                        <Label Style="{StaticResource MicroShadowLabel}" Text="Started: " />
+                        <Label Style="{StaticResource MicroShadowLabel}" Text="{Binding ActiveTimesheet.Start.TimeOfDay, StringFormat='{}{0:hh\\:mm}'}" />
                     </HorizontalStackLayout>
 
+                    <HorizontalStackLayout Grid.Row="2">
+                        <Ellipse
+                            Fill="{Binding ActiveTimesheet.ActivityColor, Converter={StaticResource StringToColorConverter}}"
+                            HeightRequest="9"
+                            HorizontalOptions="Start"
+                            Style="{StaticResource ColorIndicator}"
+                            VerticalOptions="Center"
+                            WidthRequest="9" />
+                        <Label
+                            FontAttributes="Bold"
+                            Style="{StaticResource MediumLabel}"
+                            Text="{Binding ActiveTimesheet.ActivityName}" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Grid.Row="3" Margin="1,0,0,0">
+                        <Ellipse
+                            Fill="{Binding ActiveTimesheet.ProjectColor, Converter={StaticResource StringToColorConverter}}"
+                            HeightRequest="7"
+                            HorizontalOptions="Start"
+                            Style="{StaticResource ColorIndicator}"
+                            VerticalOptions="Center"
+                            WidthRequest="7" />
+                        <Label
+                            Grid.Row="3"
+                            Style="{StaticResource SmallLabel}"
+                            Text="{Binding ActiveTimesheet.ProjectName}" />
+                    </HorizontalStackLayout>
+
+
+                    <skia:SKLottieView
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HeightRequest="45"
+                        HorizontalOptions="End"
+                        IsVisible="{Binding IsTimetrackingActive}"
+                        RepeatCount="-1"
+                        Source="tracking_indicator.json"
+                        WidthRequest="45" />
                     <Label
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource SmallLabel}"
-                        Text="{Binding Statistics.NumberOfActivites}" />
+                        Grid.RowSpan="4"
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        FontSize="23"
+                        HorizontalOptions="Center"
+                        Text="{Binding MyTimer.Time, StringFormat='{}{0:hh\\:mm} h'}"
+                        TextColor="{StaticResource AccentColor}"
+                        VerticalOptions="Center" />
+                </Grid>
+
+                <Grid
+                    ColumnDefinitions="*,*"
+                    IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}"
+                    RowDefinitions="15,*"
+                    VerticalOptions="Center">
 
                     <Label
-                        HorizontalTextAlignment="Center"
-                        Style="{StaticResource SmallLabel}"
-                        Text="{Binding Statistics.NumberOfProjects}" />
-                </StackLayout>
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}"
+                        Style="{StaticResource MicroLabel}"
+                        Text="Today" />
 
 
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="Center">
 
-            </Grid>
+                        <HorizontalStackLayout Margin="0,0,0,5">
 
+                            <Label
+                                FontAttributes="Bold"
+                                Style="{StaticResource LargeLabel}"
+                                Text="{Binding Statistics.TodayTracked}"
+                                TextColor="{StaticResource AccentColor}" />
+                        </HorizontalStackLayout>
+
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource SmallLabel}"
+                            Text="{Binding Statistics.NumberOfActivites}" />
+
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource SmallLabel}"
+                            Text="{Binding Statistics.NumberOfProjects}" />
+                    </StackLayout>
+
+                </Grid>
+            </StackLayout>
 
         </Frame>
 
 
+
+
+        <Grid Grid.Row="1" Padding="10" Margin="7,0,7,0">
+            <Label Style="{StaticResource LargeLabel}">Recent Timesheets</Label>
+
+            <HorizontalStackLayout HorizontalOptions="End">
+
+
+                <Button
+                    BackgroundColor="Transparent"
+                    Command="{Binding RefreshTimesheetsCommand}"
+                    HorizontalOptions="End"
+                    Style="{StaticResource Key=RecentRestartButton}">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="MaterialDesignIcons"
+                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Refresh}"
+                            Size="30"
+                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                    Dark={StaticResource AccentTextColorLight}}" />
+                    </Button.ImageSource>
+
+                </Button>
+            </HorizontalStackLayout>
+        </Grid>
+
         <!--  Recents  -->
 
         <RefreshView
-            Grid.Row="1"
+            Grid.Row="2"
             Margin="10,0,10,0"
             Command="{Binding RefreshTimesheetsCommand}"
             IsRefreshing="{Binding IsRefreshing}">
 
 
-            <CollectionView
-                EmptyView="Empty recent timesheets"
-                ItemsSource="{Binding RecentTimesheets}"
-                SelectionMode="None">
+            <CollectionView ItemsSource="{Binding RecentTimesheets}" SelectionMode="None">
 
-                <CollectionView.Header>
-                    <ContentView>
-                        <Grid Padding="10">
-                            <Label Style="{StaticResource LargeLabel}">Recent Timesheets</Label>
-
-                            <HorizontalStackLayout HorizontalOptions="End">
-                                <Button
-                                    BackgroundColor="Transparent"
-                                    Command="{Binding CreateNewTimesheetCommand}"
-                                    Style="{StaticResource Key=RecentRestartButton}">
-                                    <Button.ImageSource>
-                                        <FontImageSource
-                                            FontFamily="MaterialDesignIcons"
-                                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Plus}"
-                                            Size="30"
-                                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
-                                                                    Dark={StaticResource AccentTextColorLight}}" />
-                                    </Button.ImageSource>
-
-                                </Button>
-
-                                <Button
-                                    BackgroundColor="Transparent"
-                                    Command="{Binding RefreshTimesheetsCommand}"
-                                    HorizontalOptions="End"
-                                    Style="{StaticResource Key=RecentRestartButton}">
-                                    <Button.ImageSource>
-                                        <FontImageSource
-                                            FontFamily="MaterialDesignIcons"
-                                            Glyph="{x:Static helpers:MaterialDesignIconsFonts.Refresh}"
-                                            Size="30"
-                                            Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
-                                                                    Dark={StaticResource AccentTextColorLight}}" />
-                                    </Button.ImageSource>
-
-                                </Button>
-                            </HorizontalStackLayout>
-                        </Grid>
-                    </ContentView>
-                </CollectionView.Header>
-
-
-
+                <CollectionView.EmptyView>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label
+                            HorizontalOptions="Center"
+                            Style="{StaticResource SmallLabel}"
+                            Text="Empty"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
 
 
                 <CollectionView.ItemTemplate>
@@ -235,8 +280,8 @@
 
 
         <Border
-            Grid.Row="1"
-            IsVisible="{Binding IsRefreshing}"
+            Grid.Row="2"
+            IsVisible="{Binding IsLoading}"
             Style="{StaticResource InfoBar}"
             VerticalOptions="End">
 
@@ -247,35 +292,63 @@
                 TextColor="Green"
                 VerticalTextAlignment="Center" />
 
+        </Border>
+
+        <Border
+            Grid.Row="2"
+            IsVisible="{Binding ShowErrorLabel}"
+            Style="{StaticResource InfoBar}"
+            VerticalOptions="End">
+
+            <Label
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource MicroLabel}"
+                Text="{Binding ErrorText}"
+                TextColor="Red"
+                VerticalTextAlignment="Center" />
 
         </Border>
+
+        <Border
+            Grid.Row="2"
+            IsVisible="{Binding IsActivityStarting}"
+            Style="{StaticResource InfoBar}"
+            VerticalOptions="End">
+
+            <Label
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource MicroLabel}"
+                Text="Activity is starting..."
+                TextColor="Green"
+                VerticalTextAlignment="Center" />
+
+        </Border>
+
         <Border
             x:Name="SwipeMenu"
-            Grid.Row="2"
+            Grid.Row="3"
             Margin="0"
-            HeightRequest="70"
+            BackgroundColor="Transparent"
+            HeightRequest="56"
             Style="{StaticResource TimeTrackingCard}">
 
 
             <Grid>
 
-                <!--  timetracking ooff  -->
-                <Grid IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}">
+
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
 
-
-
-
-
+                    <!--  timetracking on  -->
                     <ImageButton
                         x:Name="start"
                         Grid.RowSpan="2"
@@ -288,70 +361,40 @@
                         Style="{StaticResource TimetrackingButton}"
                         VerticalOptions="Center">
 
+
                         <ImageButton.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                         </ImageButton.GestureRecognizers>
                     </ImageButton>
 
-                </Grid>
+                    <Button
+                        Grid.RowSpan="3"
+                        Grid.Column="2"
+                        Margin="0,0,5,0"
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        Command="{Binding CreateNewTimesheetCommand}"
+                        HeightRequest="35"
+                        HorizontalOptions="End"
+                        IsVisible="{Binding IsTimetrackingActive, Converter={StaticResource InvertedBoolConverter}}"
+                        Style="{StaticResource RecentRestartButton}"
+                        VerticalOptions="Center"
+                        WidthRequest="35">
+                        <Button.ImageSource>
+                            <FontImageSource
+                                FontFamily="MaterialDesignIcons"
+                                Glyph="{x:Static helpers:MaterialDesignIconsFonts.Plus}"
+                                Size="25"
+                                Color="{AppThemeBinding Light={StaticResource AccentTextColorDark},
+                                                        Dark={StaticResource AccentTextColorLight}}" />
+                        </Button.ImageSource>
 
-
-                <!--  timetracking on  -->
-                <Grid IsVisible="{Binding IsTimetrackingActive}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="3*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-
-
-                    <skia:SKLottieView
-                        Grid.RowSpan="2"
-                        Grid.Column="0"
-                        HeightRequest="45"
-                        IsVisible="{Binding IsTimetrackingActive}"
-                        RepeatCount="-1"
-                        Source="active_animation.json"
-                        WidthRequest="45" />
-
-                    <Label
-                        Grid.RowSpan="1"
-                        Grid.Column="1"
-                        FontAttributes="Bold"
-                        FontSize="25"
-                        HorizontalOptions="Center"
-                        Text="{Binding MyTimer.Time, StringFormat='{}{0:hh\\:mm}'}"
-                        TextColor="{StaticResource AccentColor}"
-                        VerticalOptions="Center" />
-
-
-
-                    <HorizontalStackLayout
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center">
-
-                        <Label
-                            HorizontalOptions="Center"
-                            HorizontalTextAlignment="Center"
-                            Style="{StaticResource SmallLabel}"
-                            Text="{Binding SelectedActivity}"
-                            VerticalOptions="Start" />
-
-
-                    </HorizontalStackLayout>
-
-
-
+                    </Button>
+                    <!--  timetracking ooff  -->
                     <ImageButton
                         x:Name="stop"
                         Grid.RowSpan="2"
-                        Grid.Column="2"
+                        Grid.Column="1"
                         ClassId="StopButton"
                         Command="{Binding StopTimeTrackingCommand}"
                         HorizontalOptions="Center"
@@ -367,9 +410,9 @@
 
 
 
-
-
                 </Grid>
+
+
             </Grid>
         </Border>
 

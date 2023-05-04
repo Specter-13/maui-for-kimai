@@ -113,11 +113,6 @@
         <CollectionView Grid.Row="1" ItemsSource="{Binding Servers}">
 
 
-            <CollectionView.EmptyView>
-                <Grid>
-                    <Label Text="Empty" />
-                </Grid>
-            </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="entity:ServerEntity">
 

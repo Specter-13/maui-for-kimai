@@ -31,7 +31,6 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
     private readonly IActivityService _activityService;
  
 
-    private int _mode {get; set; }
    
     [ObservableProperty]
     string pageLabel;
@@ -44,8 +43,6 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
 
         if (NavigationParameter is ChooseItemWrapper wrapper)
         {
-            
-            _mode = (int)wrapper.Mode;
 
             if(base.HasInternetAndIsLogged())
             { 
@@ -107,9 +104,8 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
     [RelayCommand]
     async Task ItemTapped(IChooseItem item)
     {
-        var wrapper = new ChooseItemWrapper(item,ChooseItemMode.Favourite);
-        WeakReferenceMessenger.Default.Send<ItemChooseMessage,int>(new ItemChooseMessage(wrapper), _mode);
-        await Navigation.NavigateTo("..",null);
+        var wrapper = new ChooseItemWrapper(item);
+        await Navigation.NavigateTo("..", wrapper);
     }
     
 
@@ -126,7 +122,7 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
         
         foreach (var customer in customers) 
         {
-            var customerListModel = new CustomerListModel(customer.Id.Value, customer.Name, customer.Billable);
+            var customerListModel = new CustomerListModel(customer.Id.Value, customer.Name, customer.Billable, customer.Color);
             AddToLists(customerListModel);
         }
 
@@ -150,7 +146,7 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
 
         foreach (var project in projects)
         {
-            var projectListModel = new ProjectListModel(project.Id.Value, project.Name, project.Customer.Value, project.Billable);
+            var projectListModel = new ProjectListModel(project.Id.Value, project.Name, project.Customer.Value, project.Billable, project.Color);
             AddToLists(projectListModel);
         }
 
@@ -174,7 +170,7 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
         
         foreach (var activity in activities) 
         {
-            var activityListModel = new ActivityListModel((int)activity.Id, activity.Name, activity.Billable);
+            var activityListModel = new ActivityListModel((int)activity.Id, activity.Name, activity.Billable, activity.Color);
             AddToLists(activityListModel);
         }
 

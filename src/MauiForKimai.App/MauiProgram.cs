@@ -16,6 +16,7 @@ using MauiForKimai.ApiClient.DependencyInjection;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using MauiForKimai.Popups;
 using LiveChartsCore;
+using Plugin.LocalNotification;
 
 namespace MauiForKimai;
 
@@ -29,6 +30,9 @@ public static class MauiProgram
 			.UseMauiCommunityToolkit()
 			.UseSkiaSharp()
 			.UseTinyMvvm()
+			#if ANDROID || IOS
+			.UseLocalNotification()
+			#endif
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

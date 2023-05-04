@@ -5,12 +5,14 @@
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:local="clr-namespace:MauiForKimai.Views"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    x:DataType="viewmodel:MenuViewModel"
     FlyoutBackground="{AppThemeBinding Light={StaticResource BackgroundLight},
-                                       Dark=Black}"
+                                       Dark={StaticResource BackgroundDark}}"
     FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight},
-                                            Dark=Black}"
+                                            Dark={StaticResource BackgroundDark}}"
     FlyoutBehavior="Locked">
+
+
+
 
 
     <Shell.Resources>
@@ -86,7 +88,7 @@
             Route="favourites" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Timesheets">
+    <FlyoutItem Title="My Times">
         <FlyoutItem.Icon>
             <FontImageSource
                 FontFamily="MaterialDesignIcons"

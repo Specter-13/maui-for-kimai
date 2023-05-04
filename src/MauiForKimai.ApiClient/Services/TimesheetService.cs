@@ -13,7 +13,7 @@ namespace MauiForKimai.ApiClient.Services;
 public class TimesheetService : BaseService, ITimesheetService
 {
     //private ITimesheetClient _timesheetClient;
-    public TimesheetService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) : base(httpClientFactory,asp)
+    public TimesheetService(ApiClientWrapper aw) : base(aw)
     {
     }
 
@@ -23,28 +23,27 @@ public class TimesheetService : BaseService, ITimesheetService
             return null;
 
         
-         return ApiClient?.TimesheetsPOSTAsync(entity,null);
-       
+         return _aw.ApiClient?.TimesheetsPOSTAsync(entity,null);
         
     }
 
     public Task Delete(int id)
     {
-        return  ApiClient?.TimesheetsDELETEAsync(id);
+        return  _aw.ApiClient?.TimesheetsDELETEAsync(id);
     }
 
 
     public Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsIncrementalyAsync(int page, int sizePerPage)
 	{ 
         
-        return  ApiClient?.TimesheetsAllExpandedAsync(base.loginContext.ActualUser.Id.ToString(),null,null,null,null,null,null,page.ToString(),sizePerPage.ToString(),null,null,null,null,null,null,null,null,"true",null,null);
+        return  _aw.ApiClient?.TimesheetsAllExpandedAsync(base._aw.loginContext.ActualUser.Id.ToString(),null,null,null,null,null,null,page.ToString(),sizePerPage.ToString(),null,null,null,null,null,null,null,null,"true",null,null);
 	}
 
 
     public Task<ICollection<TimesheetCollectionExpanded>> GetTimesheetsForReportsAsync(string begin, string end)
 	{ 
         //dd-mm-yyyy
-        return  ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin,end,null,null,null,"true",null,null);;
+        return  _aw.ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin,end,null,null,null,"true",null,null);;
 	}
 
      public Task<ICollection<TimesheetCollectionExpanded>> GetTodayTimesheetsAsync()
@@ -53,36 +52,65 @@ public class TimesheetService : BaseService, ITimesheetService
         var today = DateTime.Now;
         var begin = new DateTime(today.Year,today.Month,today.Day);
         var end = new DateTime(today.Year,today.Month,today.Day,23,59,59);
-        return  ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin.ToRFC3339(),end.ToRFC3339(),null,null,null,"true",null,null);;
+
+        try
+        {
+            //return  _aw.ApiClientv2?.Get_get_timesheetsAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin.ToRFC3339(),end.ToRFC3339(),null,null,null,"true",null,null);
+
+            return  _aw.ApiClient?.TimesheetsAllExpandedAsync(null,null,null,null,null,null,null,null,null,null,null,null,begin.ToRFC3339(),end.ToRFC3339(),null,null,null,"true",null,null);
+        }
+        catch (KimaiApiException)
+        {
+            return null;
+        }
 	}
     public Task<ICollection<TimesheetCollectionExpanded>> GetTenRecentTimesheetsAsync()
     {
-        //if(ApiClient == null) return null;
-            return  ApiClient?.RecentAsync(base.loginContext.ActualUser.Id.ToString(),null,null);
+        try
+        {
+            return  _aw.ApiClient?.RecentAsync(_aw.loginContext.ActualUser.Id.ToString(),null,null);
+        }
+        catch (KimaiApiException)
+        {
+
+            return null;
+        }
     }
 
     public Task<TimesheetEntity> Read(int id)
     {
-        return  ApiClient?.TimesheetsGETAsync(id);
+        return  _aw.ApiClient?.TimesheetsGETAsync(id);
     }
 
     public Task<TimesheetEntity> Update(int id, TimesheetEditForm body)
     {
-        return  ApiClient?.TimesheetsPATCHAsync(id, body);
+        return  _aw.ApiClient?.TimesheetsPATCHAsync(id, body);
     }
     public Task<ICollection<TimesheetCollectionExpanded>> GetActive()
     {
-        return  ApiClient?.ActiveAsync();
+        try
+        {
+            return  _aw.ApiClient?.ActiveAsync();
+        }
+        catch (KimaiApiException)
+        {
+            return null;
+        }
     }
     public Task<TimesheetEntity> StopActive(int id)
     {
-        return  ApiClient?.StopAsync(id);
+        try
+        {
+            return  _aw.ApiClient?.StopAsync(id);
+        }
+        catch (KimaiApiException)
+        {
+            return null;
+        }
     }
 
     public Task<TimesheetEntity> SetMetaField(int id, Body5 body)
-    {
-        var meta = new Body5();
-        
-        return  ApiClient?.Meta4Async(id,body);
+    {   
+        return  _aw.ApiClient?.Meta4Async(id,body);
     }
 }

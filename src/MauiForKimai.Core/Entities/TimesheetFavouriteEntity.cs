@@ -14,7 +14,8 @@ public class TimesheetFavouriteEntity
     public string ActivityName { get; set; }
     public int ProjectId { get; set; }
     public string ProjectName { get; set; }
-    public string CustomerName { get; set; }
+    public string? CustomerName { get; set; }
+    public int? CustomerId { get; set; }
     public string? Description { get; set; }
     public string? Tags { get; set; }
 

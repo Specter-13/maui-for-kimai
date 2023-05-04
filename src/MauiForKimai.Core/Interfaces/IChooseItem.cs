@@ -9,4 +9,5 @@ public interface IChooseItem
 {
     string Name { get; }
     int Id { get; }
+    string Color { get; }
 }

@@ -12,6 +12,8 @@ using MauiForKimai.Core;
 using MauiForKimai.ApiClient.Extensions;
 using MauiForKimai.Popups;
 using MauiForKimai.ViewModels.Settings;
+using Plugin.LocalNotification;
+using System.Threading.Tasks;
 
 namespace MauiForKimai.ViewModels;
 
@@ -30,6 +32,37 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	[ObservableProperty]
 	StatisticsWrapper  statistics;
 
+	[ObservableProperty]
+	string selectedActivity;
+
+	[ObservableProperty]
+	bool isActivityStarting;
+
+	[ObservableProperty]
+	public TimesheetActiveModel activeTimesheet;
+	public ObservableCollection<TimesheetModel> RecentTimesheets {get; set; } = new ObservableCollection<TimesheetModel>();
+
+	[ObservableProperty]
+	public bool isTimetrackingActive;
+
+	[ObservableProperty]
+    bool isRefreshing;
+
+	[ObservableProperty]
+    bool isLoading;
+	[ObservableProperty]
+    bool showErrorLabel;
+	[ObservableProperty]
+	string errorText;
+
+	private async Task ShowErrorAlert()
+	{ 
+		ErrorText = "Cannot acquire data!";
+		ShowErrorLabel = true;
+		await Task.Delay(2000);
+		ShowErrorLabel = false;
+	}
+
 	public HomeViewModel(IRoutingService rs, 
 		ILoginService ls, 
 		ITimesheetService ts, 
@@ -47,22 +80,45 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		Statistics = new StatisticsWrapper();
 
 		RegisterMessages();
-		
 	}
-
-
-	private async Task FirstStartUp()
+	/// <summary>
+	///  On viewmodel initialization, tryto login to default server and acquire data.
+	/// </summary>
+	public override async Task Initialize()
+	{
+		await ShowAlertOnFirstStartup();
+		IsBusy = true;
+		await LoginToDefault();
+		IsBusy = false;
+		if(IsTimetrackingActive)
+		{
+			await Refresh();
+		}
+	}
+	/// <summary>
+	///  On application resume, acquire data
+	/// </summary>
+	public override async Task OnApplicationResume()
+	{
+		await Refresh();
+	}
+	/// <summary>
+	///  Show alert on first startup
+	/// </summary>
+	private async Task ShowAlertOnFirstStartup()
 	{ 
 		bool hasKey = Preferences.Default.ContainsKey("maui_for_kimai_first");
 		if(!hasKey)
 		{
 			Preferences.Default.Set("maui_for_kimai_first", true);
-			var popup = new FirstStartPopup();
-			await Page.ShowPopupAsync(popup);
+		    await Page.DisplayAlert("MAUI for Kimai","Welcome! Create your first server in management.", "Ok");
+
 		}
 		
 	}
-	// Initialize methods
+	/// <summary>
+	///  Register Messenger handlers
+	/// </summary>
 	private void RegisterMessages()
 	{ 
 		 WeakReferenceMessenger.Default.Register<TimesheetStartNewMessage>(this, async (r, m) =>
@@ -72,7 +128,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
         });
 
-		 WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
+		WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
         {
             await Refresh();
 
@@ -85,9 +141,11 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
         });
 	}
 
-	[ObservableProperty]
-	string selectedActivity;
-
+	
+	/// <summary>
+	///  Start the timesheet provided by Timesheet model,
+	/// </summary>
+	/// <param name="model">TimesheetModel, which application will try to start.</param>
 	private async Task StartTimesheet(TimesheetModel model)
     { 
 		if(IsTimetrackingActive)
@@ -98,6 +156,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
 		try
 		{
+			IsActivityStarting = true;
 			var form = model.ToTimesheetEditForm(LoginContext.TimetrackingPermissions, LoginContext.TimeOffset);
 			var timesheet = await timesheetService.Create(form);
 
@@ -114,7 +173,6 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 			}
 			else
 			{
-				MyTimer.TimerStart();
 				IsTimetrackingActive = true;
 				var activeTimesheet = (await timesheetService.GetActive()).FirstOrDefault();
 				if(activeTimesheet == null) 
@@ -124,49 +182,40 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 				}
 				ActiveTimesheet =  activeTimesheet.ToTimesheetActiveModel();
 				SelectedActivity = ActiveTimesheet.ActivityName;
+				MyTimer.TimerStartExisting(ActiveTimesheet.Duration);
 				await Toast.Make($"Activity {SelectedActivity} started successfully", ToastDuration.Short, 14).Show();
+				#if ANDROID || IOS
+				await TryToCreateNotification();
+				#endif
 			}
+			IsActivityStarting = false;
 			
 		}
 		catch (KimaiApiException)
 		{
-			await Toast.Make("Error starting timesheet! There are insufficient time-tracking permissions.", ToastDuration.Long, 14).Show();
+			IsActivityStarting = false;
+			IsRefreshing = false;
+			await Toast.Make("Error starting timesheet!", ToastDuration.Long, 14).Show();
 			return;
 		}
 		
 	}
 
-	public override async Task Initialize()
-	{
-		await FirstStartUp();
-		IsBusy = true;
-		await LoginToDefault();
-		IsBusy = false;
-	}
+	/// <summary>
+	///  Go to TimesheedDetail view for craeting new timesheet to start.
+	/// </summary>
 
-
-
-	//Properties
-	[ObservableProperty]
-	private TimesheetActiveModel activeTimesheet;
-	public ObservableCollection<TimesheetModel> RecentTimesheets {get; set; } = new ObservableCollection<TimesheetModel>();
-
-	[ObservableProperty]
-	bool isTimetrackingActive;
-
-
-	[ObservableProperty]
-    bool isRefreshing;
-
-	// Commands
 	[RelayCommand]
 	async Task StartNewTimesheet()
 	{
 		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
 		await Navigation.NavigateTo(route,TimesheetDetailMode.Start);
-
 	}
 
+	/// <summary>
+	///  Start recent timesheet.
+	/// </summary>
+	/// <param name="timesheet">Timesheet to start</param>
 	[RelayCommand]
 	async Task StartRecentTimesheet(TimesheetModel timesheet)
 	{	
@@ -174,7 +223,9 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		timesheet.End = null;
 		await StartTimesheet(timesheet);
 	}
-
+	/// <summary>
+	///  Go to TimesheedDetail view for craeting new timesheet.
+	/// </summary>
 	[RelayCommand]
 	async Task CreateNewTimesheet()
 	{
@@ -182,34 +233,49 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		await Navigation.NavigateTo(route,TimesheetDetailMode.Create);
 
 	}
-
+	/// <summary>
+	///  Stop active time-tracking.
+	/// </summary>
 	[RelayCommand]
 	async Task StopTimeTracking()
 	{	
-		
 		if(HasInternetAndIsLogged())
-		{ 
+		{
+
+			TimesheetEntity stopped;
 			try
 			{
-				await timesheetService.StopActive(ActiveTimesheet.Id);
-				IsTimetrackingActive = false;
-				SelectedActivity = null;
-				MyTimer.TimerStop();
-				await RefreshTimesheets();
-			
-				await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
+				stopped = await timesheetService.StopActive(ActiveTimesheet.Id);
 			}
 			catch (KimaiApiException)
 			{
-				await Toast.Make("There was a problem to stop a timesheet! It may be already stopped or time offset is wrong!", ToastDuration.Long, 14).Show();
+				stopped = null;
 			}
+			
+			if(stopped == null)
+			{
+				await Toast.Make("There was a problem to stop a timesheet! It may be already stopped or time offset is wrong!", ToastDuration.Long, 14).Show();
+				#if ANDROID || IOS
+				TryToStopNotification();
+					#endif
+				return;
+			}
+
+			IsTimetrackingActive = false;
+			SelectedActivity = null;
+			MyTimer.TimerStop();
+			await RefreshTimesheets();
+			#if ANDROID || IOS
+			TryToStopNotification();
+			#endif
+			await Toast.Make("Timesheet stopped successfuly!", ToastDuration.Short, 14).Show();
+				
+			
 		}
 		else
 		{
 			await Toast.Make("Error stopping timesheet. Check your internet connection.", ToastDuration.Long, 14).Show();
 		}
-		
-	
 	}
 
 
@@ -224,7 +290,6 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	[RelayCommand]
 	async Task RefreshTimesheets()
 	{	
-		IsRefreshing = true;
 		await Refresh();
 		IsRefreshing = false;
 	}
@@ -234,6 +299,8 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
     {
 		var timesheets = await timesheetService.GetTenRecentTimesheetsAsync();
 		RecentTimesheets.Clear();
+		if(timesheets == null) return;
+
 		foreach (var timesheet in timesheets)
 		{
 			var model = timesheet.ToTimesheetModel();
@@ -247,37 +314,49 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	[RelayCommand]
     async Task ShowDetail(TimesheetModel currentTimesheet)
     {
-
 		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
-
 		var wrapper = new TimesheetDetailWrapper(currentTimesheet,TimesheetDetailMode.Edit);
 		await Navigation.NavigateTo(route,wrapper);
-        
     }
 
 	[RelayCommand]
     async Task GoToSettings()
     {
-
 		var route = base.routingService.GetRouteByViewModel<SettingsViewModel>();
 		await Navigation.NavigateTo(route);
-        
     }
 
 	// private methods
 	private async Task Refresh()
 	{ 
+
 		if (HasInternetAndIsLogged())
 		{
-			await GetRecentTimesheets();
-			await TryToGetActiveTimesheet();
-			await CalculateTodayStatistics();
+			try
+			{
+				IsLoading = true;
+				await GetRecentTimesheets();
+				await TryToGetActiveTimesheet();
+				await CalculateTodayStatistics();
+				IsLoading = false;
+
+			}
+			catch (KimaiApiException)
+            {
+				Statistics = new StatisticsWrapper();
+				await Toast.Make("Cannot acquire data!", ToastDuration.Short, 14).Show();
+			}
 			
 		}
 		else
 		{ 
-			var toast = Toast.Make("Cannot acquire data!", ToastDuration.Short, 14);
-			await toast.Show();
+			#if ANDROID || IOS
+			TryToStopNotification();
+			#endif 
+			Statistics = new StatisticsWrapper();
+			RecentTimesheets.Clear();
+			IsTimetrackingActive = false;
+			await ShowErrorAlert();
 		}
 	}
 
@@ -291,9 +370,16 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 			SelectedActivity = activeTimesheet.Activity.Name;
 			IsTimetrackingActive = true;
 			MyTimer.TimerStartExisting(ActiveTimesheet.Duration);
+			#if ANDROID || IOS
+			await TryToCreateNotification();
+			#endif 
 		}
 		else
 		{
+			#if ANDROID || IOS
+			TryToStopNotification();
+			#endif 
+
 			SelectedActivity = null;
 			IsTimetrackingActive = false;
 			MyTimer.TimerStop();
@@ -306,7 +392,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	private async Task CalculateTodayStatistics()
 	{ 
 		var todayTimesheet = await timesheetService.GetTodayTimesheetsAsync();
-		
+		if(todayTimesheet  == null) return;
 		await Statistics.CalculateTodayStatistics(todayTimesheet);
 		OnPropertyChanged(nameof(Statistics));
 	}
@@ -339,5 +425,39 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 		}
 		await toast.Show();
 	}
+
+	#if ANDROID || IOS
+		async Task TryToCreateNotification()
+		{ 
+		
+			if (await LocalNotificationCenter.Current.AreNotificationsEnabled() == false)
+			{
+				await LocalNotificationCenter.Current.RequestNotificationPermission();
+			}
+
+			var notification = new NotificationRequest
+			{
+				NotificationId = 100,
+				Title = $"{ActiveTimesheet?.Start.TimeOfDay.ToString(@"hh\:mm")} Time-tracking is active ",
+				Description = $"{ActiveTimesheet.ActivityName}, {ActiveTimesheet.ProjectName}",
+				CategoryType = NotificationCategoryType.Service,
+				Silent = true,
+				Android =
+				{
+					AutoCancel = false,
+					Ongoing = true,   
+				}
+			};
+			await LocalNotificationCenter.Current.Show(notification);
+				
+	
+		}
+		void TryToStopNotification()
+		{ 
+			LocalNotificationCenter.Current.Cancel(100);
+		
+		}
+	#endif
+
 
 }

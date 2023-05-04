@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
     
-		<!--<TargetFrameworks>net7.0;net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>-->
-    <TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst;net7.0</TargetFrameworks>
+    <!--<TargetFrameworks>net7.0;net7.0-android;</TargetFrameworks>-->
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
@@ -70,6 +70,7 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
+    <PackageReference Include="Plugin.LocalNotification" Version="10.1.4" />
 		<PackageReference Include="Scrutor" Version="4.2.2" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0-preview.61" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
@@ -93,12 +94,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\DurationPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Popups\FirstStartPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Popups\ServerDefaultPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Shells\AppShellDesktop.xaml">
@@ -142,9 +137,6 @@
 	  </Compile>
 	  <Compile Update="Controls\TimesheetListControl.xaml.cs">
 	    <DependentUpon>TimesheetListControl.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Popups\FirstStartPopup.xaml.cs">
-	    <DependentUpon>FirstStartPopup.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Shells\AppShellMobile.xaml.cs">
 	    <DependentUpon>AppShellMobile.xaml</DependentUpon>

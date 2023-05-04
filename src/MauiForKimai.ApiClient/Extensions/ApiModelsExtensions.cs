@@ -56,25 +56,12 @@ public static class ApiModelsExtensions
             ProjectId = timesheet.Project.Id.Value,
             ProjectName = timesheet.Project.Name,
             CustomerName = timesheet.Project.Customer.Name,
-            Duration = GetDuration(timesheet.Begin)
+            Duration = GetDuration(timesheet.Begin),
+            Start = timesheet.Begin.DateTime,
+            ActivityColor = timesheet.Activity.Color,
+            ProjectColor = timesheet.Project.Color,
         };
     }
-
-    public static TimesheetActiveModel ToTimesheetActiveModel(this TimesheetEntityExpanded timesheet)
-    {
-        return new TimesheetActiveModel
-        {
-            Id = timesheet.Id.Value,
-            ActivityId = timesheet.Activity.Id.Value,
-            ActivityName = timesheet.Activity.Name,
-            ProjectId = timesheet.Project.Id.Value,
-            ProjectName = timesheet.Project.Name,
-            CustomerName = timesheet.Project.Customer.Name,
-            Duration = GetDuration(timesheet.Begin)
-        };
-    }
-
-   
 
     public static TimesheetModel ToTimesheetModel(this TimesheetCollectionExpanded timesheet)
     { 
@@ -114,7 +101,6 @@ public static class ApiModelsExtensions
     { 
         return new TimesheetEditForm
         { 
-
             Begin = timesheet.Begin.ToDateTimeOffset(offset),
             End = timesheet.End?.ToDateTimeOffset(offset),
             Project = timesheet.ProjectId,
@@ -128,21 +114,6 @@ public static class ApiModelsExtensions
             Exported = permissions.CanEditExport ? timesheet.Exported : null,
             Billable = permissions.CanEditBillable? timesheet.Billable : null,
             
-
-        };
-    }
-
-    public static TimesheetEditForm ToTimesheetEditFormBase(this TimesheetModel timesheet)
-    { 
-        return new TimesheetEditForm
-        { 
-
-            Begin = timesheet.Begin,
-            End = timesheet.End,
-            Project = timesheet.ProjectId,
-            Activity = timesheet.ActivityId,
-            Description = timesheet.Description,
-            Tags =  string.Join(",", timesheet.Tags),
 
         };
     }

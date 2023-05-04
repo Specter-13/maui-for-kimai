@@ -8,4 +8,5 @@ namespace MauiForKimai.Interfaces;
 public interface IFavouritesTimesheetService :ICrudOperationsMySql<TimesheetFavouriteEntity,TimesheetFavouriteEntity>
 {
     Task ReInit();
+    void DeleteDatabase(string path);
 }

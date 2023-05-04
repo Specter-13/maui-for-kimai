@@ -21,25 +21,27 @@
                 VerticalOptions="Center" />
         </Grid>
     </Shell.TitleView>
-    <VerticalStackLayout>
+    <VerticalStackLayout Padding="10">
 
 
 
-        <VerticalStackLayout>
-            <Label
-                Style="{StaticResource MediumLabel}"
-                Text="Select Theme: "
-                VerticalOptions="Center" />
+        <Label
+            Style="{StaticResource MediumLabel}"
+            Text="Select theme: "
+            VerticalOptions="Center" />
 
 
-            <Picker
-                ItemDisplayBinding="{Binding DisplayName}"
-                ItemsSource="{Binding Source={x:Static helpers:Theme.AvailableThemes}}"
-                SelectedItem="{Binding Path=Theme, Source={x:Static services:SettingsService.Instance}}"
-                TextColor="{AppThemeBinding Dark={StaticResource AccentTextColorLight},
-                                            Light={StaticResource AccentTextColorDark}}"
-                VerticalOptions="Center" />
-        </VerticalStackLayout>
+        <Picker
+            ItemDisplayBinding="{Binding DisplayName}"
+            ItemsSource="{Binding Source={x:Static helpers:Theme.AvailableThemes}}"
+            SelectedItem="{Binding Path=Theme, Source={x:Static services:SettingsService.Instance}}"
+            TextColor="{AppThemeBinding Dark={StaticResource AccentTextColorLight},
+                                        Light={StaticResource AccentTextColorDark}}"
+            VerticalOptions="Center" />
+
+
+
+
 
     </VerticalStackLayout>
 </mvvm:TinyView>

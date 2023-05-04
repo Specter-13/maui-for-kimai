@@ -36,9 +36,14 @@
             <SearchBar
                 x:Name="searchBar"
                 BackgroundColor="Transparent"
+                Placeholder="Search..."
+                PlaceholderColor="{AppThemeBinding Dark={StaticResource AccentTextColorLight},
+                                                   Light={StaticResource AccentTextColorDark}}"
                 SearchCommand="{Binding FilterCommand}"
                 SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                TextChanged="searchBar_TextChanged" />
+                TextChanged="searchBar_TextChanged"
+                TextColor="{AppThemeBinding Dark={StaticResource AccentTextColorLight},
+                                            Light={StaticResource AccentTextColorDark}}" />
 
 
             <ActivityIndicator

@@ -9,13 +9,6 @@ using MauiForKimai.Messenger;
 using MauiForKimai.Popups;
 using MauiForKimai.Wrappers;
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace MauiForKimai.ViewModels;
@@ -33,7 +26,6 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
         ICustomerService customerService,
         ITimesheetService ts, PopupSizeConstants sc, IFavouritesTimesheetService fts) : base(rs, ls)
     {
-        RegisterMessages();
         _customerService = customerService;
         _timesheetService = ts;
         _popupSizeConstants = sc;
@@ -41,35 +33,28 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
 
         
     }
-
-    private void RegisterMessages()
-    { 
-         WeakReferenceMessenger.Default.Register<ItemChooseMessage,int>(this, (int)ChooseItemMode.Timesheet, (r, m) =>
-         { 
-
-            if (m.Value.ChooseItem is CustomerListModel customer)
-            {
-                ChosenCustomer = customer;
-                if(! string.IsNullOrEmpty(ChosenProject.Name) )
-                    ChosenProject = new();
-            }
-
-            if (m.Value.ChooseItem is ProjectListModel project)
-            {
-                 ChosenProject = project;
-                  if(! string.IsNullOrEmpty(ChosenActivity.Name) )
-                    ChosenActivity = new();
-            }
-
-            if (m.Value.ChooseItem is ActivityListModel activity)
-            {
-                ChosenActivity = activity;
-            }
-
-        });
-    }
+    
     private int _id;
 
+    private void HandleReceivedChosenItem(ChooseItemWrapper wrapper)
+    { 
+        if (wrapper.ChooseItem is CustomerListModel customer)
+        {
+            ChosenCustomer = customer;
+            if(! string.IsNullOrEmpty(ChosenProject.Name) )
+                ChosenProject = new();
+        }
+        else if (wrapper.ChooseItem is ProjectListModel project)
+        {
+            ChosenProject = project;
+            if(! string.IsNullOrEmpty(ChosenActivity.Name) )
+                ChosenActivity = new();
+        }
+        else if (wrapper.ChooseItem is ActivityListModel activity)
+        {
+            ChosenActivity = activity;
+        }
+    }
    
     public override Task OnParameterSet()
     {
@@ -85,13 +70,17 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
             //TODO check for roles
             Timesheet = timesheetModel;
 
-            ChosenActivity = new ActivityListModel(timesheetModel.ActivityId,timesheetModel.ActivityName,timesheetModel.Billable.Value);
-            ChosenProject = new ProjectListModel(timesheetModel.ProjectId,timesheetModel.ProjectName,timesheetModel.CustomerId.GetValueOrDefault(),timesheetModel.Billable.Value);
-            ChosenCustomer = new CustomerListModel(timesheetModel.CustomerId.GetValueOrDefault(),timesheetModel.CustomerName, timesheetModel.Billable.Value );
+            ChosenActivity = new ActivityListModel(timesheetModel.ActivityId,timesheetModel.ActivityName,timesheetModel.Billable.Value, timesheetModel.ActivityColor);
+            ChosenProject = new ProjectListModel(timesheetModel.ProjectId,timesheetModel.ProjectName,timesheetModel.CustomerId.GetValueOrDefault(),timesheetModel.Billable.Value, timesheetModel.ProjectColor);
+            ChosenCustomer = new CustomerListModel(timesheetModel.CustomerId.GetValueOrDefault(),timesheetModel.CustomerName, timesheetModel.Billable.Value , timesheetModel.CustomerColor);
 
 
             TimeWrapper = new TimeBeginEndWrapper(timesheetModel,LoginContext.TimeOffset);
 
+        }
+        else if (NavigationParameter is ChooseItemWrapper chooseWrapper)
+        {
+            HandleReceivedChosenItem(chooseWrapper);
         }
         else if (NavigationParameter is TimesheetDetailMode mode)
         {
@@ -110,7 +99,6 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
                 Mode = TimesheetDetailMode.Create;
             }
             Mode = mode;
-           
             
         }
      
@@ -164,17 +152,20 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
     [RelayCommand]
     async Task ShowProjectChooseView()
     {
-        var route = routingService.GetRouteByViewModel<ProjectChooseRecentTimesheetViewModel>();
-        var wrapper = new ChooseItemWrapper(ChosenProject,ChooseItemMode.Timesheet);
+        var route = GetProjectChooseRoute();
+        var wrapper = new ChooseItemWrapper(ChosenProject);
         wrapper.ChosenCustomerId = ChosenCustomer.Id;
         await Navigation.NavigateTo(route, wrapper);
     }
 
+   
+
     [RelayCommand]
     async Task ShowActivityChooseView()
     {
-        var route = routingService.GetRouteByViewModel<CustomerChooseRecentTimesheetViewModel>();
-        var wrapper = new ChooseItemWrapper(ChosenActivity,ChooseItemMode.Timesheet);
+        var route = GetActivityChooseRoute();
+      
+        var wrapper = new ChooseItemWrapper(ChosenActivity);
         wrapper.ChosenProjectId = ChosenProject.Id;
         await Navigation.NavigateTo(route, wrapper);
     }
@@ -182,12 +173,38 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
     [RelayCommand]
     async Task ShowCustomerChooseView()
     {
-        var route = routingService.GetRouteByViewModel<CustomerChooseRecentTimesheetViewModel>();
-        var wrapper = new ChooseItemWrapper(ChosenCustomer,ChooseItemMode.Timesheet);
+        var route = GetCustomerChooseRoute();
+        var wrapper = new ChooseItemWrapper(ChosenCustomer);
         await Navigation.NavigateTo(route, wrapper);
     }
 
-  
+    private string GetActivityChooseRoute()
+    { 
+        if(Mode == TimesheetDetailMode.Create || Mode == TimesheetDetailMode.Start || Timesheet.IsRecent)
+            return routingService.GetRouteByViewModel<ActivityChooseRecentTimesheetViewModel>();
+        else
+        { 
+            return routingService.GetRouteByViewModel<ActivityChooseDetailAllViewModel>();
+        }
+    }
+    private string GetProjectChooseRoute()
+    { 
+        if(Mode == TimesheetDetailMode.Create || Mode == TimesheetDetailMode.Start || Timesheet.IsRecent)
+            return routingService.GetRouteByViewModel<ProjectChooseRecentTimesheetViewModel>();
+        else
+        { 
+            return routingService.GetRouteByViewModel<ProjectChooseDetailAllViewModel>();
+        }
+    }
+    private string GetCustomerChooseRoute()
+    { 
+        if(Mode == TimesheetDetailMode.Create || Mode == TimesheetDetailMode.Start || Timesheet.IsRecent)
+            return routingService.GetRouteByViewModel<CustomerChooseRecentTimesheetViewModel>();
+        else
+        { 
+            return routingService.GetRouteByViewModel<CustomerChooseDetailAllViewModel>();
+        }
+    }
 
     [RelayCommand]
     async Task AddToFavourites()
@@ -293,8 +310,7 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
     async Task Delete()
     {
         await _timesheetService.Delete(_id);
-        //TODO = roles
-        await Navigation.NavigateTo("..");
+        await Navigation.NavigateTo("..", Timesheet);
     }
 
     [RelayCommand]
@@ -303,16 +319,25 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
         ValidationErrors =  string.Empty;
         Timesheet.Begin = TimeWrapper.BeginFull;
         Timesheet.End = TimeWrapper.EndFull;
+
         Timesheet.ProjectId = ChosenProject.Id;
         Timesheet.ActivityId = ChosenActivity.Id;
+        Timesheet.CustomerId = ChosenCustomer.Id;
+
         Timesheet.ProjectName = ChosenProject.Name;
         Timesheet.ActivityName = ChosenActivity.Name;
+        Timesheet.CustomerName = ChosenCustomer.Name;
+
+        Timesheet.CustomerColor = ChosenCustomer.Color;
+        Timesheet.ProjectColor = ChosenProject.Color;
+        Timesheet.ActivityColor = ChosenActivity.Color;
 
         var result = _createValidator.Validate(Timesheet);
 
         if(result.IsValid)
         { 
             await _timesheetService.Create(Timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions, LoginContext.TimeOffset));
+            WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
             await Navigation.NavigateTo("..");
             ValidationErrors = string.Empty;
         }

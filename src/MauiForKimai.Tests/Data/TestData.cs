@@ -24,7 +24,7 @@ public static class TestData
 
     public static readonly ServerModel Server = new ServerModel
     {
-        Id = 1,
+        Id = Guid.Parse("5ad829f1-66ea-4df9-ac4d-2039b8909b3c"),
         Url = "http://localhost:8001",
         Name = "test",
         ApiPasswordKey = "password",

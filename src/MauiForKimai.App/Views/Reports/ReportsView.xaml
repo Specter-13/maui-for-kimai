@@ -11,9 +11,12 @@
     xmlns:model="clr-namespace:MauiForKimai.Core.Models;assembly=MauiForKimai.Core"
     xmlns:mvvm="clr-namespace:TinyMvvm;assembly=TinyMvvm.Maui"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    Title="ReportsView"
     x:DataType="viewmodel:ReportsViewModel">
 
+
+    <ContentPage.Resources>
+        <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ContentPage.Resources>
     <Shell.TitleView>
         <Grid
             Margin="0,0,15,0"
@@ -55,7 +58,7 @@
         ColumnDefinitions="*,40"
         RowDefinitions="80,*">
 
-        <StackLayout>
+        <StackLayout Padding="8,0,8,0">
             <Label Style="{StaticResource MediumLabel}" Text="Select report type" />
             <Picker
                 x:Name="picker"
@@ -95,10 +98,19 @@
 
         </Button>
 
+        <Label
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Padding="5"
+            HorizontalOptions="Center"
+            IsVisible="{Binding ReportsAreVisible, Converter={StaticResource InvertedBoolConverter}}"
+            Style="{StaticResource SmallLabel}"
+            Text="No reports to show" />
         <ScrollView
             Grid.Row="1"
             Grid.ColumnSpan="2"
-            Padding="5">
+            Padding="5"
+            IsVisible="{Binding ReportsAreVisible}">
             <StackLayout>
 
 

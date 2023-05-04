@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 namespace MauiForKimai.Wrappers;
 public class ChooseItemWrapper
 {
-    public ChooseItemWrapper(IChooseItem item, ChooseItemMode mode )
+    public ChooseItemWrapper(IChooseItem item )
     {
         ChooseItem = item;
-        Mode = mode;
     }
     public IChooseItem  ChooseItem { get; set; }
-    public ChooseItemMode Mode { get; set; }
 
     public int ChosenCustomerId {get; set; }
     public int ChosenProjectId {get; set; }

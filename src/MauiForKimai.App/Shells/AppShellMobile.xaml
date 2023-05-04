@@ -7,15 +7,14 @@
     xmlns:helpers="clr-namespace:MauiForKimai.Helpers"
     xmlns:local="clr-namespace:MauiForKimai.Views"
     xmlns:viewmodel="clr-namespace:MauiForKimai.ViewModels"
-    x:Name="MyShell"
-    x:DataType="viewmodel:MenuViewModel">
+    x:Name="MyShell">
 
 
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
-                <Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={StaticResource AccentColor}, Default=White}" />
+                <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Dark={StaticResource AccentTextColorLight}, Light={StaticResource AccentTextColorDark}}" />
                 <Setter Property="Shell.TitleColor" Value="{StaticResource AccentColor}" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
@@ -41,7 +40,7 @@
 
 
 
-        <Tab Title="Timesheets" Icon="clipboard_text_clock.png">
+        <Tab Title="My Times" Icon="clipboard_text_clock.png">
 
 
             <ShellContent
