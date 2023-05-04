@@ -50,7 +50,6 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
     private readonly IServerService _serverService;
     private readonly IFavouritesTimesheetService _favouritesTimesheetService;
     private readonly ISecureStorageService  _secureStorageService;
-    private readonly PopupSizeConstants _popupSizeConstants;
 
     private bool previousIsDefaultValue;
     private string previousUserName;
@@ -62,13 +61,11 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
         ILoginService ls, 
         IServerService ss, 
         ISecureStorageService sc,
-        PopupSizeConstants psc,
         IFavouritesTimesheetService fts) : base(rs, ls)
     {
         _serverService = ss;
         _favouritesTimesheetService = fts;
         _secureStorageService = sc;
-        _popupSizeConstants = psc;
     }
 
 
@@ -230,6 +227,8 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
             }
 
             await ConnectToServer();
+            //wait a second to be sure, that everything is deinitialized
+            await Task.Delay(1000);
             WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
             IsConnecting = false;
             ValidationErrors = string.Empty;
@@ -279,16 +278,21 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
     [RelayCommand]
     async Task Disconnect() 
     {
+        IsBusy = true;
         ValidationErrors = string.Empty;
+        //wait a second to be sure, that everything is deinitialized
+        await Task.Delay(2500);
 		await loginService.Logout();
 
         OnPropertyChanged(nameof(LoginContext));
-        IsLoggedToThisServer = false;
+       
         WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
         WeakReferenceMessenger.Default.Send(new FavouritesRefreshMessage(string.Empty));
+        IsLoggedToThisServer = false;
         HasConnectionButton = true;
         await Toast.Make("Disconected successfully!", ToastDuration.Short, 14).Show();
         await Navigation.NavigateTo("..");
+        IsBusy = false;
     }
 
 
@@ -351,9 +355,12 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
    [RelayCommand]
     async Task Delete() 
     {
+        IsBusy = true;
         var isLogged = loginService.CheckIfConnected(Server);
         if(isLogged)
         { 
+            //wait a second to be sure, that everything is deinitialized
+            await Task.Delay(2500);
             _favouritesTimesheetService.DeleteDatabase($"maui_for_kimai_server_db_{base.LoginContext.ServerId}");
 		    await loginService.Logout();
             WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
@@ -370,7 +377,7 @@ public partial class ServerDetailViewModel : ViewModelBase, IViewModelTransient
         await ReinitializeDatabases();
         WeakReferenceMessenger.Default.Send(new ServerRefreshMessage(string.Empty));
         await Navigation.NavigateTo("..");
-
+        IsBusy = false;
     }
 
     

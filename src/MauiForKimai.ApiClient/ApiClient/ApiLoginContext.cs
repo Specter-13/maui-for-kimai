@@ -15,6 +15,7 @@ public partial class ApiLoginContext : ObservableObject
 
     internal string ApiPassword {get; private set; } = string.Empty;
 
+
     [ObservableProperty]
     public string userName = string.Empty;
     [ObservableProperty]

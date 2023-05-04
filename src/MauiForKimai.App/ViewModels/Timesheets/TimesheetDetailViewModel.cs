@@ -70,9 +70,9 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
             //TODO check for roles
             Timesheet = timesheetModel;
 
-            ChosenActivity = new ActivityListModel(timesheetModel.ActivityId,timesheetModel.ActivityName,timesheetModel.Billable.Value);
-            ChosenProject = new ProjectListModel(timesheetModel.ProjectId,timesheetModel.ProjectName,timesheetModel.CustomerId.GetValueOrDefault(),timesheetModel.Billable.Value);
-            ChosenCustomer = new CustomerListModel(timesheetModel.CustomerId.GetValueOrDefault(),timesheetModel.CustomerName, timesheetModel.Billable.Value );
+            ChosenActivity = new ActivityListModel(timesheetModel.ActivityId,timesheetModel.ActivityName,timesheetModel.Billable.Value, timesheetModel.ActivityColor);
+            ChosenProject = new ProjectListModel(timesheetModel.ProjectId,timesheetModel.ProjectName,timesheetModel.CustomerId.GetValueOrDefault(),timesheetModel.Billable.Value, timesheetModel.ProjectColor);
+            ChosenCustomer = new CustomerListModel(timesheetModel.CustomerId.GetValueOrDefault(),timesheetModel.CustomerName, timesheetModel.Billable.Value , timesheetModel.CustomerColor);
 
 
             TimeWrapper = new TimeBeginEndWrapper(timesheetModel,LoginContext.TimeOffset);
@@ -319,16 +319,25 @@ public partial class TimesheetDetailViewModel : ViewModelBase, IViewModelTransie
         ValidationErrors =  string.Empty;
         Timesheet.Begin = TimeWrapper.BeginFull;
         Timesheet.End = TimeWrapper.EndFull;
+
         Timesheet.ProjectId = ChosenProject.Id;
         Timesheet.ActivityId = ChosenActivity.Id;
+        Timesheet.CustomerId = ChosenCustomer.Id;
+
         Timesheet.ProjectName = ChosenProject.Name;
         Timesheet.ActivityName = ChosenActivity.Name;
+        Timesheet.CustomerName = ChosenCustomer.Name;
+
+        Timesheet.CustomerColor = ChosenCustomer.Color;
+        Timesheet.ProjectColor = ChosenProject.Color;
+        Timesheet.ActivityColor = ChosenActivity.Color;
 
         var result = _createValidator.Validate(Timesheet);
 
         if(result.IsValid)
         { 
             await _timesheetService.Create(Timesheet.ToTimesheetEditForm(base.LoginContext.TimetrackingPermissions, LoginContext.TimeOffset));
+            WeakReferenceMessenger.Default.Send(new RefreshMessage(string.Empty));
             await Navigation.NavigateTo("..");
             ValidationErrors = string.Empty;
         }

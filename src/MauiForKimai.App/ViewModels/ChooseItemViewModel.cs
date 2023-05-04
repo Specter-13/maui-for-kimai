@@ -122,7 +122,7 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
         
         foreach (var customer in customers) 
         {
-            var customerListModel = new CustomerListModel(customer.Id.Value, customer.Name, customer.Billable);
+            var customerListModel = new CustomerListModel(customer.Id.Value, customer.Name, customer.Billable, customer.Color);
             AddToLists(customerListModel);
         }
 
@@ -146,7 +146,7 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
 
         foreach (var project in projects)
         {
-            var projectListModel = new ProjectListModel(project.Id.Value, project.Name, project.Customer.Value, project.Billable);
+            var projectListModel = new ProjectListModel(project.Id.Value, project.Name, project.Customer.Value, project.Billable, project.Color);
             AddToLists(projectListModel);
         }
 
@@ -170,7 +170,7 @@ public partial class ChooseItemViewModel : ViewModelBase, IViewModelTransient
         
         foreach (var activity in activities) 
         {
-            var activityListModel = new ActivityListModel((int)activity.Id, activity.Name, activity.Billable);
+            var activityListModel = new ActivityListModel((int)activity.Id, activity.Name, activity.Billable, activity.Color);
             AddToLists(activityListModel);
         }
 

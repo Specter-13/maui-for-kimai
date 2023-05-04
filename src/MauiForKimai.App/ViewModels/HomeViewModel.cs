@@ -45,10 +45,8 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	[ObservableProperty]
 	public bool isTimetrackingActive;
 
-
 	[ObservableProperty]
     bool isRefreshing;
-
 
 	[ObservableProperty]
     bool isLoading;
@@ -130,7 +128,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 
         });
 
-		 WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
+		WeakReferenceMessenger.Default.Register<RefreshMessage>(this, async (r, m) =>
         {
             await Refresh();
 
@@ -212,7 +210,6 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 	{
 		var route = base.routingService.GetRouteByViewModel<TimesheetDetailViewModel>();
 		await Navigation.NavigateTo(route,TimesheetDetailMode.Start);
-
 	}
 
 	/// <summary>
@@ -346,6 +343,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 			}
 			catch (KimaiApiException)
             {
+				Statistics = new StatisticsWrapper();
 				await Toast.Make("Cannot acquire data!", ToastDuration.Short, 14).Show();
 			}
 			
@@ -355,6 +353,7 @@ public partial class HomeViewModel : ViewModelBase, IViewModelSingleton
 			#if ANDROID || IOS
 			TryToStopNotification();
 			#endif 
+			Statistics = new StatisticsWrapper();
 			RecentTimesheets.Clear();
 			IsTimetrackingActive = false;
 			await ShowErrorAlert();

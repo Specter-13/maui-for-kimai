@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 namespace MauiForKimai.ApiClient.Services;
 public class CustomerService : BaseService, ICustomerService
 {
-    public CustomerService(IHttpClientFactory httpClientFactory, ApiLoginContext asp) : base(httpClientFactory, asp)
+    public CustomerService(ApiClientWrapper aw) : base(aw)
     {
     }
 
     public Task<ICollection<CustomerCollection>> GetCustomers()
     {
-        return ApiClient?.CustomersAllAsync(null,null,null,null);
+        return _aw.ApiClient?.CustomersAllAsync(null,null,null,null);
     }
 
     public Task<CustomerEntity> GetById(int id)
     { 
-        return ApiClient?.CustomersGETAsync(id.ToString());
+        return _aw.ApiClient?.CustomersGETAsync(id.ToString());
     }
 }

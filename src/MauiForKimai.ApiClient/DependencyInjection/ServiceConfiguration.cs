@@ -20,22 +20,29 @@ public static class ServicesConfiguration
         services.AddHttpClient(AuthHandler.AUTHENTICATED_CLIENT)
             .AddHttpMessageHandler((s) => s.GetService<AuthHandler>());
 
+        
 
-        services.AddSingleton<IUserService, IBaseService, UserService>();
-        services.AddSingleton<ITimesheetService, IBaseService, TimesheetService>();
-        services.AddSingleton<IProjectService, IBaseService, ProjectService>();
-        services.AddSingleton<IActivityService, IBaseService, ActivityService>();
-        services.AddSingleton<ICustomerService, IBaseService, CustomerService>();
+        services.AddSingleton<ApiClientWrapper>();
+        services.ConfigureServices();
 
     }
 
-    public static void AddSingleton<I1, I2, T>(this IServiceCollection services)
-           where T : class, I1, I2
-           where I1 : class
-           where I2 : class
+    public static void ConfigureServices(this IServiceCollection services)
     {
-        services.AddSingleton<I1, T>();
-        services.AddSingleton<I2, T>(x => (T)x.GetService<I1>());
+        services.Scan(selector => selector
+            .FromCallingAssembly()     
+            .AddClasses(filter => filter.AssignableTo<IBaseService>())
+            .AsSelfWithInterfaces()
+            .WithSingletonLifetime());
+
     }
+    //public static void AddSingleton<I1, I2, T>(this IServiceCollection services)
+    //       where T : class, I1, I2
+    //       where I1 : class
+    //       where I2 : class
+    //{
+    //    services.AddSingleton<I1, T>();
+    //    services.AddSingleton<I2, T>(x => (T)x.GetService<I1>());
+    //}
 }
 
