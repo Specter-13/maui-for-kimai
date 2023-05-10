@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MauiForKimai.App\MauiForKimai.App.csproj" />
+    <ProjectReference Include="..\MauiForKimai.Application\MauiForKimai.App.csproj" />
   </ItemGroup>
 
   <ItemGroup>
